@@ -11,11 +11,20 @@
 }
 
 .loginpage{
-    background-image: url('images/fundos/simbolo.png');
+    background-image: url('images/fundos/logo.svg');
     background-position: top left;
     background-repeat: no-repeat;
     background-size: 30%; /* Adjust the size of the background image */
-    background-position: -150px -350px; /* Adjust the position to move the image off the screen */
-    background-color: rgba(255, 255, 255, 0.224);  /* Sets a black background with 50% opacity */
+    background-position: -150px -250px; /* Adjust the position to move the image off the screen */
 }
 
+.ecra {
+    margin-top: 15%;
+    margin-left: 15%;
+    width: 20%;
+    height: 300px; /* ou a altura desejada */
+    border-radius: 10px; /* ou o raio desejado para os cantos arredondados */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
