@@ -17,14 +17,3 @@
     background-size: 30%; /* Adjust the size of the background image */
     background-position: -150px -250px; /* Adjust the position to move the image off the screen */
 }
-
-.ecra {
-    margin-top: 15%;
-    margin-left: 15%;
-    width: 20%;
-    height: 300px; /* ou a altura desejada */
-    border-radius: 10px; /* ou o raio desejado para os cantos arredondados */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
