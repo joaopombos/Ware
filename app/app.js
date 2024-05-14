@@ -1,10 +1,12 @@
 const express = require('express');
 const app = express();
-const sequelize = require('./src/models/database'); 
-const rotas = require('./src/routes/users');
-
-// Middlewares
+//Configurações
+app.set('port', process.env.PORT || 3000);
+//Middlewares
 app.use(express.json());
+//Rotas
+const rotas = require('./src/routes/');
+app.use(rotas);
 
 // Configurar CORS
 app.use((req, res, next) => {
