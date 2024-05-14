@@ -1,9 +1,9 @@
 const express = require('express');
 const app = express();
-//Configurações
-app.set('port', process.env.PORT || 3000);
 //Middlewares
 app.use(express.json());
+//Configurações
+app.set('port', process.env.PORT || 3000);
 //Rotas
 const rotas = require('./src/routes/');
 app.use(rotas);
