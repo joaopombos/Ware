@@ -1,9 +1,9 @@
 const express = require('express');
 const app = express();
-//Middlewares
-app.use(express.json());
 //Configurações
 app.set('port', process.env.PORT || 3000);
+//Middlewares
+app.use(express.json());
 //Rotas
 const rotas = require('./src/routes/');
 app.use(rotas);
@@ -28,4 +28,3 @@ app.listen(PORT, () => {
   console.log("Servidor iniciado na porta " + PORT);
 });
 
-//commit
