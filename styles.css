@@ -10,10 +10,19 @@
     /* Adjust the margin as needed */
 }
 
-.loginpage{
-    background-image: url('images/fundos/logo.svg');
-    background-position: top left;
-    background-repeat: no-repeat;
-    background-size: 30%; /* Adjust the size of the background image */
-    background-position: -150px -250px; /* Adjust the position to move the image off the screen */
+.loginpage {
+    background-image: url('images/fundos/logo.svg'), url('images/fundos/fundo\ branco.jpg');
+    background-position: top left, right; /* Define a posição das duas imagens */
+    background-repeat: no-repeat, no-repeat; /* Evita que as imagens se repitam */
+    background-size: 30%, 70%; /* Ajusta o tamanho das imagens de fundo */
+    background-position: -150px -250px, 600px -125px; /* Ajusta a posição das imagens */
+}
+
+
+.signuppage{
+    background-image: url('images/fundos/logo.svg'), url('images/fundos/fundo\ preto.jpg');
+    background-position: top right, left; /* Define a posição das duas imagens */
+    background-repeat: no-repeat, no-repeat; /* Evita que as imagens se repitam */
+    background-size: 30%, 70%; /* Ajusta o tamanho das imagens de fundo */
+    background-position: 1200px -250px, -300px 50px; /* Ajusta a posição das imagens */
 }
