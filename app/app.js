@@ -5,7 +5,7 @@ app.set('port', process.env.PORT || 3000);
 //Middlewares
 app.use(express.json());
 //Rotas
-const rotas = require('./src/routes/');
+const rotas = require('./src/routes/users');
 app.use(rotas);
 
 // Configurar CORS
