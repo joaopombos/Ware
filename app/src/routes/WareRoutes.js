@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const warecontrollers = require('../controllers/filmecontroller');
+const warecontrollers = require('../controllers/WareControllers');
 
 //22 endreços
 router.get('/home', warecontrollers.filme_list);
-router.get('/home/my', warecontrollers.filme_list);
+/*router.get('/home/my', warecontrollers.filme_list);
 router.get('/shop', warecontrollers.filme_list);
 router.get('/shop/my', warecontrollers.filme_list);
 router.get('/shop/(id_app)/', warecontrollers.filme_list);
@@ -23,6 +23,6 @@ router.get('/signin/gestor', warecontrollers.filme_list);
 router.get('/signin/sucess', warecontrollers.filme_list);
 router.get('/signin/c_gestor', warecontrollers.filme_list);
 router.get('/library', warecontrollers.filme_list);
-router.get('/license', warecontrollers.filme_list);
+router.get('/license', warecontrollers.filme_list);*/
 
 module.exports = router; 
