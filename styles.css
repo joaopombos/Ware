@@ -54,3 +54,10 @@ hr {
 .carousel-control-next {
     filter: invert(100%);
 }
+
+.custom-hr {
+    width: 90%; /* Defina a largura desejada */
+    margin: 0 auto; /* Centraliza o elemento horizontalmente */
+    border: 0.5px solid black; /* Customize a borda conforme necessário */
+    margin-top: 7%;
+}
