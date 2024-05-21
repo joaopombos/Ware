@@ -1,6 +1,6 @@
-const Filmes = require('../models/Filmes');
-const Genero = require('../models/generos');
-const sequelize = require('../models/database');
+const Filmes = require('../models/Avaliacoes');
+const Genero = require('../models/Clientes');
+const sequelize = require('../../models/database');
 
 const controllers = {};
 
