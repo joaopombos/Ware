@@ -18,10 +18,6 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(10),
       allowNull: true
     },
-    contacto: {
-      type: DataTypes.STRING(9),
-      allowNull: true
-    }
   }, {
     sequelize,
     tableName: 'empresas',
