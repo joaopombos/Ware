@@ -26,3 +26,14 @@
     background-size: 30%, 70%; /* Ajusta o tamanho das imagens de fundo */
     background-position: 1200px -250px, -300px 50px; /* Ajusta a posição das imagens */
 }
+
+tr {
+    border-bottom: 1px solid white !important;
+}
+
+
+hr {
+    border-top: 1px solid #ccc; /* Color and style of the line */
+    margin: 20px auto; /* Center the line horizontally and add vertical spacing */
+    width: 85%;
+}
