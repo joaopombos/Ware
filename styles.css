@@ -12,19 +12,27 @@
 
 .loginpage {
     background-image: url('images/fundos/logo.svg'), url('images/fundos/fundo\ branco.jpg');
-    background-position: top left, right; /* Define a posição das duas imagens */
-    background-repeat: no-repeat, no-repeat; /* Evita que as imagens se repitam */
-    background-size: 30%, 70%; /* Ajusta o tamanho das imagens de fundo */
-    background-position: -150px -250px, 600px -125px; /* Ajusta a posição das imagens */
+    background-position: top left, right;
+    /* Define a posição das duas imagens */
+    background-repeat: no-repeat, no-repeat;
+    /* Evita que as imagens se repitam */
+    background-size: 30%, 70%;
+    /* Ajusta o tamanho das imagens de fundo */
+    background-position: -150px -250px, 600px -125px;
+    /* Ajusta a posição das imagens */
 }
 
 
-.signuppage{
+.signuppage {
     background-image: url('images/fundos/logo.svg'), url('images/fundos/fundo\ preto.jpg');
-    background-position: top right, left; /* Define a posição das duas imagens */
-    background-repeat: no-repeat, no-repeat; /* Evita que as imagens se repitam */
-    background-size: 30%, 70%; /* Ajusta o tamanho das imagens de fundo */
-    background-position: 1200px -250px, -300px 50px; /* Ajusta a posição das imagens */
+    background-position: top right, left;
+    /* Define a posição das duas imagens */
+    background-repeat: no-repeat, no-repeat;
+    /* Evita que as imagens se repitam */
+    background-size: 30%, 70%;
+    /* Ajusta o tamanho das imagens de fundo */
+    background-position: 1200px -250px, -300px 50px;
+    /* Ajusta a posição das imagens */
 }
 
 tr {
@@ -33,7 +41,16 @@ tr {
 
 
 hr {
-    border-top: 1px solid #ccc; /* Color and style of the line */
-    margin: 20px auto; /* Center the line horizontally and add vertical spacing */
+    border-top: 1px solid #ccc;
     width: 85%;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: black;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    filter: invert(100%);
 }
