@@ -21,14 +21,6 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(12),
       allowNull: true
     },
-    contacto: {
-      type: DataTypes.STRING(9),
-      allowNull: true
-    },
-    localizacao: {
-      type: DataTypes.STRING(40),
-      allowNull: true
-    },
     nif: {
       type: DataTypes.STRING(9),
       allowNull: false,
