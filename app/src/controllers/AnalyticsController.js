@@ -1,10 +1,9 @@
-// controllers/AnalyticsController.js
 const Analytics = require('../models/Analytics');
 const App = require('../models/App');
 
 const analyticsController = {};
 
-// Get analytics for a specific app
+// Pega analytics de uma app especifica
 analyticsController.getAppStats = async (req, res) => {
   try {
     const { appId } = req.params;
@@ -18,7 +17,7 @@ analyticsController.getAppStats = async (req, res) => {
   }
 };
 
-// Get analytics for all apps
+// Pega analytics de todas as apps
 analyticsController.getAllStats = async (req, res) => {
   try {
     const analytics = await Analytics.findAll();
@@ -28,7 +27,7 @@ analyticsController.getAllStats = async (req, res) => {
   }
 };
 
-// Update analytics for a specific app
+// Update analytics de uma app especifica
 analyticsController.updateAppStats = async (req, res) => {
   try {
     const { appId } = req.params;
