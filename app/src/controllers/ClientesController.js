@@ -1,7 +1,7 @@
 // controllers/ClientesController.js
-const Clientes = require('../models/Clientes');
-const Empresas = require('../models/Empresas');
-const TipoUser = require('../models/TipoUser');
+const Clientes = require('../models/clientes');
+const Empresas = require('../models/empresas');
+const TipoUser = require('../models/tipouser');
 
 const clientesController = {};
 
@@ -18,11 +18,14 @@ clientesController.list = async (req, res) => {
 // Add a new client
 clientesController.create = async (req, res) => {
   try {
-    const { EMP_NIF, IDUSER, NOME, EMAIL, CODIGOPESSOAL, CONTACTO, NIF } = req.body;
-    const client = await Clientes.create({ EMP_NIF, IDUSER, NOME, EMAIL, CODIGOPESSOAL, CONTACTO, NIF });
+    const { emp_nif, iduser, nome, email, codigopessoal, contacto, nif, idware } = req.body;
+    if (!emp_nif || !iduser || !nome || !email || !codigopessoal || !contacto || !nif) {
+      return res.status(400).json({ error: 'Missing required fields' });
+    }
+    const client = await Clientes.create({ emp_nif, iduser, nome, email, codigopessoal, contacto, nif, idware });
     res.status(201).json(client);
   } catch (error) {
-    res.status(500).json({ error: 'Error creating client' });
+    res.status(500).json({ error: 'Error creating client', details: error.message });
   }
 };
 
