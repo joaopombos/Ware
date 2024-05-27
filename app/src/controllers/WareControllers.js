@@ -1,19 +1,120 @@
-const sequelize = require('../../models/database');
+// controllers/AvaliacoesController.js
 const Avaliacoes = require('../models/Avaliacoes');
-const Clientes = require('../models/clientes');
-const Empresas = require('../models/empresas');
-const LicencasAtri = require('../models/licencasatribuidas');
-const Orcamentos = require('../models/orcamentos');
-const Pedidos = require('../models/pedidos');
-const Planos = require('../models/planos');
-const softwareadq = require('../models/softwaresadquiridos');
-const tickets = require('../models/tickets');
-const tiposoftware = require('../models/tipossoftwares');
-const tipouser = require('../models/tipouser');
-const ware = require('../models/ware');
+const TiposSoftwares = require('../models/TiposSoftwares');
+
+const avaliacoesController = {};
+
+// List all reviews for a product
+avaliacoesController.list = async (req, res) => {
+  try {
+    const reviews = await Avaliacoes.findAll({ where: { IDPRODUTO: req.params.productId } });
+    res.json(reviews);
+  } catch (error) {
+    res.status(500).json({ error: 'Error fetching reviews' });
+  }
+};
+
+// Add a new review
+avaliacoesController.create = async (req, res) => {
+  try {
+    const { IDPRODUTO, COMENTARIO, CLASSIFICACAO, DATAAVALIACAO } = req.body;
+    const review = await Avaliacoes.create({ IDPRODUTO, COMENTARIO, CLASSIFICACAO, DATAAVALIACAO });
+    res.status(201).json(review);
+  } catch (error) {
+    res.status(500).json({ error: 'Error creating review' });
+  }
+};
+
+// Update a review
+avaliacoesController.update = async (req, res) => {
+  try {
+    const { IDAVALIACAO } = req.params;
+    const { COMENTARIO, CLASSIFICACAO, DATAAVALIACAO } = req.body;
+    const review = await Avaliacoes.findByPk(IDAVALIACAO);
+    if (review) {
+      await review.update({ COMENTARIO, CLASSIFICACAO, DATAAVALIACAO });
+      res.json(review);
+    } else {
+      res.status(404).json({ error: 'Review not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'Error updating review' });
+  }
+};
+
+// Delete a review
+avaliacoesController.delete = async (req, res) => {
+  try {
+    const { IDAVALIACAO } = req.params;
+    const review = await Avaliacoes.findByPk(IDAVALIACAO);
+    if (review) {
+      await review.destroy();
+      res.json({ message: 'Review deleted' });
+    } else {
+      res.status(404).json({ error: 'Review not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'Error deleting review' });
+  }
+};
+
+module.exports = avaliacoesController;
 
 
 
+/* Controllers a fazer
+
+User Controllers
+
+  Authentication and Authorization
+
+    register: To handle user registration.
+    login: To handle user login.
+    logout: To handle user logout.
+    getUser: To fetch the authenticated user’s details.
+    updateUser: To update user information.
+    deleteUser: To delete a user account.
+
+  Permission Management
+
+    grantPermission: To grant permissions to a manager.
+    revokePermission: To revoke permissions from a manager.
+    listPermissions: To list permissions granted by a user.
+
+App Controllers
+
+  App Management for Buyers/Managers
+
+    createApp: To add a new app for sale.
+    updateApp: To update app details.
+    deleteApp: To delete an app.
+    listApps: To list all apps created by the user.
+
+  App Management for Managers with Permissions
+
+    manageApp: To manage an app (only if the manager has permission).
+
+Purchase Controllers
+
+  App Purchase
+
+    purchaseApp: To handle app purchase.
+    listPurchases: To list all purchases made by a user.
+    refundPurchase: To handle app refund requests.
+
+Review and Rating Controllers
+
+  App Reviews and Ratings
+
+    addReview: To add a review for an app.
+    updateReview: To update a review.
+    deleteReview: To delete a review.
+    listReviews: To list reviews for an 
+
+
+
+
+controllers a baixo são da ficha 7 */
 
 
 const Filmes = require("../model/filme");
@@ -70,11 +171,11 @@ controllers.app_list = async (req, res) => {
       });
       res.status(201).json({
         success: true,
-        message: "Filme registrado com sucesso",
+        message: "App registrada com sucesso",
         data: novoFilme
       });
     } catch (error) {
-      console.error("Erro ao registrar filme:", error);
+      console.error("Erro ao registrar app:", error);
       res.status(500).json({ message: "Erro interno do servidor" });
     }
   };
@@ -84,7 +185,7 @@ controllers.app_list = async (req, res) => {
     try {
       const filme = await Filmes.findByPk(id);
       if (!filme) {
-        return res.status(404).json({ message: "Filme não encontrado" });
+        return res.status(404).json({ message: "App não encontrada" });
       }
   
       const { titulo, descricao, GeneroId, foto } = req.body;
