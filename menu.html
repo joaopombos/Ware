@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu </title>
+    <title>Menu</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
             margin: 0;
@@ -14,10 +15,8 @@
             height: 100vh;
             background-color: #f0f0f0;
         }
-
         .menu {
             width: 250px;
-            height: 889px;
             background-color: #ffffff;
             border: 1px solid #ccc;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -27,78 +26,52 @@
             padding: 20px;
             box-sizing: border-box;
         }
-
         .logo {
             width: 100%;
             display: flex;
             justify-content: center;
             margin-bottom: 20px;
         }
-
         .logo img {
             max-width: 100%;
             height: auto;
         }
-
         .menu-options {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            flex-grow: 1;
             width: 100%;
         }
-
-        .menu-options li {
-            margin: 10px 0;
-        }
-
-        .menu-options a {
-            text-decoration: none;
-            color: #333;
-            font-size: 18px;
-            display: block;
-            padding: 10px;
-            background-color: #f8f8f8;
-            border-radius: 5px;
-            text-align: center;
-            transition: background-color 0.3s;
-        }
-
         .menu-options a:hover {
-            background-color: #343A40;
-        }
-
-        .menu-button {
-            width: 100%;
-            padding: 10px;
-            font-size: 18px;
-            color: #fff;
-            background-color: #007BFF;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .menu-button:hover {
-            background-color: #0056b3;
+            background-color: #343A40 !important;
         }
     </style>
 </head>
 <body>
     <div class="menu">
         <div class="logo">
-            <img src="/images//Logos/logo.png" alt="Logo">
+            <img src="/images/Logos/logo.png" alt="Logo">
         </div>
-        <ul class="menu-options">
-            <li><a href="#option1">Option 1</a></li>
-            <li><a href="#option2">Option 2</a></li>
-            <li><a href="#option3">Option 3</a></li>
-            <li><a href="#option4">Option 4</a></li>
-            <li><a href="#option5">Option 5</a></li>
-            <li><a href="#option6">Option 6</a></li>
+        <ul class="menu-options list-group">
+            <li class="list-group-item">
+                <a href="Tickets" class="text-decoration-none d-flex align-items-center">
+                    <img src="/images/newicons/Symbol.jpg"  class="mr-2">
+                    Tickets
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a href="Atualizar/Editar Software" class="text-decoration-none d-flex align-items-center">
+                    <img src=""  class="mr-2">
+                    Atualizar/Editar Software
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a href="Adicionar Software" class="text-decoration-none d-flex align-items-center">
+                    <img src=""  class="mr-2">
+                    Adicionar Software
+                </a>
+            </li>
+            <li class="list-group-item"><a href="Listar Softwares" class="text-decoration-none d-block text-center py-2">Listar Softwares</a></li>
+            <li class="list-group-item"><a href="Orçamentos" class="text-decoration-none d-block text-center py-2">Orçamentos</a></li>
+            <li class="list-group-item"><a href="Métricas de vendas" class="text-decoration-none d-block text-center py-2">Métricas de vendas</a></li>
         </ul>
-        <button class="menu-button">Click Me</button>
+        <button class="menu-button btn btn-primary w-100 mt-3">Terminar sessão</button>
     </div>
-</body>
-</html>
+
