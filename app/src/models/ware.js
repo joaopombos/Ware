@@ -2,12 +2,11 @@ const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('ware', {
     username: {
-      type: DataTypes.STRING(10),
-      allowNull: false,
-      primaryKey: true
+      type: DataTypes.STRING(20),
+      allowNull: true
     },
     password: {
-      type: DataTypes.STRING(12),
+      type: DataTypes.STRING(20),
       allowNull: true
     },
     lucros: {
@@ -17,6 +16,11 @@ module.exports = function(sequelize, DataTypes) {
     gastos: {
       type: DataTypes.REAL,
       allowNull: true
+    },
+    idware: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true
     }
   }, {
     sequelize,
@@ -28,14 +32,14 @@ module.exports = function(sequelize, DataTypes) {
         name: "pk_ware",
         unique: true,
         fields: [
-          { name: "username" },
+          { name: "idware" },
         ]
       },
       {
         name: "ware_pk",
         unique: true,
         fields: [
-          { name: "username" },
+          { name: "idware" },
         ]
       },
     ]

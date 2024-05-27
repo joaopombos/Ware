@@ -10,7 +10,7 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     designcaolicencas: {
-      type: DataTypes.STRING(30),
+      type: DataTypes.STRING(60),
       allowNull: true
     },
     desconto: {
@@ -21,7 +21,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.REAL,
       allowNull: true
     },
-    idplano: {
+    idplanos: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
@@ -36,14 +36,14 @@ module.exports = function(sequelize, DataTypes) {
         name: "pk_planos",
         unique: true,
         fields: [
-          { name: "idplano" },
+          { name: "idplanos" },
         ]
       },
       {
         name: "planos_pk",
         unique: true,
         fields: [
-          { name: "idplano" },
+          { name: "idplanos" },
         ]
       },
       {

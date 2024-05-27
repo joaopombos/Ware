@@ -15,7 +15,7 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true
     },
     comentario: {
-      type: DataTypes.STRING(1024),
+      type: DataTypes.STRING(250),
       allowNull: true
     },
     classificacao: {
@@ -55,5 +55,3 @@ module.exports = function(sequelize, DataTypes) {
     ]
   });
 };
-
-

@@ -6,7 +6,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     chaveproduto: {
-      type: DataTypes.STRING(29),
+      type: DataTypes.STRING(12),
       allowNull: false,
       primaryKey: true
     },

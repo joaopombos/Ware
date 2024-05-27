@@ -9,11 +9,6 @@ module.exports = function(sequelize, DataTypes) {
         key: 'nif'
       }
     },
-    idorcamento: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    },
     idproduto: {
       type: DataTypes.INTEGER,
       allowNull: true,
@@ -22,12 +17,13 @@ module.exports = function(sequelize, DataTypes) {
         key: 'idproduto'
       }
     },
+    idorc: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true
+    },
     estado: {
       type: DataTypes.STRING(30),
-      allowNull: true
-    },
-    resposta: {
-      type: DataTypes.STRING(1024),
       allowNull: true
     },
     quantidade: {
@@ -48,14 +44,14 @@ module.exports = function(sequelize, DataTypes) {
         name: "orcamentos_pk",
         unique: true,
         fields: [
-          { name: "idorcamento" },
+          { name: "idorc" },
         ]
       },
       {
         name: "pk_orcamentos",
         unique: true,
         fields: [
-          { name: "idorcamento" },
+          { name: "idorc" },
         ]
       },
       {

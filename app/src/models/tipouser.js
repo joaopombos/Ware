@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('tipouser', {
     designacao: {
-      type: DataTypes.STRING(60),
+      type: DataTypes.STRING(30),
       allowNull: true
     },
     iduser: {

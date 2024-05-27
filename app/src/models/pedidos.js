@@ -18,10 +18,6 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DATE,
       allowNull: true
     },
-    idproduto: {
-      type: DataTypes.INTEGER,
-      allowNull: true
-    },
     precofinal: {
       type: DataTypes.REAL,
       allowNull: true

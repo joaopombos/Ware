@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('licencasatribuidas', {
     chaveproduto: {
-      type: DataTypes.STRING(29),
+      type: DataTypes.STRING(12),
       allowNull: true,
       references: {
         model: 'softwaresadquiridos',
@@ -10,14 +10,14 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     nomepc: {
-      type: DataTypes.STRING(10),
+      type: DataTypes.STRING(50),
       allowNull: true
     },
     dataatri: {
       type: DataTypes.DATE,
       allowNull: true
     },
-    id: {
+    idatribuida: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
@@ -32,14 +32,14 @@ module.exports = function(sequelize, DataTypes) {
         name: "licencasatribuidas_pk",
         unique: true,
         fields: [
-          { name: "id" },
+          { name: "idatribuida" },
         ]
       },
       {
         name: "pk_licencasatribuidas",
         unique: true,
         fields: [
-          { name: "id" },
+          { name: "idatribuida" },
         ]
       },
       {

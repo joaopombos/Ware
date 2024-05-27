@@ -11,13 +11,17 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true
     },
     localizacao: {
-      type: DataTypes.STRING(40),
+      type: DataTypes.STRING(24),
       allowNull: true
     },
     codigoconvite: {
-      type: DataTypes.STRING(10),
+      type: DataTypes.STRING(16),
       allowNull: true
     },
+    contacto: {
+      type: DataTypes.STRING(20),
+      allowNull: true
+    }
   }, {
     sequelize,
     tableName: 'empresas',

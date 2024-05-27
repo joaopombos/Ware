@@ -9,16 +9,28 @@ module.exports = function(sequelize, DataTypes) {
         key: 'nif'
       }
     },
+    iduser: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'tipouser',
+        key: 'iduser'
+      }
+    },
     nome: {
-      type: DataTypes.STRING(60),
+      type: DataTypes.STRING(1024),
       allowNull: true
     },
     email: {
-      type: DataTypes.STRING(30),
+      type: DataTypes.STRING(1024),
       allowNull: true
     },
     codigopessoal: {
       type: DataTypes.STRING(12),
+      allowNull: true
+    },
+    contacto: {
+      type: DataTypes.STRING(30),
       allowNull: true
     },
     nif: {
@@ -26,12 +38,12 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       primaryKey: true
     },
-    username: {
-      type: DataTypes.STRING(10),
+    idware: {
+      type: DataTypes.INTEGER,
       allowNull: true,
       references: {
         model: 'ware',
-        key: 'username'
+        key: 'idware'
       }
     }
   }, {
@@ -61,9 +73,15 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
+        name: "relationship_18_fk",
+        fields: [
+          { name: "iduser" },
+        ]
+      },
+      {
         name: "relationship_9_fk",
         fields: [
-          { name: "username" },
+          { name: "idware" },
         ]
       },
     ]
