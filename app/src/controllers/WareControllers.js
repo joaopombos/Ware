@@ -52,19 +52,24 @@ Review and Rating Controllers
 
 controllers a baixo são da ficha 7 */
 
+const sequelize = require('../models/database');
+const Avaliacoes = require('../models/Avaliacoes');
+const Clientes = require('../models/clientes');
+const Empresas = require('../models/empresas');
+const LicencasAtri = require('../models/licencasatribuidas');
+const Orcamentos = require('../models/orcamentos');
+const Pedidos = require('../models/pedidos');
+const Planos = require('../models/planos');
+const softwareadq = require('../models/softwaresadquiridos');
+const tickets = require('../models/tickets');
+const tiposoftware = require('../models/tipossoftwares');
+const tipouser = require('../models/tipouser');
+const ware = require('../models/ware');
 
-const Filmes = require("../model/filme");
-const Genero = require("../model/genero");
-const sequelize = require("../model/database");
 const fs = require("fs");
 
 const controllers = {};
 
-sequelize.sync({ force: false })
-  .then(() => {
-    console.log("A Database e tabelas foram criadas com sucesso!");
-    seedGenres();
-  });
 
 controllers.app_list = async (req, res) => {
     try {

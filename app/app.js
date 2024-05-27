@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const sequelize = require('./models/database'); 
+const sequelize = require('./src/models/database'); 
 //Configurações
 app.set('port', process.env.PORT || 3000);
 //Middlewares
