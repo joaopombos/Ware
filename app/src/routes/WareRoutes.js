@@ -1,11 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const warecontrollers = require('../controllers/WareControllers');
+const createuser = require('../controllers/ClientesController');
+const clientesController = require('../controllers/ClientesController');
 
 //22 endreços
-router.get('/home', warecontrollers.filme_list);
-/*router.get('/home/my', warecontrollers.filme_list);
-router.get('/shop', warecontrollers.filme_list);
+router.get('/home');
+router.post('/signup_comprador', clientesController.create);
+/*router.get('/shop', warecontrollers.filme_list);
 router.get('/shop/my', warecontrollers.filme_list);
 router.get('/shop/(id_app)/', warecontrollers.filme_list);
 router.get('/shop/(id_venda)/confirm', warecontrollers.filme_list);
