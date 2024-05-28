@@ -19,9 +19,20 @@ clientesController.list = async (req, res) => {
 clientesController.create = async (req, res) => {
   try {
     const { emp_nif, iduser, nome, email, codigopessoal, contacto, nif, idware } = req.body;
-    if (!emp_nif || !iduser || !nome || !email || !codigopessoal || !contacto || !nif) {
-      return res.status(400).json({ error: 'Missing required fields' });
+
+    // Check for missing required fields
+    if (!emp_nif || !iduser || !nif) {
+      return res.status(400).json({
+        error: 'Missing required fields',
+        details: [
+          !emp_nif && 'emp_nif cannot be null',
+          !iduser && 'iduser cannot be null',
+          !nif && 'nif cannot be null'
+        ].filter(Boolean).join(', ')
+      });
     }
+
+    // Create the client
     const client = await Clientes.create({ emp_nif, iduser, nome, email, codigopessoal, contacto, nif, idware });
     res.status(201).json(client);
   } catch (error) {
