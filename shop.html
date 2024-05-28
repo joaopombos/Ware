@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .container {
+            max-width: 1200px;
+            width: 95%;
+        }
+
+        .slider-wrapper {
+            position: relative;
+        }
+
+        .slider-wrapper .slide-button {
+            position: absolute;
+            top: 50%;
+            outline: none;
+            border: none;
+            height: 50px;
+            width: 50px;
+            z-index: 5;
+            color: #fff;
+            display: flex;
+            cursor: pointer;
+            font-size: 2.2rem;
+            background: #000;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transform: translateY(-50%);
+        }
+
+        .slider-wrapper .slide-button:hover {
+            background: #404040;
+        }
+
+        .slider-wrapper .slide-button#prev-slide {
+            left: -25px;
+            display: none;
+        }
+
+        .slider-wrapper .slide-button#next-slide {
+            right: -25px;
+        }
+
+        .slider-wrapper .image-list {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 18px;
+            font-size: 0;
+            list-style: none;
+            margin-bottom: 30px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .slider-wrapper .image-list::-webkit-scrollbar {
+            display: none;
+        }
+
+        .slider-wrapper .image-list .image-item {
+            width: 325px;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        .container .slider-scrollbar {
+            height: 24px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .slider-scrollbar .scrollbar-track {
+            background: #ccc;
+            width: 100%;
+            height: 2px;
+            display: flex;
+            align-items: center;
+            border-radius: 4px;
+            position: relative;
+        }
+
+        .slider-scrollbar:hover .scrollbar-track {
+            height: 4px;
+        }
+
+        .slider-scrollbar .scrollbar-thumb {
+            position: absolute;
+            background: #000;
+            top: 0;
+            bottom: 0;
+            width: 50%;
+            height: 100%;
+            cursor: grab;
+            border-radius: inherit;
+        }
+
+        .slider-scrollbar .scrollbar-thumb:active {
+            cursor: grabbing;
+            height: 8px;
+            top: -2px;
+        }
+
+        .slider-scrollbar .scrollbar-thumb::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: -10px;
+            bottom: -10px;
+        }
+
+        /* Styles for mobile and tablets */
+        @media only screen and (max-width: 1023px) {
+            .slider-wrapper .slide-button {
+                display: none !important;
+            }
+
+            .slider-wrapper .image-list {
+                gap: 10px;
+                margin-bottom: 15px;
+                scroll-snap-type: x mandatory;
+            }
+
+            .slider-wrapper .image-list .image-item {
+                width: 280px;
+                height: 380px;
+            }
+
+            .slider-scrollbar .scrollbar-thumb {
+                width: 20%;
+            }
+        }
+
+
+        #contentContainer {
+    display: inline-block;
+    width: 100%;
+}
+
+#textContainer.collapsed {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+#textContainer.expanded {
+    max-height: 500px; /* Adjust to the height of your content */
+    transition: max-height 0.3s ease-in;
+}
+
+#expandButton {
+    display: block;
+    margin-top: 10px; /* Adjust as needed */
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px; /* Adjust as needed */
+}
+</style>
+<title>Ware</title>
+</head>
+
+<body>
+    <!--NAVBAR-->
+    <nav class="navbar navbar-expand-lg bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><img src="images/Logos/logo.png" style="width:20%;" alt="Ware Logo"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            </div>
+            <button class="btn btn-outline-light me-2" type="button">Iniciar Sessão</button>
+        </div>
+    </nav>
+    <!--FIM NAVBAR-->
+
+    <!--CARD APLICAÇÃO-->
+    <div class="card"
+        style="border: none; background-color: transparent; margin-left: 4%; margin-top:4%; margin-bottom:4%;">
+        <div class="row no-gutters align-items-center">
+            <div class="col-md-2">
+                <img src="images/Logos/figma.png" class="card-img" alt="...">
+            </div>
+            <div class="col-md-10 d-flex justify-content-between align-items-center">
+                <div class="card-body" style="margin-left:3%;">
+                    <h2 class="card-title">Nome Software</h2>
+                    <h4 class="card-text">Categoria</h4>
+                    <p class="card-text">Programador</p>
+                </div>
+                <div class="d-flex justify-content-start align-items-center"
+                    style="margin-left:auto; padding-right:10%;">
+                    <a class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#myModal">Comprar</a>
+                    <p class="mb-0 ms-2">€</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--CARD APLICAÇÃO-->
+
+    <!--DIVISOR-->
+    <hr class="custom-hr">
+
+    <!--TITULO-->
+    <h1 style="margin-left: 5%; margin-top:5%; margin-bottom:5%;">Pré-visualização</h1>
+
+    <!--PRÉ-VISUALIZAÇÃO-->
+    <div class="container">
+        <div class="slider-wrapper">
+            <button id="prev-slide" class="slide-button material-symbols-rounded">
+                <i class="bi bi-chevron-left" style="color: white;"></i>
+            </button>
+            <ul class="image-list">
+                <img class="image-item" src="images/mais_vendidos/Davinci.jpg" alt="img-1" />
+                <img class="image-item" src="images/mais_vendidos/Illustrator.jpg" alt="img-2" />
+                <img class="image-item" src="images/mais_vendidos/Sketchup.jpg" alt="img-3" />
+                <img class="image-item" src="images/mais_vendidos/VisualStudio.jpg" alt="img-4" />
+                <img class="image-item" src="images/mais_vendidos/Wordpress.jpg" alt="img-5" />
+                <img class="image-item" src="images/mais_vendidos/Zoom.jpg" alt="img-6" />
+            </ul>
+            <button id="next-slide" class="slide-button material-symbols-rounded">
+                <i class="bi bi-chevron-right" style="color: white;"></i>
+            </button>
+        </div>
+        <div class="slider-scrollbar">
+            <div class="scrollbar-track">
+                <div class="scrollbar-thumb"></div>
+            </div>
+        </div>
+    </div>
+    <!--PRÉ-VISUALIZAÇÃO-->
+
+    <!--DIVISOR-->
+    <hr class="custom-hr">
+
+    <!--TEXTO SOBRE-->
+    <div id="contentContainer" style="width: 70%; ">
+        <p id="initialText">
+            O Adobe Illustrator é um software de design gráfico amplamente utilizado para a criação de ilustrações vetoriais, logotipos, ícones, tipografias e complexas obras de arte digitais. Entre suas principais funcionalidades, destacam-se as ferramentas de desenho vetorial, que permitem criar formas precisas e escaláveis sem perda de qualidade. O Illustrator oferece uma ampla gama de pincéis e efeitos que permitem adicionar texturas e profundidade às ilustrações.        </p>
+        <div id="textContainer" class="collapsed">
+            <p>
+                O Adobe Illustrator é um software de design gráfico amplamente utilizado para a criação de ilustrações vetoriais, logotipos, ícones, tipografias e complexas obras de arte digitais. Entre suas principais funcionalidades, destacam-se as ferramentas de desenho vetorial, que permitem criar formas precisas e escaláveis sem perda de qualidade. O Illustrator oferece uma ampla gama de pincéis e efeitos que permitem adicionar texturas e profundidade às ilustrações. </p>
+
+                <p>Além disso, possui recursos avançados de tipografia, que possibilitam manipular fontes e texto de maneiras criativas e detalhadas. A integração com outros aplicativos da Adobe Creative Cloud, como Photoshop e InDesign, facilita o fluxo de trabalho entre diferentes tipos de projetos e plataformas. Com ferramentas como a criação de padrões, gradientes, malhas e edição de cores, o Adobe Illustrator é uma escolha essencial para designers profissionais que buscam versatilidade e precisão em seus trabalhos.</p>
+        </div>
+        <div class="buttonContainer">
+            <button class="btn btn-outline-dark"  id="expandButton">Ver mais</button>
+        </div>
+    </div>
+    <!-- FIM TEXTO SOBRE-->
+
+
+    <!--DIVISOR-->
+    <hr class="custom-hr">
+
+    <!--FOOTER-->
+    <footer class="footer bg-dark text-light text-center">
+        <div class="container">
+            <span>&copy; Ware 2024</span>
+        </div>
+    </footer>
+    <!--FIM FOOTER-->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+        </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>const initSlider = () => {
+            const imageList = document.querySelector(".slider-wrapper .image-list");
+            const slideButtons = document.querySelectorAll(".slider-wrapper .slide-button");
+            const sliderScrollbar = document.querySelector(".container .slider-scrollbar");
+            const scrollbarThumb = sliderScrollbar.querySelector(".scrollbar-thumb");
+            const maxScrollLeft = imageList.scrollWidth - imageList.clientWidth;
+
+            // Handle scrollbar thumb drag
+            scrollbarThumb.addEventListener("mousedown", (e) => {
+                const startX = e.clientX;
+                const thumbPosition = scrollbarThumb.offsetLeft;
+                const maxThumbPosition = sliderScrollbar.getBoundingClientRect().width - scrollbarThumb.offsetWidth;
+
+                // Update thumb position on mouse move
+                const handleMouseMove = (e) => {
+                    const deltaX = e.clientX - startX;
+                    const newThumbPosition = thumbPosition + deltaX;
+                    // Ensure the scrollbar thumb stays within bounds
+                    const boundedPosition = Math.max(0, Math.min(maxThumbPosition, newThumbPosition));
+                    const scrollPosition = (boundedPosition / maxThumbPosition) * maxScrollLeft;
+
+                    scrollbarThumb.style.left = `${boundedPosition}px`;
+                    imageList.scrollLeft = scrollPosition;
+                }
+                // Remove event listeners on mouse up
+                const handleMouseUp = () => {
+                    document.removeEventListener("mousemove", handleMouseMove);
+                    document.removeEventListener("mouseup", handleMouseUp);
+                }
+                // Add event listeners for drag interaction
+                document.addEventListener("mousemove", handleMouseMove);
+                document.addEventListener("mouseup", handleMouseUp);
+            });
+            // Slide images according to the slide button clicks
+            slideButtons.forEach(button => {
+                button.addEventListener("click", () => {
+                    const direction = button.id === "prev-slide" ? -1 : 1;
+                    const scrollAmount = imageList.clientWidth * direction;
+                    imageList.scrollBy({ left: scrollAmount, behavior: "smooth" });
+                });
+            });
+            // Show or hide slide buttons based on scroll position
+            const handleSlideButtons = () => {
+                slideButtons[0].style.display = imageList.scrollLeft <= 0 ? "none" : "flex";
+                slideButtons[1].style.display = imageList.scrollLeft >= maxScrollLeft ? "none" : "flex";
+            }
+            // Update scrollbar thumb position based on image scroll
+            const updateScrollThumbPosition = () => {
+                const scrollPosition = imageList.scrollLeft;
+                const thumbPosition = (scrollPosition / maxScrollLeft) * (sliderScrollbar.clientWidth - scrollbarThumb.offsetWidth);
+                scrollbarThumb.style.left = `${thumbPosition}px`;
+            }
+            // Call these two functions when image list scrolls
+            imageList.addEventListener("scroll", () => {
+                updateScrollThumbPosition();
+                handleSlideButtons();
+            });
+        }
+        window.addEventListener("resize", initSlider);
+        window.addEventListener("load", initSlider);
+
+
+        document.getElementById('expandButton').addEventListener('click', function() {
+    var textContainer = document.getElementById('textContainer');
+    if (textContainer.classList.contains('collapsed')) {
+        textContainer.classList.remove('collapsed');
+        textContainer.classList.add('expanded');
+        this.textContent = 'Ver Menos';
+    } else {
+        textContainer.classList.remove('expanded');
+        textContainer.classList.add('collapsed');
+        this.textContent = 'Ver mais';
+    }
+});
+
+    </script>
+
+</body>
+
+</html>
