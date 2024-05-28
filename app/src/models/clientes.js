@@ -38,14 +38,6 @@ var Clientes = sequelize.define('clientes', {
     allowNull: false,
     primaryKey: true
   },
-  idware: {
-    type: DataTypes.INTEGER,
-    allowNull: true,
-    references: {
-      model: 'ware',
-      key: 'idware'
-    }
-  }
 }, {
   sequelize,
   tableName: 'clientes',
@@ -76,12 +68,6 @@ var Clientes = sequelize.define('clientes', {
       name: "relationship_18_fk",
       fields: [
         { name: "iduser" },
-      ]
-    },
-    {
-      name: "relationship_9_fk",
-      fields: [
-        { name: "idware" },
       ]
     },
   ]
