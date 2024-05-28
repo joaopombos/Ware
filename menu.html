@@ -6,72 +6,50 @@
     <title>Menu</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f0f0f0;
-        }
-        .menu {
+        .sidebar {
             width: 250px;
-            background-color: #ffffff;
-            border: 1px solid #ccc;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-        .logo {
-            width: 100%;
+            height: 100vh;
+            background: #343A40;
+            box-shadow: 0px 14px 28px rgba(0, 0, 0, 0.25), 0px 10px 10px rgba(0, 0, 0, 0.22);
             display: flex;
             justify-content: center;
-            margin-bottom: 20px;
+            align-items: center;
         }
-        .logo img {
-            max-width: 100%;
-            height: auto;
-        }
+
         .menu-options {
             width: 100%;
+            list-style: none;
+            padding: 0;
+            margin: 0;
         }
+
+        .menu-options a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 18px;
+            display: block;
+            padding: 10px;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+
         .menu-options a:hover {
-            background-color: #343A40 !important;
+            background-color: #5E6266;
         }
     </style>
 </head>
 <body>
-    <div class="menu">
-        <div class="logo">
-            <img src="/images/Logos/logo.png" alt="Logo">
-        </div>
-        <ul class="menu-options list-group">
-            <li class="list-group-item">
-                <a href="Tickets" class="text-decoration-none d-flex align-items-center">
-                    <img src="/images/newicons/Symbol.jpg"  class="mr-2">
-                    Tickets
-                </a>
-            </li>
-            <li class="list-group-item">
-                <a href="Atualizar/Editar Software" class="text-decoration-none d-flex align-items-center">
-                    <img src=""  class="mr-2">
-                    Atualizar/Editar Software
-                </a>
-            </li>
-            <li class="list-group-item">
-                <a href="Adicionar Software" class="text-decoration-none d-flex align-items-center">
-                    <img src=""  class="mr-2">
-                    Adicionar Software
-                </a>
-            </li>
-            <li class="list-group-item"><a href="Listar Softwares" class="text-decoration-none d-block text-center py-2">Listar Softwares</a></li>
-            <li class="list-group-item"><a href="Orçamentos" class="text-decoration-none d-block text-center py-2">Orçamentos</a></li>
-            <li class="list-group-item"><a href="Métricas de vendas" class="text-decoration-none d-block text-center py-2">Métricas de vendas</a></li>
+    <div class="sidebar">
+        <ul class="menu-options">
+            <li><a href="#Tickets">Tickets</a></li>
+            <li><a href="#option2">Option 2</a></li>
+            <li><a href="#option3">Option 3</a></li>
+            <li><a href="#option4">Option 4</a></li>
+            <li><a href="#option5">Option 5</a></li>
+            <li><a href="#option6">Option 6</a></li>
         </ul>
-        <button class="menu-button btn btn-primary w-100 mt-3">Terminar sessão</button>
     </div>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
