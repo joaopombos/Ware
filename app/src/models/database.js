@@ -1,6 +1,6 @@
 var Sequelize = require('sequelize');
 const sequelize = new Sequelize(
-    'ai2',
+    'WareBD',
     'postgres',
     'dzG851VQu',
     {
