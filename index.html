@@ -71,13 +71,19 @@
     <!--TITULO-->
     <h1 style="margin-left: 5%; margin-top:5%; margin-bottom:5%;">Os mais vendidos</h1>
 
-    <!-- CAROSSEL OS MAIS VENDIDOS -->
-    <div id="carouselmaisvendidos" class="carousel slide mx-auto position-relative" data-bs-ride="carousel" style="max-width: 90%;">
+<!-- CAROSSEL OS MAIS VENDIDOS -->
+<div id="carouselmaisvendidos" class="carousel slide mx-auto position-relative" data-bs-ride="carousel" style="max-width: 90%; overflow: hidden;">
     <div class="carousel-inner">
         <div class="carousel-item active">
             <div class="row justify-content-center">
-                <div class="col-12 col-sm-6 col-md-4 d-flex justify-content-center">
-                    <div class="card" style="width: 80%; box-shadow: 5px 0 10px rgba(0, 0, 0, 0.1); border: none;">
+                <div class="col-1 d-flex align-items-center justify-content-center">
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselmaisvendidos" data-bs-slide="prev" style="position: relative; z-index: 2;">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                </div>
+                <div class="col">
+                    <div class="card" style="box-shadow: 5px 0 10px rgba(0, 0, 0, 0.1); border: none;">
                         <img src="images/mais_vendidos/Illustrator.jpg" class="card-img-top img-fluid mx-auto d-block" style="width: 100%;" alt="...">
                         <div class="card-body">
                             <h5 class="card-title mb-2">Adobe Illustrator</h5>
@@ -88,8 +94,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 col-md-4 d-flex justify-content-center">
-                    <div class="card" style="width: 80%; box-shadow: 5px 0 10px rgba(0, 0, 0, 0.1); border: none;">
+                <div class="col">
+                    <div class="card" style=" box-shadow: 5px 0 10px rgba(0, 0, 0, 0.1); border: none;">
                         <img src="images/mais_vendidos/Davinci.jpg" class="card-img-top img-fluid mx-auto d-block" style="width: 100%;" alt="...">
                         <div class="card-body">
                             <h5 class="card-title mb-2">DaVinci Resolve</h5>
@@ -100,8 +106,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 col-md-4 d-flex justify-content-center d-none d-md-block">
-                    <div class="card" style="width: 80%; box-shadow: 5px 0 10px rgba(0, 0, 0, 0.1); border: none;">
+                <div class="col">
+                    <div class="card" style="box-shadow: 5px 0 10px rgba(0, 0, 0, 0.1); border: none;">
                         <img src="images/mais_vendidos/Sketchup.jpg" class="card-img-top img-fluid mx-auto d-block" style="width: 100%;" alt="...">
                         <div class="card-body">
                             <h5 class="card-title mb-2">SketchUp</h5>
@@ -112,13 +118,25 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-1 d-flex align-items-center justify-content-center">
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselmaisvendidos" data-bs-slide="next" style="position: relative; z-index: 2;">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
             </div>
         </div>
         <!-- Add more carousel items (slides) as needed -->
         <div class="carousel-item">
             <div class="row justify-content-center">
-                <div class="col-12 col-sm-6 col-md-4 d-flex justify-content-center">
-                    <div class="card" style="width: 80%; box-shadow: 5px 0 10px rgba(0, 0, 0, 0.1); border: none;">
+                <div class="col-1 d-flex align-items-center justify-content-center">
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselmaisvendidos" data-bs-slide="prev" style="position: relative; z-index: 2;">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                </div>
+                <div class="col">
+                    <div class="card" style="width: 100%; box-shadow: 5px 0 10px rgba(0, 0, 0, 0.1); border: none;">
                         <img src="images/mais_vendidos/Zoom.jpg" class="card-img-top img-fluid mx-auto d-block" style="width: 100%;" alt="...">
                         <div class="card-body">
                             <h5 class="card-title mb-2">Zoom</h5>
@@ -129,8 +147,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 col-md-4 d-flex justify-content-center">
-                    <div class="card" style="width: 80%; box-shadow: 5px 0 10px rgba(0, 0, 0, 0.1); border: none;">
+                <div class="col">
+                    <div class="card" style="width: 100%; box-shadow: 5px 0 10px rgba(0, 0, 0, 0.1); border: none;">
                         <img src="images/mais_vendidos/VisualStudio.jpg" class="card-img-top img-fluid mx-auto d-block" style="width: 100%;" alt="...">
                         <div class="card-body">
                             <h5 class="card-title mb-2">Visual Studio</h5>
@@ -141,8 +159,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 col-md-4 d-flex justify-content-center d-none d-md-block">
-                    <div class="card" style="width: 80%; box-shadow: 5px 0 10px rgba(0, 0, 0, 0.1); border: none;">
+                <div class="col">
+                    <div class="card" style="width: 100%; box-shadow: 5px 0 10px rgba(0, 0, 0, 0.1); border: none;">
                         <img src="images/mais_vendidos/Wordpress.jpg" class="card-img-top img-fluid mx-auto d-block" style="width: 100%;" alt="...">
                         <div class="card-body">
                             <h5 class="card-title mb-2">Wordpress</h5>
@@ -153,19 +171,17 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-1 d-flex align-items-center justify-content-center">
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselmaisvendidos" data-bs-slide="next" style="position: relative; z-index: 2;">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselmaisvendidos" data-bs-slide="prev" style="position: absolute; left: -60px; top: 50%; transform: translateY(-50%);">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselmaisvendidos" data-bs-slide="next" style="position: absolute; right: -60px; top: 50%; transform: translateY(-50%);">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </button>
 </div>
-<!--FIM CARROSSEL MAIS VENDIDOS-->
+<!-- FIM CARROSSEL MAIS VENDIDOS -->
 
 
     <!--DIVISOR-->
