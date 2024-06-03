@@ -10,6 +10,8 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+
     <style>
         .container {
             max-width: 1200px;
@@ -32,7 +34,8 @@
             display: flex;
             cursor: pointer;
             font-size: 2.2rem;
-            background: #000;
+            background: rgba(0, 0, 0, 0.5);
+            /* Adjusted to a transparent black */
             align-items: center;
             justify-content: center;
             border-radius: 50%;
@@ -40,7 +43,8 @@
         }
 
         .slider-wrapper .slide-button:hover {
-            background: #404040;
+            background: rgba(64, 64, 64, 0.5);
+            /* Adjusted to a transparent dark gray */
         }
 
         .slider-wrapper .slide-button#prev-slide {
@@ -142,35 +146,97 @@
             }
         }
 
-
         #contentContainer {
-    display: inline-block;
-    width: 100%;
-}
+            display: block;
+            /* Changed to block */
+            width: 70%;
+            /* Adjusted to 70% */
+            margin: auto;
+            /* Center the container */
+        }
 
-#textContainer.collapsed {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease-out;
-}
+        #textContainer.collapsed {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
 
-#textContainer.expanded {
-    max-height: 500px; /* Adjust to the height of your content */
-    transition: max-height 0.3s ease-in;
-}
+        #textContainer.expanded {
+            max-height: 500px;
+            /* Adjust to the height of your content */
+            transition: max-height 0.3s ease-in;
+        }
 
-#expandButton {
-    display: block;
-    margin-top: 10px; /* Adjust as needed */
-}
+        #expandButton {
+            display: block;
+            margin-top: 10px;
+            /* Adjust as needed */
+        }
 
-.buttonContainer {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 10px; /* Adjust as needed */
-}
-</style>
-<title>Ware</title>
+        .buttonContainer {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 10px;
+            /* Adjust as needed */
+        }
+
+        .card {
+            border: none;
+            padding: 10px 50px;
+        }
+
+        .card::after {
+            position: absolute;
+            z-index: -1;
+            opacity: 0;
+            -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .card:hover {
+
+
+            transform: scale(1.02, 1.02);
+            -webkit-transform: scale(1.02, 1.02);
+            backface-visibility: hidden;
+            will-change: transform;
+            box-shadow: 0 1rem 3rem rgba(0, 0, 0, .75) !important;
+        }
+
+        .card:hover::after {
+            opacity: 1;
+        }
+
+        .card:hover .btn-outline-primary {
+            color: white;
+            background: #007bff;
+        }
+
+
+        .cardfim {
+            width: 10rem;
+            box-shadow: 5px 0 10px rgba(0, 0, 0, 0.1);
+            border: none;
+            background-color: transparent;
+        }
+
+        .btn-img {
+            padding: 0;
+            border: none;
+            background: none;
+            cursor: pointer;
+        }
+
+        .btn-img img {
+            width: 100%;
+            height: auto;
+        }
+
+        textarea {
+      resize: vertical; /* Allow vertical resizing */
+    }
+    </style>
+    <title>Ware</title>
 </head>
 
 <body>
@@ -190,7 +256,7 @@
     <!--FIM NAVBAR-->
 
     <!--CARD APLICAÇÃO-->
-    <div class="card"
+    <div class="carde"
         style="border: none; background-color: transparent; margin-left: 4%; margin-top:4%; margin-bottom:4%;">
         <div class="row no-gutters align-items-center">
             <div class="col-md-2">
@@ -204,7 +270,7 @@
                 </div>
                 <div class="d-flex justify-content-start align-items-center"
                     style="margin-left:auto; padding-right:10%;">
-                    <a class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#myModal">Comprar</a>
+                    <a class="btn btn-outline-danger btn-sm">Comprar</a>
                     <p class="mb-0 ms-2">€</p>
                 </div>
             </div>
@@ -248,24 +314,380 @@
     <hr class="custom-hr">
 
     <!--TEXTO SOBRE-->
-    <div id="contentContainer" style="width: 70%; ">
+    <div id="contentContainer" style="margin-top:5%; margin-bottom:-3%;">
         <p id="initialText">
-            O Adobe Illustrator é um software de design gráfico amplamente utilizado para a criação de ilustrações vetoriais, logotipos, ícones, tipografias e complexas obras de arte digitais. Entre suas principais funcionalidades, destacam-se as ferramentas de desenho vetorial, que permitem criar formas precisas e escaláveis sem perda de qualidade. O Illustrator oferece uma ampla gama de pincéis e efeitos que permitem adicionar texturas e profundidade às ilustrações.        </p>
+            O Adobe Illustrator é um software de design gráfico amplamente utilizado para a criação de ilustrações
+            vetoriais, logotipos, ícones, tipografias e complexas obras de arte digitais. Entre suas principais
+            funcionalidades, destacam-se as ferramentas de desenho vetorial, que permitem criar formas precisas e
+            escaláveis sem perda de qualidade. O Illustrator oferece uma ampla gama de pincéis e efeitos que permitem
+            adicionar texturas e profundidade às ilustrações. </p>
         <div id="textContainer" class="collapsed">
-            <p>
-                O Adobe Illustrator é um software de design gráfico amplamente utilizado para a criação de ilustrações vetoriais, logotipos, ícones, tipografias e complexas obras de arte digitais. Entre suas principais funcionalidades, destacam-se as ferramentas de desenho vetorial, que permitem criar formas precisas e escaláveis sem perda de qualidade. O Illustrator oferece uma ampla gama de pincéis e efeitos que permitem adicionar texturas e profundidade às ilustrações. </p>
-
-                <p>Além disso, possui recursos avançados de tipografia, que possibilitam manipular fontes e texto de maneiras criativas e detalhadas. A integração com outros aplicativos da Adobe Creative Cloud, como Photoshop e InDesign, facilita o fluxo de trabalho entre diferentes tipos de projetos e plataformas. Com ferramentas como a criação de padrões, gradientes, malhas e edição de cores, o Adobe Illustrator é uma escolha essencial para designers profissionais que buscam versatilidade e precisão em seus trabalhos.</p>
+            <p>Além disso, possui recursos avançados de tipografia, que possibilitam manipular fontes e texto de
+                maneiras criativas e detalhadas. A integração com outros aplicativos da Adobe Creative Cloud, como
+                Photoshop e InDesign, facilita o fluxo de trabalho entre diferentes tipos de projetos e plataformas. Com
+                ferramentas como a criação de padrões, gradientes, malhas e edição de cores, o Adobe Illustrator é uma
+                escolha essencial para designers profissionais que buscam versatilidade e precisão em seus trabalhos.
+            </p>
         </div>
         <div class="buttonContainer">
-            <button class="btn btn-outline-dark"  id="expandButton">Ver mais</button>
+            <button class="btn btn-outline-dark" id="expandButton" style="margin-top:-2%;">Ver mais</button>
         </div>
     </div>
     <!-- FIM TEXTO SOBRE-->
 
+    <!--DIVISOR-->
+    <hr class="custom-hr">
+
+    <!--TITULO-->
+    <div class="d-flex justify-content-between align-items-center"
+        style="margin-left: 5%; margin-right: 5%; margin-top:5%; margin-bottom:5%;">
+        <h1>Novidades</h1>
+        <button class="text-end btn btn-outline-dark" data-toggle="modal" data-target="#myModal">Histórico</button>
+    </div>
+
+    <!--POPUP HISTORICO-->
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4 class="modal-title">Histórico:</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <div class="modal-body">
+                    Versão: 1.0
+                    <ul>
+                        <li>Bug fixes;</li>
+                    </ul>
+                    Versão: 1.1
+                    <ul>
+                        <li>More bug fixes;</li>
+                    </ul>
+                    Versão: 1.2
+                    <ul>
+                        <li>Even more bug fixes;</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- FIM POPUP HISTORICO-->
+
+
+    <!--NOVIDADES-->
+    <div class="d-flex justify-content-between align-items-center">
+        <ul style="margin-left:10%;">
+            <li>Bug fixes.</li>
+            <li>Performance improvements.</li>
+        </ul>
+        <span class="text-end" style="margin-right:5%;">Versão</span>
+    </div>
+    <!-- FIM NOVIDADES-->
 
     <!--DIVISOR-->
     <hr class="custom-hr">
+
+    <!--TITULO-->
+    <h1 style="margin-left: 5%; margin-top:5%; margin-bottom:5%;">Planos</h1>
+
+    <!--TABELA PLANOS-->
+    <div class="container-fluid" style="background: linear-gradient(220.55deg, #00E0EE 0%, #AD00FE 100%);">
+        <div class="container p-5">
+            <div class="row">
+                <div class="col-lg-4 col-md-12 mb-4">
+                    <div class="card h-80 shadow-lg">
+                        <div class="card-body">
+                            <div class="text-center p-3">
+                                <h5 class="card-title">Pequenas Empresas</h5>
+                                <br>
+                                <span class="h2">€</span>/preço unitário
+                                <br><br>
+                            </div>
+                            <h4 style="text-align: center;">-10% de desconto</h4>
+                            <p class="card-text" style="text-align: center;">A partir de 50 licenças e máximo de 100.
+                            </p>
+                        </div>
+                        <div class="card-body text-center">
+                            <button class="btn btn-outline-dark btn-lg" style="border-radius:30px">Selecionar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12 mb-4">
+                    <div class="card h-80 shadow-lg">
+                        <div class="card-body">
+                            <div class="text-center p-3">
+                                <h5 class="card-title">Médias Empresas</h5>
+                                <br>
+                                <span class="h2">€</span>/preço unitário
+                                <br><br>
+                            </div>
+                            <h4 style="text-align: center;">-15% de desconto</h4>
+                            <p class="card-text" style="text-align: center;">A partir de 100 licenças e máximo de 500.
+                            </p>
+                        </div>
+                        <div class="card-body text-center">
+                            <button class="btn btn-outline-dark btn-lg" style="border-radius:30px">Selecionar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12 mb-4">
+                    <div class="card h-80 shadow-lg">
+                        <div class="card-body">
+                            <div class="text-center p-3">
+                                <h5 class="card-title">Grandes Empresas</h5>
+                                <br>
+                                <span class="h2">€</span>/preço unitário
+                                <br><br>
+                            </div>
+                            <h4 style="text-align: center;">-20% de desconto</h4>
+                            <p class="card-text" style="text-align: center;">A partir de 500 licenças e máximo de 1000.
+                            </p>
+                        </div>
+                        <div class="card-body text-center">
+                            <button class="btn btn-outline-dark btn-lg" style="border-radius:30px">Selecionar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                <p style="color:white;">Se o que está à procura não está representado em cima clique
+                    <a href="your-url-here" style="color: white; text-decoration: underline; cursor: pointer;"
+                        data-toggle="modal" data-target="#myModal2">aqui</a>
+                    para pedir um orçamento.
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- FIM TABELA PLANOS-->
+
+
+    <!--POPUP ORÇAMENTO-->
+    <div class="modal fade" id="myModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Preencha o seguinte formulário:</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <!-- Left side with text boxes -->
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="textBox1" class="form-label">Primeiro e último nome</label>
+                                    <input type="text" class="form-control" id="textBox1">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="textBox2" class="form-label">Email</label>
+                                    <input type="text" class="form-control" id="textBox2">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="textBox3" class="form-label">Mensagem</label>
+                                    <input type="text" class="form-control" id="textBox3">
+                                </div>
+                            </div>
+                            <!-- Right side with search box and table -->
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="searchBox" class="form-label">Procurar software</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="searchBox">
+                                        <button class="btn btn-outline-secondary" type="button" id="searchButton">Adicionar</button>
+                                    </div>
+                                </div>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Software</th>
+                                            <th scope="col">Quantidade</th>
+                                            <th scope="col">Selecionar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!--<tr>
+                                            <th scope="row">1</th>
+                                            <td>Item 1</td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="checkbox1">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>Item 2</td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="checkbox2">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">3</th>
+                                            <td>Item 3</td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="checkbox3">
+                                                </div>
+                                            </td>
+                                        </tr>-->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger">Enviar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FIM POPUP ORÇAMENTO-->
+
+    <!--DIVISOR-->
+    <hr class="custom-hr">
+
+    <!--TITULO-->
+    <h1 style="margin-left: 5%; margin-top:5%;">Avaliações</h1>
+
+    <!--AVALIAÇOES-->
+    <div class="container" style="margin-bottom: 5%;">
+        <div class="row">
+            <div class="col-md-4 d-flex justify-content-center">
+                <div class="card"
+                    style="width: 18rem; height: 23rem; box-shadow: 5px 0 10px rgba(0, 0, 0, 0.1); border: none; margin-top:50px;">
+                    <img src="images/icons/aspas.png" class="card-img-top img-fluid mx-auto d-block"
+                        style="width: 70%; margin-top:30px;" alt="...">
+                    <div class="card-body text-center">
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisi lacus,
+                            venenatis at
+                            est id, tristique viverra mauris. </p>
+                        <p class="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
+                        <p class="card-text mb-2">Categoria</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 d-flex justify-content-center">
+                <div class="card"
+                    style="width: 18rem; height: 23rem; box-shadow: 5px 0 10px rgba(0, 0, 0, 0.1); border: none; margin-top:50px;">
+                    <img src="images/icons/aspas.png" class="card-img-top img-fluid mx-auto d-block"
+                        style="width: 70%; margin-top:30px;" alt="...">
+                    <div class="card-body text-center">
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisi lacus,
+                            venenatis at
+                            est id, tristique viverra mauris. </p>
+                        <p class="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
+                        <p class="card-text mb-2">Categoria</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 d-flex justify-content-center">
+                <div class="card"
+                    style="width: 18rem; height: 23rem; box-shadow: 5px 0 10px rgba(0, 0, 0, 0.1); border: none; margin-top:50px;">
+                    <img src="images/icons/aspas.png" class="card-img-top img-fluid mx-auto d-block"
+                        style="width: 70%; margin-top:30px;" alt="...">
+                    <div class="card-body text-center">
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisi lacus,
+                            venenatis at
+                            est id, tristique viverra mauris. </p>
+                        <p class="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
+                        <p class="card-text mb-2">Categoria</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--FIM AVALIAÇOES-->
+
+    <!--DIVISOR-->
+    <hr class="custom-hr">
+
+    <!--TITULO-->
+    <h1 style="margin-left: 5%; margin-top:5%;">Mais deste programador</h1>
+
+    <!--APP CARDS-->
+    <div class="container" style="margin-bottom: 5%; margin-top:5%;">
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="cardfim"
+                    style="width: 8rem; box-shadow: 5px 0 10px rgba(0, 0, 0, 0.1); border: none; background-color: transparent;">
+                    <button class="btn-img" data-url="licensegestor.html">
+                        <img src="images/Logos/figma.png" class="card-img-top" alt="...">
+                    </button>
+                    <div class="card-body">
+                        <h5 class="card-title">Nome Software</h5>
+                        <p class="card-text">Licenças</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="cardfim"
+                    style="width: 8rem; box-shadow: 5px 0 10px rgba(0, 0, 0, 0.1); border: none; background-color: transparent;">
+                    <button class="btn-img" data-url="licensegestor.html">
+                        <img src="images/Logos/figma.png" class="card-img-top" alt="...">
+                    </button>
+                    <div class="card-body">
+                        <h5 class="card-title">Nome Software</h5>
+                        <p class="card-text">Licenças</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="cardfim"
+                    style="width: 8rem; box-shadow: 5px 0 10px rgba(0, 0, 0, 0.1); border: none; background-color: transparent;">
+                    <button class="btn-img" data-url="licensegestor.html">
+                        <img src="images/Logos/figma.png" class="card-img-top" alt="...">
+                    </button>
+                    <div class="card-body">
+                        <h5 class="card-title">Nome Software</h5>
+                        <p class="card-text">Licenças</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="cardfim"
+                    style="width: 8rem; box-shadow: 5px 0 10px rgba(0, 0, 0, 0.1); border: none; background-color: transparent;">
+                    <button class="btn-img" data-url="licensegestor.html">
+                        <img src="images/Logos/figma.png" class="card-img-top" alt="...">
+                    </button>
+                    <div class="card-body">
+                        <h5 class="card-title">Nome Software</h5>
+                        <p class="card-text">Licenças</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="cardfim"
+                    style="width: 8rem; box-shadow: 5px 0 10px rgba(0, 0, 0, 0.1); border: none; background-color: transparent;">
+                    <button class="btn-img" data-url="licensegestor.html">
+                        <img src="images/Logos/figma.png" class="card-img-top" alt="...">
+                    </button>
+                    <div class="card-body">
+                        <h5 class="card-title">Nome Software</h5>
+                        <p class="card-text">Licenças</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="cardfim"
+                    style="width: 8rem; box-shadow: 5px 0 10px rgba(0, 0, 0, 0.1); border: none; background-color: transparent;">
+                    <button class="btn-img" data-url="licensegestor.html">
+                        <img src="images/Logos/figma.png" class="card-img-top" alt="...">
+                    </button>
+                    <div class="card-body">
+                        <h5 class="card-title">Nome Software</h5>
+                        <p class="card-text">Licenças</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- FIM APP CARDS-->
+
 
     <!--FOOTER-->
     <footer class="footer bg-dark text-light text-center">
@@ -275,12 +697,20 @@
     </footer>
     <!--FIM FOOTER-->
 
+
+    <!--SCRIPT-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
         </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+
+
+
+
+
     <script>const initSlider = () => {
             const imageList = document.querySelector(".slider-wrapper .image-list");
             const slideButtons = document.querySelectorAll(".slider-wrapper .slide-button");
@@ -343,18 +773,18 @@
         window.addEventListener("load", initSlider);
 
 
-        document.getElementById('expandButton').addEventListener('click', function() {
-    var textContainer = document.getElementById('textContainer');
-    if (textContainer.classList.contains('collapsed')) {
-        textContainer.classList.remove('collapsed');
-        textContainer.classList.add('expanded');
-        this.textContent = 'Ver Menos';
-    } else {
-        textContainer.classList.remove('expanded');
-        textContainer.classList.add('collapsed');
-        this.textContent = 'Ver mais';
-    }
-});
+        document.getElementById('expandButton').addEventListener('click', function () {
+            var textContainer = document.getElementById('textContainer');
+            if (textContainer.classList.contains('collapsed')) {
+                textContainer.classList.remove('collapsed');
+                textContainer.classList.add('expanded');
+                this.textContent = 'Ver Menos';
+            } else {
+                textContainer.classList.remove('expanded');
+                textContainer.classList.add('collapsed');
+                this.textContent = 'Ver mais';
+            }
+        });
 
     </script>
 
