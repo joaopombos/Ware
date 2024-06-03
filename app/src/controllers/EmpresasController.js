@@ -1,5 +1,5 @@
 // controllers/EmpresasController.js
-const Empresas = require('../models/Empresas');
+const Empresas = require('../models/empresas');
 
 const empresasController = {};
 

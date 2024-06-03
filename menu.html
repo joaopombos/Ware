@@ -5,73 +5,84 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f0f0f0;
-        }
-        .menu {
+        .sidebar {
             width: 250px;
-            background-color: #ffffff;
-            border: 1px solid #ccc;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            min-height: 100vh; /* Garante que a barra lateral tenha altura mínima de 100% da altura da viewport */
+            background: #343A40;
+            box-shadow: 0px 14px 28px rgba(0, 0, 0, 0.25), 0px 10px 10px rgba(0, 0, 0, 0.22);
             display: flex;
             flex-direction: column;
-            align-items: center;
-            padding: 20px;
-            box-sizing: border-box;
+            justify-content: space-between; /* Alinha os elementos na barra lateral com espaço entre eles */
+            padding: 20px 0; /* Adiciona espaçamento interno superior e inferior */
         }
         .logo {
-            width: 100%;
-            display: flex;
-            justify-content: center;
+            width: 80%;
             margin-bottom: 20px;
         }
-        .logo img {
-            max-width: 100%;
-            height: auto;
-        }
+
         .menu-options {
             width: 100%;
+            list-style: none;
+            padding: 0;
+            margin: 0;
         }
+
+        .menu-options a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            transition: background-color 0.3s;
+            margin-bottom: 10px; /* Adiciona espaço entre os itens do menu */
+        }
+
         .menu-options a:hover {
-            background-color: #343A40 !important;
+            background-color: #5E6266;
+        }
+
+        .menu-options i {
+            margin-right: 10px;
+        }
+
+        .btn-bottom {
+            width: 100%;
+            padding: 10px;
+            text-align: center;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 0;
+            transition: background-color 0.3s;
+        }
+
+        .btn-bottom:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
-    <div class="menu">
-        <div class="logo">
-            <img src="/images/Logos/logo.png" alt="Logo">
+    <div class="d-flex">
+        <div class="sidebar">
+            <img src="images/Logos/logo.png" alt="Logo" class="logo">
+            <ul class="menu-options">
+                <li><a href="#Tickets"><i class="fas fa-ticket-alt"></i>Tickets</a></li>
+                <li><a href="#option2"><i class="fas fa-cog"></i>Atualizar/Editar Software</a></li>
+                <li><a href="#option3"><i class="fas fa-chart-line"></i>Adicionar Software</a></li>
+                <li><a href="#option4"><i class="fas fa-users"></i>Listar Softwares</a></li>
+                <li><a href="#option5"><i class="fas fa-envelope"></i>Orçamentos</a></li>
+                <li><a href="#option6"><i class="fas fa-sign-out-alt"></i>Métricas de vendas</a></li>
+            </ul>
+            <button class="btn-bottom">Terminar Sessão</button>
         </div>
-        <ul class="menu-options list-group">
-            <li class="list-group-item">
-                <a href="Tickets" class="text-decoration-none d-flex align-items-center">
-                    <img src="/images/newicons/Symbol.jpg"  class="mr-2">
-                    Tickets
-                </a>
-            </li>
-            <li class="list-group-item">
-                <a href="Atualizar/Editar Software" class="text-decoration-none d-flex align-items-center">
-                    <img src=""  class="mr-2">
-                    Atualizar/Editar Software
-                </a>
-            </li>
-            <li class="list-group-item">
-                <a href="Adicionar Software" class="text-decoration-none d-flex align-items-center">
-                    <img src=""  class="mr-2">
-                    Adicionar Software
-                </a>
-            </li>
-            <li class="list-group-item"><a href="Listar Softwares" class="text-decoration-none d-block text-center py-2">Listar Softwares</a></li>
-            <li class="list-group-item"><a href="Orçamentos" class="text-decoration-none d-block text-center py-2">Orçamentos</a></li>
-            <li class="list-group-item"><a href="Métricas de vendas" class="text-decoration-none d-block text-center py-2">Métricas de vendas</a></li>
-        </ul>
-        <button class="menu-button btn btn-primary w-100 mt-3">Terminar sessão</button>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+</body>
+</html>
+
 
