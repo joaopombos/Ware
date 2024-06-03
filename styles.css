@@ -48,11 +48,15 @@ hr {
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
     background-color: black;
+    display: inline-block;
+    position:  absolute;
 }
 
 .carousel-control-prev,
 .carousel-control-next {
     filter: invert(100%);
+    display: inline-block;
+    position: absolute;
 }
 .heroi {
     width: 100vw;
@@ -73,27 +77,3 @@ hr {
     margin-top: 7%;
 }
 
-.carousel-control-prev-1, .carousel-control-next-1 {
-    width: 30px;
-    height: 30px;
-    background-color: rgba(0,0,0,0.5);
-    border-radius: 50%;
-}
-
-.carousel-control-prev-icon-1, .carousel-control-next-icon-1 {
-    width: 20px;
-    height: 20px;
-    display: inline-block;
-    background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.71 7.29a1 1 0 0 1 0 1.42L4.41 12l4.3 4.29a1 1 0 1 1-1.42 1.42l-5-5a1 1 0 0 1 0-1.42l5-5a1 1 0 0 1 1.42 0z" fill="white"/></svg>');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 100%;
-}
-
-.carousel-control-prev-1 {
-    background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.29 7.71a1 1 0 0 0-1.42 1.42L18.59 12l-4.3 4.29a1 1 0 0 0 1.42 1.42l5-5a1 1 0 0 0 0-1.42l-5-5a1 1 0 0 0-0.71-0.29z" fill="white"/></svg>');
-}
-
-.carousel-control-prev:hover, .carousel-control-next:hover {
-    background-color: rgba(0,0,0,0.7);
-}
