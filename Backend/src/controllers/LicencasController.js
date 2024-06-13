@@ -1,5 +1,5 @@
 // controllers/LicencasAtribuidasController.js
-const LicencasAtribuidas = require('../models/LicencasAtribuidas');
+const LicencasAtribuidas = require('../models/licencasatribuidas');
 
 const licencasAtribuidasController = {};
 
