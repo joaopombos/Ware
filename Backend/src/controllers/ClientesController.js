@@ -2,6 +2,9 @@
 const Clientes = require('../models/clientes');
 const Empresas = require('../models/empresas');
 const TipoUser = require('../models/tipouser');
+const nodemailer = require('nodemailer');
+const crypto = require('crypto');
+
 
 const clientesController = {};
 
@@ -15,12 +18,15 @@ clientesController.list = async (req, res) => {
   }
 };
 
+function generatePassword() {
+  return crypto.randomBytes(4).toString('hex'); // Gera uma senha aleatória de 8 caracteres
+}
 // Add a new client
-clientesController.create = async (req, res) => {
+clientesController.createC_gestor = async (req, res) => {
   try {
-    const { emp_nif, iduser, nome, email, codigopessoal, contacto, nif, idware } = req.body;
+    const { emp_nif, iduser, nome, email, contacto, nif} = req.body;
 
-    // Check for missing required fields
+    // Verificar campos obrigatórios
     if (!emp_nif || !iduser || !nif) {
       return res.status(400).json({
         error: 'Missing required fields',
@@ -32,9 +38,41 @@ clientesController.create = async (req, res) => {
       });
     }
 
-    // Create the client
-    const client = await Clientes.create({ emp_nif, iduser, nome, email, codigopessoal, contacto, nif, idware });
-    res.status(201).json(client);
+    const codigopessoal = generatePassword();
+
+    // Criar o cliente
+    const client = await Clientes.create({ emp_nif, iduser, nome, email, codigopessoal, contacto, nif});
+
+
+    // Configurar o transportador de e-mail
+    let transporter = nodemailer.createTransport({
+      host: 'smtp.elasticemail.com', // Servidor SMTP do Elastic Email
+      port: 2525, // Porta SMTP padrão para Elastic Email
+      auth: {
+        user: 'rodrigo.pina113@gmail.com', // Substitua pelo seu usuário Elastic Email
+        pass: '363CF2C4502785F25C162D2AC1846370EA5C' // Substitua pela sua chave API Elastic Email
+      },
+
+      from: 'rodrigo.pina113@gmail.com'
+    });
+
+    // Configurar as opções do e-mail
+    let mailOptions = {
+      from: '"Empresa XYZ" <your-email@example.com>', // Substitua pelo remetente
+      to: email, // Destinatário
+      subject: 'Seu Código Pessoal',
+      text: `Olá ${nome},\n\nSeu código pessoal é: ${codigopessoal}\n\nObrigado!`,
+      html: `<p>Olá ${nome},</p><p>Seu código pessoal é: <strong>${codigopessoal}</strong></p><p>Obrigado!</p>`
+    };
+
+    // Enviar o e-mail
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        return res.status(500).json({ error: 'Error sending email', details: error.message });
+      }
+      res.status(201).json(client);
+    });
+
   } catch (error) {
     res.status(500).json({ error: 'Error creating client', details: error.message });
   }

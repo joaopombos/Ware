@@ -4,8 +4,9 @@ const warecontrollers = require('../controllers/WareControllers');
 const clientesController = require('../controllers/ClientesController');
 
 //22 endreços
-router.get('/home');
-router.post('/signup_comprador', clientesController.create);
+//router.get('/home');
+router.post('/signup_comprador', clientesController.createC_gestor);
+/*
 router.get('/shop', warecontrollers.filme_list);
 router.get('/shop/my', warecontrollers.filme_list);
 router.get('/shop/:idproduto/', warecontrollers.filme_list);
@@ -25,5 +26,5 @@ router.get('/signin/sucess', warecontrollers.filme_list);
 router.post('/signin/c_gestor', warecontrollers.filme_list);
 router.get('/library', warecontrollers.filme_list);
 router.get('/license', warecontrollers.filme_list);
-
+*/
 module.exports = router; 
