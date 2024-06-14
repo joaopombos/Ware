@@ -1,8 +1,7 @@
 # Mac/OSX
 .DS_Store
 
-# Private Node Modules
-node_modules/
+
 
 # VSCode
 .vscode/*
