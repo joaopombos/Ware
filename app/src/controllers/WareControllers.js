@@ -50,7 +50,7 @@ Review and Rating Controllers
 
 
 
-controllers a baixo são da ficha 7 */
+controllers da ficha 7 */
 
 const sequelize = require('../models/database');
 const Avaliacoes = require('../models/Avaliacoes');
