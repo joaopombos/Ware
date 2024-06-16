@@ -1,4 +1,5 @@
 const ware = require('../models/ware');
+const User = require('../models/User');
 const App = require('../models/App');
 const userController = {};
 const appController = {};
@@ -56,7 +57,7 @@ userController.getUser = async (req, res) => {
   try {
     const userId = req.params.userId;
 
-    const user = await ware.findByPk(userId);
+    const user = await User.findOne({ where: { id: userId } });
     if (!user) {
       return res.status(404).json({ error: 'Usuário não encontrado' });
     }
@@ -74,10 +75,11 @@ userController.updateUser = async (req, res) => {
     const userId = req.params.userId;
     const { username, password, lucros, gastos } = req.body;
 
-    const user = await ware.findByPk(userId);
+    const user = await User.findOne({ where: { id: userId } });
     if (!user) {
       return res.status(404).json({ error: 'Usuário não encontrado' });
     }
+
     if (username) user.username = username;
     if (password) user.password = password;
     if (lucros !== undefined) user.lucros = lucros;
@@ -97,7 +99,7 @@ userController.deleteUser = async (req, res) => {
   try {
     const userId = req.params.userId;
 
-    const user = await ware.findByPk(userId);
+    const user = await User.findOne({ where: { id: userId } });
     if (!user) {
       return res.status(404).json({ error: 'Usuário não encontrado' });
     }
