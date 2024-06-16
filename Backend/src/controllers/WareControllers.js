@@ -1,56 +1,117 @@
-/* Controllers a fazer
+const ware = require('../models/ware');
+const userController = {};
 
-User Controllers
+// register: To handle user registration.
+userController.register = async (req, res) => {
+  try {
+    const { username, password, lucros, gastos } = req.body;
 
-  Authentication and Authorization
+    const newUser = await ware.create({
+      username,
+      password,
+      lucros,
+      gastos
+    });
 
-    register: To handle user registration.
-    login: To handle user login.
-    logout: To handle user logout.
-    getUser: To fetch the authenticated user’s details.
-    updateUser: To update user information.
-    deleteUser: To delete a user account.
+    res.status(201).json(newUser);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Erro ao registrar usuário' });
+  }
+};
 
-  Permission Management
+// login: To handle user login.
+userController.login = async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    const user = await ware.findOne({ where: { username } });
+    if (!user) {
+      return res.status(404).json({ error: 'Usuário não encontrado' });
+    }
+    if (password !== user.password) {
+      return res.status(401).json({ error: 'Credenciais inválidas' });
+    }
 
-    grantPermission: To grant permissions to a manager.
-    revokePermission: To revoke permissions from a manager.
-    listPermissions: To list permissions granted by a user.
+    res.status(200).json({ message: 'Login bem sucedido' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Erro ao fazer login' });
+  }
+};
 
-App Controllers
+// Controller para fazer logout do usuário
+userController.logout = async (req, res) => {
+  try {
+    res.status(200).json({ message: 'Logout bem-sucedido' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Erro ao fazer logout' });
+  }
+};
 
-  App Management for Buyers/Managers
+// getUser: To fetch the authenticated user’s details.
+userController.getUser = async (req, res) => {
+  try {
+    const userId = req.params.userId;
 
-    createApp: To add a new app for sale.
-    updateApp: To update app details.
-    deleteApp: To delete an app.
-    listApps: To list all apps created by the user.
+    const user = await ware.findByPk(userId);
+    if (!user) {
+      return res.status(404).json({ error: 'Usuário não encontrado' });
+    }
 
-  App Management for Managers with Permissions
+    res.status(200).json(user);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Erro ao buscar usuário' });
+  }
+};
 
-    manageApp: To manage an app (only if the manager has permission).
+// updateUser: To update user information.
+userController.updateUser = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const { username, password, lucros, gastos } = req.body;
 
-Purchase Controllers
+    const user = await ware.findByPk(userId);
+    if (!user) {
+      return res.status(404).json({ error: 'Usuário não encontrado' });
+    }
+    if (username) user.username = username;
+    if (password) user.password = password;
+    if (lucros !== undefined) user.lucros = lucros;
+    if (gastos !== undefined) user.gastos = gastos;
 
-  App Purchase
+    await user.save();
 
-    purchaseApp: To handle app purchase.
-    listPurchases: To list all purchases made by a user.
-    refundPurchase: To handle app refund requests.
+    res.status(200).json(user);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Erro ao atualizar usuário' });
+  }
+};
 
-Review and Rating Controllers
+// deleteUser: To delete a user account.
+userController.deleteUser = async (req, res) => {
+  try {
+    const userId = req.params.userId;
 
-  App Reviews and Ratings
+    const user = await ware.findByPk(userId);
+    if (!user) {
+      return res.status(404).json({ error: 'Usuário não encontrado' });
+    }
 
-    addReview: To add a review for an app.
-    updateReview: To update a review.
-    deleteReview: To delete a review.
-    listReviews: To list reviews for an 
+    await user.destroy();
 
+    res.status(204).send();
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Erro ao excluir usuário' });
+  }
+};
+module.exports = userController;
 
+    
 
-
-controllers da ficha 7 */
 
 const sequelize = require('../models/database');
 const Avaliacoes = require('../models/Avaliacoes');
