@@ -1,5 +1,7 @@
 const ware = require('../models/ware');
+const App = require('../models/App');
 const userController = {};
+const appController = {};
 
 // register: To handle user registration.
 userController.register = async (req, res) => {
@@ -39,7 +41,7 @@ userController.login = async (req, res) => {
   }
 };
 
-// Controller para fazer logout do usuário
+//   logout: To handle user logout.
 userController.logout = async (req, res) => {
   try {
     res.status(200).json({ message: 'Logout bem-sucedido' });
@@ -108,7 +110,74 @@ userController.deleteUser = async (req, res) => {
     res.status(500).json({ error: 'Erro ao excluir usuário' });
   }
 };
+// List all apps created by the user
+appController.listApps = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const apps = await App.findAll({ where: { userId } });
+    res.json(apps);
+  } catch (error) {
+    res.status(500).json({ error: 'Error fetching apps' });
+  }
+};
+
+// Get details of a specific app
+appController.getAppDetails = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const app = await App.findOne({ where: { id } });
+    if (!app) {
+      return res.status(404).json({ error: 'App not found' });
+    }
+    res.json(app);
+  } catch (error) {
+    res.status(500).json({ error: 'Error fetching app details' });
+  }
+};
+
+// Create a new app for sale
+appController.createApp = async (req, res) => {
+  try {
+    const { name, description, price, userId } = req.body;
+    const app = await App.create({ name, description, price, userId });
+    res.status(201).json(app);
+  } catch (error) {
+    res.status(500).json({ error: 'Error creating app' });
+  }
+};
+
+// Update app details
+appController.updateApp = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name, description, price } = req.body;
+    const [updated] = await App.update({ name, description, price }, { where: { id } });
+    if (updated === 0) {
+      return res.status(404).json({ error: 'App not found' });
+    }
+    const updatedApp = await App.findOne({ where: { id } });
+    res.json(updatedApp);
+  } catch (error) {
+    res.status(500).json({ error: 'Error updating app' });
+  }
+};
+
+// Delete an app
+appController.deleteApp = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deleted = await App.destroy({ where: { id } });
+    if (deleted === 0) {
+      return res.status(404).json({ error: 'App not found' });
+    }
+    res.json({ message: 'App deleted' });
+  } catch (error) {
+    res.status(500).json({ error: 'Error deleting app' });
+  }
+};
+
 module.exports = userController;
+module.exports = appController;
 
     
 
