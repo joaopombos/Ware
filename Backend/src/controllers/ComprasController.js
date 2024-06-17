@@ -1,12 +1,10 @@
-// controllers/PurchaseController.js
-const Purchase = require('../models/Purchase');
-const User = require('../models/User');
-const App = require('../models/App');
+const TipoSoftwares = require('../models/tipossoftwares');
+const { Op } = require('sequelize');
 
-const purchaseController = {};
+const shopController = {};
 
 // List all purchases for a user
-purchaseController.listForUser = async (req, res) => {
+shopController.listForUser = async (req, res) => {
   try {
     const { userId } = req.params;
     const purchases = await Purchase.findAll({ where: { userId }, include: [App] });
@@ -17,7 +15,7 @@ purchaseController.listForUser = async (req, res) => {
 };
 
 // Get details of a specific purchase
-purchaseController.getDetails = async (req, res) => {
+shopController.getDetails = async (req, res) => {
   try {
     const { id } = req.params;
     const purchase = await Purchase.findByPk(id, { include: [App, User] });
@@ -31,7 +29,7 @@ purchaseController.getDetails = async (req, res) => {
 };
 
 // Create a new purchase
-purchaseController.create = async (req, res) => {
+shopController.create = async (req, res) => {
   try {
     const { userId, appId, price } = req.body;
     const purchase = await Purchase.create({ userId, appId, price });
@@ -42,7 +40,7 @@ purchaseController.create = async (req, res) => {
 };
 
 // Update a purchase
-purchaseController.update = async (req, res) => {
+shopController.update = async (req, res) => {
   try {
     const { id } = req.params;
     const { userId, appId, price } = req.body;
@@ -58,7 +56,7 @@ purchaseController.update = async (req, res) => {
 };
 
 // Delete a purchase
-purchaseController.delete = async (req, res) => {
+shopController.delete = async (req, res) => {
   try {
     const { id } = req.params;
     const purchase = await Purchase.findByPk(id);
@@ -71,5 +69,43 @@ purchaseController.delete = async (req, res) => {
     res.status(500).json({ error: 'Error deleting purchase' });
   }
 };
+
+// Função unificada para listar categorias ou softwares baseado na presença do parâmetro 'categoria'
+shopController.listCategoriesOrSoftwares = async (req, res) => {
+    const { categoria } = req.query; // Captura 'categoria' da query string
+
+    if (categoria) {
+        // Se 'categoria' estiver presente na query, listar softwares dessa categoria
+        try {
+            const softwares = await TipoSoftwares.findAll({
+                where: { categoria },
+                order: ['nome'] // Ordena alfabeticamente pelo nome do software
+            });
+            res.json(softwares);
+        } catch (error) {
+            res.status(500).json({ error: `Error fetching softwares for category ${categoria}` });
+        }
+    } else {
+        // Se 'categoria' não estiver presente, listar todas as categorias disponíveis
+        try {
+            const categories = await TipoSoftwares.findAll({
+                attributes: ['categoria'],
+                group: ['categoria'], // Agrupa pela coluna 'categoria' para evitar duplicatas
+                where: {
+                    categoria: {
+                        [Op.ne]: null  // Filtra para evitar categorias nulas
+                    }
+                },
+                order: ['categoria'] // Ordena alfabeticamente pelas categorias
+            });
+            res.json(categories.map(cat => cat.categoria));
+        } catch (error) {
+            res.status(500).json({ error: 'Error fetching categories' });
+        }
+    }
+};
+
+module.exports = shopController;
+
 
 module.exports = purchaseController;
