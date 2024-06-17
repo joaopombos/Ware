@@ -2,14 +2,14 @@ const express = require('express');
 const router = express.Router();
 const warecontrollers = require('../controllers/WareControllers');
 const clientesController = require('../controllers/ClientesController');
-const shopController = require('../controllers/ComprasController');
+const ComprasController = require('../controllers/ComprasController');
 
 
 //22 endreços
 //router.get('/home');
 router.post('/signup_comprador', clientesController.createC_gestor);
-router.get('/shop/c_gestor', shopController.listCategoriesOrSoftwares);
-router.get('/shop/', shopController.listCategoriesOrSoftwares);
+router.get('/shop/c_gestor', ComprasController.listCategoriesOrSoftwares);
+router.get('/shop/', ComprasController.listCategoriesOrSoftwares);
 router.get('/shop/confirm', warecontrollers.filme_list);
 router.get('/shop/sucess', warecontrollers.filme_list);
 
