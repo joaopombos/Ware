@@ -2,14 +2,16 @@ const express = require('express');
 const router = express.Router();
 const warecontrollers = require('../controllers/WareControllers');
 const clientesController = require('../controllers/ClientesController');
+const AppController = require('../controllers/AppController');
 
 //22 endreços
 //router.get('/home');
 router.post('/signup_comprador', clientesController.createC_gestor);
-router.get('/shop/c_gestor', warecontrollers.filme_list);
+router.get('/shop/c_gestor', AppController.list );
 router.get('/shop/', warecontrollers.filme_list);
 router.get('/shop/confirm', warecontrollers.filme_list);
 router.get('/shop/sucess', warecontrollers.filme_list);
+
 
 
 

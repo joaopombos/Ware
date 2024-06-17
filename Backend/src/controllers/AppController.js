@@ -1,9 +1,6 @@
 // controllers/AppController.js
-const App = require('../models/App');
-const User = require('../models/User');
-
+const App = require('../models/tipossoftwares');
 const appController = {};
-
 // List all apps
 appController.list = async (req, res) => {
   try {
