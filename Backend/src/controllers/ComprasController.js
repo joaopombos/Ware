@@ -14,62 +14,6 @@ shopController.listForUser = async (req, res) => {
   }
 };
 
-// Get details of a specific purchase
-shopController.getDetails = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const purchase = await Purchase.findByPk(id, { include: [App, User] });
-    if (!purchase) {
-      return res.status(404).json({ error: 'Purchase not found' });
-    }
-    res.json(purchase);
-  } catch (error) {
-    res.status(500).json({ error: 'Error fetching purchase details' });
-  }
-};
-
-// Create a new purchase
-shopController.create = async (req, res) => {
-  try {
-    const { userId, appId, price } = req.body;
-    const purchase = await Purchase.create({ userId, appId, price });
-    res.status(201).json(purchase);
-  } catch (error) {
-    res.status(500).json({ error: 'Error creating purchase' });
-  }
-};
-
-// Update a purchase
-shopController.update = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { userId, appId, price } = req.body;
-    const purchase = await Purchase.findByPk(id);
-    if (!purchase) {
-      return res.status(404).json({ error: 'Purchase not found' });
-    }
-    await purchase.update({ userId, appId, price });
-    res.json(purchase);
-  } catch (error) {
-    res.status(500).json({ error: 'Error updating purchase' });
-  }
-};
-
-// Delete a purchase
-shopController.delete = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const purchase = await Purchase.findByPk(id);
-    if (!purchase) {
-      return res.status(404).json({ error: 'Purchase not found' });
-    }
-    await purchase.destroy();
-    res.json({ message: 'Purchase deleted' });
-  } catch (error) {
-    res.status(500).json({ error: 'Error deleting purchase' });
-  }
-};
-
 // Função unificada para listar categorias ou softwares baseado na presnça do parâmetro 'categoria'
 shopController.listCategoriesOrSoftwares = async (req, res) => {
     const { categoria } = req.query; // Captura 'categoria' da query string
@@ -105,7 +49,18 @@ shopController.listCategoriesOrSoftwares = async (req, res) => {
     }
 };
 
+shopController.softwareDetails = async (req, res) => {
+  const { idproduto } = req.params; // Captura o 'idproduto' dos parâmetros da rota
+
+  try {
+      const software = await TipoSoftwares.findByPk(idproduto);
+      if (!software) {
+          return res.status(404).json({ error: 'Software not found' });
+      }
+      res.json(software);
+  } catch (error) {
+      res.status(500).json({ error: 'Error retrieving software details' });
+  }
+};
+
 module.exports = shopController;
-
-
-module.exports = purchaseController;
