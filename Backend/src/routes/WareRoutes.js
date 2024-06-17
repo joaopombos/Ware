@@ -2,16 +2,17 @@ const express = require('express');
 const router = express.Router();
 const warecontrollers = require('../controllers/WareControllers');
 const clientesController = require('../controllers/ClientesController');
-const ComprasController = require('../controllers/ComprasController');
+const comprasController = require('../controllers/ComprasController');
 
 
 //22 endreços
 //router.get('/home');
 router.post('/signup_comprador', clientesController.createC_gestor);
-router.get('/shop/c_gestor', ComprasController.listCategoriesOrSoftwares);
-router.get('/shop/', ComprasController.listCategoriesOrSoftwares);
-router.get('/shop/confirm', warecontrollers.filme_list);
-router.get('/shop/sucess', warecontrollers.filme_list);
+router.get('/shop/c_gestor', comprasController.listCategoriesOrSoftwares);
+router.get('/shop/', comprasController.listCategoriesOrSoftwares);
+router.get('/shop/:idproduto/',comprasController.softwareDetails);
+router.get('/shop/:idvenda/confirm', comprasController.confirmOrder);
+router.get('/shop/:idvenda/sucess', comprasController.purchaseSuccess);
 
 
 
