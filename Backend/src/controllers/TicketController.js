@@ -1,74 +1,104 @@
-// controllers/SupportController.js
-const Support = require('../models/Support');
-const User = require('../models/User');
+const Tickets = require('../models/tickets');
 
-const supportController = {};
+const adminController = {};
 
-// List all support tickets for a user
-supportController.listForUser = async (req, res) => {
-  try {
-    const { userId } = req.params;
-    const tickets = await Support.findAll({ where: { userId } });
-    res.json(tickets);
-  } catch (error) {
-    res.status(500).json({ error: 'Error fetching support tickets' });
-  }
-};
+// Listar todos os tickets ou filtrar por estado
+adminController.listTickets = async (req, res) => {
+    const { estado } = req.query; // Captura o parâmetro 'estado' da query string
+    const whereCondition = estado ? { estado } : {};
 
-// Get details of a specific support ticket
-supportController.getDetails = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const ticket = await Support.findByPk(id);
-    if (!ticket) {
-      return res.status(404).json({ error: 'Support ticket not found' });
+    try {
+        const tickets = await Tickets.findAll({ where: whereCondition });
+        res.json(tickets);
+    } catch (error) {
+        res.status(500).json({ error: 'Error fetching tickets' });
     }
-    res.json(ticket);
-  } catch (error) {
-    res.status(500).json({ error: 'Error fetching support ticket details' });
-  }
 };
 
-// Create a new support ticket
-supportController.create = async (req, res) => {
-  try {
-    const { userId, subject, description } = req.body;
-    const ticket = await Support.create({ userId, subject, description });
-    res.status(201).json(ticket);
-  } catch (error) {
-    res.status(500).json({ error: 'Error creating support ticket' });
-  }
-};
+// Atualizar o estado de um ticket (para resolvido ou não resolvido)
+adminController.updateTicketStatus = async (req, res) => {
+    const { idticket } = req.params;
+    const { estado } = req.body;
 
-// Update a support ticket
-supportController.update = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { subject, description, status } = req.body;
-    const ticket = await Support.findByPk(id);
-    if (!ticket) {
-      return res.status(404).json({ error: 'Support ticket not found' });
+    try {
+        const ticket = await Tickets.findByPk(idticket);
+        if (!ticket) {
+            return res.status(404).json({ error: 'Ticket not found' });
+        }
+
+        ticket.estado = estado;
+        await ticket.save();
+
+        res.json(ticket);
+    } catch (error) {
+        res.status(500).json({ error: 'Error updating ticket status' });
     }
-    await ticket.update({ subject, description, status });
-    res.json(ticket);
-  } catch (error) {
-    res.status(500).json({ error: 'Error updating support ticket' });
-  }
 };
 
-// Delete a support ticket
-supportController.delete = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const ticket = await Support.findByPk(id);
-    if (!ticket) {
-      return res.status(404).json({ error: 'Support ticket not found' });
-    }
-    await ticket.destroy();
-    res.json({ message: 'Support ticket deleted' });
-  } catch (error) {
-    res.status(500).json({ error: 'Error deleting support ticket' });
-  }
+
+
+
+/*  Sugestão Front end para '/tickets/admin'
+
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
+const TicketsAdmin = () => {
+    const [tickets, setTickets] = useState([]);
+    const [filter, setFilter] = useState('');
+
+    useEffect(() => {
+        const fetchTickets = async () => {
+            try {
+                const response = await axios.get(`/tickets/admin`, { params: { estado: filter } });
+                setTickets(response.data);
+            } catch (error) {
+                console.error('Error fetching tickets:', error);
+            }
+        };
+
+        fetchTickets();
+    }, [filter]);
+
+    const updateTicketStatus = async (idticket, estado) => {
+        try {
+            const response = await axios.put(`/tickets/admin/${idticket}`, { estado });
+            setTickets(tickets.map(ticket => (ticket.idticket === idticket ? response.data : ticket)));
+        } catch (error) {
+            console.error('Error updating ticket status:', error);
+        }
+    };
+
+    return (
+        <div>
+            <h1>Administração de Tickets</h1>
+            <div>
+                <label>Filtrar por estado:</label>
+                <select value={filter} onChange={(e) => setFilter(e.target.value)}>
+                    <option value=''>Todos</option>
+                    <option value='Resolvido'>Resolvido</option>
+                    <option value='Por Resolver'>Por Resolver</option>
+                    <option value='Não Resolvido'>Não Resolvido</option>
+                </select>
+            </div>
+            <ul>
+                {tickets.map(ticket => (
+                    <li key={ticket.idticket}>
+                        <p>{ticket.assunto}</p>
+                        <p>Estado: {ticket.estado}</p>
+                        <button onClick={() => updateTicketStatus(ticket.idticket, 'Resolvido')}>Marcar como Resolvido</button>
+                        <button onClick={() => updateTicketStatus(ticket.idticket, 'Não Resolvido')}>Marcar como Não Resolvido</button>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
 };
 
-module.exports = supportController;
+export default TicketsAdmin;
+
+
+*/
+
+module.exports = adminController;
+

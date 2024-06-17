@@ -3,33 +3,38 @@ const router = express.Router();
 const warecontrollers = require('../controllers/WareControllers');
 const clientesController = require('../controllers/ClientesController');
 const comprasController = require('../controllers/ComprasController');
+const appController = require('../controllers/AppController');
+const ticketController = require('../controllers/TicketController');
+const analyticsController = require('../controllers/AnalyticsController');
 
 
 //22 endreços
 //router.get('/home');
 router.post('/signup_comprador', clientesController.createC_gestor);
+
+//router.get('/shop');
 router.get('/shop/c_gestor', comprasController.listCategoriesOrSoftwares);
 router.get('/shop/', comprasController.listCategoriesOrSoftwares);
 router.get('/shop/:idproduto/',comprasController.softwareDetails);
 router.get('/shop/:idvenda/confirm', comprasController.confirmOrder);
 router.get('/shop/:idvenda/sucess', comprasController.purchaseSuccess);
 
+//router.get('/admin');
+router.get('/tickets/admin', ticketController.listTickets);
+router.put('/tickets/admin', ticketController.updateTicketStatus);
+router.get('/list/admin', appController.listSoftwares);
+router.put('/edit/admin', appController.updateSoftware);
+router.delete('/edit/admin', appController.deleteSoftware);
+router.post('/add/admin', appController.addSoftware);
+router.get('/budget/admin', appController.listBudgets);
+router.get('/budget/admin/:idorca', appController.getBudgetDetails);
+router.post('/budget/admin/:idorca', appController.respondToBudget);
+router.get('/metrics/admin', analyticsController.getMetrics);
+
 
 
 
 /*
-router.get('/shop', warecontrollers.filme_list);
-router.get('/shop/my', warecontrollers.filme_list);
-router.get('/shop/:idproduto/', warecontrollers.filme_list);
-router.get('/shop/:idvenda/confirm', warecontrollers.filme_list);
-router.get('/shop/:idvenda/sucess', warecontrollers.filme_list);
-router.get('/tickets/admin', warecontrollers.filme_list);
-router.put('/edit/admin', warecontrollers.filme_list);
-router.get('/add/admin', warecontrollers.filme_list);
-router.get('/list/admin', warecontrollers.filme_list);
-router.get('/budget/admin', warecontrollers.filme_list);
-router.get('/budget/admin/:idorca', warecontrollers.filme_list);
-router.get('/metrics/admin/', warecontrollers.filme_list);
 router.post('/login', warecontrollers.filme_list);
 router.post('/signin/tipo', warecontrollers.filme_list);
 router.get('/signin/gestor', warecontrollers.filme_list);

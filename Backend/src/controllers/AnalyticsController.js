@@ -1,46 +1,42 @@
-const Analytics = require('../models/Analytics');
-const App = require('../models/App');
+const { Sequelize, fn, col } = require('sequelize');
+const Orcamentos = require('../models/orcamentos');
 
-const analyticsController = {};
+const adminController = {};
 
-// Pega analytics de uma app especifica
-analyticsController.getAppStats = async (req, res) => {
-  try {
-    const { appId } = req.params;
-    const analytics = await Analytics.findOne({ where: { appId } });
-    if (!analytics) {
-      return res.status(404).json({ error: 'Analytics not found for this app' });
+// Função para calcular métricas dos orçamentos
+adminController.getMetrics = async (req, res) => {
+    try {
+        // Soma dos custos dos orçamentos
+        const totalCost = await Orcamentos.sum('precoorcamento');
+
+        // Média dos custos dos orçamentos
+        const averageCost = await Orcamentos.findAll({
+            attributes: [[fn('AVG', col('precoorcamento')), 'averageCost']]
+        });
+
+        // Contagem de orçamentos por mês
+        const budgetsByMonth = await Orcamentos.findAll({
+            attributes: [
+                [fn('DATE_TRUNC', 'month', col('createdAt')), 'month'],
+                [fn('COUNT', col('idorc')), 'count']
+            ],
+            group: [fn('DATE_TRUNC', 'month', col('createdAt'))],
+            order: [[fn('DATE_TRUNC', 'month', col('createdAt')), 'ASC']]
+        });
+
+        // Mês com mais orçamentos
+        const mostBudgetsMonth = budgetsByMonth.reduce((max, item) => {
+            return item.dataValues.count > max.count ? { month: item.dataValues.month, count: item.dataValues.count } : max;
+        }, { month: null, count: 0 });
+
+        res.json({
+            totalCost,
+            averageCost: averageCost[0].dataValues.averageCost,
+            mostBudgetsMonth
+        });
+    } catch (error) {
+        res.status(500).json({ error: 'Error fetching metrics' });
     }
-    res.json(analytics);
-  } catch (error) {
-    res.status(500).json({ error: 'Error fetching analytics' });
-  }
 };
 
-// Pega analytics de todas as apps
-analyticsController.getAllStats = async (req, res) => {
-  try {
-    const analytics = await Analytics.findAll();
-    res.json(analytics);
-  } catch (error) {
-    res.status(500).json({ error: 'Error fetching all analytics' });
-  }
-};
-
-// Update analytics de uma app especifica
-analyticsController.updateAppStats = async (req, res) => {
-  try {
-    const { appId } = req.params;
-    const { downloads, purchases, rating } = req.body;
-    const analytics = await Analytics.findOne({ where: { appId } });
-    if (!analytics) {
-      return res.status(404).json({ error: 'Analytics not found for this app' });
-    }
-    await analytics.update({ downloads, purchases, rating });
-    res.json(analytics);
-  } catch (error) {
-    res.status(500).json({ error: 'Error updating analytics' });
-  }
-};
-
-module.exports = analyticsController;
+module.exports = adminController;
