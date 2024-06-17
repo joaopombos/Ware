@@ -202,13 +202,14 @@ export default ListAdmin;
 
 // Adicionar um novo software
 adminController.addSoftware = async (req, res) => {
-  const { nome, descricao, categoria, versao, precoproduto, logotipo, imagenssoftware } = req.body;
+  const { nome, descricao, categoria, idproduto,versao, precoproduto, logotipo, imagenssoftware } = req.body;
 
   try {
       const novoSoftware = await TipoSoftwares.create({
           nome,
           descricao,
           categoria,
+          idproduto,
           versao,
           precoproduto,
           logotipo,
@@ -216,6 +217,7 @@ adminController.addSoftware = async (req, res) => {
       });
       res.status(201).json(novoSoftware);
   } catch (error) {
+      console.error('Error adding software:', error);
       res.status(500).json({ error: 'Error adding software' });
   }
 };

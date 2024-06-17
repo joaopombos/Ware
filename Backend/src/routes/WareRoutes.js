@@ -10,10 +10,10 @@ const analyticsController = require('../controllers/AnalyticsController');
 
 //22 endreços
 //router.get('/home');
-router.post('/signup_comprador', clientesController.createC_gestor);
+router.post('/signup_comprador', clientesController.createC_gestor);  // Feito
 
 //router.get('/shop');
-router.get('/shop/c_gestor', comprasController.listCategoriesOrSoftwares);
+router.get('/shop/c_gestor', comprasController.listCategoriesOrSoftwares); //
 router.get('/shop/', comprasController.listCategoriesOrSoftwares);
 router.get('/shop/:idproduto/',comprasController.softwareDetails);
 router.get('/shop/:idvenda/confirm', comprasController.confirmOrder);
@@ -23,9 +23,9 @@ router.get('/shop/:idvenda/sucess', comprasController.purchaseSuccess);
 router.get('/tickets/admin', ticketController.listTickets);
 router.put('/tickets/admin', ticketController.updateTicketStatus);
 router.get('/list/admin', appController.listSoftwares);
-router.put('/edit/admin', appController.updateSoftware);
+router.put('/update/admin', appController.updateSoftware);
 router.delete('/edit/admin', appController.deleteSoftware);
-router.post('/add/admin', appController.addSoftware);
+router.post('/add/admin', appController.addSoftware);          //Adicionar Softwares Feito - Talvez meter idproduto autoIncrement?
 router.get('/budget/admin', appController.listBudgets);
 router.get('/budget/admin/:idorca', appController.getBudgetDetails);
 router.post('/budget/admin/:idorca', appController.respondToBudget);
