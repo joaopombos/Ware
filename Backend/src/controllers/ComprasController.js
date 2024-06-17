@@ -70,7 +70,7 @@ shopController.delete = async (req, res) => {
   }
 };
 
-// Função unificada para listar categorias ou softwares baseado na presença do parâmetro 'categoria'
+// Função unificada para listar categorias ou softwares baseado na presnça do parâmetro 'categoria'
 shopController.listCategoriesOrSoftwares = async (req, res) => {
     const { categoria } = req.query; // Captura 'categoria' da query string
 
