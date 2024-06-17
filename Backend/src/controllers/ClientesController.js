@@ -19,7 +19,7 @@ clientesController.list = async (req, res) => {
 };
 
 function generatePassword() {
-  return crypto.randomBytes(4).toString('hex'); // Gera uma senha aleatória de 8 caracteres
+  return crypto.randomBytes(6).toString('hex'); // Gera uma senha aleatória de 8 caracteres
 }
 // Add a new client
 clientesController.createC_gestor = async (req, res) => {
@@ -46,11 +46,11 @@ clientesController.createC_gestor = async (req, res) => {
 
     // Configurar o transportador de e-mail
     let transporter = nodemailer.createTransport({
-      host: 'smtp.elasticemail.com', // Servidor SMTP do Elastic Email
-      port: 2525, // Porta SMTP padrão para Elastic Email
+      host: 'smtp-relay.brevo.com', // Servidor SMTP do Elastic Email
+      port: 587, // Porta SMTP padrão para Elastic Email
       auth: {
-        user: 'rodrigo.pina113@gmail.com', // Substitua pelo seu usuário Elastic Email
-        pass: '363CF2C4502785F25C162D2AC1846370EA5C' // Substitua pela sua chave API Elastic Email
+        user: '76a8dd002@smtp-brevo.com', // Substitua pelo seu usuário Elastic Email
+        pass: 'aIUpR5yJwXVBqLGN' // Substitua pela sua chave API Elastic Email
       },
 
       from: 'rodrigo.pina113@gmail.com'
@@ -58,10 +58,10 @@ clientesController.createC_gestor = async (req, res) => {
 
     // Configurar as opções do e-mail
     let mailOptions = {
-      from: '"Empresa XYZ" <your-email@example.com>', // Substitua pelo remetente
+      from: '"Ware" <rodrigo.pina113@gmail.com>', // Substitua pelo remetente
       to: email, // Destinatário
       subject: 'Seu Código Pessoal',
-      text: `Olá ${nome},\n\nSeu código pessoal é: ${codigopessoal}\n\nObrigado!`,
+      text: `Olá ${nome},\n\nO teu código pessoal é: ${codigopessoal}\n\nObrigado!`,
       html: `<p>Olá ${nome},</p><p>Seu código pessoal é: <strong>${codigopessoal}</strong></p><p>Obrigado!</p>`
     };
 
