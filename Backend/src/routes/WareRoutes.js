@@ -33,6 +33,61 @@ router.get('/metrics/admin', analyticsController.getMetrics); //Feito - Tive que
 
 
 
+/* Solução das sessões dos utlizaores e bloquear rotas
+
+const express = require('express');
+const router = express.Router();
+const clientesController = require('../controllers/ClientesController');
+const comprasController = require('../controllers/ComprasController');
+const appController = require('../controllers/AppController');
+const ticketController = require('../controllers/TicketController');
+const analyticsController = require('../controllers/AnalyticsController');
+
+// Middlewares
+const { isAuthenticated, isBuyer, isManager } = require('../middlewares/auth');
+
+// Rotas
+
+// Rota de cadastro de comprador
+router.post('/signup_comprador', clientesController.createC_gestor);
+
+// Rotas de loja acessíveis aos compradores
+router.get('/shop/c_gestor/:categoria', isAuthenticated, isBuyer, comprasController.listCategoriesOrSoftwares);
+router.get('/shop/', isAuthenticated, isBuyer, comprasController.listCategoriesOrSoftwares);
+router.get('/shop/:idproduto/', isAuthenticated, isBuyer, comprasController.softwareDetails);
+router.get('/shop/:idvenda/confirm', isAuthenticated, isBuyer, comprasController.confirmOrder);
+router.get('/shop/:idvenda/success', isAuthenticated, isBuyer, comprasController.purchaseSuccess);
+
+// Rotas do administrador (gestor)
+router.get('/list/tickets', isAuthenticated, isManager, ticketController.listTickets);
+router.put('/update/tickets/:idticket', isAuthenticated, isManager, ticketController.updateTicketStatus);
+router.get('/list/admin', isAuthenticated, isManager, appController.listSoftwares);
+router.put('/update/admin/:idproduto', isAuthenticated, isManager, appController.updateSoftware);
+router.delete('/edit/admin/:idproduto', isAuthenticated, isManager, appController.deleteSoftware);
+router.post('/add/admin', isAuthenticated, isManager, appController.addSoftware);
+router.get('/budget/admin', isAuthenticated, isManager, appController.listBudgets);
+router.get('/budget/admin/:idorca', isAuthenticated, isManager, appController.getBudgetDetails);
+router.post('/budget/admin/:idorca', isAuthenticated, isManager, appController.respondToBudget);
+router.get('/metrics/admin', isAuthenticated, isManager, analyticsController.getMetrics);
+
+module.exports = router;
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*
 router.post('/login', warecontrollers.filme_list);
