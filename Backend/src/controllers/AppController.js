@@ -1,6 +1,7 @@
 const TipoSoftwares = require('../models/tipossoftwares');
 const Orcamentos = require('../models/orcamentos');
 const Clientes = require('../models/clientes');
+const SoftwaresAdquiridos = require('../models/softwaresadquiridos');
 const nodemailer = require('nodemailer');
 const { Op } = require('sequelize');
 
@@ -508,6 +509,99 @@ export default BudgetDetails;
 
 */
 
+
+
+// Listar todos os softwares adquiridos para a empresa do usuário logado
+adminController.listAcquiredSoftwares = async (req, res) => {
+    const { nif } = req.user; // Supondo que o `nif` do usuário logado está disponível em `req.user`
+
+    try {
+        // Encontrar o cliente pelo NIF do usuário logado
+        const cliente = await Clientes.findOne({ where: { nif } });
+        if (!cliente) {
+            return res.status(404).json({ error: 'Client not found' });
+        }
+
+        // Listar todos os softwares adquiridos pela empresa do cliente
+        const softwares = await SoftwaresAdquiridos.findAll({ where: { nif: cliente.emp_nif } });
+        res.json(softwares);
+    } catch (error) {
+        res.status(500).json({ error: 'Error fetching acquired softwares' });
+    }
+};
+
+
+/* Logica middleware e frontend para '/library'
+
+
+// middlewares/auth.js
+const jwt = require('jsonwebtoken');
+const Clientes = require('../models/clientes');
+
+const authenticate = async (req, res, next) => {
+    const token = req.header('Authorization').replace('Bearer ', '');
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const cliente = await Clientes.findOne({ where: { iduser: decoded.iduser } });
+        if (!cliente) {
+            throw new Error();
+        }
+        req.user = cliente;
+        next();
+    } catch (error) {
+        res.status(401).json({ error: 'Please authenticate.' });
+    }
+};
+
+module.exports = { authenticate };
+
+
+
+
+FrontEnd
+
+
+
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
+const Library = () => {
+    const [softwares, setSoftwares] = useState([]);
+
+    useEffect(() => {
+        const fetchSoftwares = async () => {
+            try {
+                const response = await axios.get('/library', {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('token')}` // Supondo que o token está armazenado no localStorage
+                    }
+                });
+                setSoftwares(response.data);
+            } catch (error) {
+                console.error('Error fetching acquired softwares:', error);
+            }
+        };
+
+        fetchSoftwares();
+    }, []);
+
+    return (
+        <div>
+            <h1>Softwares Adquiridos</h1>
+            <ul>
+                {softwares.map(software => (
+                    <li key={software.chaveproduto}>
+                        <p>Nome: {software.nome}</p>
+                        <p>Chave do Produto: {software.chaveproduto}</p>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
+};
+
+export default Library;
+*/
 
 
 

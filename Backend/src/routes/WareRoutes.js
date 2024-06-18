@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const warecontrollers = require('../controllers/WareControllers');
+const licencaController = require('../controllers/LicencasControllers');
 const clientesController = require('../controllers/ClientesController');
 const comprasController = require('../controllers/ComprasController');
 const appController = require('../controllers/AppController');
 const ticketController = require('../controllers/TicketController');
 const analyticsController = require('../controllers/AnalyticsController');
+const { authenticate } = require('../middlewares/auth'); // Middleware de autenticação '/library'
 
 
 //20 endreços
@@ -30,8 +31,20 @@ router.get('/budget/admin', appController.listBudgets);           //Feito Falta 
 router.get('/budget/admin/:idorca', appController.getBudgetDetails);  //Feito Falta criar Orçamento  
 router.post('/budget/admin/:idorca', appController.respondToBudget);  //Feito Falta criar Orçamento 
 router.get('/metrics/admin', analyticsController.getMetrics); //Feito - Tive que simplificar e retirar as datas porque nao temos na tabela orç
+router.get('/library', authenticate, appController.listAcquiredSoftwares);
+router.get('/license', authenticate, licencaController.getSoftwareLicenses);
+router.post('/license', authenticate, licencaController.distributeLicense);
+router.delete('/license', authenticate, licencaController.removeLicense);
+router.post('/license', authenticate, licencaController.sendTicket);
+router.post('/login', clientesController.login);
 
-
+/* router.post('/login', warecontrollers.filme_list);
+router.post('/signin/tipo', warecontrollers.filme_list);
+router.get('/signin/gestor', warecontrollers.filme_list);
+router.get('/signin/sucess', warecontrollers.filme_list);
+router.post('/signin/c_gestor', warecontrollers.filme_list);
+router.get('/library', warecontrollers.filme_list);
+router.get('/license', warecontrollers.filme_list); */
 
 /* Solução das sessões dos utlizaores e bloquear rotas
 

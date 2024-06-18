@@ -4,6 +4,7 @@ const Empresas = require('../models/empresas');
 const TipoUser = require('../models/tipouser');
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
+const jwt = require('jsonwebtoken'); //Usado para Login
 
 
 const clientesController = {};
@@ -110,5 +111,129 @@ clientesController.delete = async (req, res) => {
     res.status(500).json({ error: 'Error deleting client' });
   }
 };
+
+
+
+
+
+
+
+
+
+
+const jwt = require('jsonwebtoken');
+
+
+// Função de login
+clientesController.login = async (req, res) => {
+    const { email, codigopessoal } = req.body;
+
+    try {
+        // Tentar encontrar um cliente com as credenciais fornecidas
+        let user = await Clientes.findOne({ where: { email, codigopessoal } });
+
+        // Se não encontrar um cliente, tentar encontrar uma empresa
+        if (!user) {
+            user = await Empresas.findOne({ where: { email, codigopessoal } });
+        }
+
+        if (!user) {
+            return res.status(401).json({ error: 'Invalid credentials' });
+        }
+
+        // Gerar um token JWT
+        const token = jwt.sign({ nif: user.nif }, process.env.JWT_SECRET, {
+            expiresIn: '1h'
+        });
+
+        res.json({ token });
+    } catch (error) {
+        res.status(500).json({ error: 'Error logging in' });
+    }
+};
+
+
+/* Sugestão Middleware e Frontend '/login'
+
+// middlewares/auth.js
+const jwt = require('jsonwebtoken');
+const Clientes = require('../models/clientes');
+
+const authenticate = async (req, res, next) => {
+    const token = req.header('Authorization').replace('Bearer ', '');
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const cliente = await Clientes.findOne({ where: { nif: decoded.nif } });
+        if (!cliente) {
+            throw new Error();
+        }
+        req.user = cliente;
+        next();
+    } catch (error) {
+        res.status(401).json({ error: 'Please authenticate.' });
+    }
+};
+
+module.exports = { authenticate };
+
+
+
+
+FRONTEND
+
+
+
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+
+const Login = () => {
+    const [email, setEmail] = useState('');
+    const [codigopessoal, setCodigopessoal] = useState('');
+    const history = useHistory();
+
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post('/login', { email, codigopessoal });
+            localStorage.setItem('token', response.data.token);
+            history.push('/library'); // Redirecionar para a página da biblioteca após login
+        } catch (error) {
+            console.error('Error logging in:', error);
+            alert('Credenciais inválidas. Tente novamente.');
+        }
+    };
+
+    return (
+        <div>
+            <h1>Login</h1>
+            <form onSubmit={handleLogin}>
+                <div>
+                    <label>Email:</label>
+                    <input
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                </div>
+                <div>
+                    <label>Código Pessoal:</label>
+                    <input
+                        type="password"
+                        value={codigopessoal}
+                        onChange={(e) => setCodigopessoal(e.target.value)}
+                    />
+                </div>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    );
+};
+
+export default Login;
+
+
+*/
+
 
 module.exports = clientesController;
