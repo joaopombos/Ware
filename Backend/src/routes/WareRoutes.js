@@ -13,9 +13,9 @@ const analyticsController = require('../controllers/AnalyticsController');
 router.post('/signup_comprador', clientesController.createC_gestor);  // Feito
 
 //router.get('/shop');
-router.get('/shop/c_gestor', comprasController.listCategoriesOrSoftwares); 
+router.get('/shop/c_gestor/:categoria', comprasController.listCategoriesOrSoftwares); 
 router.get('/shop/', comprasController.listCategoriesOrSoftwares);
-router.get('/shop/:idproduto/',comprasController.softwareDetails);
+router.get('/shop/:idproduto/',comprasController.softwareDetails); //Feito
 router.get('/shop/:idvenda/confirm', comprasController.confirmOrder);
 router.get('/shop/:idvenda/sucess', comprasController.purchaseSuccess);
 
