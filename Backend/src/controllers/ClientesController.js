@@ -4,7 +4,7 @@ const Empresas = require('../models/empresas');
 const TipoUser = require('../models/tipouser');
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
-const jwt = require('jsonwebtoken'); //Usado para Login
+
 
 
 const clientesController = {};

@@ -205,4 +205,4 @@ export default License;
 
 */
 
-module.exports = userController;
+module.exports = licencaController;

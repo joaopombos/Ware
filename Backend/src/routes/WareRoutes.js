@@ -1,12 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const licencaController = require('../controllers/LicencasControllers');
+const licencaController = require('../controllers/LicencasController');
 const clientesController = require('../controllers/ClientesController');
 const comprasController = require('../controllers/ComprasController');
 const appController = require('../controllers/AppController');
 const ticketController = require('../controllers/TicketController');
 const analyticsController = require('../controllers/AnalyticsController');
-const { authenticate } = require('../middlewares/auth'); // Middleware de autenticação '/library'
 
 
 //20 endreços
@@ -31,11 +30,11 @@ router.get('/budget/admin', appController.listBudgets);           //Feito Falta 
 router.get('/budget/admin/:idorca', appController.getBudgetDetails);  //Feito Falta criar Orçamento  
 router.post('/budget/admin/:idorca', appController.respondToBudget);  //Feito Falta criar Orçamento 
 router.get('/metrics/admin', analyticsController.getMetrics); //Feito - Tive que simplificar e retirar as datas porque nao temos na tabela orç
-router.get('/library', authenticate, appController.listAcquiredSoftwares);
-router.get('/license', authenticate, licencaController.getSoftwareLicenses);
-router.post('/license', authenticate, licencaController.distributeLicense);
-router.delete('/license', authenticate, licencaController.removeLicense);
-router.post('/license', authenticate, licencaController.sendTicket);
+router.get('/library', appController.listAcquiredSoftwares);
+router.get('/license', licencaController.getSoftwareLicenses);
+router.post('/license',  licencaController.distributeLicense);
+router.delete('/license', licencaController.removeLicense);
+router.post('/license',  licencaController.sendTicket);
 router.post('/login', clientesController.login);
 
 /* router.post('/login', warecontrollers.filme_list);
@@ -82,9 +81,9 @@ router.get('/budget/admin', isAuthenticated, isManager, appController.listBudget
 router.get('/budget/admin/:idorca', isAuthenticated, isManager, appController.getBudgetDetails);
 router.post('/budget/admin/:idorca', isAuthenticated, isManager, appController.respondToBudget);
 router.get('/metrics/admin', isAuthenticated, isManager, analyticsController.getMetrics);
-
-module.exports = router;
 */
+module.exports = router;
+
 
 
 
