@@ -8,7 +8,7 @@ const ticketController = require('../controllers/TicketController');
 const analyticsController = require('../controllers/AnalyticsController');
 
 
-//22 endreços
+//20 endreços
 //router.get('/home');
 router.post('/signup_comprador', clientesController.createC_gestor);
 
