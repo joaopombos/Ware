@@ -13,23 +13,23 @@ const analyticsController = require('../controllers/AnalyticsController');
 router.post('/signup_comprador', clientesController.createC_gestor);  // Feito
 
 //router.get('/shop');
-router.get('/shop/c_gestor', comprasController.listCategoriesOrSoftwares); //
+router.get('/shop/c_gestor', comprasController.listCategoriesOrSoftwares); 
 router.get('/shop/', comprasController.listCategoriesOrSoftwares);
 router.get('/shop/:idproduto/',comprasController.softwareDetails);
 router.get('/shop/:idvenda/confirm', comprasController.confirmOrder);
 router.get('/shop/:idvenda/sucess', comprasController.purchaseSuccess);
 
 //router.get('/admin');
-router.get('/tickets/admin', ticketController.listTickets);
-router.put('/tickets/admin', ticketController.updateTicketStatus);
-router.get('/list/admin', appController.listSoftwares);
-router.put('/update/admin', appController.updateSoftware);
-router.delete('/edit/admin', appController.deleteSoftware);
-router.post('/add/admin', appController.addSoftware);          //Adicionar Softwares Feito - Talvez meter idproduto autoIncrement?
-router.get('/budget/admin', appController.listBudgets);
-router.get('/budget/admin/:idorca', appController.getBudgetDetails);
-router.post('/budget/admin/:idorca', appController.respondToBudget);
-router.get('/metrics/admin', analyticsController.getMetrics);
+router.get('/list/tickets', ticketController.listTickets);  //Feito - Falta criar ticket - Nome do Software ou idproduto       
+router.put('/update/tickets/:idticket', ticketController.updateTicketStatus);   //Feito  - Falta Criar Ticket - Nome Software ou Idproduto  
+router.get('/list/admin', appController.listSoftwares);             // Feito
+router.put('/update/admin/:idproduto', appController.updateSoftware);   //Feito
+router.delete('/edit/admin/:idproduto', appController.deleteSoftware);   //Feito
+router.post('/add/admin', appController.addSoftware);          //Feito - Talvez meter idproduto autoIncrement?
+router.get('/budget/admin', appController.listBudgets);           //Feito Falta criar Orçamento 
+router.get('/budget/admin/:idorca', appController.getBudgetDetails);  //Feito Falta criar Orçamento  
+router.post('/budget/admin/:idorca', appController.respondToBudget);  //Feito Falta criar Orçamento 
+router.get('/metrics/admin', analyticsController.getMetrics); //Feito - Tive que simplificar e retirar as datas porque nao temos na tabela orç
 
 
 

@@ -1,5 +1,7 @@
 const TipoSoftwares = require('../models/tipossoftwares');
 const Orcamentos = require('../models/orcamentos');
+const Clientes = require('../models/clientes');
+const nodemailer = require('nodemailer');
 const { Op } = require('sequelize');
 
 const adminController = {};
@@ -386,48 +388,53 @@ adminController.getBudgetDetails = async (req, res) => {
 
 // Enviar resposta por escrito para o email do comprador
 adminController.respondToBudget = async (req, res) => {
-  const { idorca } = req.params;
-  const { resposta } = req.body;
+    const { idorca } = req.params;
+    const { resposta } = req.body;
 
-  try {
-      const budget = await Orcamentos.findByPk(idorca);
-      if (!budget) {
-          return res.status(404).json({ error: 'Budget not found' });
-      }
+    try {
+        const budget = await Orcamentos.findByPk(idorca);
+        if (!budget) {
+            return res.status(404).json({ error: 'Budget not found' });
+        }
 
-      const cliente = await Clientes.findOne({ where: { nif: budget.nif } });
-      if (!cliente) {
-          return res.status(404).json({ error: 'Client not found' });
-      }
+        const cliente = await Clientes.findOne({ where: { nif: budget.nif } });
+        if (!cliente) {
+            return res.status(404).json({ error: 'Client not found' });
+        }
 
-      // Configurar o transporte de email
-      let transporter = nodemailer.createTransport({
-          service: 'Gmail',
-          auth: {
-              user: 'seuemail@gmail.com', // Coloque aqui o email de onde será enviado
-              pass: 'suasenha' // Coloque aqui a senha do email
-          }
-      });
+        // Configurar o transporte de e-mail com o servidor SMTP do Elastic Email
+        let transporter = nodemailer.createTransport({
+            host: 'smtp-relay.brevo.com', // Servidor SMTP do Elastic Email
+            port: 587, // Porta SMTP padrão para Elastic Email
+            auth: {
+                user: '76a8dd002@smtp-brevo.com', // Substitua pelo seu usuário Elastic Email
+                pass: 'aIUpR5yJwXVBqLGN' // Substitua pela sua chave API Elastic Email
+            }
+        });
 
-      // Configurar email
-      let mailOptions = {
-          from: 'seuemail@gmail.com', // O mesmo email do usuário do transporter
-          to: cliente.email,
-          subject: `Resposta ao Orçamento ${budget.idorc}`,
-          text: resposta
-      };
+        // Configurar email
+        let mailOptions = {
+            from: '"Ware" <rodrigo.pina113@gmail.com>', // O mesmo email do usuário do transporter
+            to: cliente.email, // E-mail do destinatário obtido do cliente
+            subject: `Resposta ao Orçamento`,
+            text: resposta // Conteúdo do e-mail
+        };
 
-      // Enviar email
-      transporter.sendMail(mailOptions, (error, info) => {
-          if (error) {
-              return res.status(500).json({ error: 'Error sending email' });
-          }
-          res.json({ message: 'Response sent successfully' });
-      });
-  } catch (error) {
-      res.status(500).json({ error: 'Error responding to budget' });
-  }
+        // Enviar email
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                return res.status(500).json({ error: 'Error sending email', details: error.message });
+            }
+            res.json({ message: 'Response sent successfully' });
+        });
+    } catch (error) {
+        res.status(500).json({ error: 'Error responding to budget', details: error.message });
+    }
 };
+
+
+
+
 
 
 
