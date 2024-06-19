@@ -1,13 +1,17 @@
 const express = require('express');
-const app = express();
-const sequelize = require('./src/models/database'); 
-//Configurações
-app.set('port', process.env.PORT || 3000);
-//Middlewares
-app.use(express.json());
-//Rotas
+const session = require('express-session');
+const PgSession = require('connect-pg-simple')(session);
+const sequelize = require('./src/models/database');
+const pool = require('../Backend/src/models/database'); 
 const rotas = require('./src/routes/WareRoutes');
-app.use(rotas);
+
+const app = express();
+
+// Configurações
+app.set('port', process.env.PORT || 3000);
+
+// Middlewares
+app.use(express.json());
 
 // Configurar CORS
 app.use((req, res, next) => {
@@ -18,6 +22,22 @@ app.use((req, res, next) => {
   next();
 });
 
+// Configurar sessão
+app.use(session({
+  store: new PgSession({
+    pool: pool,
+    tableName: 'session'
+  }),
+  secret: 'seuSegredoAqui',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: false } // Defina como true em produção com HTTPS
+}));
+
+// Rotas
+app.use(rotas);
+
+// Sincronizar modelos com o banco de dados
 sequelize.sync()
   .then(() => {
     console.log('Modelo sincronizado com o banco de dados.');
@@ -25,11 +45,6 @@ sequelize.sync()
   .catch(err => {
     console.error('Erro ao sincronizar o modelo:', err);
   });
-
-// Rotas
-app.use(rotas);
-
-
 
 // Iniciar servidor
 const PORT = process.env.PORT || 3000;
