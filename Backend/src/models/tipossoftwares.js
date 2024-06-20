@@ -1,5 +1,5 @@
 const { Sequelize, DataTypes } = require('sequelize');
-var sequelize = require('./database'); // Adjust the path as necessary
+var sequelize = require('./database'); // Adjust the path as necessar
 
 const TipoSoftwares = sequelize.define('tipossoftwares', {
   categoria: {
