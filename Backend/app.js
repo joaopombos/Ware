@@ -31,7 +31,7 @@ app.use(session({
   secret: 'seuSegredoAqui',
   resave: false,
   saveUninitialized: false,
-  cookie: { secure: false } // Defina como true em produção com HTTPS
+  cookie: { secure: false } // Para testes locais sem HTTPS
 }));
 
 // Rotas
