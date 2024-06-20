@@ -2,6 +2,7 @@ const TipoSoftwares = require('../models/tipossoftwares');
 const Orcamentos = require('../models/orcamentos');
 const Clientes = require('../models/clientes');
 const SoftwaresAdquiridos = require('../models/softwaresadquiridos');
+const Addons = require('../models/addons');
 const nodemailer = require('nodemailer');
 const { Op } = require('sequelize');
 
@@ -602,6 +603,19 @@ const Library = () => {
 
 export default Library;
 */
+
+
+// Listar addons de um software específico
+userController.listAddons = async (req, res) => {
+    const { idproduto } = req.params;
+
+    try {
+        const addons = await Addons.findAll({ where: { idproduto } });
+        res.json(addons);
+    } catch (error) {
+        res.status(500).json({ error: 'Error fetching addons' });
+    }
+};
 
 
 

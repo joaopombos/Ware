@@ -26,6 +26,7 @@ router.get('/license', isAuthenticated, licencaController.getSoftwareLicenses);
 router.post('/license', isAuthenticated, licencaController.distributeLicense);
 router.delete('/license', isAuthenticated, licencaController.removeLicense);
 router.post('/license', isAuthenticated, licencaController.sendTicket);
+router.get('/license', isAuthenticated, appController.listAddons);
 
 // Rotas do administrador
 router.get('/list/tickets', isAuthenticated, isAdmin, ticketController.listTickets);
