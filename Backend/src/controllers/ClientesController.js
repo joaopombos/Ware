@@ -1,40 +1,41 @@
-// controllers/ClientesController.js
 const Clientes = require('../models/clientes');
 const Empresas = require('../models/empresas');
 const TipoUser = require('../models/tipouser');
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
-const jwt = require('jsonwebtoken'); //Usado para Login
-
+const jwt = require('jsonwebtoken');
+const pool = require('../models/database');
 
 const clientesController = {};
 
-// List all clients
+// Função para gerar senha aleatória
+function generatePassword() {
+  return crypto.randomBytes(6).toString('hex'); // Gera uma senha aleatória de 8 caracteres
+}
+
+// Listar todos os clientes
 clientesController.list = async (req, res) => {
   try {
     const clients = await Clientes.findAll({ include: [Empresas, TipoUser] });
     res.json(clients);
   } catch (error) {
-    res.status(500).json({ error: 'Error fetching clients' });
+    res.status(500).json({ error: 'Erro ao buscar clientes' });
   }
 };
 
-function generatePassword() {
-  return crypto.randomBytes(6).toString('hex'); // Gera uma senha aleatória de 8 caracteres
-}
-// Add a new client
+// Adicionar um novo cliente
 clientesController.createC_gestor = async (req, res) => {
   try {
-    const { emp_nif, iduser, nome, email, contacto, nif} = req.body;
+    const { emp_nif, iduser, nome, email, contacto, nif } = req.body;
 
     // Verificar campos obrigatórios
     if (!emp_nif || !iduser || !nif) {
       return res.status(400).json({
-        error: 'Missing required fields',
+        error: 'Faltam campos obrigatórios',
         details: [
-          !emp_nif && 'emp_nif cannot be null',
-          !iduser && 'iduser cannot be null',
-          !nif && 'nif cannot be null'
+          !emp_nif && 'emp_nif não pode ser nulo',
+          !iduser && 'iduser não pode ser nulo',
+          !nif && 'nif não pode ser nulo'
         ].filter(Boolean).join(', ')
       });
     }
@@ -42,25 +43,23 @@ clientesController.createC_gestor = async (req, res) => {
     const codigopessoal = generatePassword();
 
     // Criar o cliente
-    const client = await Clientes.create({ emp_nif, iduser, nome, email, codigopessoal, contacto, nif});
-
+    const client = await Clientes.create({ emp_nif, iduser, nome, email, codigopessoal, contacto, nif });
 
     // Configurar o transportador de e-mail
     let transporter = nodemailer.createTransport({
-      host: 'smtp-relay.brevo.com', // Servidor SMTP do Elastic Email
-      port: 587, // Porta SMTP padrão para Elastic Email
+      host: 'smtp-relay.brevo.com',
+      port: 587,
       auth: {
-        user: '76a8dd002@smtp-brevo.com', // Substitua pelo seu usuário Elastic Email
-        pass: 'aIUpR5yJwXVBqLGN' // Substitua pela sua chave API Elastic Email
+        user: '76a8dd002@smtp-brevo.com',
+        pass: 'aIUpR5yJwXVBqLGN'
       },
-
       from: 'rodrigo.pina113@gmail.com'
     });
 
     // Configurar as opções do e-mail
     let mailOptions = {
-      from: '"Ware" <rodrigo.pina113@gmail.com>', // Substitua pelo remetente
-      to: email, // Destinatário
+      from: '"Ware" <rodrigo.pina113@gmail.com>',
+      to: email,
       subject: 'Seu Código Pessoal',
       text: `Olá ${nome},\n\nO teu código pessoal é: ${codigopessoal}\n\nObrigado!`,
       html: `<p>Olá ${nome},</p><p>Seu código pessoal é: <strong>${codigopessoal}</strong></p><p>Obrigado!</p>`
@@ -69,17 +68,17 @@ clientesController.createC_gestor = async (req, res) => {
     // Enviar o e-mail
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
-        return res.status(500).json({ error: 'Error sending email', details: error.message });
+        return res.status(500).json({ error: 'Erro ao enviar e-mail', details: error.message });
       }
       res.status(201).json(client);
     });
 
   } catch (error) {
-    res.status(500).json({ error: 'Error creating client', details: error.message });
+    res.status(500).json({ error: 'Erro ao criar cliente', details: error.message });
   }
 };
 
-// Update a client
+// Atualizar um cliente
 clientesController.update = async (req, res) => {
   try {
     const { NIF } = req.params;
@@ -89,68 +88,72 @@ clientesController.update = async (req, res) => {
       await client.update({ EMP_NIF, IDUSER, NOME, EMAIL, CODIGOPESSOAL, CONTACTO });
       res.json(client);
     } else {
-      res.status(404).json({ error: 'Client not found' });
+      res.status(404).json({ error: 'Cliente não encontrado' });
     }
   } catch (error) {
-    res.status(500).json({ error: 'Error updating client' });
+    res.status(500).json({ error: 'Erro ao atualizar cliente' });
   }
 };
 
-// Delete a client
+// Deletar um cliente
 clientesController.delete = async (req, res) => {
   try {
     const { NIF } = req.params;
     const client = await Clientes.findByPk(NIF);
     if (client) {
       await client.destroy();
-      res.json({ message: 'Client deleted' });
+      res.json({ message: 'Cliente deletado' });
     } else {
-      res.status(404).json({ error: 'Client not found' });
+      res.status(404).json({ error: 'Cliente não encontrado' });
     }
   } catch (error) {
-    res.status(500).json({ error: 'Error deleting client' });
+    res.status(500).json({ error: 'Erro ao deletar cliente' });
   }
 };
 
-
-
-
-
-
-
-
-
-
-const jwt = require('jsonwebtoken');
-
-
 // Função de login
+
 clientesController.login = async (req, res) => {
-    const { email, codigopessoal } = req.body;
+  const { email, codigopessoal } = req.body;
 
-    try {
-        // Tentar encontrar um cliente com as credenciais fornecidas
-        let user = await Clientes.findOne({ where: { email, codigopessoal } });
+  try {
+    // Busca o cliente pelo email e código pessoal
+    const client = await Clientes.findOne({
+      where: { email, codigopessoal }
+    });
 
-        // Se não encontrar um cliente, tentar encontrar uma empresa
-        if (!user) {
-            user = await Empresas.findOne({ where: { email, codigopessoal } });
-        }
-
-        if (!user) {
-            return res.status(401).json({ error: 'Invalid credentials' });
-        }
-
-        // Gerar um token JWT
-        const token = jwt.sign({ nif: user.nif }, process.env.JWT_SECRET, {
-            expiresIn: '1h'
-        });
-
-        res.json({ token });
-    } catch (error) {
-        res.status(500).json({ error: 'Error logging in' });
+    // Se o cliente não existir
+    if (!client) {
+      return res.status(401).json({ error: 'Credenciais inválidas' });
     }
+
+    // Criação do token JWT
+    const token = jwt.sign(
+      { id: client.nif, email: client.email, role: client.iduser },
+      'seuSegredoAqui', // Chave secreta para assinatura do token
+      { expiresIn: '1h' } // Tempo de expiração do token (opcional)
+    );
+
+    res.status(200).json({ token });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Erro no servidor' });
+  }
 };
+
+// Função de logout
+clientesController.logout = (req, res) => {
+  req.session.destroy(err => {
+    if (err) {
+      return res.status(500).send('Erro ao encerrar a sessão.');
+    }
+    res.status(200).send('Logout realizado com sucesso.');
+  });
+};
+
+module.exports = clientesController;
+
+
 
 
 /* Sugestão Middleware e Frontend '/login'
@@ -236,4 +239,3 @@ export default Login;
 */
 
 
-module.exports = clientesController;
