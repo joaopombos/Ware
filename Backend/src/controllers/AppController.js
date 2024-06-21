@@ -524,9 +524,16 @@ adminController.listAcquiredSoftwares = async (req, res) => {
         }
 
         // Listar todos os softwares adquiridos pela empresa do cliente
-        const softwares = await SoftwaresAdquiridos.findAll({ where: { nif: cliente.emp_nif } });
+        const softwares = await SoftwaresAdquiridos.findAll({ where: { emp_nif: cliente.emp_nif } });
+        
+        // Verificar se há softwares encontrados
+        if (!softwares || softwares.length === 0) {
+            return res.status(404).json({ error: 'No acquired softwares found for this client' });
+        }
+
         res.json(softwares);
     } catch (error) {
+        console.error('Error fetching acquired softwares:', error);
         res.status(500).json({ error: 'Error fetching acquired softwares' });
     }
 };

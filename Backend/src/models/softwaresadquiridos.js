@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize');
+
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('softwaresadquiridos', {
     nome: {
@@ -17,6 +18,10 @@ module.exports = function(sequelize, DataTypes) {
         model: 'empresas',
         key: 'nif'
       }
+    },
+    versaoadquirida: { // Nova coluna adicionada
+      type: DataTypes.STRING(30), // Tipo STRING com tamanho máximo de 30 caracteres
+      allowNull: true // Permitindo valores nulos, ajuste conforme necessário
     }
   }, {
     sequelize,
