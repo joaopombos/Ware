@@ -1,104 +1,125 @@
-const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = require('./database');
-
-const Addons = sequelize.define('ADDONS', {
-  IDADDON: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    primaryKey: true
-  },
-  CATEGORIA: {
-    type: DataTypes.STRING(30)
-  },
-  IDPLANOS: {
-    type: DataTypes.INTEGER,
-    references: {
-      model: 'PLANOS', // Nome da tabela referenciada
-      key: 'IDPLANOS'
-    }
-  },
-  IDWARE: {
-    type: DataTypes.INTEGER,
-    references: {
-      model: 'WARE', // Nome da tabela referenciada
-      key: 'IDWARE'
-    }
-  },
-  IDPRODUTO: {
-    type: DataTypes.INTEGER,
-    references: {
-      model: 'TIPOSSOFTWARES', // Nome da tabela referenciada
-      key: 'IDPRODUTO'
-    }
-  },
-  IDORCAMENTO: {
-    type: DataTypes.INTEGER,
-    references: {
-      model: 'ORCAMENTOS', // Nome da tabela referenciada
-      key: 'IDORC'
-    }
-  },
-  LOGOTIPO: {
-    type: DataTypes.BLOB
-  },
-  NOME: {
-    type: DataTypes.STRING(30)
-  },
-  VERSAO: {
-    type: DataTypes.STRING(10)
-  },
-  DESCRICAO: {
-    type: DataTypes.STRING(250)
-  },
-  IMAGENSADDON: {
-    type: DataTypes.BLOB
-  },
-  PRECO: {
-    type: DataTypes.REAL
-  }
-}, {
-  sequelize,
-  tableName: 'ADDONS',
-  timestamps: false,
-  indexes: [
-    {
-      name: "ADDONS_PK",
-      unique: true,
-      fields: [
-        { name: "IDADDON" }
-      ]
+const Sequelize = require('sequelize');
+module.exports = function(sequelize, DataTypes) {
+  return sequelize.define('addons', {
+    idaddon: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      references: {
+        model: 'avaliacoes',
+        key: 'idavaliacao'
+      }
     },
-    {
-      name: "RELATIONSHIP_ADDON_PLANOS",
-      fields: [
-        { name: "IDPLANOS" }
-      ]
+    categoria: {
+      type: DataTypes.STRING(30),
+      allowNull: true
     },
-    {
-      name: "RELATIONSHIP_ADDON_WARE",
-      fields: [
-        { name: "IDWARE" }
-      ]
+    idplanos: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: 'planos',
+        key: 'idplanos'
+      }
     },
-    {
-      name: "RELATIONSHIP_ADDON_TIPOSSOFTWARES",
-      fields: [
-        { name: "IDPRODUTO" }
-      ]
+    idware: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: 'ware',
+        key: 'idware'
+      }
     },
-    {
-      name: "RELATIONSHIP_ADDON_ORCAMENTOS",
-      fields: [
-        { name: "IDORCAMENTO" }
-      ]
+    idproduto: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: 'tipossoftwares',
+        key: 'idproduto'
+      }
     },
-    {
-      name: "RELATIONSHIP_ADDON_AVALIACOES",
-      fields: [
-        { name: "IDADDON" }
-      ]
+    idorcamento: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: 'orcamentos',
+        key: 'idorc'
+      }
+    },
+    logotipo: {
+      type: DataTypes.BLOB,
+      allowNull: true
+    },
+    nome: {
+      type: DataTypes.STRING(30),
+      allowNull: true
+    },
+    versao: {
+      type: DataTypes.STRING(10),
+      allowNull: true
+    },
+    descricao: {
+      type: DataTypes.STRING(250),
+      allowNull: true
+    },
+    imagensaddon: {
+      type: DataTypes.BLOB,
+      allowNull: true
+    },
+    preco: {
+      type: DataTypes.REAL,
+      allowNull: true
     }
-  ]
-});
-
-module.exports = Addons;
+  }, {
+    sequelize,
+    tableName: 'addons',
+    schema: 'public',
+    timestamps: false,
+    indexes: [
+      {
+        name: "addons_pk",
+        unique: true,
+        fields: [
+          { name: "idaddon" },
+        ]
+      },
+      {
+        name: "pk_addons",
+        unique: true,
+        fields: [
+          { name: "idaddon" },
+        ]
+      },
+      {
+        name: "relationship_addon_avaliacoes",
+        fields: [
+          { name: "idaddon" },
+        ]
+      },
+      {
+        name: "relationship_addon_orcamentos",
+        fields: [
+          { name: "idorcamento" },
+        ]
+      },
+      {
+        name: "relationship_addon_planos",
+        fields: [
+          { name: "idplanos" },
+        ]
+      },
+      {
+        name: "relationship_addon_tipossoftwares",
+        fields: [
+          { name: "idproduto" },
+        ]
+      },
+      {
+        name: "relationship_addon_ware",
+        fields: [
+          { name: "idware" },
+        ]
+      },
+    ]
+  });
+};

@@ -606,7 +606,7 @@ export default Library;
 
 
 // Listar addons de um software específico
-userController.listAddons = async (req, res) => {
+adminController.listAddons = async (req, res) => {
     const { idproduto } = req.params;
 
     try {

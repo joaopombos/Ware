@@ -1,18 +1,20 @@
 var DataTypes = require("sequelize").DataTypes;
-var _avaliacoes = require("./Avaliacoes");
-var _clientes = require("./clientes");
-var _empresas = require("./empresas");
-var _licencasatribuidas = require("./licencasatribuidas");
-var _orcamentos = require("./orcamentos");
-var _pedidos = require("./pedidos");
-var _planos = require("./planos");
-var _softwaresadquiridos = require("./softwaresadquiridos");
-var _tickets = require("./tickets");
-var _tipossoftwares = require("./tipossoftwares");
-var _tipouser = require("./tipouser");
-var _ware = require("./ware");
+var _addons = require("./addons");
+var _avaliacoes = require("../models2/avaliacoes");
+var _clientes = require("../models2/clientes");
+var _empresas = require("../models2/empresas");
+var _licencasatribuidas = require("../models2/licencasatribuidas");
+var _orcamentos = require("../models2/orcamentos");
+var _pedidos = require("../models2/pedidos");
+var _planos = require("../models2/planos");
+var _softwaresadquiridos = require("../models2/softwaresadquiridos");
+var _tickets = require("../models2/tickets");
+var _tipossoftwares = require("../models2/tipossoftwares");
+var _tipouser = require("../models2/tipouser");
+var _ware = require("../models2/ware");
 
 function initModels(sequelize) {
+  var addons = _addons(sequelize, DataTypes);
   var avaliacoes = _avaliacoes(sequelize, DataTypes);
   var clientes = _clientes(sequelize, DataTypes);
   var empresas = _empresas(sequelize, DataTypes);
@@ -26,6 +28,10 @@ function initModels(sequelize) {
   var tipouser = _tipouser(sequelize, DataTypes);
   var ware = _ware(sequelize, DataTypes);
 
+  avaliacoes.belongsTo(addons, { as: "idavaliacao_addon", foreignKey: "idavaliacao"});
+  addons.hasOne(avaliacoes, { as: "avaliaco", foreignKey: "idavaliacao"});
+  addons.belongsTo(avaliacoes, { as: "idaddon_avaliaco", foreignKey: "idaddon"});
+  avaliacoes.hasOne(addons, { as: "addon", foreignKey: "idaddon"});
   orcamentos.belongsTo(clientes, { as: "nif_cliente", foreignKey: "nif"});
   clientes.hasMany(orcamentos, { as: "orcamentos", foreignKey: "nif"});
   pedidos.belongsTo(clientes, { as: "nif_cliente", foreignKey: "nif"});
@@ -36,24 +42,29 @@ function initModels(sequelize) {
   empresas.hasMany(clientes, { as: "clientes", foreignKey: "emp_nif"});
   softwaresadquiridos.belongsTo(empresas, { as: "nif_empresa", foreignKey: "nif"});
   empresas.hasMany(softwaresadquiridos, { as: "softwaresadquiridos", foreignKey: "nif"});
+  addons.belongsTo(orcamentos, { as: "idorcamento_orcamento", foreignKey: "idorcamento"});
+  orcamentos.hasMany(addons, { as: "addons", foreignKey: "idorcamento"});
   planos.belongsTo(pedidos, { as: "idvenda_pedido", foreignKey: "idvenda"});
   pedidos.hasMany(planos, { as: "planos", foreignKey: "idvenda"});
+  addons.belongsTo(planos, { as: "idplanos_plano", foreignKey: "idplanos"});
+  planos.hasMany(addons, { as: "addons", foreignKey: "idplanos"});
   tipossoftwares.belongsTo(planos, { as: "idplanos_plano", foreignKey: "idplanos"});
   planos.hasMany(tipossoftwares, { as: "tipossoftwares", foreignKey: "idplanos"});
   licencasatribuidas.belongsTo(softwaresadquiridos, { as: "chaveproduto_softwaresadquirido", foreignKey: "chaveproduto"});
   softwaresadquiridos.hasMany(licencasatribuidas, { as: "licencasatribuidas", foreignKey: "chaveproduto"});
+  addons.belongsTo(tipossoftwares, { as: "idproduto_tipossoftware", foreignKey: "idproduto"});
+  tipossoftwares.hasMany(addons, { as: "addons", foreignKey: "idproduto"});
   avaliacoes.belongsTo(tipossoftwares, { as: "idproduto_tipossoftware", foreignKey: "idproduto"});
   tipossoftwares.hasMany(avaliacoes, { as: "avaliacos", foreignKey: "idproduto"});
   orcamentos.belongsTo(tipossoftwares, { as: "idproduto_tipossoftware", foreignKey: "idproduto"});
   tipossoftwares.hasMany(orcamentos, { as: "orcamentos", foreignKey: "idproduto"});
   clientes.belongsTo(tipouser, { as: "iduser_tipouser", foreignKey: "iduser"});
   tipouser.hasMany(clientes, { as: "clientes", foreignKey: "iduser"});
-  clientes.belongsTo(ware, { as: "idware_ware", foreignKey: "idware"});
-  ware.hasMany(clientes, { as: "clientes", foreignKey: "idware"});
-  tipossoftwares.belongsTo(ware, { as: "idware_ware", foreignKey: "idware"});
-  ware.hasMany(tipossoftwares, { as: "tipossoftwares", foreignKey: "idware"});
+  addons.belongsTo(ware, { as: "idware_ware", foreignKey: "idware"});
+  ware.hasMany(addons, { as: "addons", foreignKey: "idware"});
 
   return {
+    addons,
     avaliacoes,
     clientes,
     empresas,
