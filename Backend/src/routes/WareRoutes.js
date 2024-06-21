@@ -15,7 +15,7 @@ router.post('/signin/gestor', clientesController.create_gestor);
 router.post('/login', clientesController.login);
 router.get('/logout', clientesController.logout);
 
-// Rotas de loja acessíveis aos compradores
+// Rotas de loja acessíveis aos compradore
 router.get('/shop/c_gestor/:categoria', isAuthenticated, isBuyer, comprasController.listCategoriesOrSoftwares);
 router.get('/shop/', isAuthenticated, isBuyer, comprasController.listCategoriesOrSoftwares);
 router.get('/shop/:idproduto/', isAuthenticated, isBuyer, comprasController.softwareDetails);
