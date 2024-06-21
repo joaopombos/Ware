@@ -18,6 +18,7 @@ router.post('/login', clientesController.login);
 router.get('/shop/c_gestor/:categoria', isAuthenticated, isBuyer, comprasController.listCategoriesOrSoftwares);
 router.get('/shop/', isAuthenticated, isBuyer, comprasController.listCategoriesOrSoftwares);
 router.get('/shop/:idproduto/', isAuthenticated, isBuyer, comprasController.softwareDetails);
+router.get('/shop/:idproduto/', isAuthenticated, appController.compareAndUpdateSoftware);    //NOVO
 router.get('/shop/:idvenda/confirm', isAuthenticated, isBuyer, comprasController.confirmOrder);
 router.get('/shop/:idvenda/success', isAuthenticated, isBuyer, comprasController.purchaseSuccess);
 
@@ -28,6 +29,7 @@ router.post('/license', isAuthenticated, licencaController.distributeLicense);
 router.delete('/license', isAuthenticated, licencaController.removeLicense);
 router.post('/license', isAuthenticated, licencaController.sendTicket);
 router.get('/license', isAuthenticated, appController.listAddons);
+router.get('/license', isAuthenticated, appController.compareAndUpdateSoftware);   //NOVO
 
 // Rotas do administrador
 router.get('/list/tickets', isAuthenticated, isAdmin, ticketController.listTickets);

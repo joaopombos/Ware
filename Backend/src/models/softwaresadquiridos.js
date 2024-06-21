@@ -19,7 +19,7 @@ module.exports = function(sequelize, DataTypes) {
         key: 'nif'
       }
     },
-    versaoadquirida: { // Nova coluna adicionada
+    versaoadquirida: {
       type: DataTypes.STRING(30), // Tipo STRING com tamanho máximo de 30 caracteres
       allowNull: true // Permitindo valores nulos, ajuste conforme necessário
     }

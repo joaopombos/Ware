@@ -626,4 +626,89 @@ adminController.listAddons = async (req, res) => {
 
 
 
+
+// Função para comparar versões e atualizar software se necessário
+adminController.compareAndUpdateSoftware = async (req, res) => {
+    const { chaveproduto } = req.params;
+
+    try {
+        // Buscar o software adquirido pela chave do produto
+        const softwareAdquirido = await SoftwaresAdquiridos.findOne({ where: { chaveproduto } });
+        if (!softwareAdquirido) {
+            return res.status(404).json({ error: 'Acquired software not found' });
+        }
+
+        // Buscar o software no modelo de tipos de software
+        const tipoSoftware = await TipoSoftwares.findOne({ where: { idproduto: softwareAdquirido.idproduto } });
+        if (!tipoSoftware) {
+            return res.status(404).json({ error: 'Software type not found' });
+        }
+
+        // Comparar as versões
+        if (softwareAdquirido.versaoadquirida !== tipoSoftware.versao) {
+            // Atualizar a entrada no modelo de softwares adquiridos
+            await softwareAdquirido.update({
+                nome: tipoSoftware.nome,
+                versaoadquirida: tipoSoftware.versao
+            });
+            return res.json({ message: 'Software updated successfully', softwareAdquirido });
+        }
+
+        res.json({ message: 'Software is up to date', softwareAdquirido });
+    } catch (error) {
+        res.status(500).json({ error: 'Error comparing and updating software' });
+    }
+};
+
+/* Sugestão front end 
+
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+
+const CompareSoftware = () => {
+    const { chaveproduto } = useParams();
+    const [software, setSoftware] = useState(null);
+    const [message, setMessage] = useState('');
+
+    useEffect(() => {
+        const compareAndUpdateSoftware = async () => {
+            try {
+                const response = await axios.get(`/library/${chaveproduto}/compare`, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+                setSoftware(response.data.softwareAdquirido);
+                setMessage(response.data.message);
+            } catch (error) {
+                console.error('Error comparing and updating software:', error);
+            }
+        };
+
+        compareAndUpdateSoftware();
+    }, [chaveproduto]);
+
+    if (!software) {
+        return <div>Loading...</div>;
+    }
+
+    return (
+        <div>
+            <h1>Verificação de Versão do Software</h1>
+            <p>{message}</p>
+            <p>Nome do Software: {software.nome}</p>
+            <p>Versão Adquirida: {software.versaoadquirida}</p>
+        </div>
+    );
+};
+
+export default CompareSoftware;
+
+
+*/
+
+
+
+
 module.exports = adminController;
