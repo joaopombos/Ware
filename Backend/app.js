@@ -4,6 +4,7 @@ const PgSession = require('connect-pg-simple')(session);
 const sequelize = require('./src/models/database');
 const pool = require('../Backend/src/models/database'); 
 const rotas = require('./src/routes/WareRoutes');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 
@@ -34,6 +35,7 @@ app.use(session({
   cookie: { secure: false } // Para testes locais sem HTTPS
 }));
 
+app.use(cookieParser());
 // Rotas
 app.use(rotas);
 
