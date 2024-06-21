@@ -113,6 +113,9 @@ clientesController.delete = async (req, res) => {
 
 // Função de login
 
+const jwtSecret = 'seuSegredoAqui'; // Chave secreta para assinatura do token
+const jwtExpiresIn = '1h'; // Tempo de expiração do token (opcional)
+
 clientesController.login = async (req, res) => {
   const { email, codigopessoal } = req.body;
 
@@ -130,10 +133,18 @@ clientesController.login = async (req, res) => {
     // Criação do token JWT
     const token = jwt.sign(
       { id: client.nif, email: client.email, role: client.iduser },
-      'seuSegredoAqui', // Chave secreta para assinatura do token
-      { expiresIn: '1h' } // Tempo de expiração do token (opcional)
+      jwtSecret,
+      { expiresIn: jwtExpiresIn }
     );
 
+    // Configuração do cookie
+    res.cookie('auth_token', token, {
+      httpOnly: true, // Evita o acesso do lado do cliente via JavaScript
+      secure: process.env.NODE_ENV === 'production', // Envia o cookie apenas em conexões HTTPS no ambiente de produção
+      maxAge: 3600000 // 1 hora
+    });
+
+    // Envia a resposta com o token no corpo (opcional)
     res.status(200).json({ token });
   } catch (error) {
     console.error(error);
@@ -149,6 +160,69 @@ clientesController.logout = (req, res) => {
     }
     res.status(200).send('Logout realizado com sucesso.');
   });
+};
+
+clientesController.create_gestor = async (req, res) => {
+  try {
+    const { emp_nif, nome, email } = req.body;
+
+    // Verificar campos obrigatórios
+    if (!emp_nif || !nome || !email) {
+      return res.status(400).json({
+        error: 'Faltam campos obrigatórios',
+        details: [
+          !emp_nif && 'emp_nif não pode ser nulo',
+          !nome && 'nome não pode ser nulo',
+          !email && 'email não pode ser nulo'
+        ].filter(Boolean).join(', ')
+      });
+    }
+
+    // Verificar se emp_nif existe
+    const empresaExistente = await Empresas.findOne({ where: { nif: emp_nif } });
+    if (!empresaExistente) {
+      return res.status(400).json({
+        error: 'emp_nif não é válido',
+        details: 'emp_nif fornecido não corresponde a nenhuma empresa existente'
+      });
+    }
+
+    const codigopessoal = generatePassword();
+
+    // Criar o cliente
+    const client = await Clientes.create({ emp_nif, nome, email, codigopessoal });
+
+    // Configurar o transportador de e-mail
+    let transporter = nodemailer.createTransport({
+      host: 'smtp-relay.brevo.com',
+      port: 587,
+      auth: {
+        user: '76a8dd002@smtp-brevo.com',
+        pass: 'aIUpR5yJwXVBqLGN'
+      },
+      from: 'rodrigo.pina113@gmail.com'
+    });
+
+    // Configurar as opções do e-mail
+    let mailOptions = {
+      from: '"Ware" <rodrigo.pina113@gmail.com>',
+      to: email,
+      subject: 'Seu Código Pessoal',
+      text: `Olá ${nome},\n\nO teu código pessoal é: ${codigopessoal}\n\nObrigado!`,
+      html: `<p>Olá ${nome},</p><p>Seu código pessoal é: <strong>${codigopessoal}</strong></p><p>Obrigado!</p>`
+    };
+
+    // Enviar o e-mail
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        return res.status(500).json({ error: 'Erro ao enviar e-mail', details: error.message });
+      }
+      res.status(201).json(client);
+    });
+
+  } catch (error) {
+    res.status(500).json({ error: 'Erro ao criar cliente', details: error.message });
+  }
 };
 
 module.exports = clientesController;
