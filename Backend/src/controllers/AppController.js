@@ -515,28 +515,28 @@ export default BudgetDetails;
 // Listar todos os softwares adquiridos para a empresa do usuário logado
 adminController.listAcquiredSoftwares = async (req, res) => {
     const { nif } = req.user; // Supondo que o `nif` do usuário logado está disponível em `req.user`
-
+  
     try {
-        // Encontrar o cliente pelo NIF do usuário logado
-        const cliente = await Clientes.findOne({ where: { nif } });
-        if (!cliente) {
-            return res.status(404).json({ error: 'Client not found' });
-        }
-
-        // Listar todos os softwares adquiridos pela empresa do cliente
-        const softwares = await SoftwaresAdquiridos.findAll({ where: { emp_nif: cliente.emp_nif } });
-        
-        // Verificar se há softwares encontrados
-        if (!softwares || softwares.length === 0) {
-            return res.status(404).json({ error: 'No acquired softwares found for this client' });
-        }
-
-        res.json(softwares);
+      // Encontrar o cliente pelo NIF do usuário logado
+      const cliente = await Clientes.findOne({ where: { nif } });
+      if (!cliente) {
+        return res.status(404).json({ error: 'Client not found' });
+      }
+  
+      // Listar todos os softwares adquiridos pela empresa do cliente
+      const softwares = await SoftwaresAdquiridos.findAll({ where: { emp_nif: cliente.emp_nif } });
+      
+      // Verificar se há softwares encontrados
+      if (!softwares || softwares.length === 0) {
+        return res.status(404).json({ error: 'No acquired softwares found for this client' });
+      }
+  
+      res.json(softwares);
     } catch (error) {
-        console.error('Error fetching acquired softwares:', error);
-        res.status(500).json({ error: 'Error fetching acquired softwares' });
+      console.error('Error fetching acquired softwares:', error);
+      res.status(500).json({ error: 'Error fetching acquired softwares' });
     }
-};
+  };
 
 
 /* Logica middleware e frontend para '/library'
