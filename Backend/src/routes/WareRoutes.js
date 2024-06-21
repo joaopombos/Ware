@@ -13,6 +13,7 @@ const { isAuthenticated, isBuyer, isManager, isAdmin } = require('../middlewares
 router.post('/signup_comprador', clientesController.createC_gestor);
 router.post('/signin/gestor', clientesController.create_gestor);
 router.post('/login', clientesController.login);
+router.get('/logout', clientesController.logout);
 
 // Rotas de loja acessíveis aos compradores
 router.get('/shop/c_gestor/:categoria', isAuthenticated, isBuyer, comprasController.listCategoriesOrSoftwares);

@@ -4,16 +4,24 @@ const jwtSecret = 'seuSegredoAqui'; // Chave secreta para assinatura do token
 
 function isAuthenticated(req, res, next) {
   const token = req.cookies.auth_token;
+
   if (!token) {
-    return res.status(401).send('Precisa de iniciar sessão para aceder!');
+    return res.status(401).send('Precisa iniciar sessão para aceder!');
   }
 
   try {
     const decoded = jwt.verify(token, jwtSecret);
     req.user = decoded;
+
+    // Verificar se o token decodificado contém o nif do usuário
+    if (!decoded.id) {
+      return res.status(401).send('Token inválido. Faça login novamente.');
+    }
+
+    // Continuar com a próxima função middleware
     return next();
   } catch (error) {
-    return res.status(401).send('Token inválido ou expirado. Por favor, faça login novamente.');
+    return res.status(401).send('Token inválido ou expirado. Faça login novamente.');
   }
 }
 

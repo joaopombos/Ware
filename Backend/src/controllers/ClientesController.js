@@ -6,6 +6,7 @@ const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const pool = require('../models/database');
 
+
 const clientesController = {};
 
 // Função para gerar senha aleatória
@@ -112,46 +113,35 @@ clientesController.delete = async (req, res) => {
 };
 
 // Função de login
-
-const jwtSecret = 'seuSegredoAqui'; // Chave secreta para assinatura do token
-const jwtExpiresIn = '1h'; // Tempo de expiração do token (opcional)
+const jwtSecret = 'seuSegredoAqui'; 
 
 clientesController.login = async (req, res) => {
   const { email, codigopessoal } = req.body;
 
   try {
-    // Busca o cliente pelo email e código pessoal
+    // Encontrar o cliente pelo email e codigopessoal
     const client = await Clientes.findOne({
       where: { email, codigopessoal }
     });
 
-    // Se o cliente não existir
+    // Se o cliente não for encontrado
     if (!client) {
       return res.status(401).json({ error: 'Credenciais inválidas' });
     }
 
-    // Criação do token JWT
+    // Criar token JWT com base no nif do cliente encontrado
     const token = jwt.sign(
       { id: client.nif, email: client.email, role: client.iduser },
       jwtSecret,
-      { expiresIn: jwtExpiresIn }
+      { expiresIn: '1h' }
     );
 
-    // Configuração do cookie
-    res.cookie('auth_token', token, {
-      httpOnly: true, // Evita o acesso do lado do cliente via JavaScript
-      secure: process.env.NODE_ENV === 'production', // Envia o cookie apenas em conexões HTTPS no ambiente de produção
-      maxAge: 3600000 // 1 hora
-    });
-
-    // Envia a resposta com o token no corpo (opcional)
     res.status(200).json({ token });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Erro no servidor' });
   }
 };
-
 // Função de logout
 clientesController.logout = (req, res) => {
   req.session.destroy(err => {
