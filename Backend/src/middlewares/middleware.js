@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const jwtSecret = 'seuSegredoAqui'; // Chave secreta para assinatura do token
+const jwtSecret = 'seuSegredoAqui'; // Chave secreta para assinatura do tokens
 
 function isAuthenticated(req, res, next) {
   const token = req.cookies.auth_token;
