@@ -514,29 +514,34 @@ export default BudgetDetails;
 
 // Listar todos os softwares adquiridos para a empresa do usuário logado
 adminController.listAcquiredSoftwares = async (req, res) => {
-    const { nif } = req.user; // Supondo que o `nif` do usuário logado está disponível em `req.user`
-  
     try {
-      // Encontrar o cliente pelo NIF do usuário logado
-      const cliente = await Clientes.findOne({ where: { nif } });
-      if (!cliente) {
-        return res.status(404).json({ error: 'Client not found' });
-      }
-  
-      // Listar todos os softwares adquiridos pela empresa do cliente
-      const softwares = await SoftwaresAdquiridos.findAll({ where: { emp_nif: cliente.emp_nif } });
-      
-      // Verificar se há softwares encontrados
-      if (!softwares || softwares.length === 0) {
-        return res.status(404).json({ error: 'No acquired softwares found for this client' });
-      }
-  
-      res.json(softwares);
+        const nif = req.cookies.nif; // Busca o NIF dos cookies
+
+        if (!nif) {
+            return res.status(400).json({ error: 'NIF do usuário não fornecido nos cookies' });
+        }
+
+        // Encontrar o cliente pelo NIF do usuário logado
+        const cliente = await Clientes.findOne({ where: { nif } });
+
+        if (!cliente) {
+            return res.status(404).json({ error: 'Cliente não encontrado' });
+        }
+
+        // Listar todos os softwares adquiridos pela empresa do cliente
+        const softwares = await SoftwaresAdquiridos.findAll({ where: { nif: cliente.emp_nif } });
+
+        // Verificar se há softwares encontrados
+        if (!softwares || softwares.length === 0) {
+            return res.status(404).json({ error: 'Nenhum software adquirido encontrado para este cliente' });
+        }
+
+        res.json(softwares);
     } catch (error) {
-      console.error('Error fetching acquired softwares:', error);
-      res.status(500).json({ error: 'Error fetching acquired softwares' });
+        console.error('Erro ao buscar softwares adquiridos:', error);
+        res.status(500).json({ error: 'Erro ao buscar softwares adquiridos' });
     }
-  };
+};
 
 
 /* Logica middleware e frontend para '/library'

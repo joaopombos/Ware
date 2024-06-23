@@ -13,6 +13,7 @@ app.set('port', process.env.PORT || 3000);
 
 // Middlewares
 app.use(express.json());
+app.use(cookieParser());
 
 // Configurar CORS
 app.use((req, res, next) => {
@@ -35,7 +36,6 @@ app.use(session({
   cookie: { secure: false } // Para testes locais sem HTTPS
 }));
 
-app.use(cookieParser());
 // Rotas
 app.use(rotas);
 
@@ -53,3 +53,5 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log("Servidor iniciado na porta " + PORT);
 });
+
+

@@ -1,65 +1,47 @@
 const jwt = require('jsonwebtoken');
+const jwtSecret = 'seuSegredoAqui';
 
-const jwtSecret = 'seuSegredoAqui'; // Chave secreta para assinatura do tokens
-
-function isAuthenticated(req, res, next) {
-  const token = req.cookies.auth_token;
+const isAuthenticated = (req, res, next) => {
+  // Tente obter o token do cookie
+  const token = req.cookies.token;
 
   if (!token) {
-    return res.status(401).send('Precisa iniciar sessão para aceder!');
+      return res.status(401).json({ error: 'Token não fornecido.' });
   }
 
-  try {
-    const decoded = jwt.verify(token, jwtSecret);
-    req.user = decoded;
+  jwt.verify(token, jwtSecret, (err, decoded) => {
+      if (err) {
+          return res.status(401).json({ error: 'Token inválido.' });
+      }
 
-    // Verificar se o token decodificado contém o nif do usuário
-    if (!decoded.id) {
-      return res.status(401).send('Token inválido. Faça login novamente.');
-    }
-
-    // Continuar com a próxima função middleware
-    return next();
-  } catch (error) {
-    return res.status(401).send('Token inválido ou expirado. Faça login novamente.');
-  }
-}
-
-function isBuyer(req, res, next) {
-  isAuthenticated(req, res, () => {
-    if (req.user && req.user.role === 2) {
-      return next();
-    } else {
-      return res.status(403).send('Acesso negado.');
-    }
+      req.user = decoded; // Aqui o req.user deve conter o nif do usuário entre outras informações
+      next();
   });
-}
-
-function isManager(req, res, next) {
-  isAuthenticated(req, res, () => {
-    if (req.user && req.user.role === 3) {
-      return next();
-    } else {
-      return res.status(403).send('Acesso negado.');
-    }
-  });
-}
-
-function isAdmin(req, res, next) {
-  isAuthenticated(req, res, () => {
-    if (req.user && req.user.role === 1) {
-      return next();
-    } else {
-      return res.status(403).send('Acesso negado.');
-    }
-  });
-}
-
-module.exports = {
-  isAuthenticated,
-  isBuyer,
-  isManager,
-  isAdmin
 };
+
+const isBuyer = (req, res, next) => {
+  if (req.user.iduser !== 2) {
+    return res.status(403).json({ error: 'Acesso negado.' });
+  }
+  next();
+};
+
+const isManager = (req, res, next) => {
+  if (req.user.iduser !== 3) {
+    return res.status(403).json({ error: 'Acesso negado.' });
+  }
+  next();
+};
+
+const isAdmin = (req, res, next) => {
+  if (req.user.iduser !== 1) {
+    return res.status(403).json({ error: 'Acesso negado.' });
+  }
+  next();
+};
+
+module.exports = { isAuthenticated, isBuyer, isManager, isAdmin };
+
+
 
   
