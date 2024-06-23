@@ -113,28 +113,41 @@ clientesController.delete = async (req, res) => {
 };
 
 // Função de login
-const jwtSecret = 'seuSegredoAqui'; 
+
+const jwtSecret = 'seuSegredoAqui';
 
 clientesController.login = async (req, res) => {
   const { email, codigopessoal } = req.body;
 
   try {
-    // Encontrar o cliente pelo email e codigopessoal
-    const client = await Clientes.findOne({
-      where: { email, codigopessoal }
-    });
+    // Validação de entrada
+    if (!email || !codigopessoal) {
+      return res.status(400).json({ error: 'Email e código pessoal são obrigatórios.' });
+    }
+
+    // Encontrar o cliente pelo email
+    const client = await Clientes.findOne({ where: { email } });
 
     // Se o cliente não for encontrado
     if (!client) {
       return res.status(401).json({ error: 'Credenciais inválidas' });
     }
 
-    // Criar token JWT com base no nif do cliente encontrado
+    // Comparar o codigopessoal diretamente
+    if (codigopessoal !== client.codigopessoal) {
+      return res.status(401).json({ error: 'Credenciais inválidas' });
+    }
+
+    // Criar token JWT
     const token = jwt.sign(
-      { id: client.nif, email: client.email, role: client.iduser },
+      { id: client.nif, email: client.email, iduser: client.iduser },
       jwtSecret,
       { expiresIn: '1h' }
     );
+
+    // Armazenar o token JWT e o NIF em cookies seguros
+    res.cookie('token', token, { httpOnly: true, secure: false, maxAge: 3600000 }); // 1 hora
+    res.cookie('nif', client.nif, { httpOnly: true, secure: false, maxAge: 3600000 }); // 1 hora
 
     res.status(200).json({ token });
   } catch (error) {
@@ -142,6 +155,30 @@ clientesController.login = async (req, res) => {
     res.status(500).json({ error: 'Erro no servidor' });
   }
 };
+
+// Função de logout
+clientesController.logout = (req, res) => {
+  req.session.destroy(err => {
+    if (err) {
+      return res.status(500).send('Erro ao encerrar a sessão.');
+    }
+    res.clearCookie('token');
+    res.clearCookie('nif');
+    res.status(200).send('Logout realizado com sucesso.');
+  });
+};
+
+// Função de logout
+clientesController.logout = (req, res) => {
+  req.session.destroy(err => {
+    if (err) {
+      return res.status(500).send('Erro ao encerrar a sessão.');
+    }
+    res.clearCookie('nif');
+    res.status(200).send('Logout realizado com sucesso.');
+  });
+};
+
 // Função de logout
 clientesController.logout = (req, res) => {
   req.session.destroy(err => {
