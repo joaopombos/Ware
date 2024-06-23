@@ -9,7 +9,7 @@ const ListarSoftwares = () => {
       <div className="row">
         <div id="sidebar" className="col-md-3">
           <div className="logo">
-            <img src="frontend/public/images/Logos/logotipo copy.svg" alt="Logo" />
+            <img src="/images/Logos/logotipo copy.svg" alt="Logo" />
           </div>
           <ul className="list-unstyled components">
             <li>

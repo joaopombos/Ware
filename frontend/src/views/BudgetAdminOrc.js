@@ -1,5 +1,3 @@
-// Orcamentos.js
-
 import React from 'react';
 import './budgetadminorc.css'; // Import the separated CSS file
 
@@ -9,7 +7,7 @@ const Orcamentos = () => {
       <div className="row">
         <div id="sidebar" className="col-md-3">
           <div className="logo">
-            <img src="frontend/public/images/Logos/logotipo copy.svg" alt="Logo" />
+            <img src="/images/Logos/logotipo copy.svg" alt="Logo" />
           </div>
           <ul className="list-unstyled components">
             <li>
@@ -41,9 +39,14 @@ const Orcamentos = () => {
           <div className="budget-container">
             <div className="budget-item">
               <h4>Orçamento #345</h4>
-              <p><strong>Nome Cliente:</strong> Nome do Cliente</p>
-              <p><strong>Email do Cliente:</strong> email@cliente.com</p>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+              <div className="client-info">
+                <p><strong>Nome Cliente:</strong> Nome do Cliente</p>
+                <p><strong>Email do Cliente:</strong> email@cliente.com</p>
+              </div>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+              <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+              <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+              <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
               <table className="table">
                 <thead>
                   <tr>
@@ -62,9 +65,9 @@ const Orcamentos = () => {
                   </tr>
                 </tbody>
               </table>
-              <div>
+              <div className="response-container">
                 <label htmlFor="response">Resposta</label>
-                <textarea id="response" className="form-control"></textarea>
+                <textarea id="response" className="form-control response-textarea"></textarea>
               </div>
               <button className="btn btn-success respond-button mt-2">Responder</button>
             </div>

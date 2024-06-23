@@ -1,14 +1,35 @@
-
-import React from 'react';
+import React, { useState } from 'react';
 import './budgetadmin.css'; // Import the separated CSS file
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Orcamentos = () => {
+  // Estado para controlar quais items estão expandidos
+  const [expandedItems, setExpandedItems] = useState({});
+
+  // Função para alternar a expansão de um item
+  const toggleExpand = (id) => {
+    setExpandedItems(prevState => ({
+      ...prevState,
+      [id]: !prevState[id]
+    }));
+  };
+
+  const budgetItems = [
+    { id: 572, status: 'new', text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...' },
+    { id: 577, status: 'new', text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...' },
+    { id: 467, status: 'responded', text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...' },
+    { id: 894, status: 'responded', text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...' },
+    { id: 356, status: 'responded', text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...' },
+    { id: 257, status: 'responded', text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...' },
+    { id: 197, status: 'responded', text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...' }
+  ];
+
   return (
     <div className="container-fluid">
       <div className="row">
         <div id="sidebar" className="col-md-3">
           <div className="logo">
-            <img src="frontend/public/images/Logos/logotipo copy.svg" alt="Logo" />
+            <img src="/images/Logos/logotipo copy.svg" alt="Logo" />
           </div>
           <ul className="list-unstyled components">
             <li>
@@ -38,69 +59,25 @@ const Orcamentos = () => {
         <div id="content" className="col-md-9">
           <h2>Orçamentos</h2>
           <div className="budget-container">
-            <div className="budget-item new">
-              <div className="details">
-                <strong>Orçamento #572 - Novo</strong>
-                <div className="extra-details">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...</p>
-                  <button className="btn btn-success respond-button">Responder</button>
+            {budgetItems.map(item => (
+              <div 
+                key={item.id} 
+                className={`budget-item ${item.status} ${expandedItems[item.id] ? 'expanded' : ''}`} 
+                onClick={() => toggleExpand(item.id)}
+              >
+                <div className="details">
+                  <strong>Orçamento #{item.id} - {item.status === 'new' ? 'Novo' : 'Respondido'}</strong>
+                  {expandedItems[item.id] && (
+                    <div className="extra-details">
+                      <p>{item.text}</p>
+                      <button className="btn btn-success respond-button">
+                        {item.status === 'new' ? 'Responder' : 'Ver Resposta'}
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
-            </div>
-            <div className="budget-item new">
-              <div className="details">
-                <strong>Orçamento #577 - Novo</strong>
-                <div className="extra-details">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...</p>
-                  <button className="btn btn-success respond-button">Responder</button>
-                </div>
-              </div>
-            </div>
-            <div className="budget-item responded">
-              <div className="details">
-                <strong>Orçamento #467 - Respondido</strong>
-                <div className="extra-details">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...</p>
-                  <button className="btn btn-success respond-button">Responder</button>
-                </div>
-              </div>
-            </div>
-            <div className="budget-item responded">
-              <div className="details">
-                <strong>Orçamento #894 - Respondido</strong>
-                <div className="extra-details">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...</p>
-                  <button className="btn btn-success respond-button">Responder</button>
-                </div>
-              </div>
-            </div>
-            <div className="budget-item responded">
-              <div className="details">
-                <strong>Orçamento #356 - Respondido</strong>
-                <div className="extra-details">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...</p>
-                  <button className="btn btn-success respond-button">Responder</button>
-                </div>
-              </div>
-            </div>
-            <div className="budget-item responded">
-              <div className="details">
-                <strong>Orçamento #257 - Respondido</strong>
-                <div className="extra-details">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...</p>
-                  <button className="btn btn-success respond-button">Responder</button>
-                </div>
-              </div>
-            </div>
-            <div className="budget-item responded">
-              <div className="details">
-                <strong>Orçamento #197 - Respondido</strong>
-                <div className="extra-details">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...</p>
-                  <button className="btn btn-success respond-button">Responder</button>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
