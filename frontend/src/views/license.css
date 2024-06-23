@@ -1,0 +1,28 @@
+.centered-div {
+    background-color: #f8f9fa; /* Light gray background */
+    border-radius: 0.25rem; /* Rounded corners */
+    padding: 1rem; /* Padding */
+    display: flex;
+    align-items: center;
+  }
+  
+  .product-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px; /* Space between items */
+  }
+  
+  .product-item img {
+    margin-right: 10px; /* Space between image and text */
+  }
+  
+  .app-card {
+    width: 50%;
+    height: auto;
+    border: none;
+    background-color: transparent;
+    margin-left: 4%;
+    margin-top: 4%;
+    margin-bottom: 4%;
+  }
+  
