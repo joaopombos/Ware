@@ -1,0 +1,22 @@
+.card {
+    width: 10rem;
+    box-shadow: 5px 0 10px rgba(0, 0, 0, 0.1);
+    border: none;
+    background-color: transparent;
+}
+
+.btn-img {
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.btn-img img {
+    width: 100%;
+    height: auto;
+}
+
+.navbar, .footer {
+    flex-shrink: 0;
+}

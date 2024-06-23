@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useState } from "react";
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 
 export default function EditComponent() {
     const [campTitulo, setCampTitulo] = useState("");
@@ -167,11 +168,205 @@ export default function EditComponent() {
                 </button>
             </div>
             {/* FIM CARROSSEL OS MAIS VENDIDOS */}
-            <footer class="footer bg-dark text-light text-center">
-                <div class="container">
-                    <span>&copy; Ware 2024</span>
+
+
+
+            <hr class="custom-hr" />
+
+            <h1 style={{ marginLeft: '5%', marginTop: '5%', marginBottom: '5%' }}>Últimas atualizações</h1>
+
+            <div id="carouselatualizacoes" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="row justify-content-center">
+                            <div class="col-6 d-flex flex-column align-items-center">
+                                <div class="card card-custom" style={{width: '70%', boxshadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none'}}>
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col-md-3">
+                                            <img src="images/newicons/excel.png" class="card-img" alt="..." />
+                                        </div>
+                                        <div class="col-md-8 d-flex justify-content-between align-items-center">
+                                            <div class="card-body">
+                                                <p class="card-text">Produtividade</p>
+                                                <h5 class="card-title">Microsoft Excel</h5>
+                                            </div>
+                                            <a href="#" class="btn btn-dark btn-sm" style={{marginright: '-15px'}}>Saber mais</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card card-custom mt-3" style={{width: '70%', boxshadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none'}}>
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col-md-3">
+                                            <img src="images/newicons/asana.png" class="card-img" alt="..." />
+                                        </div>
+                                        <div class="col-md-8 d-flex justify-content-between align-items-center">
+                                            <div class="card-body">
+                                                <p class="card-text">Comunicação</p>
+                                                <h5 class="card-title">Asana</h5>
+                                            </div>
+                                            <a href="#" class="btn btn-dark btn-sm" style={{marginright: '-15px'}}>Saber mais</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 d-flex flex-column align-items-center" style={{marginleft: '-5%'}}>
+                                <div class="card card-custom" style={{width: '70%', boxshadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none'}}>
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col-md-3">
+                                            <img src="images/newicons/dropbox.png" class="card-img" alt="..."/>
+                                        </div>
+                                        <div class="col-md-8 d-flex justify-content-between align-items-center">
+                                            <div class="card-body">
+                                                <p class="card-text">Produtivade</p>
+                                                <h5 class="card-title">DropBox</h5>
+                                            </div>
+                                            <a href="#" class="btn btn-dark btn-sm" style={{marginright: '-15px'}}>Saber mais</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card card-custom mt-3" style={{width: '70%', boxshadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none'}}>
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col-md-3">
+                                            <img src="images/newicons/miro.png" class="card-img" alt="..." />
+                                        </div>
+                                        <div class="col-md-8 d-flex justify-content-between align-items-center">
+                                            <div class="card-body">
+                                                <p class="card-text">Comunicação</p>
+                                                <h5 class="card-title">Miro</h5>
+                                            </div>
+                                            <a href="#" class="btn btn-dark btn-sm" style={{marginright: '-15px'}}>Saber mais</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="row justify-content-center">
+                            <div class="col-6 d-flex flex-column align-items-center">
+                                <div class="card card-custom" style={{width: '70%', boxshadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none'}}>
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col-md-3">
+                                            <img src="images/newicons/notion.png" class="card-img" alt="..." />
+                                        </div>
+                                        <div class="col-md-8 d-flex justify-content-between align-items-center">
+                                            <div class="card-body">
+                                                <p class="card-text">Produtivade</p>
+                                                <h5 class="card-title">Notion</h5>
+                                            </div>
+                                            <a href="#" class="btn btn-dark btn-sm" style={{marginright: '-15px'}}>Saber mais</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card card-custom mt-3" style={{width: '70%', boxshadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none'}}>
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col-md-3">
+                                            <img src="images/newicons/fcp.png" class="card-img" alt="..." />
+                                        </div>
+                                        <div class="col-md-8 d-flex justify-content-between align-items-center">
+                                            <div class="card-body">
+                                                <p class="card-text">Vídeo</p>
+                                                <h5 class="card-title">Final Cut Pro</h5>
+                                            </div>
+                                            <a href="#" class="btn btn-dark btn-sm" style={{marginright: '-15px'}}>Saber mais</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 d-flex flex-column align-items-center" style={{marginleft: '-5%'}}>
+                                <div class="card card-custom" style={{width: '70%', boxshadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none'}}>
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col-md-3">
+                                            <img src="images/newicons/office.png" class="card-img" alt="..." />
+                                        </div>
+                                        <div class="col-md-8 d-flex justify-content-between align-items-center">
+                                            <div class="card-body">
+                                                <p class="card-text">Produtividade</p>
+                                                <h5 class="card-title">Office 365</h5>
+                                            </div>
+                                            <a href="#" class="btn btn-dark btn-sm" style={{marginright: '-15px'}}>Saber mais</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card card-custom mt-3" style={{width: '70%', boxshadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none'}}>
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col-md-3">
+                                            <img src="images/newicons/slack.png" class="card-img" alt="..." />
+                                        </div>
+                                        <div class="col-md-8 d-flex justify-content-between align-items-center">
+                                            <div class="card-body">
+                                                <p class="card-text">Produtividade</p>
+                                                <h5 class="card-title">Slack</h5>
+                                            </div>
+                                            <a href="#" class="btn btn-dark btn-sm" style={{marginright: '-15px'}}>Saber mais</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </footer>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselatualizacoes" data-bs-slide="prev" >
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselatualizacoes" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+
+
+            <hr class="custom-hr"/>
+
+
+                <h1 style={{ marginLeft: '5%', marginTop: '5%', marginBottom: '5%' }}>Avaliações</h1>
+
+
+                <div class="container" style={{marginbottom: '5%'}}>
+                    <div class="row">
+                        <div class="col-md-4 d-flex justify-content-center">
+                            <div class="card" style={{width: 18 + 'rem', height: 23 + 'rem', boxshadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none', margintop: '50px'}}>
+                                <img src="images/icons/aspas.png" class="card-img-top img-fluid mx-auto d-block" style={{width: '70%', margintop:'30px',}} alt="..." />
+                                <div class="card-body text-center">
+                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisi lacus, venenatis at
+                                        est id, tristique viverra mauris. </p>
+                                    <p class="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
+                                    <p class="card-text mb-2">Categoria</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 d-flex justify-content-center">
+                            <div class="card" style={{width: 18 + 'rem', height: 23 + 'rem', boxshadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none', margintop: '50px'}}>
+                                <img src="images/icons/aspas.png" class="card-img-top img-fluid mx-auto d-block" style={{width: '70%', margintop:'30px'}} alt="..." />
+                                <div class="card-body text-center">
+                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisi lacus, venenatis at
+                                        est id, tristique viverra mauris. </p>
+                                    <p class="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
+                                    <p class="card-text mb-2">Categoria</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 d-flex justify-content-center">
+                            <div class="card" style={{width: 18 + 'rem', height: 23 + 'rem', boxshadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none', margintop:'50px'}}>
+                                <img src="images/icons/aspas.png" class="card-img-top img-fluid mx-auto d-block" style={{width: '70%', margintop:'30px'}} alt="..." />
+                                <div class="card-body text-center">
+                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisi lacus, venenatis at
+                                        est id, tristique viverra mauris. </p>
+                                    <p class="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
+                                    <p class="card-text mb-2">Categoria</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <footer class="footer bg-dark text-light text-center">
+                    <div class="container">
+                        <span>&copy; Ware 2024</span>
+                    </div>
+                </footer>
         </div>
     );
+
 }
