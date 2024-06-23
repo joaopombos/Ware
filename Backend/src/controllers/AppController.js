@@ -566,7 +566,7 @@ module.exports = { authenticate };
 
 
 
-FrontEnd
+Frontend
 
 
 
