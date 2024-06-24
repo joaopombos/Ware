@@ -31,11 +31,12 @@ const Success = () => {
                 </div>
             </div>
 
-            <footer className="footer bg-dark text-light text-center p-3">
-                <div className="container">
-                    <span>&copy; Ware 2024</span>
-                </div>
-            </footer>
+            
+            <footer class="footer bg-dark text-light">
+                <div class="container d-flex justify-content-center align-items-center">
+                    <span class="text-center">&copy; Ware 2024</span>
+                 </div>
+             </footer>
         </div>
     );
 };

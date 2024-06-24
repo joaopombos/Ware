@@ -54,7 +54,7 @@ const MySoftwares = () => {
 
             <h1 className="my-5" style={{ marginLeft: '5%' }}>Os meus softwares</h1>
 
-            <div className="container" style={{ marginBottom: '5%' }}>
+            <div className="container" style={{ marginBottom: '5%', marginTop:'-1%' }}>
                 <div className="row">
                     {renderCard()}
                     {renderCard()}
@@ -65,11 +65,11 @@ const MySoftwares = () => {
                 </div>
             </div>
 
-            <footer className="footer bg-dark text-light text-center p-3">
-                <div className="container">
-                    <span>&copy; Ware 2024</span>
-                </div>
-            </footer>
+            <footer class="footer bg-dark text-light fixed-bottom">
+        <div class="container d-flex justify-content-center align-items-center">
+          <span class="text-center">&copy; Ware 2024</span>
+        </div>
+      </footer>
         </div>
     );
 };
