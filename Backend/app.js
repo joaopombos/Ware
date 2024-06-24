@@ -1,18 +1,44 @@
 const express = require('express');
-const session = require('express-session');
-const PgSession = require('connect-pg-simple')(session);
-const sequelize = require('./src/models/database');
-const initModels = require('./src/models/init-models');
-const rotas = require('./src/routes/WareRoutes');
-const cookieParser = require('cookie-parser');
-
+const cors = require('cors');
 const app = express();
+const port = 3000;
+const router = require('../Backend/src/routes/WareRoutes');
+const sequelize = require('./src/models/database');
 
-// Configurações
-app.set('port', process.env.PORT || 3000);
+const Clientes = require('../Backend/src/models/clientes');
+const Empresas = require('../Backend/src/models/empresas');
+const TipoUser = require('../Backend/src/models/tipouser');
+const Addons = require('../Backend/src/models/addons');
+const Avaliacoes = require('../Backend/src/models/avaliacoes');
+const LicencasAtribuidas = require('../Backend/src/models/licencasatribuidas');
+const Orcamentos = require('../Backend/src/models/orcamentos');
+const Pedidos = require('../Backend/src/models/pedidos');
+const Planos = require('../Backend/src/models/planos');
+const SoftwaresAdquiridos = require('../Backend/src/models/softwaresadquiridos');
+const Tickets = require('../Backend/src/models/tickets');
+const TiposSoftwares = require('../Backend/src/models/tipossoftwares');
+const Ware = require('../Backend/src/models/ware');
 
-// Middlewares
 app.use(express.json());
+app.use(cors());
+app.use('/', router);
+
+async function syncModels() {
+  try {
+    await Empresas.sync();
+    await TipoUser.sync();
+    await Clientes.sync();
+    await Pedidos.sync();
+    await Planos.sync();
+    await Ware.sync();
+    await TiposSoftwares.sync();
+    await SoftwaresAdquiridos.sync();
+    await Tickets.sync();
+    await Orcamentos.sync();
+    await LicencasAtribuidas.sync();
+    await Addons.sync();
+    await Avaliacoes.sync();
+    console.log("All models were synchronized successfully.");
 app.use(cookieParser());
 
 // Configurar CORS
@@ -63,10 +89,13 @@ async function inicializarServidor() {
       console.log(`Servidor iniciado na porta ${PORT}`);
     });
   } catch (error) {
-    console.error('Erro ao sincronizar o modelo ou inserir tipos de usuário:', error);
-    process.exit(1);
+    console.error("Error synchronizing models:", error);
   }
 }
 
-// Chama a função para inicializar o servidor
-inicializarServidor();
+syncModels().then(() => {
+  app.listen(port, () => {
+  });
+});
+
+module.exports = app;

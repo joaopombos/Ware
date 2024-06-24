@@ -1,4 +1,4 @@
-const Clientes = require('../models/init-models').Clientes; // Verifique se o caminho do modelo está correto
+const Clientes = require('../models/clientes'); // Verifique se o caminho do modelo está correto
 const  Empresas  = require('../models/empresas');
 const TipoUser = require('../models/tipouser');
 const nodemailer = require('nodemailer');
