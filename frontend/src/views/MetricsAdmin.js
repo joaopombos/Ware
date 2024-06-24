@@ -60,16 +60,16 @@ const Metrics = () => {
         </div>
         <ul className="components">
           <li>
-            <a href="#"><i className="fas fa-ticket-alt"></i> Tickets</a>
+            <a href="/tickets/admin"><i className="fas fa-ticket-alt"></i> Tickets</a>
           </li>
           <li>
-            <a href="#"><i className="fas fa-edit"></i> Atualizar/Editar Software</a>
+            <a href="/edit/admin"><i className="fas fa-edit"></i> Atualizar/Editar Software</a>
           </li>
           <li>
-            <a href="#"><i className="fas fa-plus"></i> Adicionar Software</a>
+            <a href="/add/admin"><i className="fas fa-plus"></i> Adicionar Software</a>
           </li>
           <li>
-            <a href="#"><i className="fas fa-list"></i> Listar Software</a>
+            <a href=""><i className="fas fa-list"></i> Listar Software</a>
           </li>
           <li>
             <a href="#"><i className="fas fa-file-invoice-dollar"></i> Orçamentos</a>
@@ -79,7 +79,7 @@ const Metrics = () => {
           </li>
         </ul>
         <div className="logout-button">
-          <button className="btn btn-primary">Terminar Sessão</button>
+        <a href="/home" className="btn btn-primary">Terminar Sessão</a>
         </div>
       </div>
 

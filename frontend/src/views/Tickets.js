@@ -60,38 +60,39 @@ const App = () => {
         </div>
         <ul className="list-unstyled components">
           <li className="active">
-            <a href="#">
+            <a href="/tickets/admin">
               <i className="fas fa-ticket-alt"></i> Tickets
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="/edit/admin">
               <i className="fas fa-edit"></i> Atualizar/Editar Software
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="/add/admin">
               <i className="fas fa-plus"></i> Adicionar Software
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="/list/admin">
               <i className="fas fa-list"></i> Listar Software
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="/budget/admin">
               <i className="fas fa-file-invoice-dollar"></i> Orçamentos
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="/metrics/admin/">
               <i className="fas fa-chart-line"></i> Métricas de vendas
             </a>
           </li>
         </ul>
         <div className="logout-button">
-          <button className="btn btn-primary">Terminar Sessão</button>
+        <a href="/home" className="btn btn-primary">Terminar Sessão</a>
+
         </div>
       </div>
 

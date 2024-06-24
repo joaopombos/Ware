@@ -18,7 +18,8 @@ const Success = () => {
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarNavAltMarkup"></div>
-                    <button className="btn btn-outline-light me-2" type="button">Terminar Sessão</button>
+                    <a href="/home" className="btn btn-outline-light me-2" role="button">Terminar Sessão</a>
+
                 </div>
             </nav>
 
@@ -27,7 +28,7 @@ const Success = () => {
                     <i className="fas fa-check-circle fa-5x mb-4"></i>
                     <h1>Sucesso!</h1>
                     <p>Foi enviado um email para email@domain.com a confirmar a compra!</p>
-                    <a href="#" className="btn btn-primary">Ir para Os Meus Softwares</a>
+                    <a href="/library" className="btn btn-primary">Ir para Os Meus Softwares</a>
                 </div>
             </div>
 

@@ -67,7 +67,7 @@ function App() {
                     <button className="btn btn-outline-light me-2" style={{ marginLeft: '0.5%' }} type="button">
                         <i className="bi bi-cart4"></i>
                     </button>
-                    <button className="btn btn-outline-light me-2" type="button">Terminar Sessão</button>
+                    <a href="/home" className="btn btn-primary">Terminar Sessão</a>
                 </div>
             </nav>
             {/* FIM NAVBAR */}

@@ -33,7 +33,8 @@ export default function Sign_sucess() {
                                  Foi enviado um email para email@domain.com. Por favor introduza o código que recebeu para poder concluir o processo de criação de conta.
                              </p>
                              <div class="pt-1 mb-4" style={{ marginTop: "5%" }}>
-                                 <button class="btn btn-info btn-lg btn-dark" type="button">Continuar</button>
+                             <a href="/signup_comprador" class="btn btn-info btn-lg btn-dark" role="button">Continuar</a>
+
                              </div>
                          </form>
                       </div>

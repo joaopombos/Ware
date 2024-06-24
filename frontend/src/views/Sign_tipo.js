@@ -22,7 +22,8 @@ export default function Sign_tipo() {
                     </button>
                     <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                     </div>
-                    <button className="btn btn-outline-light me-2" type="button">Iniciar Sessão</button>
+                    <a className="btn btn-outline-light me-2" href="/home" role="button">Iniciar Sessão</a>
+
                 </div>
             </nav>
             <div className="d-flex justify-content-center align-items-center" style={{ height: "95vh" }}>
@@ -37,7 +38,7 @@ export default function Sign_tipo() {
                                 <li><i className="fas fa-times"></i> Compra de Softwares</li>
                             </ul>
                         </p>
-                        <a href="#" className="btn btn-dark" style={{ marginTop: "10%" }}>Selecionar</a>
+                        <a href="/signin/gestor" className="btn btn-dark" style={{ marginTop: "10%" }}>Selecionar</a>
                     </div>
                 </div>
                 <div className="card text-center mb-3 align-middle" style={{ width: '20rem', border: 'none', height: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: "5rem", backgroundColor: 'white' }}>
@@ -51,7 +52,7 @@ export default function Sign_tipo() {
                                 <li><i className="fas fa-check"></i> Compra de Softwares</li>
                             </ul>
                         </p>
-                        <a href="#" className="btn btn-dark" style={{ marginTop: '10%' }}>Selecionar</a>
+                        <a href="/signin/c_gestor" className="btn btn-dark" style={{ marginTop: '10%' }}>Selecionar</a>
                     </div>
                 </div>
             </div>

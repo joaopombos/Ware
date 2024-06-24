@@ -23,7 +23,8 @@ const ShopConfirm = () => {
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarNavAltMarkup"></div>
-                    <button className="btn btn-outline-light me-2" type="button">Terminar Sessão</button>
+                    <a href="/home" className="btn btn-outline-light me-2" role="button">Terminar Sessão</a>
+
                 </div>
             </nav>
             
@@ -99,7 +100,8 @@ const ShopConfirm = () => {
                                 <label className="form-check-label" htmlFor="bankOption">Referência multibanco</label>
                             </div>
                         </div>
-                        <button className="btn btn-primary mt-4">Feito</button>
+                        <a href="/shop/:idvenda/sucess" className="btn btn-primary mt-4">Feito</a>
+
                     </div>
                 </div>
             </div>

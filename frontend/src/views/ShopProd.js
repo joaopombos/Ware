@@ -147,7 +147,8 @@ export default function ShopProd() {
                             <p className="card-text">Programador</p>
                         </div>
                         <div className="d-flex justify-content-start align-items-center" style={{ marginLeft: 'auto', paddingRight: '10%' }}>
-                            <button className="btn btn-outline-danger btn-sm">Comprar</button>
+                        <a className="btn btn-outline-danger btn-sm" href="/shop/:idvenda/confirm" role="button">Comprar</a>
+
                             <p className="mb-0 ms-2">€</p>
                         </div>
                     </div>

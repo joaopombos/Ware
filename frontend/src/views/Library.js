@@ -38,7 +38,8 @@ const MySoftwares = () => {
                     <div className="collapse navbar-collapse" id="navbarNavAltMarkup" style={{ marginLeft: '-32%' }}>
                         <div className="navbar-nav">
                             <a className="nav-link active text-white" aria-current="page" href="principalcomprador.html">Explorar</a>
-                            <a className="nav-link text-white" href="librarycompgestor.html">Gestão</a>
+                            <a className="nav-link text-white" href="/license">Gestão</a>
+
                         </div>
                     </div>
                     <form className="d-flex" role="search">
@@ -48,7 +49,8 @@ const MySoftwares = () => {
                     <button className="btn btn-outline-light me-2" style={{ marginLeft: '0.5%' }} type="button">
                         <i className="bi bi-cart4"></i>
                     </button>
-                    <button className="btn btn-outline-light me-2" type="button">Terminar Sessão</button>
+                    <a href="/home" className="btn btn-primary">Terminar Sessão</a>
+
                 </div>
             </nav>
 

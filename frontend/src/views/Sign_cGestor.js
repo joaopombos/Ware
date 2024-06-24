@@ -74,9 +74,10 @@
                                 </label>
                             </div>
                             <div class="pt-1 mb-4" style={{marginTop: '5%'}}>
-                                <button class="btn btn-info btn-lg btn-dark" type="submit">Enviar código</button>
+                            <a class="btn btn-info btn-lg btn-dark" href="/signin/sucess" role="button">Enviar código</a>
+
                             </div>
-                            <p>Já tem conta? <a href="#!" class="link-info">Clique aqui.</a></p>
+                            <p>Já tem conta? <a href="/login" class="link-info">Clique aqui.</a></p>
                         </form>
                      </div>
                  </div>

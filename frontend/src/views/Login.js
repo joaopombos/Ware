@@ -70,14 +70,14 @@ export default function EditComponent() {
 
 
                     <div className="pt-1 mb-4">
-                    <a className="btn btn-info btn-lg btn-dark" href="/home" role="button">Login</a>
+                    <a className="btn btn-info btn-lg btn-dark" href="/signup_comprador" role="button">Login</a>
 
                     </div>
 
 
 
                     <p className="small mb-5 pb-lg-2"><a className="text-muted" href="#!">Esqueceu-se do código?</a></p>
-                    <p>Não tem conta? <a href="#!" className="link-info">Crie uma aqui.</a></p>
+                    <p>Não tem conta? <a href="/signin/tipo" className="link-info">Crie uma aqui.</a></p>
 
 
 
