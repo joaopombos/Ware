@@ -1,5 +1,5 @@
 // controllers/AvaliacoesController.js
-const Avaliacoes = require('../models/Avaliacoes');
+const Avaliacoes = require('../models/avaliacoes');
 const TiposSoftwares = require('../models/tipossoftwares');
 
 const avaliacoesController = {};

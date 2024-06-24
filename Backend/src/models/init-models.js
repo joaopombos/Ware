@@ -1,4 +1,5 @@
 const { DataTypes } = require('sequelize');
+const sequelize = require('../models/database');
 const defineAddons = require('./addons');
 const defineAvaliacoes = require('./avaliacoes');
 const defineClientes = require('./clientes');
@@ -48,6 +49,7 @@ function initModels(sequelize) {
   return {
     Addons,
     Avaliacoes,
+    Clientes,
     Orcamentos,
     Empresas,
     LicencasAtribuidas,
@@ -57,7 +59,6 @@ function initModels(sequelize) {
     Tickets,
     TiposSoftwares,
     TipoUser,
-    Clientes,
     Ware,
   };
 }
