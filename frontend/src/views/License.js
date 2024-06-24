@@ -62,7 +62,7 @@ function App() {
                     </div>
                     <form className="d-flex" role="search">
                         <input className="form-control me-2" type="search" placeholder="Procurar" aria-label="Search" />
-                        <button className="btn btn-outline-light" type="submit">Procurar</button>
+                        <a className="btn btn-outline-light" href="/library" role="button">Procurar</a>
                     </form>
                     <button className="btn btn-outline-light me-2" style={{ marginLeft: '0.5%' }} type="button">
                         <i className="bi bi-cart4"></i>
