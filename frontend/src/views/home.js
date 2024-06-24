@@ -43,7 +43,7 @@ export default function EditComponent() {
             {/* FIM NAVBAR */}
 
             {/* ESPAÇO HEROI */}
-            <div className="heroi" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '-3%', backgroundImage: `url('images/fundos/fundo.jpg')`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed', height: '100vh', width: '100vw' }}>
+            <div className="heroi" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '-3%', backgroundImage: `url('images/fundos/fundo.jpg')`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed', height: '100vh', width: '99vw' }}>
                 <div className="textoheroi" style={{ backgroundColor: 'rgba(90, 90, 90, 0.632)', width: '100vw', height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '2rem', borderRadius: '8px', boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)' }}>
                     <h1 style={{ textAlign: 'center', margin: '0.5rem 0', color: 'white' }}>Conectar empresas</h1>
                     <h1 style={{ textAlign: 'center', margin: '0.5rem 0', color: 'white', marginTop: '-1%' }}>com soluções inteligentes</h1>
@@ -86,7 +86,7 @@ export default function EditComponent() {
                                         <h5 className="card-title mb-2">Adobe Illustrator</h5>
                                         <p className="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
                                         <p className="card-text mb-2" style={{ color: 'grey' }}>Design</p>
-                                        <p className="card-text">De ilustrações a logotipos, tenha todas as ferramentas necessárias para seus projetos de design gráfico.</p>
+                                        <p className="card-text">De ilustrações a logotipos, todas as ferramentas necessárias para seus projetos de design gráfico.</p>
                                         <a href="/shop/:idproduto/" className="btn btn-dark w-100">Saber mais</a>
                                     </div>
                                 </div>
@@ -325,7 +325,7 @@ export default function EditComponent() {
 
             <div class="row" style={{ margin: '0 auto', display: 'flex', justifyContent: 'center' }}>
                 <div class="col-md-3 mb-4">
-                     <div class="card" style={{ marginBottom: '5%', width: '18rem' }}>
+                     <div class="card" style={{ marginBottom: '5%', width: '18rem', padding: '25px' }}>
                         <img src="images/icons/aspas.png" class="card-img-top img-fluid mx-auto d-block" style={{ width: '75%', margintop: '30px' }} alt="..." />
                          <div class="card-body text-center">
                              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisi lacus, venenatis at
@@ -336,7 +336,7 @@ export default function EditComponent() {
                      </div>
                  </div>
                 <div class="col-md-3 mb-4">
-                     <div class="card" style={{ marginBottom: '5%', width: '18rem' }}>
+                     <div class="card" style={{ marginBottom: '5%', width: '18rem', padding: '25px' }}>
                         <img src="images/icons/aspas.png" class="card-img-top img-fluid mx-auto d-block" style={{ width: '75%', margintop: '30px' }} alt="..." />
                          <div class="card-body text-center">
                              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisi lacus, venenatis at
@@ -347,7 +347,7 @@ export default function EditComponent() {
                      </div>
                  </div>
                 <div class="col-md-3 mb-4">
-                     <div class="card" style={{ marginBottom: '5%', width: '18rem' }}>
+                     <div class="card" style={{ marginBottom: '5%', width: '18rem', padding: '25px' }}>
                         <img src="images/icons/aspas.png" class="card-img-top img-fluid mx-auto d-block" style={{ width: '75%', margintop: '30px' }} alt="..." />
                          <div class="card-body text-center">
                              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisi lacus, venenatis at

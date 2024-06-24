@@ -27,17 +27,29 @@ export default function EditComponent() {
             {/* NAVBAR */}
             <nav className="navbar navbar-expand-lg bg-dark">
                 <div className="container-fluid">
-                    <a className="navbar-brand" href="#"><img src="images/Logos/logo.png" style={{ width: '20%' }} alt="Ware Logo" /></a>
+                    <a className="navbar-brand" href="/signup_comprador">
+                        <img src="/images/Logos/logo.png" style={{ width: '20%' }} alt="Ware Logo" />
+                    </a>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
                         aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
-                    <div className="collapse navbar-collapse" id="navbarNavAltMarkup"></div>
-                    <a href="/login">
-                        <button className="btn btn-outline-light me-2" type="button">
-                            Iniciar Sessão
-                        </button>
-                    </a>
+                    <div className="collapse navbar-collapse" id="navbarNavAltMarkup" style={{ marginLeft: '-32%' }}>
+                        <div className="navbar-nav">
+                            <a className="nav-link text-white"  href="/shop/my">Explorar</a>
+                            <a className="nav-link text-white" href="/library">Gestão</a>
+
+                        </div>
+                    </div>
+                    <form className="d-flex" role="search">
+                        <input className="form-control me-2" type="search" placeholder="Procurar" aria-label="Search" />
+                        <button className="btn btn-outline-light" type="submit">Procurar</button>
+                    </form>
+                    <button className="btn btn-outline-light me-2" style={{ marginLeft: '0.5%' }} type="button">
+                        <i className="bi bi-cart4"></i>
+                    </button>
+                    <a href="/home" className="btn btn-primary">Terminar Sessão</a>
+
                 </div>
             </nav>
             {/* FIM NAVBAR */}
@@ -57,7 +69,7 @@ export default function EditComponent() {
                                         <h5 className="card-title mb-2">Adobe Illustrator</h5>
                                         <p className="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
                                         <p className="card-text mb-2" style={{ color: 'grey' }}>Design</p>
-                                        <p className="card-text">De ilustrações a logotipos, tenha todas as ferramentas necessárias para seus projetos de design gráfico.</p>
+                                        <p className="card-text">De ilustrações a logotipos, todas as ferramentas necessárias para seus projetos de design gráfico.</p>
                                         <a href="/shop/:idproduto/" className="btn btn-dark w-100">Saber mais</a>
                                     </div>
                                 </div>
@@ -296,7 +308,7 @@ export default function EditComponent() {
 
             <div class="row" style={{ margin: '0 auto', display: 'flex', justifyContent: 'center' }}>
                 <div class="col-md-3 mb-4">
-                     <div class="card" style={{ marginBottom: '5%', width: '18rem' }}>
+                     <div class="card" style={{ marginBottom: '5%', width: '18rem', padding: '25px' }}>
                         <img src="images/icons/aspas.png" class="card-img-top img-fluid mx-auto d-block" style={{ width: '75%', margintop: '30px' }} alt="..." />
                          <div class="card-body text-center">
                              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisi lacus, venenatis at
@@ -307,7 +319,7 @@ export default function EditComponent() {
                      </div>
                  </div>
                 <div class="col-md-3 mb-4">
-                     <div class="card" style={{ marginBottom: '5%', width: '18rem' }}>
+                     <div class="card" style={{ marginBottom: '5%', width: '18rem', padding: '25px' }}>
                         <img src="images/icons/aspas.png" class="card-img-top img-fluid mx-auto d-block" style={{ width: '75%', margintop: '30px' }} alt="..." />
                          <div class="card-body text-center">
                              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisi lacus, venenatis at
@@ -318,7 +330,7 @@ export default function EditComponent() {
                      </div>
                  </div>
                 <div class="col-md-3 mb-4">
-                     <div class="card" style={{ marginBottom: '5%', width: '18rem' }}>
+                     <div class="card" style={{ marginBottom: '5%', width: '18rem', padding: '25px' }}>
                         <img src="images/icons/aspas.png" class="card-img-top img-fluid mx-auto d-block" style={{ width: '75%', margintop: '30px' }} alt="..." />
                          <div class="card-body text-center">
                              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisi lacus, venenatis at

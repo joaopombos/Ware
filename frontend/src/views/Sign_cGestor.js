@@ -5,8 +5,12 @@
  export default function Sign_cGestor() {
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
+    const [nameEmp, setNameEmp] = useState('');
     const [address, setAddress] = useState('');
     const [nif, setNIF] = useState('');
+    const [nifEmp, setNIFEmp] = useState('');
+    const [contact, setContact] = useState('');
+    const [contactEmp, setContactEmp] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -14,8 +18,12 @@
             await axios.post('/create-company', {
                 email,
                 name,
+                nameEmp,
                 address,
-                nif
+                nif,
+                nifEmp,
+                contact,
+                contactEmp
             });
             alert('Conta criada com sucesso');
         } catch (error) {
@@ -39,25 +47,35 @@
                  </div>
             </nav>
             <div class="row">
-                <div class="col-sm-6" style={{alignItems: 'center', height: '100vh'}}>
-                    <img src="/images/fundos/fundopreto.jpg" class="img-fluid" alt="fundo preto" style={{height: '100%', objectFit: 'cover'}}/>
+                <div class="col-sm-6" style={{alignItems: 'center', height: '150vh'}}>
+                    <img src="/images/fundos/fundo preto.jpg" class="img-fluid" alt="fundo preto" style={{height: '100%', objectFit: 'cover'}}/>
                 </div>
                 <div class="col-sm-6 text-black">
+                <br></br>
                     <div class=" align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
                         <form onSubmit={handleSubmit} class="form-signin" style={{width: '23rem', marginTop: '-5%'}}>
                             <h3 class="fw-normal mb-3 pb-3" style={{letterSpacing: '1px'}}>Criar conta</h3>
                             <p style={{color: '#B3B3B3'}} >Todos os campos são obrigatórios.</p>
+                            
                             <div class="form-outline mb-4">
                                 <input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} class="form-control form-control-lg" />
                                 <label class="form-label" for="name">Primeiro e Último nome</label>
                              </div>
                             <div class="form-outline mb-4">
-                                <input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} class="form-control form-control-lg" />
+                                <input type="text" id="nameEmp" value={nameEmp} onChange={(e) => setNameEmp(e.target.value)} class="form-control form-control-lg" />
                                 <label class="form-label" for="name">Nome Empresa</label>
                              </div>
                             <div class="form-outline mb-4">
                                 <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} class="form-control form-control-lg" />
-                                <label class="form-label" for="email">Endereço de email</label>
+                                <label class="form-label" for="email">Endereço de email Pessoal</label>
+                            </div> 
+                            <div class="form-outline mb-4">
+                                <input type="text" id="contact" value={contact} onChange={(e) => setContact(e.target.value)} class="form-control form-control-lg" />
+                                <label class="form-label" for="email">Contacto Pessoal</label>
+                            </div>
+                            <div class="form-outline mb-4">
+                                <input type="text" id="contactEmp" value={contactEmp} onChange={(e) => setContactEmp(e.target.value)} class="form-control form-control-lg" />
+                                <label class="form-label" for="email">Contacto Empresa</label>
                             </div> 
                             <div class="form-outline mb-4">
                                 <input type="text" id="address" value={address} onChange={(e) => setAddress(e.target.value)} class="form-control form-control-lg" />
@@ -65,7 +83,11 @@
                             </div>
                             <div class="form-outline mb-4">
                                 <input type="text" id="nif" value={nif} onChange={(e) => setNIF(e.target.value)} class="form-control form-control-lg" />
-                                <label class="form-label" for="nif">NIF</label>
+                                <label class="form-label" for="nif">NIF Pessoal</label>
+                            </div>
+                            <div class="form-outline mb-4">
+                                <input type="text" id="nifEmp" value={nifEmp} onChange={(e) => setNIFEmp(e.target.value)} class="form-control form-control-lg" />
+                                <label class="form-label" for="nif">NIF Empresa</label>
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
@@ -79,6 +101,7 @@
                             </div>
                             <p>Já tem conta? <a href="/login" class="link-info">Clique aqui.</a></p>
                         </form>
+                        <br></br><br></br>
                      </div>
                  </div>
             </div>
