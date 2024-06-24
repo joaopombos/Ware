@@ -1,57 +1,51 @@
-const { DataTypes } = require('sequelize');
+const Sequelize = require("sequelize");
+const sequelize = require("../database");
+const Empresas = require("./empresas");
 
-module.exports = (sequelize) => {
-  const SoftwaresAdquiridos = sequelize.define('SoftwaresAdquiridos', {
-    nome: {
-      type: DataTypes.STRING(60),
-      allowNull: true
-    },
-    chaveproduto: {
-      type: DataTypes.STRING(12),
-      allowNull: false,
-      primaryKey: true
-    },
-    nif: {
-      type: DataTypes.STRING(9),
-      allowNull: true,
-      references: {
-        model: 'empresas',
-        key: 'nif'
-      }
-    },
-    versaoadquirida: {
-      type: DataTypes.STRING(30),
-      allowNull: true
+const SoftwaresAdquiridos = sequelize.define("softwaresadquiridos", {
+  nome: {
+    type: Sequelize.STRING(60),
+    allowNull: true
+  },
+  chaveproduto: {
+    type: Sequelize.STRING(12),
+    allowNull: false,
+    primaryKey: true
+  },
+  nif: {
+    type: Sequelize.STRING(9),
+    allowNull: true,
+    references: {
+      model: Empresas,
+      key: "nif"
     }
-  }, {
-    tableName: 'softwaresadquiridos',
-    schema: 'public',
-    timestamps: false,
-    indexes: [
-      {
-        name: "pk_softwaresadquiridos",
-        unique: true,
-        fields: [
-          { name: "chaveproduto" },
-        ]
-      },
-      {
-        name: "relationship_17_fk",
-        fields: [
-          { name: "nif" },
-        ]
-      },
-      {
-        name: "softwaresadquiridos_pk",
-        unique: true,
-        fields: [
-          { name: "chaveproduto" },
-        ]
-      },
-    ]
-  });
+  },
+  versaoadquirida: {
+    type: Sequelize.STRING(30),
+    allowNull: true
+  }
+}, {
+  tableName: "softwaresadquiridos",
+  schema: "public",
+  timestamps: false,
+  indexes: [
+    {
+      name: "pk_softwaresadquiridos",
+      unique: true,
+      fields: [{ name: "chaveproduto" }]
+    },
+    {
+      name: "relationship_17_fk",
+      fields: [{ name: "nif" }]
+    },
+    {
+      name: "softwaresadquiridos_pk",
+      unique: true,
+      fields: [{ name: "chaveproduto" }]
+    }
+  ]
+});
 
-  return SoftwaresAdquiridos;
-};
+SoftwaresAdquiridos.belongsTo(Empresas, { foreignKey: "nif" });
 
-
+module.exports = SoftwaresAdquiridos;

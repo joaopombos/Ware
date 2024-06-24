@@ -1,77 +1,71 @@
-const { DataTypes } = require('sequelize');
+const Sequelize = require("sequelize");
+const sequelize = require("../database");
+const Planos = require("./planos");
 
-module.exports = (sequelize) => {
-  const TipoSoftwares = sequelize.define('tipossoftwares', {
-    categoria: {
-      type: DataTypes.STRING(30),
-      allowNull: true
-    },
-    idproduto: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    },
-    idplanos: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      references: {
-        model: 'planos',
-        key: 'idplanos'
-      }
-    },
-    logotipo: {
-      type: DataTypes.BLOB,
-      allowNull: true
-    },
-    nome: {
-      type: DataTypes.STRING(30),
-      allowNull: true
-    },
-    versao: {
-      type: DataTypes.STRING(10),
-      allowNull: true
-    },
-    descricao: {
-      type: DataTypes.STRING(250),
-      allowNull: true
-    },
-    imagenssoftware: {
-      type: DataTypes.BLOB,
-      allowNull: true
-    },
-    precoproduto: {
-      type: DataTypes.REAL,
-      allowNull: true
+const TipoSoftwares = sequelize.define("tipossoftwares", {
+  categoria: {
+    type: Sequelize.STRING(30),
+    allowNull: true
+  },
+  idproduto: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    primaryKey: true
+  },
+  idplanos: {
+    type: Sequelize.INTEGER,
+    allowNull: true,
+    references: {
+      model: Planos,
+      key: "idplanos"
     }
-  }, {
-    sequelize,
-    tableName: 'tipossoftwares',
-    schema: 'public',
-    timestamps: false,
-    indexes: [
-      {
-        name: "pk_tipossoftwares",
-        unique: true,
-        fields: [
-          { name: "idproduto" },
-        ]
-      },
-      {
-        name: "relationship_14_fk",
-        fields: [
-          { name: "idplanos" },
-        ]
-      },
-      {
-        name: "tipossoftwares_pk",
-        unique: true,
-        fields: [
-          { name: "idproduto" },
-        ]
-      },
-    ]
-  });
+  },
+  logotipo: {
+    type: Sequelize.BLOB,
+    allowNull: true
+  },
+  nome: {
+    type: Sequelize.STRING(30),
+    allowNull: true
+  },
+  versao: {
+    type: Sequelize.STRING(10),
+    allowNull: true
+  },
+  descricao: {
+    type: Sequelize.STRING(250),
+    allowNull: true
+  },
+  imagenssoftware: {
+    type: Sequelize.BLOB,
+    allowNull: true
+  },
+  precoproduto: {
+    type: Sequelize.REAL,
+    allowNull: true
+  }
+}, {
+  tableName: "tipossoftwares",
+  schema: "public",
+  timestamps: false,
+  indexes: [
+    {
+      name: "pk_tipossoftwares",
+      unique: true,
+      fields: [{ name: "idproduto" }]
+    },
+    {
+      name: "relationship_14_fk",
+      fields: [{ name: "idplanos" }]
+    },
+    {
+      name: "tipossoftwares_pk",
+      unique: true,
+      fields: [{ name: "idproduto" }]
+    }
+  ]
+});
 
-  return TipoSoftwares;
-};
+TipoSoftwares.belongsTo(Planos, { foreignKey: "idplanos" });
 
+module.exports = TipoSoftwares;

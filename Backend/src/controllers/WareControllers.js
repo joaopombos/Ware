@@ -1,6 +1,6 @@
 
 const sequelize = require('../models/database');
-const Avaliacoes = require('../models/Avaliacoes');
+const Avaliacoes = require('../models/avaliacoes');
 const Clientes = require('../models/clientes');
 const Empresas = require('../models/empresas');
 const LicencasAtri = require('../models/licencasatribuidas');

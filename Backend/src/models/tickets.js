@@ -1,65 +1,59 @@
-const { DataTypes } = require('sequelize');
+const Sequelize = require("sequelize");
+const sequelize = require("../database");
+const Clientes = require("./clientes");
 
-module.exports = (sequelize) => {
-  const Tickets = sequelize.define('tickets', {
-    nif: {
-      type: DataTypes.STRING(9),
-      allowNull: false,
-      references: {
-        model: 'clientes',
-        key: 'nif'
-      }
-    },
-    idticket: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    },
-    assunto: {
-      type: DataTypes.STRING(60),
-      allowNull: true
-    },
-    dataabert: {
-      type: DataTypes.DATE,
-      allowNull: true
-    },
-    datafecho: {
-      type: DataTypes.DATE,
-      allowNull: true
-    },
-    estado: {
-      type: DataTypes.STRING(30),
-      allowNull: true
+const Tickets = sequelize.define("tickets", {
+  nif: {
+    type: Sequelize.STRING(9),
+    allowNull: false,
+    references: {
+      model: Clientes,
+      key: "nif"
     }
-  }, {
-    tableName: 'tickets',
-    schema: 'public',
-    timestamps: false,
-    indexes: [
-      {
-        name: "pk_tickets",
-        unique: true,
-        fields: [
-          { name: "idticket" },
-        ]
-      },
-      {
-        name: "relationship_10_fk",
-        fields: [
-          { name: "nif" },
-        ]
-      },
-      {
-        name: "tickets_pk",
-        unique: true,
-        fields: [
-          { name: "idticket" },
-        ]
-      },
-    ]
-  });
+  },
+  idticket: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    primaryKey: true
+  },
+  assunto: {
+    type: Sequelize.STRING(60),
+    allowNull: true
+  },
+  dataabert: {
+    type: Sequelize.DATE,
+    allowNull: true
+  },
+  datafecho: {
+    type: Sequelize.DATE,
+    allowNull: true
+  },
+  estado: {
+    type: Sequelize.STRING(30),
+    allowNull: true
+  }
+}, {
+  tableName: "tickets",
+  schema: "public",
+  timestamps: false,
+  indexes: [
+    {
+      name: "pk_tickets",
+      unique: true,
+      fields: [{ name: "idticket" }]
+    },
+    {
+      name: "relationship_10_fk",
+      fields: [{ name: "nif" }]
+    },
+    {
+      name: "tickets_pk",
+      unique: true,
+      fields: [{ name: "idticket" }]
+    }
+  ]
+});
 
-  return Tickets;
-};
+Tickets.belongsTo(Clientes, { foreignKey: "nif" });
 
-
+module.exports = Tickets;

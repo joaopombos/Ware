@@ -1,30 +1,27 @@
-const { DataTypes } = require('sequelize');
+const Sequelize = require("sequelize");
+const sequelize = require("../database");
 
-module.exports = function(sequelize, DataTypes) {
-  const TipoUser = sequelize.define('tipouser', {
-    designacao: {
-      type: DataTypes.STRING(30),
-      allowNull: true
-    },
-    iduser: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
+const TipoUser = sequelize.define("tipouser", {
+  designacao: {
+    type: Sequelize.STRING(30),
+    allowNull: true
+  },
+  iduser: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    primaryKey: true
+  }
+}, {
+  tableName: "tipouser",
+  schema: "public",
+  timestamps: false,
+  indexes: [
+    {
+      name: "pk_tipouser",
+      unique: true,
+      fields: [{ name: "iduser" }]
     }
-  }, {
-    tableName: 'tipouser',
-    schema: 'public',
-    timestamps: false,
-    indexes: [
-      {
-        name: 'pk_tipouser',
-        unique: true,
-        fields: ['iduser']
-      }
-    ]
-  });
+  ]
+});
 
-  return TipoUser;
-};
-
-
+module.exports = TipoUser;

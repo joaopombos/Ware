@@ -1,50 +1,39 @@
-const { DataTypes } = require('sequelize');
+const Sequelize = require("sequelize");
+const sequelize = require("../database");
 
-module.exports = (sequelize) => {
-  const Empresas = sequelize.define('Empresas', {
-    nomeempresa: {
-      type: DataTypes.STRING(60),
-      allowNull: true
+const Empresas = sequelize.define("Empresas", {
+  nomeempresa: {
+    type: Sequelize.STRING(60),
+    allowNull: true,
+  },
+  nif: {
+    type: Sequelize.STRING(9),
+    allowNull: false,
+    primaryKey: true,
+  },
+  localizacao: {
+    type: Sequelize.STRING(24),
+    allowNull: true,
+  },
+  codigoconvite: {
+    type: Sequelize.STRING(16),
+    allowNull: true,
+  },
+  contacto: {
+    type: Sequelize.STRING(20),
+    allowNull: true,
+  },
+}, {
+  tableName: "empresas",
+  schema: "public",
+  timestamps: false,
+  indexes: [
+    {
+      name: "empresas_pk",
+      unique: true,
+      fields: [{ name: "nif" }],
     },
-    nif: {
-      type: DataTypes.STRING(9),
-      allowNull: false,
-      primaryKey: true
-    },
-    localizacao: {
-      type: DataTypes.STRING(24),
-      allowNull: true
-    },
-    codigoconvite: {
-      type: DataTypes.STRING(16),
-      allowNull: true
-    },
-    contacto: {
-      type: DataTypes.STRING(20),
-      allowNull: true
-    }
-  }, {
-    tableName: 'empresas',
-    schema: 'public',
-    timestamps: false,
-    indexes: [
-      {
-        name: "empresas_pk",
-        unique: true,
-        fields: [
-          { name: "nif" },
-        ]
-      },
-      {
-        name: "pk_empresas",
-        unique: true,
-        fields: [
-          { name: "nif" },
-        ]
-      },
-    ]
-  });
+  ],
+});
 
-  return Empresas;
-};
-
+module.exports = Empresas;

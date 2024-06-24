@@ -1,74 +1,56 @@
-const { DataTypes } = require('sequelize');
+const Sequelize = require("sequelize");
+const sequelize = require("../database");
+const Clientes = require("./clientes");
+const TiposSoftwares = require("./tipossoftwares");
 
-module.exports = (sequelize) => {
-  const Orcamentos = sequelize.define('orcamentos', {
-    nif: {
-      type: DataTypes.STRING(9),
-      allowNull: false,
-      references: {
-        model: 'clientes',
-        key: 'nif'
-      }
+const Orcamentos = sequelize.define("orcamentos", {
+  nif: {
+    type: Sequelize.STRING(9),
+    allowNull: false,
+    references: {
+      model: Clientes,
+      key: "nif",
     },
-    idproduto: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      references: {
-        model: 'tipossoftwares',
-        key: 'idproduto'
-      }
+  },
+  idproduto: {
+    type: Sequelize.INTEGER,
+    allowNull: true,
+    references: {
+      model: TiposSoftwares,
+      key: "idproduto",
     },
-    idorc: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
+  },
+  idorc: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    primaryKey: true,
+  },
+  estado: {
+    type: Sequelize.STRING(30),
+    allowNull: true,
+  },
+  quantidade: {
+    type: Sequelize.INTEGER,
+    allowNull: true,
+  },
+  precoorcamento: {
+    type: Sequelize.REAL,
+    allowNull: true,
+  },
+}, {
+  tableName: "orcamentos",
+  schema: "public",
+  timestamps: false,
+  indexes: [
+    {
+      name: "orcamentos_pk",
+      unique: true,
+      fields: [{ name: "idorc" }],
     },
-    estado: {
-      type: DataTypes.STRING(30),
-      allowNull: true
-    },
-    quantidade: {
-      type: DataTypes.INTEGER,
-      allowNull: true
-    },
-    precoorcamento: {
-      type: DataTypes.REAL,
-      allowNull: true
-    }
-  }, {
-    tableName: 'orcamentos',
-    schema: 'public',
-    timestamps: false,
-    indexes: [
-      {
-        name: "orcamentos_pk",
-        unique: true,
-        fields: [
-          { name: "idorc" },
-        ]
-      },
-      {
-        name: "pk_orcamentos",
-        unique: true,
-        fields: [
-          { name: "idorc" },
-        ]
-      },
-      {
-        name: "relationship_11_fk",
-        fields: [
-          { name: "nif" },
-        ]
-      },
-      {
-        name: "relationship_12_fk",
-        fields: [
-          { name: "idproduto" },
-        ]
-      },
-    ]
-  });
+  ],
+});
 
-  return Orcamentos;
-};
+Orcamentos.belongsTo(Clientes, { foreignKey: "nif" });
+Orcamentos.belongsTo(TiposSoftwares, { foreignKey: "idproduto" });
 
+module.exports = Orcamentos;

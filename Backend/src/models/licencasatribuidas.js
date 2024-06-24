@@ -1,53 +1,42 @@
-const Sequelize = require('sequelize');
-module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('licencasatribuidas', {
-    chaveproduto: {
-      type: DataTypes.STRING(12),
-      allowNull: true,
-      references: {
-        model: 'softwaresadquiridos',
-        key: 'chaveproduto'
-      }
+const Sequelize = require("sequelize");
+const sequelize = require("../database");
+const SoftwaresAdquiridos = require("./softwaresadquiridos");
+
+const LicencasAtribuidas = sequelize.define("licencasatribuidas", {
+  chaveproduto: {
+    type: Sequelize.STRING(12),
+    allowNull: true,
+    references: {
+      model: SoftwaresAdquiridos,
+      key: "chaveproduto",
     },
-    nomepc: {
-      type: DataTypes.STRING(50),
-      allowNull: true
+  },
+  nomepc: {
+    type: Sequelize.STRING(50),
+    allowNull: true,
+  },
+  dataatri: {
+    type: Sequelize.DATE,
+    allowNull: true,
+  },
+  idatribuida: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    primaryKey: true,
+  },
+}, {
+  tableName: "licencasatribuidas",
+  schema: "public",
+  timestamps: false,
+  indexes: [
+    {
+      name: "licencasatribuidas_pk",
+      unique: true,
+      fields: [{ name: "idatribuida" }],
     },
-    dataatri: {
-      type: DataTypes.DATE,
-      allowNull: true
-    },
-    idatribuida: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    }
-  }, {
-    sequelize,
-    tableName: 'licencasatribuidas',
-    schema: 'public',
-    timestamps: false,
-    indexes: [
-      {
-        name: "licencasatribuidas_pk",
-        unique: true,
-        fields: [
-          { name: "idatribuida" },
-        ]
-      },
-      {
-        name: "pk_licencasatribuidas",
-        unique: true,
-        fields: [
-          { name: "idatribuida" },
-        ]
-      },
-      {
-        name: "relationship_13_fk",
-        fields: [
-          { name: "chaveproduto" },
-        ]
-      },
-    ]
-  });
-};
+  ],
+});
+
+LicencasAtribuidas.belongsTo(SoftwaresAdquiridos, { foreignKey: "chaveproduto" });
+
+module.exports = LicencasAtribuidas;

@@ -1,76 +1,65 @@
-const { DataTypes } = require('sequelize');
+const Sequelize = require("sequelize");
+const sequelize = require("../database");
+const Empresas = require("./empresas");
+const TipoUser = require("./tipouser");
 
-module.exports = (sequelize) => {
-  return sequelize.define('Clientes', {
-    emp_nif: {
-      type: DataTypes.STRING(9),
-      allowNull: false,
-      references: {
-        model: 'empresas',
-        key: 'nif'
-      }
+const Clientes = sequelize.define("clientes", {
+  emp_nif: {
+    type: Sequelize.STRING(9),
+    allowNull: false,
+    references: {
+      model: Empresas,
+      key: "nif",
     },
-    iduser: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'tipouser',
-        key: 'iduser'
-      }
+  },
+  iduser: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    references: {
+      model: TipoUser,
+      key: "iduser",
     },
-    nome: {
-      type: DataTypes.STRING(1024),
-      allowNull: true
+  },
+  nome: {
+    type: Sequelize.STRING(1024),
+    allowNull: true,
+  },
+  email: {
+    type: Sequelize.STRING(1024),
+    allowNull: true,
+  },
+  codigopessoal: {
+    type: Sequelize.STRING(12),
+    allowNull: true,
+  },
+  contacto: {
+    type: Sequelize.STRING(30),
+    allowNull: true,
+  },
+  nif: {
+    type: Sequelize.STRING(9),
+    allowNull: false,
+    primaryKey: true,
+  },
+}, {
+  tableName: "clientes",
+  schema: "public",
+  timestamps: false,
+  indexes: [
+    {
+      name: "clientes_pk",
+      unique: true,
+      fields: [{ name: "nif" }],
     },
-    email: {
-      type: DataTypes.STRING(1024),
-      allowNull: true
+    {
+      name: "pk_clientes",
+      unique: true,
+      fields: [{ name: "nif" }],
     },
-    codigopessoal: {
-      type: DataTypes.STRING(12),
-      allowNull: true
-    },
-    contacto: {
-      type: DataTypes.STRING(30),
-      allowNull: true
-    },
-    nif: {
-      type: DataTypes.STRING(9),
-      allowNull: false,
-      primaryKey: true
-    },
-  }, {
-    tableName: 'clientes',
-    schema: 'public',
-    timestamps: false,
-    indexes: [
-      {
-        name: "clientes_pk",
-        unique: true,
-        fields: [
-          { name: "nif" },
-        ]
-      },
-      {
-        name: "pk_clientes",
-        unique: true,
-        fields: [
-          { name: "nif" },
-        ]
-      },
-      {
-        name: "relationship_16_fk",
-        fields: [
-          { name: "emp_nif" },
-        ]
-      },
-      {
-        name: "relationship_18_fk",
-        fields: [
-          { name: "iduser" },
-        ]
-      },
-    ]
-  });
-};
+  ],
+});
 
+Clientes.belongsTo(Empresas, { foreignKey: "emp_nif" });
+Clientes.belongsTo(TipoUser, { foreignKey: "iduser" });
+
+module.exports = Clientes;
