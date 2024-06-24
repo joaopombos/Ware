@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const session = require('express-session');
 const PgSession = require('connect-pg-simple')(session);
-const pool = require('../Backend/src/models/database'); 
+const pool = require('../Backend/src/models/database');
 const app = express();
 const port = 3000;
 const rotas = require('./src/routes/WareRoutes');
@@ -25,7 +25,6 @@ const Ware = require('../Backend/src/models/ware');
 
 app.use(express.json());
 
-
 async function syncModels() {
   try {
     await Empresas.sync();
@@ -41,7 +40,27 @@ async function syncModels() {
     await LicencasAtribuidas.sync();
     await Addons.sync();
     await Avaliacoes.sync();
+
     console.log("All models were synchronized successfully.");
+
+    // Inserir dados iniciais na tabela TipoUser
+    await TipoUser.bulkCreate([
+      { iduser: 1, designacao: 'Comprador_Gestor' },
+      { iduser: 2, designacao: 'Gestor' }
+    ], {
+      ignoreDuplicates: true // Ignorar duplicados se já existirem
+    });
+
+    console.log("Initial data for TipoUser inserted successfully.");
+
+    // Inserir dados iniciais na tabela Ware
+    await Ware.bulkCreate([
+      { idware: 1, username: 'admin', password: 'admin', lucros: 0, gastos: 0 }
+    ], {
+      ignoreDuplicates: true // Ignorar duplicados se já existirem
+    });
+
+    console.log("Initial data for Ware inserted successfully.");
   } catch (error) {
     console.error("Error synchronizing models:", error);
   }
@@ -82,6 +101,7 @@ app.use(rotas);
 sequelize.sync()
   .then(() => {
     console.log('Modelo sincronizado com o banco de dados.');
+    return syncModels(); // Chama a função de sincronização dos modelos e inserção dos dados
   })
   .catch(err => {
     console.error('Erro ao sincronizar o modelo:', err);
@@ -94,3 +114,5 @@ app.listen(PORT, () => {
 });
 
 module.exports = app;
+
+

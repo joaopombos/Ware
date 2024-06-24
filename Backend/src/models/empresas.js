@@ -15,10 +15,6 @@ const Empresas = sequelize.define("Empresas", {
     type: Sequelize.STRING(24),
     allowNull: true,
   },
-  codigoconvite: {
-    type: Sequelize.STRING(16),
-    allowNull: true,
-  },
   contacto: {
     type: Sequelize.STRING(20),
     allowNull: true,

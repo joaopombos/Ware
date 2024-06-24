@@ -1,10 +1,12 @@
 const Clientes = require('../models/clientes'); // Verifique se o caminho do modelo está correto
 const  Empresas  = require('../models/empresas');
 const TipoUser = require('../models/tipouser');
+const Ware = require('../models/ware')
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const pool = require('../models/database');
+const bcrypt = require('bcrypt');
 
 
 const clientesController = {};
@@ -25,15 +27,16 @@ clientesController.list = async (req, res) => {
 };
 
 // Adicionar um novo cliente
-clientesController.createC_gestor = async (req, res) => {
+clientesController.createSignup = async (req, res) => {
   try {
-    const { emp_nif, nome, email, contacto, nif } = req.body;
+    const { nomeempresa, emp_nif, localizacao, contacto_empresa, nome, email, contacto_cliente, nif } = req.body;
 
     // Verificar campos obrigatórios
-    if (!emp_nif || !nome || !email || !nif) {
+    if (!nomeempresa || !emp_nif || !nome || !email || !nif) {
       return res.status(400).json({
         error: 'Faltam campos obrigatórios',
         details: [
+          !nomeempresa && 'nomeempresa não pode ser nulo',
           !emp_nif && 'emp_nif não pode ser nulo',
           !nome && 'nome não pode ser nulo',
           !email && 'email não pode ser nulo',
@@ -42,15 +45,22 @@ clientesController.createC_gestor = async (req, res) => {
       });
     }
 
+    // Verificar se a empresa já existe
+    let empresa = await Empresas.findOne({ where: { nif: emp_nif } });
+
+    if (!empresa) {
+      // Criar a empresa se não existir
+      empresa = await Empresas.create({ nomeempresa, nif: emp_nif, localizacao,  contacto: contacto_empresa });
+    }
+
+    // Gerar código pessoal
     const codigopessoal = generatePassword();
 
-
-
     // Definir iduser como 2 (outra lógica pode ser aplicada conforme necessário)
-    const iduser = 2;
+    const iduser = 1;
 
     // Criar o cliente usando o modelo Clientes
-    const client = await Clientes.create({ emp_nif, iduser, nome, email, codigopessoal, contacto, nif });
+    const client = await Clientes.create({ emp_nif, iduser, nome, email, codigopessoal, contacto: contacto_cliente, nif });
 
     // Configurar o transportador de e-mail
     let transporter = nodemailer.createTransport({
@@ -67,9 +77,9 @@ clientesController.createC_gestor = async (req, res) => {
     let mailOptions = {
       from: '"Ware" <rodrigo.pina113@gmail.com>',
       to: email,
-      subject: 'Seu Código Pessoal',
-      text: `Olá ${nome},\n\nO teu código pessoal é: ${codigopessoal}\n\nObrigado!`,
-      html: `<p>Olá ${nome},</p><p>O seu código pessoal é: <strong>${codigopessoal}</strong></p><p>Obrigado!</p>`
+      subject: 'Código Pessoal',
+      text: `Olá ${nome},\n\nO código pessoal é: ${codigopessoal}\n\nObrigado!`,
+      html: `<p>Olá ${nome},</p><p>O código pessoal é: <strong>${codigopessoal}</strong></p><p>Obrigado!</p>`
     };
 
     // Enviar o e-mail
@@ -84,6 +94,7 @@ clientesController.createC_gestor = async (req, res) => {
     res.status(500).json({ error: 'Erro ao criar cliente', details: error.message });
   }
 };
+
 
 // Atualizar um cliente
 clientesController.update = async (req, res) => {
@@ -154,6 +165,7 @@ clientesController.login = async (req, res) => {
     // Armazenar o token JWT e o NIF em cookies seguros
     res.cookie('token', token, { httpOnly: true, secure: false, maxAge: 3600000 }); // 1 hora
     res.cookie('nif', client.nif, { httpOnly: true, secure: false, maxAge: 3600000 }); // 1 hora
+    res.cookie('iduser', client.iduser, { httpOnly: true, secure: false, maxAge: 3600000 }); // 1 hora
 
     res.status(200).json({ token });
   } catch (error) {
@@ -174,39 +186,21 @@ clientesController.logout = (req, res) => {
   });
 };
 
-// Função de logout
-clientesController.logout = (req, res) => {
-  req.session.destroy(err => {
-    if (err) {
-      return res.status(500).send('Erro ao encerrar a sessão.');
-    }
-    res.clearCookie('nif');
-    res.status(200).send('Logout realizado com sucesso.');
-  });
-};
 
-// Função de logout
-clientesController.logout = (req, res) => {
-  req.session.destroy(err => {
-    if (err) {
-      return res.status(500).send('Erro ao encerrar a sessão.');
-    }
-    res.status(200).send('Logout realizado com sucesso.');
-  });
-};
 
 clientesController.create_gestor = async (req, res) => {
   try {
-    const { emp_nif, nome, email } = req.body;
+    const { emp_nif, nome, email, contacto: contacto_cliente, nif  } = req.body;
 
     // Verificar campos obrigatórios
-    if (!emp_nif || !nome || !email) {
+    if (!emp_nif || !nome || !email || !nif) {
       return res.status(400).json({
         error: 'Faltam campos obrigatórios',
         details: [
           !emp_nif && 'emp_nif não pode ser nulo',
           !nome && 'nome não pode ser nulo',
-          !email && 'email não pode ser nulo'
+          !email && 'email não pode ser nulo',
+          !nif && 'nif não pode ser nulo'
         ].filter(Boolean).join(', ')
       });
     }
@@ -222,8 +216,10 @@ clientesController.create_gestor = async (req, res) => {
 
     const codigopessoal = generatePassword();
 
+    const iduser = 2;
+
     // Criar o cliente
-    const client = await Clientes.create({ emp_nif, nome, email, codigopessoal });
+    const client = await Clientes.create({ emp_nif, iduser, nome, email, codigopessoal, contacto: contacto_cliente, nif });
 
     // Configurar o transportador de e-mail
     let transporter = nodemailer.createTransport({
@@ -240,9 +236,9 @@ clientesController.create_gestor = async (req, res) => {
     let mailOptions = {
       from: '"Ware" <rodrigo.pina113@gmail.com>',
       to: email,
-      subject: 'Seu Código Pessoal',
+      subject: 'Código Pessoal',
       text: `Olá ${nome},\n\nO teu código pessoal é: ${codigopessoal}\n\nObrigado!`,
-      html: `<p>Olá ${nome},</p><p>Seu código pessoal é: <strong>${codigopessoal}</strong></p><p>Obrigado!</p>`
+      html: `<p>Olá ${nome},</p><p>O seu código pessoal é: <strong>${codigopessoal}</strong></p><p>Obrigado!</p>`
     };
 
     // Enviar o e-mail
@@ -255,6 +251,46 @@ clientesController.create_gestor = async (req, res) => {
 
   } catch (error) {
     res.status(500).json({ error: 'Erro ao criar cliente', details: error.message });
+  }
+};
+
+clientesController.loginadmin = async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+    // Validação de entrada
+    if (!username || !password) {
+      return res.status(400).json({ error: 'Username e password são obrigatórios.' });
+    }
+
+    // Encontrar o usuário Ware pelo username
+    const wareUser = await Ware.findOne({ where: { username } });
+
+    // Se o usuário não for encontrado
+    if (!wareUser) {
+      return res.status(401).json({ error: 'Credenciais inválidas' });
+    }
+
+
+    if (password !== wareUser.password) {
+      return res.status(401).json({ error: 'Credenciais inválidas' });
+    }
+
+    // Criar token JWT
+    const token = jwt.sign(
+      { idware: wareUser.idware, username: wareUser.username },
+      jwtSecret,
+      { expiresIn: '1h' }
+    );
+
+    // Armazenar o token JWT e o ID do Ware em cookies seguros
+    res.cookie('token', token, { httpOnly: true, secure: false, maxAge: 3600000 }); // 1 hora
+    res.cookie('idware', wareUser.idware, { httpOnly: true, secure: false, maxAge: 3600000 }); // 1 hora
+
+    res.status(200).json({ token });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Erro no servidor' });
   }
 };
 

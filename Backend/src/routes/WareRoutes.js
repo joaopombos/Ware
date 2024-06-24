@@ -10,9 +10,10 @@ const analyticsController = require('../controllers/AnalyticsController');
 const { isAuthenticated, isBuyer, isManager, isAdmin } = require('../middlewares/middleware');
 
 // Rotas de cadastro e login
-router.post('/signup_comprador', clientesController.createC_gestor);
-router.post('/signin/gestor', clientesController.create_gestor);
+router.post('/signin/comprador', clientesController.createSignup); //V
+router.post('/signin/gestor', clientesController.create_gestor);   
 router.post('/login', clientesController.login);
+router.post('/login/admin', clientesController.loginadmin);
 router.get('/logout', clientesController.logout);
 
 // Rotas de loja acessíveis aos comprador

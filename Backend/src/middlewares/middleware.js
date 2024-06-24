@@ -1,8 +1,8 @@
 const jwt = require('jsonwebtoken');
 const jwtSecret = 'seuSegredoAqui';
+const Ware = require('../models/ware'); // Certifique-se de que o caminho está correto
 
 const isAuthenticated = (req, res, next) => {
-  // Tente obter o token do cookie
   const token = req.cookies.token;
 
   if (!token) {
@@ -14,33 +14,57 @@ const isAuthenticated = (req, res, next) => {
           return res.status(401).json({ error: 'Token inválido.' });
       }
 
-      req.user = decoded; // Aqui o req.user deve conter o nif do usuário entre outras informações
+      req.user = decoded;
       next();
   });
 };
 
 const isBuyer = (req, res, next) => {
-  if (req.user.iduser !== 2) {
-    return res.status(403).json({ error: 'Acesso negado.' });
-  }
-  next();
-};
-
-const isManager = (req, res, next) => {
-  if (req.user.iduser !== 3) {
-    return res.status(403).json({ error: 'Acesso negado.' });
-  }
-  next();
-};
-
-const isAdmin = (req, res, next) => {
   if (req.user.iduser !== 1) {
     return res.status(403).json({ error: 'Acesso negado.' });
   }
   next();
 };
 
+const isManager = (req, res, next) => {
+  if (req.user.iduser !== 2) {
+    return res.status(403).json({ error: 'Acesso negado.' });
+  }
+  next();
+};
+
+const isAdmin = async (req, res, next) => {
+  try {
+    // Obter o token JWT do cookie ou cabeçalho
+    const token = req.cookies.token || req.headers.authorization?.split(' ')[1]; // Supondo que o token está no cabeçalho Authorization
+
+    if (!token) {
+      return res.status(403).json({ error: 'Acesso negado. Token não fornecido.' });
+    }
+
+    // Verificar e decodificar o token JWT
+    jwt.verify(token, jwtSecret, async (err, decoded) => {
+      if (err) {
+        return res.status(403).json({ error: 'Acesso negado. Token inválido.' });
+      }
+
+      // Verificar se o usuário possui permissões de administrador
+      const admin = await Ware.findOne({ where: { idware: decoded.idware, username: decoded.username } });
+
+      if (!admin) {
+        return res.status(403).json({ error: 'Acesso negado. Não é um administrador válido.' });
+      }
+
+      // Se encontrar um registro correspondente, prosseguir para o próximo middleware
+      next();
+    });
+  } catch (error) {
+    return res.status(500).json({ error: 'Erro ao verificar administrador', details: error.message });
+  }
+};
+
 module.exports = { isAuthenticated, isBuyer, isManager, isAdmin };
+
 
 
 
