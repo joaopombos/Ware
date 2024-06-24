@@ -1,12 +1,12 @@
 const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
-  const Orcamentos = sequelize.define('Orcamentos', {
+  const Orcamentos = sequelize.define('orcamentos', {
     nif: {
       type: DataTypes.STRING(9),
       allowNull: false,
       references: {
-        model: 'Clientes',
+        model: 'clientes',
         key: 'nif'
       }
     },
@@ -14,7 +14,7 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       allowNull: true,
       references: {
-        model: 'TiposSoftwares',
+        model: 'tipossoftwares',
         key: 'idproduto'
       }
     },

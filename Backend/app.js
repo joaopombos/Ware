@@ -2,9 +2,7 @@ const express = require('express');
 const session = require('express-session');
 const PgSession = require('connect-pg-simple')(session);
 const sequelize = require('./src/models/database');
-const initModels = require('./src/models/init-models'); // Ajuste o caminho conforme necessário
-const DataTypes = require('sequelize').DataTypes; // Importar DataTypes do Sequelize
-const TipoUser = require('./src/models/tipouser')(sequelize, DataTypes); // Passar sequelize e DataTypes para tipouser
+const initModels = require('./src/models/init-models');
 const rotas = require('./src/routes/WareRoutes');
 const cookieParser = require('cookie-parser');
 
@@ -17,7 +15,7 @@ app.set('port', process.env.PORT || 3000);
 app.use(express.json());
 app.use(cookieParser());
 
-// Configurar CORS (se necessário)
+// Configurar CORS
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
@@ -49,36 +47,26 @@ console.log('Modelos inicializados:', Object.keys(models));
 async function inicializarServidor() {
   try {
     console.log('Iniciando sincronização dos modelos...');
-    // Sincroniza os modelos com o banco de dados
-    await sequelize.sync({ force: true }); // Use { force: true } para recriar as tabelas a cada inicialização (apenas para desenvolvimento)
+    await sequelize.sync({ force: true }); // Use { force: true } for development only
     console.log('Modelos sincronizados com o banco de dados.');
 
     console.log('Inserindo tipos de usuário...');
-    // Inserir tipos de usuário se ainda não existirem
     await models.TipoUser.bulkCreate([
       { iduser: 1, designacao: 'Admin' },
       { iduser: 2, designacao: 'Comprador_Gestor' },
       { iduser: 3, designacao: 'Gestor' }
-    ], { ignoreDuplicates: true }); // Ignora inserções duplicadas
-
+    ], { ignoreDuplicates: true });
     console.log('Tipos de usuário inseridos com sucesso.');
 
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => {
+      console.log(`Servidor iniciado na porta ${PORT}`);
+    });
   } catch (error) {
     console.error('Erro ao sincronizar o modelo ou inserir tipos de usuário:', error);
-    process.exit(1); // Encerra o processo com erro
+    process.exit(1);
   }
-
-  // Inicia o servidor após sincronizar e inserir os dados necessários
-  const PORT = process.env.PORT || 3000;
-  app.listen(PORT, () => {
-    console.log(`Servidor iniciado na porta ${PORT}`);
-  });
 }
 
 // Chama a função para inicializar o servidor
 inicializarServidor();
-
-
-
-
-
