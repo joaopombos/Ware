@@ -70,7 +70,8 @@ export default function EditComponent() {
 
 
                     <div className="pt-1 mb-4">
-                      <button className="btn btn-info btn-lg btn-dark" type="button">Login</button>
+                    <a className="btn btn-info btn-lg btn-dark" href="/home" role="button">Login</a>
+
                     </div>
 
 
