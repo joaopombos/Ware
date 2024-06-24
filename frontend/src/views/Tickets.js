@@ -104,7 +104,7 @@ const App = () => {
           </div>
         </div>
 
-        {/* Progress Section */}
+        {/* Progress Sectio */}
         <div className="progress-section mb-4">
           <h4>Progresso</h4>
           <div className="progress mb-2">
