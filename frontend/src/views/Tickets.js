@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./tickets.css";
 
 const App = () => {
+  const [visibleBodies, setVisibleBodies] = useState({});
+
+  const toggleBodyVisibility = (ticketId) => {
+    setVisibleBodies((prev) => ({
+      ...prev,
+      [ticketId]: !prev[ticketId],
+    }));
+  };
+
   const changeStatus = (ticketId, status, statusText) => {
     const ticket = document.getElementById(ticketId);
     const header = ticket.querySelector(".card-header");
@@ -13,7 +22,7 @@ const App = () => {
   };
 
   const updateProgress = () => {
-    const tickets = document.querySelectorAll(".ticket-card");
+    const tickets = document.querySelectorAll(".card.ticket-card");
     const totalTickets = tickets.length;
     let resolvedCount = 0,
       resolvingCount = 0,
@@ -89,9 +98,10 @@ const App = () => {
       <div id="content">
         <h2 style={{ marginBottom: "3%" }}>Tickets</h2>
 
-        <div className="container">
-          {/* Alerts Section */}
-          <div className="alert-buttons mb-4">
+        {/* Alerts Section */}
+        <div className="section-container">
+          <h4>Alerts</h4>
+          <div className="alert-buttons">
             <button className="btn btn-danger">
               <i className="fas fa-times-circle"></i> Por resolver
             </button>
@@ -104,72 +114,100 @@ const App = () => {
           </div>
         </div>
 
-        {/* Progress Sectio */}
-        <div className="progress-section mb-4">
+        {/* Progress Section */}
+        <div className="section-container">
           <h4>Progresso</h4>
-          <div className="progress mb-2">
-            <div id="progress-success" className="progress-bar bg-success" role="progressbar" style={{ width: "0%" }}></div>
-          </div>
-          <div className="progress mb-2">
-            <div id="progress-warning" className="progress-bar bg-warning" role="progressbar" style={{ width: "0%" }}></div>
-          </div>
-          <div className="progress">
-            <div id="progress-danger" className="progress-bar bg-danger" role="progressbar" style={{ width: "0%" }}></div>
+          <div className="progress-section">
+            <div className="progress mb-2">
+              <div id="progress-success" className="progress-bar bg-success" role="progressbar" style={{ width: "0%" }}></div>
+            </div>
+            <div className="progress mb-2">
+              <div id="progress-warning" className="progress-bar bg-warning" role="progressbar" style={{ width: "0%" }}></div>
+            </div>
+            <div className="progress">
+              <div id="progress-danger" className="progress-bar bg-danger" role="progressbar" style={{ width: "0%" }}></div>
+            </div>
           </div>
         </div>
 
         {/* Tickets Section */}
-        <div className="tickets-section">
+        <div className="section-container">
           <h4>Tickets</h4>
-          <div className="card ticket-card" id="ticket1">
-            <div className="card-header bg-warning text-white">Ticket #1 - Em resolução</div>
-            <div className="card-body">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              <div className="mt-3">
-                <button className="btn btn-danger" onClick={() => changeStatus("ticket1", "danger", "Por resolver")}>
-                  <i className="fas fa-times-circle"></i>
-                </button>
-                <button className="btn btn-warning" onClick={() => changeStatus("ticket1", "warning", "Em resolução")}>
-                  <i className="fas fa-exclamation-triangle"></i>
-                </button>
-                <button className="btn btn-success" onClick={() => changeStatus("ticket1", "success", "Resolvido")}>
-                  <i className="fas fa-check-circle"></i>
-                </button>
+          <div className="tickets-section">
+            <div className="card ticket-card" id="ticket1">
+              <div
+                className="card-header bg-warning text-white"
+                onClick={() => toggleBodyVisibility("ticket1")}
+                style={{ cursor: "pointer" }}
+              >
+                Ticket #1 - Em resolução
               </div>
+              {visibleBodies["ticket1"] && (
+                <div className="card-body">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  <div className="mt-3">
+                    <button className="btn btn-danger" onClick={() => changeStatus("ticket1", "danger", "Por resolver")}>
+                      <i className="fas fa-times-circle"></i>
+                    </button>
+                    <button className="btn btn-warning" onClick={() => changeStatus("ticket1", "warning", "Em resolução")}>
+                      <i className="fas fa-exclamation-triangle"></i>
+                    </button>
+                    <button className="btn btn-success" onClick={() => changeStatus("ticket1", "success", "Resolvido")}>
+                      <i className="fas fa-check-circle"></i>
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
-          </div>
-          <div className="card ticket-card" id="ticket2">
-            <div className="card-header bg-danger text-white">Ticket #2 - Por resolver</div>
-            <div className="card-body">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              <div className="mt-3">
-                <button className="btn btn-danger" onClick={() => changeStatus("ticket2", "danger", "Por resolver")}>
-                  <i className="fas fa-times-circle"></i>
-                </button>
-                <button className="btn btn-warning" onClick={() => changeStatus("ticket2", "warning", "Em resolução")}>
-                  <i className="fas fa-exclamation-triangle"></i>
-                </button>
-                <button className="btn btn-success" onClick={() => changeStatus("ticket2", "success", "Resolvido")}>
-                  <i className="fas fa-check-circle"></i>
-                </button>
+            <div className="card ticket-card" id="ticket2">
+              <div
+                className="card-header bg-danger text-white"
+                onClick={() => toggleBodyVisibility("ticket2")}
+                style={{ cursor: "pointer" }}
+              >
+                Ticket #2 - Por resolver
               </div>
+              {visibleBodies["ticket2"] && (
+                <div className="card-body">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  <div className="mt-3">
+                    <button className="btn btn-danger" onClick={() => changeStatus("ticket2", "danger", "Por resolver")}>
+                      <i className="fas fa-times-circle"></i>
+                    </button>
+                    <button className="btn btn-warning" onClick={() => changeStatus("ticket2", "warning", "Em resolução")}>
+                      <i className="fas fa-exclamation-triangle"></i>
+                    </button>
+                    <button className="btn btn-success" onClick={() => changeStatus("ticket2", "success", "Resolvido")}>
+                      <i className="fas fa-check-circle"></i>
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
-          </div>
-          <div className="card ticket-card" id="ticket3">
-            <div className="card-header bg-success text-white">Ticket #3 - Resolvido</div>
-            <div className="card-body">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              <div className="mt-3">
-                <button className="btn btn-danger" onClick={() => changeStatus("ticket3", "danger", "Por resolver")}>
-                  <i className="fas fa-times-circle"></i>
-                </button>
-                <button className="btn btn-warning" onClick={() => changeStatus("ticket3", "warning", "Em resolução")}>
-                  <i className="fas fa-exclamation-triangle"></i>
-                </button>
-                <button className="btn btn-success" onClick={() => changeStatus("ticket3", "success", "Resolvido")}>
-                  <i className="fas fa-check-circle"></i>
-                </button>
+            <div className="card ticket-card" id="ticket3">
+              <div
+                className="card-header bg-success text-white"
+                onClick={() => toggleBodyVisibility("ticket3")}
+                style={{ cursor: "pointer" }}
+              >
+                Ticket #3 - Resolvido
               </div>
+              {visibleBodies["ticket3"] && (
+                <div className="card-body">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  <div className="mt-3">
+                    <button className="btn btn-danger" onClick={() => changeStatus("ticket3", "danger", "Por resolver")}>
+                      <i className="fas fa-times-circle"></i>
+                    </button>
+                    <button className="btn btn-warning" onClick={() => changeStatus("ticket3", "warning", "Em resolução")}>
+                      <i className="fas fa-exclamation-triangle"></i>
+                    </button>
+                    <button className="btn btn-success" onClick={() => changeStatus("ticket3", "success", "Resolvido")}>
+                      <i className="fas fa-check-circle"></i>
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
