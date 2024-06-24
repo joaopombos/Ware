@@ -1,5 +1,5 @@
-const Clientes = require('../models/clientes');
-const Empresas = require('../models/empresas');
+const Clientes = require('../models/init-models').Clientes; // Verifique se o caminho do modelo está correto
+const  Empresas  = require('../models/empresas');
 const TipoUser = require('../models/tipouser');
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
@@ -27,15 +27,16 @@ clientesController.list = async (req, res) => {
 // Adicionar um novo cliente
 clientesController.createC_gestor = async (req, res) => {
   try {
-    const { emp_nif, iduser, nome, email, contacto, nif } = req.body;
+    const { emp_nif, nome, email, contacto, nif } = req.body;
 
     // Verificar campos obrigatórios
-    if (!emp_nif || !iduser || !nif) {
+    if (!emp_nif || !nome || !email || !nif) {
       return res.status(400).json({
         error: 'Faltam campos obrigatórios',
         details: [
           !emp_nif && 'emp_nif não pode ser nulo',
-          !iduser && 'iduser não pode ser nulo',
+          !nome && 'nome não pode ser nulo',
+          !email && 'email não pode ser nulo',
           !nif && 'nif não pode ser nulo'
         ].filter(Boolean).join(', ')
       });
@@ -43,7 +44,12 @@ clientesController.createC_gestor = async (req, res) => {
 
     const codigopessoal = generatePassword();
 
-    // Criar o cliente
+
+
+    // Definir iduser como 2 (outra lógica pode ser aplicada conforme necessário)
+    const iduser = 2;
+
+    // Criar o cliente usando o modelo Clientes
     const client = await Clientes.create({ emp_nif, iduser, nome, email, codigopessoal, contacto, nif });
 
     // Configurar o transportador de e-mail
@@ -63,7 +69,7 @@ clientesController.createC_gestor = async (req, res) => {
       to: email,
       subject: 'Seu Código Pessoal',
       text: `Olá ${nome},\n\nO teu código pessoal é: ${codigopessoal}\n\nObrigado!`,
-      html: `<p>Olá ${nome},</p><p>Seu código pessoal é: <strong>${codigopessoal}</strong></p><p>Obrigado!</p>`
+      html: `<p>Olá ${nome},</p><p>O seu código pessoal é: <strong>${codigopessoal}</strong></p><p>Obrigado!</p>`
     };
 
     // Enviar o e-mail

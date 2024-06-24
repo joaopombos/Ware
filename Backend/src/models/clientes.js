@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
-  return sequelize.define('clientes', {
+  return sequelize.define('Clientes', {
     emp_nif: {
       type: DataTypes.STRING(9),
       allowNull: false,
