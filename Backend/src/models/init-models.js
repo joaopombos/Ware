@@ -29,7 +29,7 @@ function initModels(sequelize) {
   const Ware = defineWare(sequelize, DataTypes);
   
 
-  // Define relationships here
+  // Define relationships heree
   Avaliacoes.belongsTo(Addons, { as: "idavaliacao_addon", foreignKey: "idavaliacao" });
   Addons.hasOne(Avaliacoes, { as: "avaliaco", foreignKey: "idavaliacao" });
   Addons.belongsTo(Avaliacoes, { as: "idaddon_avaliaco", foreignKey: "idaddon" });
