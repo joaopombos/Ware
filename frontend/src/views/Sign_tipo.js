@@ -8,8 +8,8 @@ export default function Sign_tipo() {
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundAttachment: 'fixed',
-            height: '100vh',
-            width: '100vw'
+            height: '103vh',
+            width: '99vw'
         }}>
             <nav className="navbar navbar-expand-lg bg-dark">
                 <div className="container-fluid">
@@ -27,32 +27,32 @@ export default function Sign_tipo() {
                 </div>
             </nav>
             <div className="d-flex justify-content-center align-items-center" style={{ height: "95vh" }}>
-                <div className="card text-center mb-3 align-middle" style={{ width: '20rem', border: 'none', height: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'white' }}>
+                <div className="card text-center mb-3 align-middle" style={{ width: '20rem', border: 'none', height: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'white', padding: '20px' }}>
 
-                    <div className="card-body" style={{ textAlign: "center", marginTop: "20%", backgroundcolor: 'white' }}>
-                        <h2 className="card-title" style={{ marginBottom: "5%" }}>Gestor</h2>
+                    <div className="card-body" style={{ textAlign: "center", marginTop: "5%", backgroundcolor: 'white' }}>
+                        <h2 className="card-title" style={{ marginBottom: "10%" }}>Gestor</h2>
                         <p className="card-text" style={{ lineHeight: "3" }}>
-                            <ul style={{ listStyle: "none", padding: "0", textAlign: "left" }}>
+                            <ul style={{ listStyle: "none", padding: "0", textAlign: "center" }}>
                                 <li><i className="fas fa-check"></i> Biblioteca de Softwares</li>
                                 <li><i className="fas fa-check"></i> Gestão Empresarial</li>
                                 <li><i className="fas fa-times"></i> Compra de Softwares</li>
                             </ul>
                         </p>
-                        <a href="/signin/gestor" className="btn btn-dark" style={{ marginTop: "10%" }}>Selecionar</a>
+                        <a href="/signin/gestor" className="btn btn-dark" style={{ marginTop: "5%" }}>Selecionar</a>
                     </div>
                 </div>
-                <div className="card text-center mb-3 align-middle" style={{ width: '20rem', border: 'none', height: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: "5rem", backgroundColor: 'white' }}>
+                <div className="card text-center mb-3 align-middle" style={{ width: '20rem', border: 'none', height: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: "5rem", backgroundColor: 'white', padding: '5px' }}>
                     <div className="card-body" style={{ textAlign: 'center', marginTop: '20%', backgroundColor: 'white' }}>
                         <h2 className="card-title" style={{ marginTop: '-20%' }}>Comprador/</h2>
                         <h2 className="card-title" style={{ marginBottom: '5%' }}>Gestor</h2>
                         <p className="card-text" style={{ lineHeight: '3' }}>
-                            <ul style={{ listStyle: 'none', padding: '0', textAlign: 'left' }}>
+                            <ul style={{ listStyle: 'none', padding: '0', textAlign: 'center' }}>
                                 <li><i className="fas fa-check"></i> Biblioteca de Softwares</li>
                                 <li><i className="fas fa-check"></i> Gestão Empresarial</li>
                                 <li><i className="fas fa-check"></i> Compra de Softwares</li>
                             </ul>
                         </p>
-                        <a href="/signin/c_gestor" className="btn btn-dark" style={{ marginTop: '10%' }}>Selecionar</a>
+                        <a href="/signin/c_gestor" className="btn btn-dark" style={{ marginTop: '1%' }}>Selecionar</a>
                     </div>
                 </div>
             </div>

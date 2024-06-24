@@ -47,7 +47,7 @@ function App() {
             {/* NAVBAR */}
             <nav className="navbar navbar-expand-lg bg-dark">
                 <div className="container-fluid">
-                    <a className="navbar-brand" href="principalcomprador.html">
+                    <a className="navbar-brand" href="/signup_comprador">
                         <img src="/images/Logos/logo.png" style={{ width: '20%' }} alt="Ware Logo" />
                     </a>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
@@ -57,7 +57,7 @@ function App() {
                     <div className="collapse navbar-collapse" id="navbarNavAltMarkup" style={{ marginLeft: '-32%' }}>
                         <div className="navbar-nav">
                             <a className="nav-link active text-white" aria-current="page" href="principalcomprador.html">Explorar</a>
-                            <a className="nav-link text-white" href="librarycompgestor.html">Gestão</a>
+                            <a className="nav-link text-white" href="/library">Gestão</a>
                         </div>
                     </div>
                     <form className="d-flex" role="search">

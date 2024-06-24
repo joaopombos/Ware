@@ -39,7 +39,7 @@ export default function Sign_gestor() {
            </nav>
            <div class="row">
                <div class="col-sm-6" style={{alignItems: 'center', height: '100vh'}}>
-                   <img src="/images/fundos/fundopreto.jpg" class="img-fluid" alt="fundo preto" style={{height: '100%', objectFit: 'cover'}}/>
+                   <img src="/images/fundos/fundo preto.jpg" class="img-fluid" alt="fundo preto" style={{height: '100%', objectFit: 'cover'}}/>
                </div>
                <div class="col-sm-6 text-black">
                    <div class=" align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">

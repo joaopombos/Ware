@@ -13,7 +13,7 @@ const MySoftwares = () => {
     const renderCard = () => (
         <div className="col-sm-2">
             <div className="card">
-                <button className="btn-img" onClick={() => handleButtonClick("licensecompgestor.html")}>
+                <button className="btn-img" onClick={() => handleButtonClick("/license")}>
                     <img src="/images/Logos/figma.png" className="card-img-top" alt="..." />
                 </button>
                 <div className="card-body">
@@ -28,7 +28,7 @@ const MySoftwares = () => {
         <div className="d-flex flex-column min-vh-100">
             <nav className="navbar navbar-expand-lg bg-dark">
                 <div className="container-fluid">
-                    <a className="navbar-brand" href="principalcomprador.html">
+                    <a className="navbar-brand" href="/signup_comprador">
                         <img src="/images/Logos/logo.png" style={{ width: '20%' }} alt="Ware Logo" />
                     </a>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
@@ -37,8 +37,8 @@ const MySoftwares = () => {
                     </button>
                     <div className="collapse navbar-collapse" id="navbarNavAltMarkup" style={{ marginLeft: '-32%' }}>
                         <div className="navbar-nav">
-                            <a className="nav-link active text-white" aria-current="page" href="principalcomprador.html">Explorar</a>
-                            <a className="nav-link text-white" href="/license">Gestão</a>
+                            <a className="nav-link text-white" href="/shop/my">Explorar</a>
+                            <a className="nav-link active text-white" aria-current="page" href="/library">Gestão</a>
 
                         </div>
                     </div>
