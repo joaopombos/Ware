@@ -1,5 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './views/home';
 import Signup_comprador from './views/signup_comprador';
 import Shop from './views/Shop';
@@ -21,10 +22,6 @@ import Sign_Sucess from './views/Sign_sucess';
 import Sign_cGestor from './views/Sign_cGestor';
 import Library from './views/Library';
 import License from './views/License';
-
-
-
-
 
 function App() {
   return (
