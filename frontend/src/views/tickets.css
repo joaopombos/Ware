@@ -98,7 +98,7 @@ body {
 }
 
 .card.ticket-card {
-  width: 100%; /* Make the card fill the width of the parent container */
+  width: 100%; /* Make the card fill the width of thee parent container */
   margin-bottom: 20px; /* Add some space between cards */
   box-sizing: border-box; /* Include padding and border in the element's total width and height */
 }
