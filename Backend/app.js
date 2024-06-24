@@ -39,7 +39,7 @@ app.use(session({
 // Rota
 app.use(rotas);
 
-// Inicializar modelos
+// Inicializar modelo
 const models = initModels(sequelize);
 console.log('Modelos inicializados:', Object.keys(models));
 
