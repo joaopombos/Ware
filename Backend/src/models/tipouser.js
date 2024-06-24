@@ -1,6 +1,7 @@
-const Sequelize = require('sequelize');
+const { DataTypes } = require('sequelize');
+
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('tipouser', {
+  const TipoUser = sequelize.define('tipouser', {
     designacao: {
       type: DataTypes.STRING(30),
       allowNull: true
@@ -11,25 +12,19 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true
     }
   }, {
-    sequelize,
     tableName: 'tipouser',
     schema: 'public',
     timestamps: false,
     indexes: [
       {
-        name: "pk_tipouser",
+        name: 'pk_tipouser',
         unique: true,
-        fields: [
-          { name: "iduser" },
-        ]
-      },
-      {
-        name: "tipouser_pk",
-        unique: true,
-        fields: [
-          { name: "iduser" },
-        ]
-      },
+        fields: ['iduser']
+      }
     ]
   });
+
+  return TipoUser;
 };
+
+

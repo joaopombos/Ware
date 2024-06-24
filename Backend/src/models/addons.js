@@ -1,14 +1,12 @@
-const Sequelize = require('sequelize');
-module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('addons', {
+const { DataTypes } = require('sequelize');
+
+module.exports = function(sequelize) {
+  const Addons = sequelize.define('addons', {
     idaddon: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
-      references: {
-        model: 'avaliacoes',
-        key: 'idavaliacao'
-      }
+      autoIncrement: true
     },
     categoria: {
       type: DataTypes.STRING(30),
@@ -122,4 +120,7 @@ module.exports = function(sequelize, DataTypes) {
       },
     ]
   });
+
+  return Addons;
 };
+
