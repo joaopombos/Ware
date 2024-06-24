@@ -4,25 +4,22 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 export default function Sign_sucess() {
     return (
         <div>
-            {/* MENU BAR */}
             <nav class="navbar navbar-expand-lg bg-dark">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="#">
-                        <img src="images/Logos/logo.png" alt="Ware Logo" />
-                    </a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-                        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+               <div class="container-fluid">
+                   <a class="navbar-brand" href="#"><img src="/images/Logos/logo.png" style={{width:'20%'}} alt="ware logo"/></a>
+                   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                       aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="navbar-toggler-icon"></span>
+                   </button>
+                   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     </div>
-                    <button class="btn btn-outline-light me-2" type="button">Iniciar Sessão</button>
+                   <button class="btn btn-outline-light me-2" type="button">Iniciar Sessão</button>
                 </div>
-            </nav>
+           </nav>
 
              {/* LOG IN FORM */}
             <section class="vh-100 d-flex" style={{ width: "100%" }}>
-                <div class="col-sm-6 text-black" style={{ width: "50%", height: "100vh", backgroundImage: "url('images/fundos/fundo preto.png')", backgroundSize: "cover", backgroundPosition: "center" }}></div>
+                <div class="col-sm-6 text-black" style={{ width: "50%", height: "100vh", backgroundImage: "url('/images/fundos/fundopreto.jpg')", backgroundSize: "cover", backgroundPosition: "center" }}></div>
                  <div class="col-sm-6 text-black" style={{ width: "50%" }}>
                      <div class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
                         <form style={{ width: "23rem", marginTop: "30%" }}>
@@ -43,11 +40,11 @@ export default function Sign_sucess() {
                   </div>
              </section>
             {/* FOOTER */}
-            <footer class="footer fixed-bottom bg-dark text-light text-center">
-                <div class="container">
-                    <span>&copy; Ware 2024</span>
-                </div>
-            </footer>
+            <footer class="footer bg-dark text-light fixed-bottom">
+                <div class="container d-flex justify-content-center align-items-center">
+                    <span class="text-center">&copy; Ware 2024</span>
+                 </div>
+             </footer>
         </div>
     );
 }

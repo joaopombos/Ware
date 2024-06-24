@@ -58,3 +58,9 @@
     width: 0;
     transition: width 0.3s ease-in-out;
 }
+
+
+.card .estrelas {
+    color: gold;
+    font-size: 1rem;
+}

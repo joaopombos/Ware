@@ -17,6 +17,7 @@ body {
   transition: all 0.3s;
   display: flex;
   flex-direction: column;
+  margin-left: 0.5%;
 }
 
 #sidebar .logo {

@@ -23,7 +23,7 @@ export default function EditComponent() {
 
 
   return (
-    <div className="loginpage">
+    <div className="loginpage" style={{ overflow: 'hidden' }}>
       {/* MENU BAR */}
       <nav className="navbar navbar-expand-lg bg-dark">
         <div className="container-fluid">
@@ -41,56 +41,64 @@ export default function EditComponent() {
       {/* FIM MENU BAR */}
 
       {/* LOG IN FORM */}
-      <section className="vh-100">
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-sm-6 text-black">
-
-              <div className="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
-
-                <form style={{ width: '23rem', marginTop: '20%' }}>
+      <div style={{ height: '100vh', overflow: 'hidden' }}>
+        <section className="d-flex align-items-center justify-content-center" style={{ height: '100vh', overflow: 'hidden' }}>
+          <div className="container-fluid" style={{ height: '100vh', overflow: 'hidden' }}>
+            <div className="row" style={{ height: '100vh', overflow: 'hidden' }}>
+              <div className="col-sm-6 text-black" style={{ height: '100vh', overflow: 'hidden' }}>
 
 
-                  <h3 className="fw-normal mb-3 pb-3" style={{ letterSpacing: '1px' }}>Log in</h3>
+                <div className="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
+
+                  <form style={{ width: '23rem', marginTop: '20%' }}>
 
 
-                  <div className="form-outline mb-4">
-                    <input type="email" id="form2Example17" className="form-control form-control-lg" />
-                    <label className="form-label" htmlFor="form2Example17">Endereço de email</label>
-                  </div>
+                    <h3 className="fw-normal mb-3 pb-3" style={{ letterSpacing: '1px' }}>Log in</h3>
 
 
-                  <div className="form-outline mb-4">
-                    <input type="password" id="form2Example27" className="form-control form-control-lg" />
-                    <label className="form-label" htmlFor="form2Example27">Código</label>
-                  </div>
+                    <div className="form-outline mb-4">
+                      <input type="email" id="form2Example17" className="form-control form-control-lg" />
+                      <label className="form-label" htmlFor="form2Example17">Endereço de email</label>
+                    </div>
 
 
-                  <div className="pt-1 mb-4">
-                    <button className="btn btn-info btn-lg btn-dark" type="button">Login</button>
-                  </div>
+
+                    <div className="form-outline mb-4">
+                      <input type="password" id="form2Example27" className="form-control form-control-lg" />
+                      <label className="form-label" htmlFor="form2Example27">Código</label>
+                    </div>
 
 
-                  <p className="small mb-5 pb-lg-2"><a className="text-muted" href="#!">Esqueceu-se do código?</a></p>
-                  <p>Não tem conta? <a href="#!" className="link-info">Crie uma aqui.</a></p>
+                    <div className="pt-1 mb-4">
+                      <button className="btn btn-info btn-lg btn-dark" type="button">Login</button>
+                    </div>
 
 
-                </form>
 
+                    <p className="small mb-5 pb-lg-2"><a className="text-muted" href="#!">Esqueceu-se do código?</a></p>
+                    <p>Não tem conta? <a href="#!" className="link-info">Crie uma aqui.</a></p>
+
+
+
+                  </form>
+
+                </div>
+              </div>
+              <div className="col-sm-6 d-flex align-items-center justify-content-center">
+                <img src="images/fundos/fundo branco.jpg" alt="image" style={{ width: 'auto', height: '100vh' }} />
               </div>
             </div>
-            <div className="col-sm-6  d-flex align-items-center justify-content-center">
-              <img src="images/fundos/fundo branco.jpg" alt="image" style={{ width: 'auto', height: '100vh', objectFit: 'cover' }} />
-            </div>
+
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
+
       {/* FIM LOG IN FORM */}
 
       {/* FOOTER */}
-      <footer className="footer fixed-bottom bg-dark text-light text-center">
-        <div className="container">
-          <span>&copy; Ware 2024</span>
+      <footer class="footer bg-dark text-light fixed-bottom">
+        <div class="container d-flex justify-content-center align-items-center">
+          <span class="text-center">&copy; Ware 2024</span>
         </div>
       </footer>
       {/* FIM FOOTER */}

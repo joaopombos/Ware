@@ -28,7 +28,7 @@
         <div>
             <nav class="navbar navbar-expand-lg bg-dark">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#"><img src="images/logos/logo.png" style={{width:'20%'}} alt="ware logo"/></a>
+                    <a class="navbar-brand" href="#"><img src="/images/Logos/logo.png" style={{width:'20%'}} alt="ware logo"/></a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
                         aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                        <span class="navbar-toggler-icon"></span>
@@ -40,11 +40,11 @@
             </nav>
             <div class="row">
                 <div class="col-sm-6" style={{alignItems: 'center', height: '100vh'}}>
-                    <img src="images/fundos/fundo preto.png" class="img-fluid" alt="fundo preto" style={{height: '100%', objectFit: 'cover'}}/>
+                    <img src="/images/fundos/fundopreto.jpg" class="img-fluid" alt="fundo preto" style={{height: '100%', objectFit: 'cover'}}/>
                 </div>
                 <div class="col-sm-6 text-black">
                     <div class=" align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
-                        <form onSubmit={handleSubmit} class="form-signin" style={{width: '23rem', marginTop: '20%'}}>
+                        <form onSubmit={handleSubmit} class="form-signin" style={{width: '23rem', marginTop: '-5%'}}>
                             <h3 class="fw-normal mb-3 pb-3" style={{letterSpacing: '1px'}}>Criar conta</h3>
                             <p style={{color: '#B3B3B3'}} >Todos os campos são obrigatórios.</p>
                             <div class="form-outline mb-4">
@@ -82,11 +82,11 @@
                  </div>
             </div>
  
-            <footer class="footer fixed-bottom bg-dark text-light text-center">
-                <div class="container">
-                    <span>&copy; Ware 2024</span>
-                </div>
-            </footer>
+            <footer class="footer bg-dark text-light fixed-bottom">
+                <div class="container d-flex justify-content-center align-items-center">
+                    <span class="text-center">&copy; Ware 2024</span>
+                 </div>
+             </footer>
         </div>
     );
 }
