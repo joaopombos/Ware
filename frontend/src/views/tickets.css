@@ -44,8 +44,7 @@ body {
   transition: background 0.3s, color 0.3s;
 }
 
-#sidebar ul li a:hover,
-#sidebar ul li.active > a {
+#sidebar ul li a:hover, #sidebar ul li.active > a {
   background: #495057;
   color: #fff;
 }
@@ -83,21 +82,27 @@ body {
   border-color: #007bff;
 }
 
-.alert-buttons {
-  display: flex;
-  justify-content: space-between;
+/* New styles */
+.section-container {
+  padding: 20px;
+  margin-bottom: 20px;
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
 }
 
-.progress-section {
-  margin-bottom: 20px; /* Adicionado para espaço entre as seções */
+.section-container h4 {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
 }
 
-.tickets-section {
-  width: 100%; /* Ocupa toda a largura do content */
+.card.ticket-card {
+  width: 100%; /* Make the card fill the width of the parent container */
+  margin-bottom: 20px; /* Add some space between cards */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
 }
 
-/* Estilos para os tickets */
-.ticket-card {
-  width: 100%; /* Ocupa toda a largura da tickets-section */
-  margin-bottom: 20px; /* Espaçamento abaixo dos tickets */
+.card-header, .card-body {
+  width: 100%; /* Ensure header and body fill the width of the card */
 }
