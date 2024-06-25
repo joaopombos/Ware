@@ -129,134 +129,134 @@ const Shop = () => {
                     ))}
                 </div>
             </div>
-            <hr class="custom-hr" />
+            <hr className="custom-hr" />
 
             <h1 style={{ marginLeft: '5%', marginTop: '5%', marginBottom: '5%' }}>Recomendado para si</h1>
 
-            <div id="carouselrecomendado" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <div class="row justify-content-center">
-                            <div class="col-6 d-flex flex-column align-items-center">
-                                <div class="card card-custom" style={{ width: '70%', boxshadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col-md-3">
-                                            <img src="/images/newicons/excel.png" class="card-img" alt="..." />
+            <div id="carouselrecomendado" className="carousel slide" data-bs-ride="carousel">
+                <div className="carousel-inner">
+                    <div className="carousel-item active">
+                        <div className="row justify-content-center">
+                            <div className="col-6 d-flex flex-column align-items-center">
+                                <div className="card card-custom" style={{ width: '70%', boxShadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
+                                    <div className="row no-gutters align-items-center">
+                                        <div className="col-md-3">
+                                            <img src="/images/newicons/excel.png" className="card-img" alt="..." />
                                         </div>
-                                        <div class="col-md-8 d-flex justify-content-between align-items-center">
-                                            <div class="card-body">
-                                                <p class="card-text">Produtividade</p>
-                                                <h5 class="card-title">Microsoft Excel</h5>
+                                        <div className="col-md-8 d-flex justify-content-between align-items-center">
+                                            <div className="card-body">
+                                                <p className="card-text">Produtividade</p>
+                                                <h5 className="card-title">Microsoft Excel</h5>
                                             </div>
-                                            <a href="#" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
+                                            <a href="#" className="btn btn-dark btn-sm" style={{ marginRight: '-15px' }}>Saber mais</a>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card card-custom mt-3" style={{ width: '70%', boxshadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col-md-3">
-                                            <img src="/images/newicons/asana.png" class="card-img" alt="..." />
+                                <div className="card card-custom mt-3" style={{ width: '70%', boxShadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
+                                    <div className="row no-gutters align-items-center">
+                                        <div className="col-md-3">
+                                            <img src="/images/newicons/asana.png" className="card-img" alt="..." />
                                         </div>
-                                        <div class="col-md-8 d-flex justify-content-between align-items-center">
-                                            <div class="card-body">
-                                                <p class="card-text">Comunicação</p>
-                                                <h5 class="card-title">Asana</h5>
+                                        <div className="col-md-8 d-flex justify-content-between align-items-center">
+                                            <div className="card-body">
+                                                <p className="card-text">Comunicação</p>
+                                                <h5 className="card-title">Asana</h5>
                                             </div>
-                                            <a href="#" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
+                                            <a href="#" className="btn btn-dark btn-sm" style={{ marginRight: '-15px' }}>Saber mais</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-6 d-flex flex-column align-items-center" style={{ marginleft: '-5%' }}>
-                                <div class="card card-custom" style={{ width: '70%', boxshadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col-md-3">
-                                            <img src="/images/newicons/dropbox.png" class="card-img" alt="..." />
+                            <div className="col-6 d-flex flex-column align-items-center" style={{ marginLeft: '-5%' }}>
+                                <div className="card card-custom" style={{ width: '70%', boxShadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
+                                    <div className="row no-gutters align-items-center">
+                                        <div className="col-md-3">
+                                            <img src="/images/newicons/dropbox.png" className="card-img" alt="..." />
                                         </div>
-                                        <div class="col-md-8 d-flex justify-content-between align-items-center">
-                                            <div class="card-body">
-                                                <p class="card-text">Produtivade</p>
-                                                <h5 class="card-title">DropBox</h5>
+                                        <div className="col-md-8 d-flex justify-content-between align-items-center">
+                                            <div className="card-body">
+                                                <p className="card-text">Produtivade</p>
+                                                <h5 className="card-title">DropBox</h5>
                                             </div>
-                                            <a href="#" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
+                                            <a href="#" className="btn btn-dark btn-sm" style={{ marginRight: '-15px' }}>Saber mais</a>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card card-custom mt-3" style={{ width: '70%', boxshadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col-md-3">
-                                            <img src="/images/newicons/miro.png" class="card-img" alt="..." />
+                                <div className="card card-custom mt-3" style={{ width: '70%', boxShadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
+                                    <div className="row no-gutters align-items-center">
+                                        <div className="col-md-3">
+                                            <img src="/images/newicons/miro.png" className="card-img" alt="..." />
                                         </div>
-                                        <div class="col-md-8 d-flex justify-content-between align-items-center">
-                                            <div class="card-body">
-                                                <p class="card-text">Comunicação</p>
-                                                <h5 class="card-title">Miro</h5>
+                                        <div className="col-md-8 d-flex justify-content-between align-items-center">
+                                            <div className="card-body">
+                                                <p className="card-text">Comunicação</p>
+                                                <h5 className="card-title">Miro</h5>
                                             </div>
-                                            <a href="#" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
+                                            <a href="#" className="btn btn-dark btn-sm" style={{ marginRight: '-15px' }}>Saber mais</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="carousel-item">
-                        <div class="row justify-content-center">
-                            <div class="col-6 d-flex flex-column align-items-center">
-                                <div class="card card-custom" style={{ width: '70%', boxshadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col-md-3">
-                                            <img src="/images/newicons/notion.png" class="card-img" alt="..." />
+                    <div className="carousel-item">
+                        <div className="row justify-content-center">
+                            <div className="col-6 d-flex flex-column align-items-center">
+                                <div className="card card-custom" style={{ width: '70%', boxShadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
+                                    <div className="row no-gutters align-items-center">
+                                        <div className="col-md-3">
+                                            <img src="/images/newicons/notion.png" className="card-img" alt="..." />
                                         </div>
-                                        <div class="col-md-8 d-flex justify-content-between align-items-center">
-                                            <div class="card-body">
-                                                <p class="card-text">Produtivade</p>
-                                                <h5 class="card-title">Notion</h5>
+                                        <div className="col-md-8 d-flex justify-content-between align-items-center">
+                                            <div className="card-body">
+                                                <p className="card-text">Produtivade</p>
+                                                <h5 className="card-title">Notion</h5>
                                             </div>
-                                            <a href="#" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
+                                            <a href="#" className="btn btn-dark btn-sm" style={{ marginRight: '-15px' }}>Saber mais</a>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card card-custom mt-3" style={{ width: '70%', boxshadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col-md-3">
-                                            <img src="/images/newicons/fcp.png" class="card-img" alt="..." />
+                                <div className="card card-custom mt-3" style={{ width: '70%', boxShadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
+                                    <div className="row no-gutters align-items-center">
+                                        <div className="col-md-3">
+                                            <img src="/images/newicons/fcp.png" className="card-img" alt="..." />
                                         </div>
-                                        <div class="col-md-8 d-flex justify-content-between align-items-center">
-                                            <div class="card-body">
-                                                <p class="card-text">Vídeo</p>
+                                        <div className="col-md-8 d-flex justify-content-between align-items-center">
+                                            <div className="card-body">
+                                                <p className="card-text">Vídeo</p>
                                                 <h5 class="card-title">Final Cut Pro</h5>
                                             </div>
-                                            <a href="#" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
+                                            <a href="#" className="btn btn-dark btn-sm" style={{ marginRight: '-15px' }}>Saber mais</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-6 d-flex flex-column align-items-center" style={{ marginleft: '-5%' }}>
-                                <div class="card card-custom" style={{ width: '70%', boxshadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col-md-3">
-                                            <img src="/images/newicons/office.png" class="card-img" alt="..." />
+                            <div className="col-6 d-flex flex-column align-items-center" style={{ marginLeft: '-5%' }}>
+                                <div className="card card-custom" style={{ width: '70%', boxShadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
+                                    <div className="row no-gutters align-items-center">
+                                        <div className="col-md-3">
+                                            <img src="/images/newicons/office.png" className="card-img" alt="..." />
                                         </div>
-                                        <div class="col-md-8 d-flex justify-content-between align-items-center">
-                                            <div class="card-body">
-                                                <p class="card-text">Produtividade</p>
-                                                <h5 class="card-title">Office 365</h5>
+                                        <div className="col-md-8 d-flex justify-content-between align-items-center">
+                                            <div className="card-body">
+                                                <p className="card-text">Produtividade</p>
+                                                <h5 className="card-title">Office 365</h5>
                                             </div>
-                                            <a href="#" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
+                                            <a href="#" className="btn btn-dark btn-sm" style={{ marginRight: '-15px' }}>Saber mais</a>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card card-custom mt-3" style={{ width: '70%', boxshadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col-md-3">
-                                            <img src="/images/newicons/slack.png" class="card-img" alt="..." />
+                                <div className="card card-custom mt-3" style={{ width: '70%', boxShadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
+                                    <div className="row no-gutters align-items-center">
+                                        <div className="col-md-3">
+                                            <img src="/images/newicons/slack.png" className="card-img" alt="..." />
                                         </div>
-                                        <div class="col-md-8 d-flex justify-content-between align-items-center">
-                                            <div class="card-body">
-                                                <p class="card-text">Produtividade</p>
-                                                <h5 class="card-title">Slack</h5>
+                                        <div className="col-md-8 d-flex justify-content-between align-items-center">
+                                            <div className="card-body">
+                                                <p className="card-text">Produtividade</p>
+                                                <h5 className="card-title">Slack</h5>
                                             </div>
-                                            <a href="#" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
+                                            <a href="#" className="btn btn-dark btn-sm" style={{ marginRight: '-15px' }}>Saber mais</a>
                                         </div>
                                     </div>
                                 </div>
@@ -264,7 +264,7 @@ const Shop = () => {
                         </div>
                     </div>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselrecomendado" data-bs-slide="prev" >
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselrecomendado" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Previous</span>
                 </button>
@@ -273,10 +273,10 @@ const Shop = () => {
                     <span class="visually-hidden">Next</span>
                 </button>
             </div>
-            <br></br>
-            <footer class="footer bg-dark text-light">
-                <div class="container d-flex justify-content-center align-items-center">
-                    <span class="text-center">&copy; Ware 2024</span>
+            <br />
+            <footer className="footer bg-dark text-light">
+                <div className="container d-flex justify-content-center align-items-center">
+                    <span className="text-center">&copy; Ware 2024</span>
                  </div>
              </footer>
         </div>

@@ -8,24 +8,26 @@ const { Op } = require('sequelize');
 
 const adminController = {};
 
-// Listar todos os softwares ou buscar por nome
-adminController.listSoftwares = async (req, res) => {
-    const { query } = req.query;
-
-    let whereCondition = {};
-    if (query) {
-        whereCondition = {
-            nome: {
-                [Op.iLike]: `%${query}%`
-            }
-        };
-    }
-
+appController.listAllSoftwares = async (req, res) => {
     try {
-        const softwares = await TipoSoftwares.findAll({ where: whereCondition });
+        const softwares = await TipoSoftwares.findAll();
         res.json(softwares);
     } catch (error) {
-        res.status(500).json({ error: 'Error fetching softwares' });
+        res.status(500).json({ error: 'Error fetching all softwares' });
+    }
+};
+
+// List software by category
+appController.listSoftwaresByCategory = async (req, res) => {
+    const { categoria } = req.params;
+
+    try {
+        const softwares = await TipoSoftwares.findAll({
+            where: { categoria }
+        });
+        res.json(softwares);
+    } catch (error) {
+        res.status(500).json({ error: 'Error fetching softwares by category' });
     }
 };
 
