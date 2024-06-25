@@ -3,21 +3,26 @@ import React, { useState } from "react";
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 
 export default function EditComponent() {
-  const [campTitulo, setCampTitulo] = useState("");
-  const [campDescricao, setCampDescricao] = useState("");
-  const [campFoto, setCampFoto] = useState("");
-  const [selectGeneroId, setSelectGeneroId] = useState("");
+  const [email, setEmail] = useState('');
+  const [codigopessoal, setCodigoPessoal] = useState('');
+  const [error, setError] = useState('');
 
-  const handleFotoChange = (event) => {
-    const file = event.target.files[0];
+  const handleLogin = async (e) => {
+    e.preventDefault();
 
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const fotoBase64 = reader.result;
-        setCampFoto(fotoBase64);
-      };
-      reader.readAsDataURL(file);
+    try {
+      const response = await axios.post('http://localhost:3000/login', { email, codigopessoal });
+      const { token } = response.data;
+      // Save token to local storage or cookies as needed
+      console.log('Login successful', token);
+      // Redirect to another page or perform additional actions
+    } catch (error) {
+      console.error('Login error', error);
+      if (error.response) {
+        setError(error.response.data.error);
+      } else {
+        setError('An unexpected error occurred');
+      }
     }
   };
 

@@ -2,6 +2,7 @@ const Pedidos = require('../models/pedidos');
 const LicencasAtribuidas = require('../models/licencasatribuidas');
 const SoftwaresAdquiridos = require('../models/softwaresadquiridos');
 const TipoSoftwares = require('../models/tipossoftwares');
+const Avaliacoes = require('../models/avaliacoes')
 const { Op } = require('sequelize');
 
 
@@ -20,31 +21,42 @@ shopController.listForUser = async (req, res) => {
 
 // Função unificada para listar categorias ou softwares baseado na presnça do parâmetro 'categoria'
 shopController.listCategoriesOrSoftwares = async (req, res) => {
-    const { categoria } = req.query; // Captura 'categoria' da query string
+    const { categoria } = req.query; // Capture 'categoria' from query string
 
     if (categoria) {
-        // Se 'categoria' estiver presente na query, listar softwares dessa categoria
+        // If 'categoria' is present in the query, list softwares in that category
         try {
             const softwares = await TipoSoftwares.findAll({
                 where: { categoria },
-                order: ['nome'] // Ordena alfabeticamente pelo nome do software
+                attributes: [
+                    'logotipo',
+                    'nome',
+                    'descricao',
+                    [Sequelize.fn('AVG', Sequelize.col('avaliacoes.classificacao')), 'classificacao'] // Calculate average rating
+                ],
+                include: [{
+                    model: Avaliacoes,
+                    attributes: [] // We do not need additional fields from Avaliacoes table
+                }],
+                group: ['tipossoftwares.idproduto', 'tipossoftwares.logotipo', 'tipossoftwares.nome', 'tipossoftwares.descricao'], // Ensure all necessary fields are grouped
+                order: [['nome', 'ASC']] // Order alphabetically by software name
             });
             res.json(softwares);
         } catch (error) {
             res.status(500).json({ error: `Error fetching softwares for category ${categoria}` });
         }
     } else {
-        // Se 'categoria' não estiver presente, listar todas as categorias disponíveis
+        // If 'categoria' is not present, list all available categories
         try {
             const categories = await TipoSoftwares.findAll({
                 attributes: ['categoria'],
-                group: ['categoria'], // Agrupa pela coluna 'categoria' para evitar duplicatas
+                group: ['categoria'], // Group by 'categoria' column to avoid duplicates
                 where: {
                     categoria: {
-                        [Op.ne]: null  // Filtra para evitar categorias nulas
+                        [Op.ne]: null  // Filter to avoid null categories
                     }
                 },
-                order: ['categoria'] // Ordena alfabeticamente pelas categorias
+                order: [['categoria', 'ASC']] // Order alphabetically by category
             });
             res.json(categories.map(cat => cat.categoria));
         } catch (error) {
