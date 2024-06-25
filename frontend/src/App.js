@@ -47,7 +47,7 @@ function App() {
           <Route path="/signin/sucess" element={<Sign_Sucess />} />
           <Route path="/signin/c_gestor" element={<Sign_cGestor />} />
           <Route path="/library" element={<Library />} />
-          <Route path="/license" element={<License />} />
+          <Route path="/license/:chaveproduto" element={<License />} />
         </Routes>
     </Router>
   );
