@@ -8,7 +8,7 @@ const { Op } = require('sequelize');
 
 const adminController = {};
 
-appController.listAllSoftwares = async (req, res) => {
+adminController.listAllSoftwares = async (req, res) => {
     try {
         const softwares = await TipoSoftwares.findAll();
         res.json(softwares);
@@ -18,7 +18,7 @@ appController.listAllSoftwares = async (req, res) => {
 };
 
 // List software by category
-appController.listSoftwaresByCategory = async (req, res) => {
+adminController.listSoftwaresByCategory = async (req, res) => {
     const { categoria } = req.params;
 
     try {
