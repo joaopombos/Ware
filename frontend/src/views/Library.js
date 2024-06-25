@@ -3,7 +3,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
-import './library.css';
 import axios from 'axios';
 
 const MySoftwares = () => {
@@ -20,7 +19,6 @@ const MySoftwares = () => {
                 console.error('Erro ao buscar softwares:', error);
                 if (error.response && error.response.status === 401) {
                     // Redirecionar o usuário para a página de login ou mostrar mensagem de não autorizado
-                    // Exemplo de redirecionamento para a página de login:
                     window.location.href = '/login';
                 }
             }
@@ -34,10 +32,10 @@ const MySoftwares = () => {
     };
 
     const renderCard = (software) => (
-        <div className="col-sm-2" key={software.chaveproduto}>
-            <div className="card">
-                <button className="btn-img" onClick={() => handleButtonClick(software.chaveproduto)}>
-                    <img src="/images/Logos/figma.png" className="card-img-top" alt={software.nome} />
+        <div className="col-sm-2 mb-4" key={software.chaveproduto} style={{ margin: '15px' }}>
+            <div className="card h-100" style={{ textAlign: 'center' }}>
+                <button className="btn-img" onClick={() => handleButtonClick(software.chaveproduto)} style={{ padding: '0', border: 'none', background: 'none' }}>
+                    <img src="/images/Logos/figma.png" className="card-img-top" alt={software.nome} style={{ width: '100%', height: 'auto' }} />
                 </button>
                 <div className="card-body">
                     <h5 className="card-title">{software.nome}</h5>
@@ -77,7 +75,7 @@ const MySoftwares = () => {
 
             <h1 className="my-5" style={{ marginLeft: '5%' }}>Os meus softwares</h1>
 
-            <div className="container" style={{ marginBottom: '5%', marginTop:'-1%' }}>
+            <div className="container" style={{ marginBottom: '5%', marginTop: '-1%' }}>
                 <div className="row">
                     {softwares.map(renderCard)}
                 </div>
@@ -92,4 +90,4 @@ const MySoftwares = () => {
     );
 };
 
-export default MySoftwares;
+export default MySoftwares;
