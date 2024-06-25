@@ -14,7 +14,7 @@ export default function EditComponent() {
       const response = await axios.post('http://localhost:3000/login', { email, codigopessoal }, { withCredentials: true });
       const { token } = response.data;
       console.log('Login successful', token);
-      window.location.href = '/home';
+      window.location.href = '/signup/comprador';
     } catch (error) {
       console.error('Login error', error);
       if (error.response) {
@@ -75,7 +75,7 @@ export default function EditComponent() {
                     <div class="pt-1 mb-4">
                       <button class="btn btn-info btn-lg btn-dark" type="submit">Login</button>
                     </div>
-                    <p class="small mb-5 pb-lg-2"><a class="text-muted" href="#!">Esqueceu-se do código?</a></p>
+                    <p class="small mb-5 pb-lg-2"><a class="text-muted" href="/loginAdmin">Tem Conta Admin?</a></p>
                     <p>Não tem conta? <a href="/signin/tipo" class="link-info">Crie uma aqui.</a></p>
                   </form>
                 </div>

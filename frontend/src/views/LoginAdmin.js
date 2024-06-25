@@ -79,7 +79,7 @@ export default function EditComponent() {
                     <div className="pt-1 mb-4">
                       <button className="btn btn-info btn-lg btn-dark" type="submit" >Login</button>
                     </div>
-                    <p className="small mb-5 pb-lg-2"><a className="text-muted" href="#!">Esqueceu-se do código?</a></p>
+                    <p className="small mb-5 pb-lg-2"><a className="text-muted" href="/login">Tem Conta Normal?</a></p>
                   </form>
                 </div>
               </div>
