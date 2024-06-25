@@ -16,6 +16,7 @@ import BudgetAdmin from './views/BudgetAdmin';
 import BudgetAdminOrc from './views/BudgetAdminOrc';
 import MetricsAdmin from './views/MetricsAdmin';
 import Login from './views/Login';
+import LoginAdmin from './views/LoginAdmin';
 import Sign_tipo from './views/Sign_tipo';
 import Sign_gestor from './views/Sign_gestor';
 import Sign_Sucess from './views/Sign_sucess';
@@ -42,6 +43,7 @@ function App() {
           <Route path="/budget/admin/:idorca" element={<BudgetAdminOrc />} />
           <Route path="/metrics/admin/" element={<MetricsAdmin />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/loginAdmin" element={<LoginAdmin />} />
           <Route path="/signin/tipo" element={<Sign_tipo />} />
           <Route path="/signin/gestor" element={<Sign_gestor />} />
           <Route path="/signin/sucess" element={<Sign_Sucess />} />
