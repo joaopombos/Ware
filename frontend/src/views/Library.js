@@ -1,13 +1,31 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import './library.css';
+import axios from 'axios';
 
 const MySoftwares = () => {
-    const handleButtonClick = (url) => {
-        window.location.href = url;
+    const [softwares, setSoftwares] = useState([]);
+
+    useEffect(() => {
+        const fetchSoftwares = async () => {
+            try {
+                const response = await axios.get('/api/library', {
+                    withCredentials: true,  // Ensure cookies are sent with the request
+                });
+                setSoftwares(response.data);
+            } catch (error) {
+                console.error('Error fetching softwares:', error);
+            }
+        };
+
+        fetchSoftwares();
+    }, []);
+
+    const handleButtonClick = (chaveproduto) => {
+        window.location.href = `/license/${chaveproduto}`;
     };
 
     const renderCard = () => (
