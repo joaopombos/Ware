@@ -10,10 +10,10 @@ const analyticsController = require('../controllers/AnalyticsController');
 const { isAuthenticated, isBuyer, isManager, isAdmin } = require('../middlewares/middleware');
 
 // Rotas de cadastro e login
-router.post('/signin/comprador', clientesController.createSignup); //V
-router.post('/signin/gestor', clientesController.create_gestor);   //V
-router.post('/login', clientesController.login);                   //V
-router.post('/login/admin', clientesController.loginadmin);        //V
+router.post('/signin/comprador', clientesController.createSignup); //VV
+router.post('/signin/gestor', clientesController.create_gestor);   //VV
+router.post('/login', clientesController.login);                   //VV
+router.post('/login/admin', clientesController.loginadmin);        //VV
 router.get('/logout', clientesController.logout);                  //V
 router.get('/logout/admin', clientesController.logoutadmin);       //V
 
