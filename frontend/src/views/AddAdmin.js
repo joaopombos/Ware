@@ -1,80 +1,115 @@
-import React from 'react';
-import './addadmin.css';
+import React, { useState } from 'react';
+import axios from 'axios';
+import './addadmin.css'; // Importa o arquivo CSS separado
 
 const AddSoftware = () => {
+  const [nome, setNome] = useState('');
+  const [descricao, setDescricao] = useState('');
+  const [categoria, setCategoria] = useState('');
+  const [versao, setVersao] = useState('');
+  const [precoproduto, setPrecoProduto] = useState('');
+  const [logotipo, setLogotipo] = useState(null);
+  const [imagenssoftware, setImagensSoftware] = useState(null);
+  const [idProduto, setIdProduto] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const softwareData = {
+        nome,
+        descricao,
+        categoria,
+        idproduto: idProduto,
+        versao,
+        precoproduto,
+        logotipo,
+        imagenssoftware,
+      };
+
+      // Supondo que você tenha algum token de autenticação, você pode passá-lo nos headers
+      const token = 'seu-token-de-autenticacao'; // Substitua pelo seu token real
+      const response = await axios.post('http://localhost:3000/add/admin', softwareData, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`, // Adicione o token de autenticação aqui
+        },
+      });
+
+      console.log('Resposta do servidor:', response.data);
+      alert('Software adicionado com sucesso');
+    } catch (error) {
+      console.error('Erro ao adicionar software:', error);
+      alert('Erro ao adicionar software');
+    }
+  };
+
   return (
-    <div class="body-container">
+    <div className="body-container">
       <div id="sidebar">
-        <div class="logo">
+        <div className="logo">
           <img src="/images/Logos/logotipo copy.svg" alt="Logo" />
         </div>
-        <ul class="components">
+        <ul className="components">
           <li>
-            <a href="/tickets/admin"><i class="fas fa-ticket-alt"></i> Tickets</a>
+            <a href="/tickets/admin"><i className="fas fa-ticket-alt"></i> Tickets</a>
           </li>
           <li>
-            <a href="/edit/admin"><i class="fas fa-edit"></i> Atualizar/Editar Software</a>
+            <a href="/edit/admin"><i className="fas fa-edit"></i> Atualizar/Editar Software</a>
           </li>
-          <li class="active">
-            <a href="/add/admin"><i class="fas fa-plus"></i> Adicionar Software</a>
-          </li>
-          <li>
-            <a href="/list/admin"><i class="fas fa-list"></i> Listar Software</a>
+          <li className="active">
+            <a href="/add/admin"><i className="fas fa-plus"></i> Adicionar Software</a>
           </li>
           <li>
-            <a href="/budget/admin"><i class="fas fa-file-invoice-dollar"></i> Orçamentos</a>
+            <a href="/list/admin"><i className="fas fa-list"></i> Listar Software</a>
           </li>
           <li>
-            <a href="/metrics/admin/"><i class="fas fa-chart-line"></i> Métricas de vendas</a>
+            <a href="/budget/admin"><i className="fas fa-file-invoice-dollar"></i> Orçamentos</a>
+          </li>
+          <li>
+            <a href="/metrics/admin/"><i className="fas fa-chart-line"></i> Métricas de vendas</a>
           </li>
         </ul>
-        <div class="logout-button">
-          <button class="btn btn-primary">Terminar Sessão</button>
+        <div className="logout-button">
+          <button className="btn btn-primary">Terminar Sessão</button>
         </div>
       </div>
 
       <div id="content">
         <h2>Adicionar Software</h2>
-        <div class="form-container">
-          <div class="row">
-            <div class="col-md-6">
-              <label htmlFor="softwareName">Nome</label>
-              <input type="text" class="form-control" id="softwareName" placeholder="Nome" />
-              <label htmlFor="programmer" class="mt-3">Programador</label>
-              <input type="text" class="form-control" id="programmer" placeholder="Programador" />
-              <label htmlFor="category" class="mt-3">Categoria</label>
-              <input type="text" class="form-control" id="category" placeholder="Categoria" />
-              <label htmlFor="version" class="mt-3">Versão do Software</label>
-              <input type="text" class="form-control" id="version" placeholder="Versão do Software" />
-              <label htmlFor="price" class="mt-3">Preço</label>
-              <input type="text" class="form-control" id="price" placeholder="Preço" />
-              <label htmlFor="description" class="mt-3">Descrição</label>
-              <textarea class="form-control" id="description" rows="3" placeholder="Descrição"></textarea>
+        <div className="form-container">
+          <div className="row">
+            <div className="col-md-6">
+              <label htmlFor="nome">Nome</label>
+              <input type="text" className="form-control" id="nome" value={nome} onChange={(e) => setNome(e.target.value)} placeholder="Nome" />
+              <label htmlFor="descricao" className="mt-3">Descrição</label>
+              <textarea className="form-control" id="descricao" value={descricao} onChange={(e) => setDescricao(e.target.value)} rows="3" placeholder="Descrição"></textarea>
+              <label htmlFor="categoria" className="mt-3">Categoria</label>
+              <input type="text" className="form-control" id="categoria" value={categoria} onChange={(e) => setCategoria(e.target.value)} placeholder="Categoria" />
+              <label htmlFor="versao" className="mt-3">Versão do Software</label>
+              <input type="text" className="form-control" id="versao" value={versao} onChange={(e) => setVersao(e.target.value)} placeholder="Versão do Software" />
+              <label htmlFor="precoproduto" className="mt-3">Preço</label>
+              <input type="text" className="form-control" id="precoproduto" value={precoproduto} onChange={(e) => setPrecoProduto(e.target.value)} placeholder="Preço" />
+              <label htmlFor="idproduto" className="mt-3">ID do Produto</label>
+              <input type="text" className="form-control" id="idproduto" value={idProduto} onChange={(e) => setIdProduto(e.target.value)} placeholder="ID do Produto" />
             </div>
-            <div class="col-md-6">
-              <label htmlFor="logo" class="mt-3">Logotipo</label>
-              <div class="file-upload-container">
-                <input type="file" id="logo" class="form-control-file" />
+            <div className="col-md-6">
+              <label htmlFor="logotipo" className="mt-3">Logotipo</label>
+              <div className="file-upload-container">
+                <input type="file" id="logotipo" className="form-control-file" onChange={(e) => setLogotipo(e.target.files[0])} />
                 <p>JPG, PNG ou PDF, tamanho máximo de 10MB</p>
-                <button class="btn btn-primary">Selecionar ficheiro</button>
+                <button className="btn btn-primary">Selecionar ficheiro</button>
               </div>
-              <label htmlFor="preview" class="mt-3">Pré-Visualização</label>
-              <div class="file-upload-container">
-                <input type="file" id="preview" class="form-control-file" />
+              <label htmlFor="imagenssoftware" className="mt-3">Imagens do Software</label>
+              <div className="file-upload-container">
+                <input type="file" id="imagenssoftware" className="form-control-file" onChange={(e) => setImagensSoftware(e.target.files[0])} />
                 <p>JPG, PNG ou PDF, tamanho máximo de 10MB</p>
-                <button class="btn btn-primary">Selecionar ficheiro</button>
-              </div>
-              <label htmlFor="softwareFile" class="mt-3">Software</label>
-              <div class="file-upload-container">
-                <input type="file" id="softwareFile" class="form-control-file" />
-                <p>JPG, PNG ou PDF, tamanho máximo de 10MB</p>
-                <button class="btn btn-primary">Selecionar ficheiro</button>
+                <button className="btn btn-primary">Selecionar ficheiro</button>
               </div>
             </div>
           </div>
-          <div class="row">
-            <div class="col-12 text-end">
-              <button class="btn btn-danger">Guardar</button>
+          <div className="row">
+            <div className="col-12 text-end">
+              <button className="btn btn-danger" onClick={handleSubmit}>Guardar</button>
             </div>
           </div>
         </div>
@@ -84,3 +119,8 @@ const AddSoftware = () => {
 }
 
 export default AddSoftware;
+
+
+
+
+
