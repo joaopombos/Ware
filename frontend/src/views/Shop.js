@@ -83,7 +83,7 @@ const Shop = () => {
                     </div>
                 </div>
             </nav>
-            {/* FIM CATEGORIAS */}
+            {/* FIM CATEGORAS */}
 
             <div className="container mt-5">
                 <div className="row">
