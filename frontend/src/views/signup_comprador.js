@@ -31,7 +31,7 @@ export default function EditComponent() {
             {/* NAVBAR */}
             <nav class="navbar navbar-expand-lg bg-dark">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#"><img src="images/Logos/logo.png" style={{ width: '20%' }} alt="Ware Logo" /></a>
+                    <a class="navbar-brand" href="#"><img src="/images/Logos/logo.png" style={{ width: '20%' }} alt="Ware Logo" /></a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
                         aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -94,7 +94,7 @@ export default function EditComponent() {
                         <div class="row justify-content-center">
                             <div class="col-md-3">
                                 <div class="card mb-3" style={{ boxShadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none', width: '18rem' }}>
-                                    <img src="images/mais_vendidos/Illustrator.jpg" class="card-img-top img-fluid" alt="Adobe Illustrator" />
+                                    <img src="/images/mais_vendidos/Illustrator.jpg" class="card-img-top img-fluid" alt="Adobe Illustrator" />
                                     <div class="card-body">
                                         <h5 class="card-title mb-2">Adobe Illustrator</h5>
                                         <p class="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
@@ -106,7 +106,7 @@ export default function EditComponent() {
                             </div>
                             <div class="col-md-3">
                                 <div class="card mb-3" style={{ boxShadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none', width: '18rem' }}>
-                                    <img src="images/mais_vendidos/Davinci.jpg" class="card-img-top img-fluid" alt="DaVinci Resolve" />
+                                    <img src="/images/mais_vendidos/Davinci.jpg" class="card-img-top img-fluid" alt="DaVinci Resolve" />
                                     <div class="card-body">
                                         <h5 class="card-title mb-2">DaVinci Resolve</h5>
                                         <p class="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
@@ -118,7 +118,7 @@ export default function EditComponent() {
                             </div>
                             <div class="col-md-3">
                                 <div class="card mb-3" style={{ boxShadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none', width: '18rem' }}>
-                                    <img src="images/mais_vendidos/Sketchup.jpg" class="card-img-top img-fluid" alt="SketchUp" />
+                                    <img src="/images/mais_vendidos/Sketchup.jpg" class="card-img-top img-fluid" alt="SketchUp" />
                                     <div class="card-body">
                                         <h5 class="card-title mb-2">SketchUp</h5>
                                         <p class="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
@@ -134,7 +134,7 @@ export default function EditComponent() {
                         <div class="row justify-content-center">
                             <div class="col-md-3">
                                 <div class="card mb-3" style={{ boxShadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none', width: '18rem' }}>
-                                    <img src="images/mais_vendidos/Zoom.jpg" class="card-img-top img-fluid" alt="Zoom" />
+                                    <img src="/images/mais_vendidos/Zoom.jpg" class="card-img-top img-fluid" alt="Zoom" />
                                     <div class="card-body">
                                         <h5 class="card-title mb-2">Zoom</h5>
                                         <p class="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
@@ -146,7 +146,7 @@ export default function EditComponent() {
                             </div>
                             <div class="col-md-3">
                                 <div class="card mb-3" style={{ boxShadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none', width: '18rem' }}>
-                                    <img src="images/mais_vendidos/VisualStudio.jpg" class="card-img-top img-fluid" alt="Microsoft Excel" />
+                                    <img src="/images/mais_vendidos/VisualStudio.jpg" class="card-img-top img-fluid" alt="Microsoft Excel" />
                                     <div class="card-body">
                                         <h5 class="card-title mb-2">Microsoft Excel</h5>
                                         <p class="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
@@ -158,7 +158,7 @@ export default function EditComponent() {
                             </div>
                             <div class="col-md-3">
                                 <div class="card mb-3" style={{ boxShadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none', width: '18rem' }}>
-                                    <img src="images/mais_vendidos/Wordpress.jpg" class="card-img-top img-fluid" alt="AutoCAD" />
+                                    <img src="/images/mais_vendidos/Wordpress.jpg" class="card-img-top img-fluid" alt="AutoCAD" />
                                     <div class="card-body">
                                         <h5 class="card-title mb-2">AutoCAD</h5>
                                         <p class="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
@@ -196,7 +196,7 @@ export default function EditComponent() {
                                 <div class="card card-custom" style={{ width: '70%', boxshadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
                                     <div class="row no-gutters align-items-center">
                                         <div class="col-md-3">
-                                            <img src="images/newicons/excel.png" class="card-img" alt="..." />
+                                            <img src="/images/newicons/excel.png" class="card-img" alt="..." />
                                         </div>
                                         <div class="col-md-8 d-flex justify-content-between align-items-center">
                                             <div class="card-body">
@@ -210,7 +210,7 @@ export default function EditComponent() {
                                 <div class="card card-custom mt-3" style={{ width: '70%', boxshadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
                                     <div class="row no-gutters align-items-center">
                                         <div class="col-md-3">
-                                            <img src="images/newicons/asana.png" class="card-img" alt="..." />
+                                            <img src="/images/newicons/asana.png" class="card-img" alt="..." />
                                         </div>
                                         <div class="col-md-8 d-flex justify-content-between align-items-center">
                                             <div class="card-body">
@@ -226,7 +226,7 @@ export default function EditComponent() {
                                 <div class="card card-custom" style={{ width: '70%', boxshadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
                                     <div class="row no-gutters align-items-center">
                                         <div class="col-md-3">
-                                            <img src="images/newicons/dropbox.png" class="card-img" alt="..." />
+                                            <img src="/images/newicons/dropbox.png" class="card-img" alt="..." />
                                         </div>
                                         <div class="col-md-8 d-flex justify-content-between align-items-center">
                                             <div class="card-body">
@@ -240,7 +240,7 @@ export default function EditComponent() {
                                 <div class="card card-custom mt-3" style={{ width: '70%', boxshadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
                                     <div class="row no-gutters align-items-center">
                                         <div class="col-md-3">
-                                            <img src="images/newicons/miro.png" class="card-img" alt="..." />
+                                            <img src="/images/newicons/miro.png" class="card-img" alt="..." />
                                         </div>
                                         <div class="col-md-8 d-flex justify-content-between align-items-center">
                                             <div class="card-body">
@@ -260,7 +260,7 @@ export default function EditComponent() {
                                 <div class="card card-custom" style={{ width: '70%', boxshadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
                                     <div class="row no-gutters align-items-center">
                                         <div class="col-md-3">
-                                            <img src="images/newicons/notion.png" class="card-img" alt="..." />
+                                            <img src="/images/newicons/notion.png" class="card-img" alt="..." />
                                         </div>
                                         <div class="col-md-8 d-flex justify-content-between align-items-center">
                                             <div class="card-body">
@@ -274,7 +274,7 @@ export default function EditComponent() {
                                 <div class="card card-custom mt-3" style={{ width: '70%', boxshadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
                                     <div class="row no-gutters align-items-center">
                                         <div class="col-md-3">
-                                            <img src="images/newicons/fcp.png" class="card-img" alt="..." />
+                                            <img src="/images/newicons/fcp.png" class="card-img" alt="..." />
                                         </div>
                                         <div class="col-md-8 d-flex justify-content-between align-items-center">
                                             <div class="card-body">
@@ -290,7 +290,7 @@ export default function EditComponent() {
                                 <div class="card card-custom" style={{ width: '70%', boxshadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
                                     <div class="row no-gutters align-items-center">
                                         <div class="col-md-3">
-                                            <img src="images/newicons/office.png" class="card-img" alt="..." />
+                                            <img src="/images/newicons/office.png" class="card-img" alt="..." />
                                         </div>
                                         <div class="col-md-8 d-flex justify-content-between align-items-center">
                                             <div class="card-body">
@@ -304,7 +304,7 @@ export default function EditComponent() {
                                 <div class="card card-custom mt-3" style={{ width: '70%', boxshadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
                                     <div class="row no-gutters align-items-center">
                                         <div class="col-md-3">
-                                            <img src="images/newicons/slack.png" class="card-img" alt="..." />
+                                            <img src="/images/newicons/slack.png" class="card-img" alt="..." />
                                         </div>
                                         <div class="col-md-8 d-flex justify-content-between align-items-center">
                                             <div class="card-body">
@@ -334,7 +334,7 @@ export default function EditComponent() {
 
             <h1 style={{ marginLeft: '5%', marginTop: '5%', marginBottom: '5%' }}>Recomendado para si</h1>
 
-            <div id="carouselatualizacoes" class="carousel slide" data-bs-ride="carousel">
+            <div id="carouselrecomendado" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
                         <div class="row justify-content-center">
@@ -342,7 +342,7 @@ export default function EditComponent() {
                                 <div class="card card-custom" style={{ width: '70%', boxshadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
                                     <div class="row no-gutters align-items-center">
                                         <div class="col-md-3">
-                                            <img src="images/newicons/excel.png" class="card-img" alt="..." />
+                                            <img src="/images/newicons/excel.png" class="card-img" alt="..." />
                                         </div>
                                         <div class="col-md-8 d-flex justify-content-between align-items-center">
                                             <div class="card-body">
@@ -356,7 +356,7 @@ export default function EditComponent() {
                                 <div class="card card-custom mt-3" style={{ width: '70%', boxshadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
                                     <div class="row no-gutters align-items-center">
                                         <div class="col-md-3">
-                                            <img src="images/newicons/asana.png" class="card-img" alt="..." />
+                                            <img src="/images/newicons/asana.png" class="card-img" alt="..." />
                                         </div>
                                         <div class="col-md-8 d-flex justify-content-between align-items-center">
                                             <div class="card-body">
@@ -372,7 +372,7 @@ export default function EditComponent() {
                                 <div class="card card-custom" style={{ width: '70%', boxshadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
                                     <div class="row no-gutters align-items-center">
                                         <div class="col-md-3">
-                                            <img src="images/newicons/dropbox.png" class="card-img" alt="..." />
+                                            <img src="/images/newicons/dropbox.png" class="card-img" alt="..." />
                                         </div>
                                         <div class="col-md-8 d-flex justify-content-between align-items-center">
                                             <div class="card-body">
@@ -386,7 +386,7 @@ export default function EditComponent() {
                                 <div class="card card-custom mt-3" style={{ width: '70%', boxshadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
                                     <div class="row no-gutters align-items-center">
                                         <div class="col-md-3">
-                                            <img src="images/newicons/miro.png" class="card-img" alt="..." />
+                                            <img src="/images/newicons/miro.png" class="card-img" alt="..." />
                                         </div>
                                         <div class="col-md-8 d-flex justify-content-between align-items-center">
                                             <div class="card-body">
@@ -406,7 +406,7 @@ export default function EditComponent() {
                                 <div class="card card-custom" style={{ width: '70%', boxshadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
                                     <div class="row no-gutters align-items-center">
                                         <div class="col-md-3">
-                                            <img src="images/newicons/notion.png" class="card-img" alt="..." />
+                                            <img src="/images/newicons/notion.png" class="card-img" alt="..." />
                                         </div>
                                         <div class="col-md-8 d-flex justify-content-between align-items-center">
                                             <div class="card-body">
@@ -420,7 +420,7 @@ export default function EditComponent() {
                                 <div class="card card-custom mt-3" style={{ width: '70%', boxshadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
                                     <div class="row no-gutters align-items-center">
                                         <div class="col-md-3">
-                                            <img src="images/newicons/fcp.png" class="card-img" alt="..." />
+                                            <img src="/images/newicons/fcp.png" class="card-img" alt="..." />
                                         </div>
                                         <div class="col-md-8 d-flex justify-content-between align-items-center">
                                             <div class="card-body">
@@ -436,7 +436,7 @@ export default function EditComponent() {
                                 <div class="card card-custom" style={{ width: '70%', boxshadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
                                     <div class="row no-gutters align-items-center">
                                         <div class="col-md-3">
-                                            <img src="images/newicons/office.png" class="card-img" alt="..." />
+                                            <img src="/images/newicons/office.png" class="card-img" alt="..." />
                                         </div>
                                         <div class="col-md-8 d-flex justify-content-between align-items-center">
                                             <div class="card-body">
@@ -450,7 +450,7 @@ export default function EditComponent() {
                                 <div class="card card-custom mt-3" style={{ width: '70%', boxshadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
                                     <div class="row no-gutters align-items-center">
                                         <div class="col-md-3">
-                                            <img src="images/newicons/slack.png" class="card-img" alt="..." />
+                                            <img src="/images/newicons/slack.png" class="card-img" alt="..." />
                                         </div>
                                         <div class="col-md-8 d-flex justify-content-between align-items-center">
                                             <div class="card-body">
@@ -465,11 +465,11 @@ export default function EditComponent() {
                         </div>
                     </div>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselatualizacoes" data-bs-slide="prev" >
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselrecomendado" data-bs-slide="prev" >
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Previous</span>
                 </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselatualizacoes" data-bs-slide="next">
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselrecomendado" data-bs-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Next</span>
                 </button>
@@ -484,7 +484,7 @@ export default function EditComponent() {
             <div class="row" style={{ margin: '0 auto', display: 'flex', justifyContent: 'center' }}>
                 <div class="col-md-3 mb-4">
                      <div class="card" style={{ marginBottom: '5%', width: '18rem' }}>
-                        <img src="images/icons/aspas.png" class="card-img-top img-fluid mx-auto d-block" style={{ width: '75%', margintop: '30px' }} alt="..." />
+                        <img src="/images/icons/aspas.png" class="card-img-top img-fluid mx-auto d-block" style={{ width: '75%', margintop: '30px' }} alt="..." />
                          <div class="card-body text-center">
                              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisi lacus, venenatis at
                                  est id, tristique viverra mauris. </p>
@@ -495,7 +495,7 @@ export default function EditComponent() {
                  </div>
                 <div class="col-md-3 mb-4">
                      <div class="card" style={{ marginBottom: '5%', width: '18rem' }}>
-                        <img src="images/icons/aspas.png" class="card-img-top img-fluid mx-auto d-block" style={{ width: '75%', margintop: '30px' }} alt="..." />
+                        <img src="/images/icons/aspas.png" class="card-img-top img-fluid mx-auto d-block" style={{ width: '75%', margintop: '30px' }} alt="..." />
                          <div class="card-body text-center">
                              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisi lacus, venenatis at
                                  est id, tristique viverra mauris. </p>
@@ -506,7 +506,7 @@ export default function EditComponent() {
                  </div>
                 <div class="col-md-3 mb-4">
                      <div class="card" style={{ marginBottom: '5%', width: '18rem' }}>
-                        <img src="images/icons/aspas.png" class="card-img-top img-fluid mx-auto d-block" style={{ width: '75%', margintop: '30px' }} alt="..." />
+                        <img src="/images/icons/aspas.png" class="card-img-top img-fluid mx-auto d-block" style={{ width: '75%', margintop: '30px' }} alt="..." />
                          <div class="card-body text-center">
                              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisi lacus, venenatis at
                                  est id, tristique viverra mauris. </p>
