@@ -13,7 +13,9 @@ export default function EditComponent() {
     e.preventDefault();
   
     try {
-      const response = await axios.post('http://localhost:3000/login/admin', { username, password });
+      const response = await axios.post('http://localhost:3000/login/admin', { username, password }, {
+        withCredentials: true // Garante que os cookies são enviados com a requisição
+      });
       const { token } = response.data;
       console.log('Login successful', token);
       navigate('/tickets/admin');  // Redirecionar após o sucesso usando navigate

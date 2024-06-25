@@ -10,10 +10,10 @@ const analyticsController = require('../controllers/AnalyticsController');
 const { isAuthenticated, isBuyer, isManager, isAdmin } = require('../middlewares/middleware');
 
 // Rotas de cadastro e login
-router.post('/signin/comprador', clientesController.createSignup); //V
-router.post('/signin/gestor', clientesController.create_gestor);   //V
-router.post('/login', clientesController.login);                   //V
-router.post('/login/admin', clientesController.loginadmin);        //V
+router.post('/signin/comprador', clientesController.createSignup); //VV
+router.post('/signin/gestor', clientesController.create_gestor);   //VV
+router.post('/login', clientesController.login);                   //VV
+router.post('/login/admin', clientesController.loginadmin);        //VV
 router.get('/logout', clientesController.logout);                  //V
 router.get('/logout/admin', clientesController.logoutadmin);       //V
 
@@ -26,7 +26,7 @@ router.get('/shop/:idvenda/confirm', isAuthenticated, isBuyer, comprasController
 router.get('/shop/:idvenda/success', isAuthenticated, isBuyer, comprasController.purchaseSuccess);               //Erro
 
 // Rotas de biblioteca acessíveis aos compradores e gestores
-router.get('/library', isAuthenticated, appController.listAcquiredSoftwares);               //V
+router.get('/library', isAuthenticated, appController.listAcquiredSoftwares);               //VV - Ajustar frontEnd(card)
 router.get('/license/get', isAuthenticated, licencaController.getSoftwareLicenses);         //Erro
 router.post('/license/dist', isAuthenticated, licencaController.distributeLicense);         //ERRo
 router.delete('/license/remove', isAuthenticated, licencaController.removeLicense);         //Erro
@@ -46,4 +46,4 @@ router.get('/budget/admin/:idorca', isAuthenticated, isAdmin, appController.getB
 router.post('/budget/admin/:idorca', isAuthenticated, isAdmin, appController.respondToBudget);          //V 
 router.get('/metrics/admin', isAuthenticated, isAdmin, analyticsController.getMetrics);                 //V 
 
-module.exports = router;
+module.exports = router;
