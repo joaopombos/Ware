@@ -25,16 +25,16 @@ export default function EditComponent() {
     return (
         <div>
             {/* NAVBAR */}
-            <nav className="navbar navbar-expand-lg bg-dark">
-                <div className="container-fluid">
-                    <a className="navbar-brand" href="#"><img src="images/Logos/logo.png" style={{ width: '20%' }} alt="Ware Logo" /></a>
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+            <nav class="navbar navbar-expand-lg bg-dark">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#"><img src="images/Logos/logo.png" style={{ width: '20%' }} alt="Ware Logo" /></a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
                         aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
+                        <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div className="collapse navbar-collapse" id="navbarNavAltMarkup"></div>
+                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup"></div>
                     <a href="/login">
-                        <button className="btn btn-outline-light me-2" type="button">
+                        <button class="btn btn-outline-light me-2" type="button">
                             Iniciar Sessão
                         </button>
                     </a>
@@ -43,16 +43,16 @@ export default function EditComponent() {
             {/* FIM NAVBAR */}
 
             {/* ESPAÇO HEROI */}
-            <div className="heroi" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '-3%', backgroundImage: `url('images/fundos/fundo.jpg')`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed', height: '100vh', width: '99vw' }}>
-                <div className="textoheroi" style={{ backgroundColor: 'rgba(90, 90, 90, 0.632)', width: '100vw', height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '2rem', borderRadius: '8px', boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)' }}>
+            <div class="heroi" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '-3%', backgroundImage: `url('images/fundos/fundo.jpg')`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed', height: '100vh', width: '99vw' }}>
+                <div class="textoheroi" style={{ backgroundColor: 'rgba(90, 90, 90, 0.632)', width: '100vw', height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '2rem', borderRadius: '8px', boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)' }}>
                     <h1 style={{ textAlign: 'center', margin: '0.5rem 0', color: 'white' }}>Conectar empresas</h1>
                     <h1 style={{ textAlign: 'center', margin: '0.5rem 0', color: 'white', marginTop: '-1%' }}>com soluções inteligentes</h1>
                     <div style={{ display: 'flex', width: '100%', justifyContent: 'center', alignItems: 'center' }}>
-                        <input type="text" style={{ width: '27%', marginRight: '1rem', marginTop: '5%' }} className="form-control" placeholder="Procurar aplicações disponíveis" />
-                        <button style={{ float: 'right', marginTop: '5%' }} className="btn btn-outline-light">Procurar</button>
+                        <input type="text" style={{ width: '27%', marginRight: '1rem', marginTop: '5%' }} class="form-control" placeholder="Procurar aplicações disponíveis" />
+                        <button style={{ float: 'right', marginTop: '5%' }} class="btn btn-outline-light">Procurar</button>
                     </div>
                     <div style={{ position: 'absolute', bottom: '2rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                        <i className="bi bi-arrow-down-circle" style={{ color: 'white', fontSize: '3em' }}></i>
+                        <i class="bi bi-arrow-down-circle" style={{ color: 'white', fontSize: '3em' }}></i>
                         <label style={{ color: 'white' }}>Scroll</label>
                     </div>
                 </div>
@@ -75,96 +75,96 @@ export default function EditComponent() {
             <h1 style={{ marginLeft: '5%', marginTop: '5%', marginBottom: '5%' }}>Os mais vendidos</h1>
 
             {/* CARROSSEL OS MAIS VENDIDOS */}
-            <div id="carouselmaisvendidos" className="carousel slide mx-auto" data-bs-ride="carousel" style={{ maxWidth: '90%' }}>
-                <div className="carousel-inner">
-                    <div className="carousel-item active">
-                        <div className="row justify-content-center">
-                            <div className="col-md-3">
-                                <div className="card mb-3" style={{ boxShadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none', width: '18rem' }}>
-                                    <img src="images/mais_vendidos/Illustrator.jpg" className="card-img-top img-fluid" alt="Adobe Illustrator" />
-                                    <div className="card-body">
-                                        <h5 className="card-title mb-2">Adobe Illustrator</h5>
-                                        <p className="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
-                                        <p className="card-text mb-2" style={{ color: 'grey' }}>Design</p>
-                                        <p className="card-text">De ilustrações a logotipos, todas as ferramentas necessárias para seus projetos de design gráfico.</p>
-                                        <a href="/shop/:idproduto/" className="btn btn-dark w-100">Saber mais</a>
+            <div id="carouselmaisvendidos" class="carousel slide mx-auto" data-bs-ride="carousel" style={{ maxWidth: '90%' }}>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="row justify-content-center">
+                            <div class="col-md-3">
+                                <div class="card mb-3" style={{ boxShadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none', width: '18rem' }}>
+                                    <img src="images/mais_vendidos/Illustrator.jpg" class="card-img-top img-fluid" alt="Adobe Illustrator" />
+                                    <div class="card-body">
+                                        <h5 class="card-title mb-2">Adobe Illustrator</h5>
+                                        <p class="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
+                                        <p class="card-text mb-2" style={{ color: 'grey' }}>Design</p>
+                                        <p class="card-text">De ilustrações a logotipos, todas as ferramentas necessárias para seus projetos de design gráfico.</p>
+                                        <a href="/shop/:idproduto/" class="btn btn-dark w-100">Saber mais</a>
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-md-3">
-                                <div className="card mb-3" style={{ boxShadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none', width: '18rem' }}>
-                                    <img src="images/mais_vendidos/Davinci.jpg" className="card-img-top img-fluid" alt="DaVinci Resolve" />
-                                    <div className="card-body">
-                                        <h5 className="card-title mb-2">DaVinci Resolve</h5>
-                                        <p className="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
-                                        <p className="card-text mb-2" style={{ color: 'grey' }}>Edição de Vídeo</p>
-                                        <p className="card-text">A ferramenta mais poderosa de Hollywood para edição profissional em pós-edição de áudio!</p>
-                                        <a href="/shop/:idproduto/" className="btn btn-dark w-100">Saber mais</a>
+                            <div class="col-md-3">
+                                <div class="card mb-3" style={{ boxShadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none', width: '18rem' }}>
+                                    <img src="images/mais_vendidos/Davinci.jpg" class="card-img-top img-fluid" alt="DaVinci Resolve" />
+                                    <div class="card-body">
+                                        <h5 class="card-title mb-2">DaVinci Resolve</h5>
+                                        <p class="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
+                                        <p class="card-text mb-2" style={{ color: 'grey' }}>Edição de Vídeo</p>
+                                        <p class="card-text">A ferramenta mais poderosa de Hollywood para edição profissional em pós-edição de áudio!</p>
+                                        <a href="/shop/:idproduto/" class="btn btn-dark w-100">Saber mais</a>
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-md-3">
-                                <div className="card mb-3" style={{ boxShadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none', width: '18rem' }}>
-                                    <img src="images/mais_vendidos/Sketchup.jpg" className="card-img-top img-fluid" alt="SketchUp" />
-                                    <div className="card-body">
-                                        <h5 className="card-title mb-2">SketchUp</h5>
-                                        <p className="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
-                                        <p className="card-text mb-2" style={{ color: 'grey' }}>Modelagem 3D</p>
-                                        <p className="card-text">Dê vida aos seus conceitos mais loucos e reimagine o que é possível fazer, tudo num software.</p>
-                                        <a href="/shop/:idproduto/" className="btn btn-dark w-100">Saber mais</a>
+                            <div class="col-md-3">
+                                <div class="card mb-3" style={{ boxShadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none', width: '18rem' }}>
+                                    <img src="images/mais_vendidos/Sketchup.jpg" class="card-img-top img-fluid" alt="SketchUp" />
+                                    <div class="card-body">
+                                        <h5 class="card-title mb-2">SketchUp</h5>
+                                        <p class="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
+                                        <p class="card-text mb-2" style={{ color: 'grey' }}>Modelagem 3D</p>
+                                        <p class="card-text">Dê vida aos seus conceitos mais loucos e reimagine o que é possível fazer, tudo num software.</p>
+                                        <a href="/shop/:idproduto/" class="btn btn-dark w-100">Saber mais</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div className="carousel-item">
-                        <div className="row justify-content-center">
-                            <div className="col-md-3">
-                                <div className="card mb-3" style={{ boxShadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none', width: '18rem' }}>
-                                    <img src="images/mais_vendidos/Zoom.jpg" className="card-img-top img-fluid" alt="Zoom" />
-                                    <div className="card-body">
-                                        <h5 className="card-title mb-2">Zoom</h5>
-                                        <p className="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
-                                        <p className="card-text mb-2" style={{ color: 'grey' }}>Produtividade</p>
-                                        <p className="card-text">Uma plataforma para conexões humanas ilimitadas. Conecte-se com amigos e colegas através de videoconferências.</p>
-                                        <a href="/shop/:idproduto/" className="btn btn-dark w-100">Saber mais</a>
+                    <div class="carousel-item">
+                        <div class="row justify-content-center">
+                            <div class="col-md-3">
+                                <div class="card mb-3" style={{ boxShadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none', width: '18rem' }}>
+                                    <img src="images/mais_vendidos/Zoom.jpg" class="card-img-top img-fluid" alt="Zoom" />
+                                    <div class="card-body">
+                                        <h5 class="card-title mb-2">Zoom</h5>
+                                        <p class="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
+                                        <p class="card-text mb-2" style={{ color: 'grey' }}>Produtividade</p>
+                                        <p class="card-text">Uma plataforma para conexões humanas ilimitadas. Conecte-se com amigos e colegas através de videoconferências.</p>
+                                        <a href="/shop/:idproduto/" class="btn btn-dark w-100">Saber mais</a>
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-md-3">
-                                <div className="card mb-3" style={{ boxShadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none', width: '18rem' }}>
-                                    <img src="images/mais_vendidos/VisualStudio.jpg" className="card-img-top img-fluid" alt="Microsoft Excel" />
-                                    <div className="card-body">
-                                        <h5 className="card-title mb-2">Microsoft Excel</h5>
-                                        <p className="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
-                                        <p className="card-text mb-2" style={{ color: 'grey' }}>Planilhas</p>
-                                        <p className="card-text">A ferramenta essencial para criar, organizar e analisar dados com precisão. Domine seus dados com facilidade.</p>
-                                        <a href="/shop/:idproduto/" className="btn btn-dark w-100">Saber mais</a>
+                            <div class="col-md-3">
+                                <div class="card mb-3" style={{ boxShadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none', width: '18rem' }}>
+                                    <img src="images/mais_vendidos/VisualStudio.jpg" class="card-img-top img-fluid" alt="Microsoft Excel" />
+                                    <div class="card-body">
+                                        <h5 class="card-title mb-2">Microsoft Excel</h5>
+                                        <p class="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
+                                        <p class="card-text mb-2" style={{ color: 'grey' }}>Planilhas</p>
+                                        <p class="card-text">A ferramenta essencial para criar, organizar e analisar dados com precisão. Domine seus dados com facilidade.</p>
+                                        <a href="/shop/:idproduto/" class="btn btn-dark w-100">Saber mais</a>
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-md-3">
-                                <div className="card mb-3" style={{ boxShadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none', width: '18rem' }}>
-                                    <img src="images/mais_vendidos/Wordpress.jpg" className="card-img-top img-fluid" alt="AutoCAD" />
-                                    <div className="card-body">
-                                        <h5 className="card-title mb-2">AutoCAD</h5>
-                                        <p className="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
-                                        <p className="card-text mb-2" style={{ color: 'grey' }}>Desenho Técnico</p>
-                                        <p className="card-text">A ferramenta de design assistido por computador mais poderosa do mercado, com precisão de engenharia.</p>
-                                        <a href="/shop/:idproduto/" className="btn btn-dark w-100">Saber mais</a>
+                            <div class="col-md-3">
+                                <div class="card mb-3" style={{ boxShadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none', width: '18rem' }}>
+                                    <img src="images/mais_vendidos/Wordpress.jpg" class="card-img-top img-fluid" alt="AutoCAD" />
+                                    <div class="card-body">
+                                        <h5 class="card-title mb-2">AutoCAD</h5>
+                                        <p class="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
+                                        <p class="card-text mb-2" style={{ color: 'grey' }}>Desenho Técnico</p>
+                                        <p class="card-text">A ferramenta de design assistido por computador mais poderosa do mercado, com precisão de engenharia.</p>
+                                        <a href="/shop/:idproduto/" class="btn btn-dark w-100">Saber mais</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <button className="carousel-control-prev" type="button" data-bs-target="#carouselmaisvendidos" data-bs-slide="prev">
-                    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span className="visually-hidden">Previous</span>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselmaisvendidos" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
                 </button>
-                <button className="carousel-control-next" type="button" data-bs-target="#carouselmaisvendidos" data-bs-slide="next">
-                    <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span className="visually-hidden">Next</span>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselmaisvendidos" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
                 </button>
             </div>
             {/* FIM CARROSSEL OS MAIS VENDIDOS */}

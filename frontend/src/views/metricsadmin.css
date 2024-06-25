@@ -94,21 +94,21 @@ body {
 
 .chart-container {
   position: relative;
-  height: 400px; /* Aumenta a altura dos gráficos */
+  height: 400px; 
 }
 
 .chart-wrapper {
   display: flex;
-  justify-content: space-between; /* Mantém os gráficos lado a lado */
+  justify-content: space-between; 
 }
 
 .chart-wrapper .chart-container {
   flex: 1;
-  margin-right: 10px; /* Espaçamento entre os gráficos */
+  margin-right: 10px; 
 }
 
 .chart-wrapper .chart-container:last-child {
-  margin-right: 0; /* Remove o espaçamento do último gráfico */
+  margin-right: 0; 
 }
 
 .body-container {

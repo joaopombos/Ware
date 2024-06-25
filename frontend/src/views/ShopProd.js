@@ -1,17 +1,16 @@
 import axios from 'axios';
 import React, { useState, useEffect, useRef } from "react";
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import './ShopProd.css'; // Ensure you have the necessary CSS for the slider
+import './ShopProd.css'; 
 import { Modal, Button, Form, Table } from 'react-bootstrap';
 
 export default function ShopProd() {
-    const [images, setImages] = useState([]); // State for storing image URLs
-    const imageListRef = useRef(null); // Reference to the image list container
-    const thumbRef = useRef(null); // Reference to the scrollbar thumb
-    const [showhistModal, setShowhistModal] = useState(false); // State for modal visibility
-    const [showorcModal, setShoworcModal] = useState(false); // State for modal visibility
+    const [images, setImages] = useState([]); 
+    const imageListRef = useRef(null); 
+    const thumbRef = useRef(null); 
+    const [showhistModal, setShowhistModal] = useState(false); 
+    const [showorcModal, setShoworcModal] = useState(false); 
 
-    // Function to toggle additional text visibility
     const toggleText = () => {
         const textContainer = document.getElementById('textContainer');
         const expandButton = document.getElementById('expandButton');
@@ -42,14 +41,13 @@ export default function ShopProd() {
         setShoworcModal(false);
     };
 
-    // Fetch images from API when the component mounts
     useEffect(() => {
         axios.get('http://localhost:3000/api/images')
             .then(res => {
-                setImages(res.data); // Update state with fetched images
+                setImages(res.data); 
             })
             .catch(err => {
-                console.log(err); // Log errors to the console
+                console.log(err); 
             });
     }, []);
 
@@ -85,14 +83,14 @@ export default function ShopProd() {
     };
 
     const renderCard = () => (
-        <div className="col-sm-2">
-            <div className="card">
-                <button className="btn-img" onClick={() => handleButtonClick("licensecompgestor.html")}>
-                    <img src="/images/Logos/figma.png" className="card-img-top" alt="..." />
+        <div class="col-sm-2">
+            <div class="card">
+                <button class="btn-img" onClick={() => handleButtonClick("licensecompgestor.html")}>
+                    <img src="/images/Logos/figma.png" class="card-img-top" alt="..." />
                 </button>
-                <div className="card-body">
-                    <h5 className="card-title">Nome Software</h5>
-                    <p className="card-text">Licenças</p>
+                <div class="card-body">
+                    <h5 class="card-title">Nome Software</h5>
+                    <p class="card-text">Licenças</p>
                 </div>
             </div>
         </div>
@@ -124,65 +122,65 @@ export default function ShopProd() {
 
     return (
         <>
-            <nav className="navbar navbar-expand-lg bg-dark">
-                <div className="container-fluid">
-                    <a className="navbar-brand" href="#"><img src="/images/Logos/logo.png" style={{ width: '20%' }} alt="Ware Logo" /></a>
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+            <nav class="navbar navbar-expand-lg bg-dark">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#"><img src="/images/Logos/logo.png" style={{ width: '20%' }} alt="Ware Logo" /></a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
                         aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
+                        <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div className="collapse navbar-collapse" id="navbarNavAltMarkup"></div>
-                    <button className="btn btn-outline-light me-2" type="button">Iniciar Sessão</button>
+                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup"></div>
+                    <button class="btn btn-outline-light me-2" type="button">Iniciar Sessão</button>
                 </div>
             </nav>
             <div style={{ border: 'none', backgroundColor: 'transparent', marginLeft: '4%', marginTop: '4%', marginBottom: '4%' }}>
-                <div className="row no-gutters align-items-center">
-                    <div className="col-md-2">
-                        <img src="/images/Logos/figma.png" className="card-img" alt="..." />
+                <div class="row no-gutters align-items-center">
+                    <div class="col-md-2">
+                        <img src="/images/Logos/figma.png" class="card-img" alt="..." />
                     </div>
-                    <div className="col-md-10 d-flex justify-content-between align-items-center">
-                        <div className="card-body" style={{ marginLeft: '3%' }}>
-                            <h2 className="card-title">Nome Software</h2>
-                            <h4 className="card-text">Categoria</h4>
-                            <p className="card-text">Programador</p>
+                    <div class="col-md-10 d-flex justify-content-between align-items-center">
+                        <div class="card-body" style={{ marginLeft: '3%' }}>
+                            <h2 class="card-title">Nome Software</h2>
+                            <h4 class="card-text">Categoria</h4>
+                            <p class="card-text">Programador</p>
                         </div>
-                        <div className="d-flex justify-content-start align-items-center" style={{ marginLeft: 'auto', paddingRight: '10%' }}>
-                        <a className="btn btn-outline-danger btn-sm" href="/shop/:idvenda/confirm" role="button">Comprar</a>
+                        <div class="d-flex justify-content-start align-items-center" style={{ marginLeft: 'auto', paddingRight: '10%' }}>
+                        <a class="btn btn-outline-danger btn-sm" href="/shop/:idvenda/confirm" role="button">Comprar</a>
 
-                            <p className="mb-0 ms-2">€</p>
+                            <p class="mb-0 ms-2">€</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <hr className="custom-hr" />
+            <hr class="custom-hr" />
 
             <h1 style={{ marginLeft: '5%', marginTop: '5%', marginBottom: '5%' }}>Pré-visualização</h1>
 
-            <div className="container">
-                <div className="slider-wrapper">
-                    <button id="prev-slide" className="slide-button material-symbols-rounded" onClick={handlePrevSlide}>
-                        <i className="bi bi-chevron-left" style={{ color: 'white' }}></i>
+            <div class="container">
+                <div class="slider-wrapper">
+                    <button id="prev-slide" class="slide-button material-symbols-rounded" onClick={handlePrevSlide}>
+                        <i class="bi bi-chevron-left" style={{ color: 'white' }}></i>
                     </button>
-                    <ul className="image-list" ref={imageListRef}>
+                    <ul class="image-list" ref={imageListRef}>
                         {images.map((image, index) => (
-                            <li key={index} className="image-item">
+                            <li key={index} class="image-item">
                                 <img src={image} alt={`img-${index + 1}`} />
                             </li>
                         ))}
                     </ul>
-                    <button id="next-slide" className="slide-button material-symbols-rounded" onClick={handleNextSlide}>
-                        <i className="bi bi-chevron-right" style={{ color: 'white' }}></i>
+                    <button id="next-slide" class="slide-button material-symbols-rounded" onClick={handleNextSlide}>
+                        <i class="bi bi-chevron-right" style={{ color: 'white' }}></i>
                     </button>
                 </div>
-                <div className="slider-scrollbar">
-                    <div className="scrollbar-track">
-                        <div className="scrollbar-thumb" ref={thumbRef}></div>
+                <div class="slider-scrollbar">
+                    <div class="scrollbar-track">
+                        <div class="scrollbar-thumb" ref={thumbRef}></div>
                     </div>
                 </div>
             </div>
 
-            <hr className="custom-hr" />
+            <hr class="custom-hr" />
 
             <div id="contentContainer" style={{ marginTop: '5%', marginBottom: '-3%', marginLeft: '5%', marginRight: '5%' }}>
                 <p id="initialText" style={{ display: 'block' }}>
@@ -200,16 +198,16 @@ export default function ShopProd() {
                         escolha essencial para designers profissionais que buscam versatilidade e precisão em seus trabalhos.
                     </p>
                 </div>
-                <div className="d-flex justify-content-end">
-                    <button className="btn btn-outline-dark" id="expandButton" onClick={toggleText}>Ver mais</button>
+                <div class="d-flex justify-content-end">
+                    <button class="btn btn-outline-dark" id="expandButton" onClick={toggleText}>Ver mais</button>
                 </div>
             </div>
 
-            <hr className="custom-hr" style={{ marginTop: '5%' }} />
+            <hr class="custom-hr" style={{ marginTop: '5%' }} />
 
-            <div className="d-flex justify-content-between align-items-center" style={{ marginLeft: '5%', marginRight: '5%', marginTop: '5%', marginBottom: '5%' }}>
+            <div class="d-flex justify-content-between align-items-center" style={{ marginLeft: '5%', marginRight: '5%', marginTop: '5%', marginBottom: '5%' }}>
                 <h1>Novidades</h1>
-                <button className="text-end btn btn-outline-dark" onClick={handleModalhistOpen}>Histórico</button>
+                <button class="text-end btn btn-outline-dark" onClick={handleModalhistOpen}>Histórico</button>
             </div>
 
             <Modal show={showhistModal} onHide={handleModalhistClose}>
@@ -226,74 +224,74 @@ export default function ShopProd() {
                 </Modal.Footer>
             </Modal>
 
-            <div className="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-between align-items-center">
                 <ul style={{ marginLeft: '10%' }}>
                     <li>Bug fixes.</li>
                     <li>Performance improvements.</li>
                 </ul>
-                <span className="text-end" style={{ marginRight: '5%' }}>Versão</span>
+                <span class="text-end" style={{ marginRight: '5%' }}>Versão</span>
             </div>
 
-            <hr className="custom-hr" />
+            <hr class="custom-hr" />
 
             <h1 style={{ marginLeft: '5%', marginTop: '5%', marginBottom: '5%' }}>Planos</h1>
 
-             <div className="container-fluid" style={{ background: 'linear-gradient(220.55deg, #00E0EE 0%, #AD00FE 100%)' }}>
-                 <div className="container p-5 row row-cols-1 row-cols-md-3 g-4 justify-content-evenly">
-                     <div className="col">
-                         <div className="card h-100 shadow-lg" style={{ background: 'white', width: '18rem' }}>
-                             <div className="card-body">
-                                 <div className="text-center p-3">
-                                     <h5 className="card-title">Pequenas Empresas</h5>
+             <div class="container-fluid" style={{ background: 'linear-gradient(220.55deg, #00E0EE 0%, #AD00FE 100%)' }}>
+                 <div class="container p-5 row row-cols-1 row-cols-md-3 g-4 justify-content-evenly">
+                     <div class="col">
+                         <div class="card h-100 shadow-lg" style={{ background: 'white', width: '18rem' }}>
+                             <div class="card-body">
+                                 <div class="text-center p-3">
+                                     <h5 class="card-title">Pequenas Empresas</h5>
                                      <br />
-                                     <span className="h2">€</span>/preço unitário
+                                     <span class="h2">€</span>/preço unitário
                                      <br /><br />
                                  </div>
                                  <h4 style={{ textAlign: 'center' }}>-10% de desconto</h4>
-                                 <p className="card-text" style={{ textAlign: 'center' }}>A partir de 50 licenças e máximo de 100.</p>
+                                 <p class="card-text" style={{ textAlign: 'center' }}>A partir de 50 licenças e máximo de 100.</p>
                              </div>
-                             <div className="card-body text-center" style={{ animation: 'fadeIn 0.5s ease-in-out' }}>
-                                 <button className="btn btn-outline-dark btn-lg" style={{ borderRadius: '30px' }}>Selecionar</button>
+                             <div class="card-body text-center" style={{ animation: 'fadeIn 0.5s ease-in-out' }}>
+                                 <button class="btn btn-outline-dark btn-lg" style={{ borderRadius: '30px' }}>Selecionar</button>
                              </div>
                          </div>
                      </div>
-                     <div className="col">
-                         <div className="card h-100 shadow-lg" style={{ background: 'white', width: '18rem' }}>
-                             <div className="card-body">
-                                 <div className="text-center p-3">
-                                     <h5 className="card-title">Médias Empresas</h5>
+                     <div class="col">
+                         <div class="card h-100 shadow-lg" style={{ background: 'white', width: '18rem' }}>
+                             <div class="card-body">
+                                 <div class="text-center p-3">
+                                     <h5 class="card-title">Médias Empresas</h5>
                                      <br />
-                                     <span className="h2">€</span>/preço unitário
+                                     <span class="h2">€</span>/preço unitário
                                      <br /><br />
                                  </div>
                                  <h4 style={{ textAlign: 'center' }}>-20% de desconto</h4>
-                                 <p className="card-text" style={{ textAlign: 'center' }}>A partir de 100 licenças e máximo de 200.</p>
+                                 <p class="card-text" style={{ textAlign: 'center' }}>A partir de 100 licenças e máximo de 200.</p>
                              </div>
-                             <div className="card-body text-center" style={{ animation: 'fadeIn 0.5s ease-in-out' }}>
-                                 <button className="btn btn-outline-dark btn-lg" style={{ borderRadius: '30px' }}>Selecionar</button>
+                             <div class="card-body text-center" style={{ animation: 'fadeIn 0.5s ease-in-out' }}>
+                                 <button class="btn btn-outline-dark btn-lg" style={{ borderRadius: '30px' }}>Selecionar</button>
                              </div>
                          </div>
                      </div>
-                     <div className="col">
-                         <div className="card h-100 shadow-lg" style={{ background: 'white', width: '18rem' }}>
-                             <div className="card-body">
-                                 <div className="text-center p-3">
-                                     <h5 className="card-title">Grandes Empresas</h5>
+                     <div class="col">
+                         <div class="card h-100 shadow-lg" style={{ background: 'white', width: '18rem' }}>
+                             <div class="card-body">
+                                 <div class="text-center p-3">
+                                     <h5 class="card-title">Grandes Empresas</h5>
                                      <br />
-                                     <span className="h2">€</span>/preço unitário
+                                     <span class="h2">€</span>/preço unitário
                                      <br /><br />
                                  </div>
                                  <h4 style={{ textAlign: 'center' }}>-30% de desconto</h4>
-                                 <p className="card-text" style={{ textAlign: 'center' }}>A partir de 200 licenças.</p>
+                                 <p class="card-text" style={{ textAlign: 'center' }}>A partir de 200 licenças.</p>
                              </div>
-                             <div className="card-body text-center" style={{ animation: 'fadeIn 0.5s ease-in-out' }}>
-                                 <button className="btn btn-outline-dark btn-lg" style={{ borderRadius: '30px' }}>Selecionar</button>
+                             <div class="card-body text-center" style={{ animation: 'fadeIn 0.5s ease-in-out' }}>
+                                 <button class="btn btn-outline-dark btn-lg" style={{ borderRadius: '30px' }}>Selecionar</button>
                              </div>
                          </div>
                      </div>
                  </div>
-                 <div className="container d-flex justify-content-center" style={{ marginTop: '2%' }}>
-                    <p className="text-center" style={{ color: 'white' }}>Se o que procura não está representado em cima, peça um orçamento <a href="#"  onClick={handleModalorcOpen} className="text-light"><span className="text-dark" >aqui</span></a>.</p>
+                 <div class="container d-flex justify-content-center" style={{ marginTop: '2%' }}>
+                    <p class="text-center" style={{ color: 'white' }}>Se o que procura não está representado em cima, peça um orçamento <a href="#"  onClick={handleModalorcOpen} class="text-light"><span class="text-dark" >aqui</span></a>.</p>
                  </div>
              </div>
 
@@ -302,26 +300,26 @@ export default function ShopProd() {
                 <Modal.Title>Preencha o seguinte formulário:</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <div className="container-fluid">
-                    <div className="row">
-                        <div className="col-md-6">
-                            <Form.Group className="mb-3">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <Form.Group class="mb-3">
                                 <Form.Label>Primeiro e último nome</Form.Label>
                                 <Form.Control type="text" id="textBox1" />
                             </Form.Group>
-                            <Form.Group className="mb-3">
+                            <Form.Group class="mb-3">
                                 <Form.Label>Email</Form.Label>
                                 <Form.Control type="text" id="textBox2" />
                             </Form.Group>
-                            <Form.Group className="mb-3">
+                            <Form.Group class="mb-3">
                                 <Form.Label>Mensagem</Form.Label>
                                 <Form.Control type="text" id="textBox3" />
                             </Form.Group>
                         </div>
-                        <div className="col-md-6">
-                            <Form.Group className="mb-3">
+                        <div class="col-md-6">
+                            <Form.Group class="mb-3">
                                 <Form.Label>Procurar software</Form.Label>
-                                <div className="input-group">
+                                <div class="input-group">
                                     <Form.Control type="text" id="searchBox" />
                                     <Button variant="outline-secondary" id="searchButton">Adicionar</Button>
                                 </div>
@@ -346,7 +344,7 @@ export default function ShopProd() {
             </Modal.Footer>
         </Modal>
 
-            <hr className="custom-hr" />
+            <hr class="custom-hr" />
 
             <h1 style={{ marginLeft: '5%', marginTop: '5%', marginBottom: '5%' }}>Avaliações</h1>
 
@@ -387,12 +385,12 @@ export default function ShopProd() {
                 </div>
             </div>
 
-            <hr className="custom-hr" />
+            <hr class="custom-hr" />
 
             <h1 style={{ marginLeft: '5%', marginTop: '5%', marginBottom: '5%' }}>Mais deste programador</h1>
 
-            <div className="container" style={{ marginBottom: '5%' }}>
-                <div className="row">
+            <div class="container" style={{ marginBottom: '5%' }}>
+                <div class="row">
                     {renderCard()}
                     {renderCard()}
                     {renderCard()}

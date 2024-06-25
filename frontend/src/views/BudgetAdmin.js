@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-import './budgetadmin.css'; // Import the separated CSS file
+import './budgetadmin.css'; 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Orcamentos = () => {
-  // Estado para controlar quais items estão expandidos
   const [expandedItems, setExpandedItems] = useState({});
 
-  // Função para alternar a expansão de um item
   const toggleExpand = (id) => {
     setExpandedItems(prevState => ({
       ...prevState,
@@ -25,52 +23,52 @@ const Orcamentos = () => {
   ];
 
   return (
-    <div className="container-fluid">
-      <div className="row">
-        <div id="sidebar" className="col-md-3">
-          <div className="logo">
+    <div class="container-fluid">
+      <div class="row">
+        <div id="sidebar" class="col-md-3">
+          <div class="logo">
             <img src="/images/Logos/logotipo copy.svg" alt="Logo" />
           </div>
-          <ul className="list-unstyled components">
+          <ul class="list-unstyled components">
             <li>
-              <a href="/tickets/admin"><i className="fas fa-ticket-alt"></i> Tickets</a>
+              <a href="/tickets/admin"><i class="fas fa-ticket-alt"></i> Tickets</a>
             </li>
             <li>
-              <a href="/edit/admin"><i className="fas fa-edit"></i> Atualizar/Editar Software</a>
+              <a href="/edit/admin"><i class="fas fa-edit"></i> Atualizar/Editar Software</a>
             </li>
             <li>
-              <a href="/add/admin"><i className="fas fa-plus"></i> Adicionar Software</a>
+              <a href="/add/admin"><i class="fas fa-plus"></i> Adicionar Software</a>
             </li>
             <li>
-              <a href="/list/admin"><i className="fas fa-list"></i> Listar Software</a>
+              <a href="/list/admin"><i class="fas fa-list"></i> Listar Software</a>
             </li>
-            <li className="active">
-              <a href="/budget/admin"><i className="fas fa-file-invoice-dollar"></i> Orçamentos</a>
+            <li class="active">
+              <a href="/budget/admin"><i class="fas fa-file-invoice-dollar"></i> Orçamentos</a>
             </li>
             <li>
-              <a href="/metrics/admin/"><i className="fas fa-chart-line"></i> Métricas de vendas</a>
+              <a href="/metrics/admin/"><i class="fas fa-chart-line"></i> Métricas de vendas</a>
             </li>
           </ul>
-          <div className="logout-button">
-          <a href="/home" className="btn btn-primary">Terminar Sessão</a>
+          <div class="logout-button">
+          <a href="/home" class="btn btn-primary">Terminar Sessão</a>
           </div>
         </div>
 
-        <div id="content" className="col-md-9">
+        <div id="content" class="col-md-9">
           <h2>Orçamentos</h2>
-          <div className="budget-container">
+          <div class="budget-container">
             {budgetItems.map(item => (
               <div 
                 key={item.id} 
-                className={`budget-item ${item.status} ${expandedItems[item.id] ? 'expanded' : ''}`} 
+                class={`budget-item ${item.status} ${expandedItems[item.id] ? 'expanded' : ''}`} 
                 onClick={() => toggleExpand(item.id)}
               >
-                <div className="details">
+                <div class="details">
                   <strong>Orçamento #{item.id} - {item.status === 'new' ? 'Novo' : 'Respondido'}</strong>
                   {expandedItems[item.id] && (
-                    <div className="extra-details">
+                    <div class="extra-details">
                       <p>{item.text}</p>
-                      <button className="btn btn-success respond-button">
+                      <button class="btn btn-success respond-button">
                         {item.status === 'new' ? 'Responder' : 'Ver Resposta'}
                       </button>
                     </div>

@@ -53,49 +53,49 @@ const Metrics = () => {
   }, []);
 
   return (
-    <div className="body-container">
+    <div class="body-container">
       <div id="sidebar">
-        <div className="logo">
+        <div class="logo">
           <img src="/images/Logos/logotipo copy.svg" alt="Logo" />
         </div>
-        <ul className="components">
+        <ul class="components">
           <li>
-            <a href="/tickets/admin"><i className="fas fa-ticket-alt"></i> Tickets</a>
+            <a href="/tickets/admin"><i class="fas fa-ticket-alt"></i> Tickets</a>
           </li>
           <li>
-            <a href="/edit/admin"><i className="fas fa-edit"></i> Atualizar/Editar Software</a>
+            <a href="/edit/admin"><i class="fas fa-edit"></i> Atualizar/Editar Software</a>
           </li>
           <li>
-            <a href="/add/admin"><i className="fas fa-plus"></i> Adicionar Software</a>
+            <a href="/add/admin"><i class="fas fa-plus"></i> Adicionar Software</a>
           </li>
           <li>
-            <a href=""><i className="fas fa-list"></i> Listar Software</a>
+            <a href=""><i class="fas fa-list"></i> Listar Software</a>
           </li>
           <li>
-            <a href="#"><i className="fas fa-file-invoice-dollar"></i> Orçamentos</a>
+            <a href="#"><i class="fas fa-file-invoice-dollar"></i> Orçamentos</a>
           </li>
-          <li className="active">
-            <a href="#"><i className="fas fa-chart-line"></i> Métricas de vendas</a>
+          <li class="active">
+            <a href="#"><i class="fas fa-chart-line"></i> Métricas de vendas</a>
           </li>
         </ul>
-        <div className="logout-button">
-        <a href="/home" className="btn btn-primary">Terminar Sessão</a>
+        <div class="logout-button">
+        <a href="/home" class="btn btn-primary">Terminar Sessão</a>
         </div>
       </div>
 
       <div id="content">
         <h2 style={{ marginBottom: '3%' }}>Métricas de vendas</h2>
-        <div className="chart-wrapper">
-          <div className="chart-container">
-            <h5 className="card-title">Preço total</h5>
+        <div class="chart-wrapper">
+          <div class="chart-container">
+            <h5 class="card-title">Preço total</h5>
             <canvas id="totalPriceChart"></canvas>
           </div>
-          <div className="chart-container">
-            <h5 className="card-title">Média de preço</h5>
+          <div class="chart-container">
+            <h5 class="card-title">Média de preço</h5>
             <canvas id="averagePriceChart"></canvas>
           </div>
-          <div className="chart-container">
-            <h5 className="card-title">Preço mais alto</h5>
+          <div class="chart-container">
+            <h5 class="card-title">Preço mais alto</h5>
             <canvas id="highestPriceChart"></canvas>
           </div>
         </div>

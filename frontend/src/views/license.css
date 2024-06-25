@@ -1,7 +1,7 @@
 .centered-div {
-    background-color: #f8f9fa; /* Light gray background */
-    border-radius: 0.25rem; /* Rounded corners */
-    padding: 1rem; /* Padding */
+    background-color: #f8f9fa; 
+    border-radius: 0.25rem; 
+    padding: 1rem; 
     display: flex;
     align-items: center;
   }
@@ -9,11 +9,11 @@
   .product-item {
     display: flex;
     align-items: center;
-    margin-bottom: 10px; /* Space between items */
+    margin-bottom: 10px; 
   }
   
   .product-item img {
-    margin-right: 10px; /* Space between image and text */
+    margin-right: 10px;
   }
   
   .app-card {

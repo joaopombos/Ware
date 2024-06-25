@@ -16,7 +16,7 @@ const App = () => {
   const changeStatus = (ticketId, status, statusText) => {
     const ticket = document.getElementById(ticketId);
     const header = ticket.querySelector(".card-header");
-    header.className = "card-header bg-" + status + " text-white";
+    header.class = "card-header bg-" + status + " text-white";
     header.textContent = "Ticket #" + ticketId.replace("ticket", "") + " - " + statusText;
     updateProgress();
   };
@@ -47,51 +47,50 @@ const App = () => {
     document.getElementById("progress-danger").style.width = unresolvedPercentage + "%";
   };
 
-  // Initialize the progress bar
   React.useEffect(() => {
     updateProgress();
   }, []);
 
   return (
-    <div className="d-flex">
+    <div class="d-flex">
       <div id="sidebar">
-        <div className="logo">
+        <div class="logo">
           <img src="/images/Logos/logotipo copy.svg" alt="Logo" />
         </div>
-        <ul className="list-unstyled components">
-          <li className="active">
+        <ul class="list-unstyled components">
+          <li class="active">
             <a href="/tickets/admin">
-              <i className="fas fa-ticket-alt"></i> Tickets
+              <i class="fas fa-ticket-alt"></i> Tickets
             </a>
           </li>
           <li>
             <a href="/edit/admin">
-              <i className="fas fa-edit"></i> Atualizar/Editar Software
+              <i class="fas fa-edit"></i> Atualizar/Editar Software
             </a>
           </li>
           <li>
             <a href="/add/admin">
-              <i className="fas fa-plus"></i> Adicionar Software
+              <i class="fas fa-plus"></i> Adicionar Software
             </a>
           </li>
           <li>
             <a href="/list/admin">
-              <i className="fas fa-list"></i> Listar Software
+              <i class="fas fa-list"></i> Listar Software
             </a>
           </li>
           <li>
             <a href="/budget/admin">
-              <i className="fas fa-file-invoice-dollar"></i> Orçamentos
+              <i class="fas fa-file-invoice-dollar"></i> Orçamentos
             </a>
           </li>
           <li>
             <a href="/metrics/admin/">
-              <i className="fas fa-chart-line"></i> Métricas de vendas
+              <i class="fas fa-chart-line"></i> Métricas de vendas
             </a>
           </li>
         </ul>
-        <div className="logout-button">
-        <a href="/home" className="btn btn-primary">Terminar Sessão</a>
+        <div class="logout-button">
+        <a href="/home" class="btn btn-primary">Terminar Sessão</a>
 
         </div>
       </div>
@@ -99,112 +98,109 @@ const App = () => {
       <div id="content">
         <h2 style={{ marginBottom: "3%" }}>Tickets</h2>
 
-        {/* Alerts Section */}
-        <div className="section-container">
+        <div class="section-container">
           <h4>Alerts</h4>
-          <div className="alert-buttons">
-            <button className="btn btn-danger">
-              <i className="fas fa-times-circle"></i> Por resolver
+          <div class="alert-buttons">
+            <button class="btn btn-danger">
+              <i class="fas fa-times-circle"></i> Por resolver
             </button>
-            <button className="btn btn-warning">
-              <i className="fas fa-exclamation-triangle"></i> Em resolução
+            <button class="btn btn-warning">
+              <i class="fas fa-exclamation-triangle"></i> Em resolução
             </button>
-            <button className="btn btn-success">
-              <i className="fas fa-check-circle"></i> Resolvido
+            <button class="btn btn-success">
+              <i class="fas fa-check-circle"></i> Resolvido
             </button>
           </div>
         </div>
 
-        {/* Progress Section */}
-        <div className="section-container">
+        <div class="section-container">
           <h4>Progresso</h4>
-          <div className="progress-section">
-            <div className="progress mb-2">
-              <div id="progress-success" className="progress-bar bg-success" role="progressbar" style={{ width: "0%" }}></div>
+          <div class="progress-section">
+            <div class="progress mb-2">
+              <div id="progress-success" class="progress-bar bg-success" role="progressbar" style={{ width: "0%" }}></div>
             </div>
-            <div className="progress mb-2">
-              <div id="progress-warning" className="progress-bar bg-warning" role="progressbar" style={{ width: "0%" }}></div>
+            <div class="progress mb-2">
+              <div id="progress-warning" class="progress-bar bg-warning" role="progressbar" style={{ width: "0%" }}></div>
             </div>
-            <div className="progress">
-              <div id="progress-danger" className="progress-bar bg-danger" role="progressbar" style={{ width: "0%" }}></div>
+            <div class="progress">
+              <div id="progress-danger" class="progress-bar bg-danger" role="progressbar" style={{ width: "0%" }}></div>
             </div>
           </div>
         </div>
 
-        {/* Tickets Section */}
-        <div className="section-container">
+        <div class="section-container">
           <h4>Tickets</h4>
-          <div className="tickets-section">
-            <div className="card ticket-card" id="ticket1">
+          <div class="tickets-section">
+            <div class="card ticket-card" id="ticket1">
               <div
-                className="card-header bg-warning text-white"
+                class="card-header bg-warning text-white"
                 onClick={() => toggleBodyVisibility("ticket1")}
                 style={{ cursor: "pointer" }}
               >
                 Ticket #1 - Em resolução
               </div>
               {visibleBodies["ticket1"] && (
-                <div className="card-body">
+                <div class="card-body">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  <div className="mt-3">
-                    <button className="btn btn-danger" onClick={() => changeStatus("ticket1", "danger", "Por resolver")}>
-                      <i className="fas fa-times-circle"></i>
+                  <div class="mt-3">
+                    <button class="btn btn-danger" onClick={() => changeStatus("ticket1", "danger", "Por resolver")}>
+                      <i class="fas fa-times-circle"></i>
                     </button>
-                    <button className="btn btn-warning" onClick={() => changeStatus("ticket1", "warning", "Em resolução")}>
-                      <i className="fas fa-exclamation-triangle"></i>
+                    <button class="btn btn-warning" onClick={() => changeStatus("ticket1", "warning", "Em resolução")}>
+                      <i class="fas fa-exclamation-triangle"></i>
                     </button>
-                    <button className="btn btn-success" onClick={() => changeStatus("ticket1", "success", "Resolvido")}>
-                      <i className="fas fa-check-circle"></i>
+                    <button class="btn btn-success" onClick={() => changeStatus("ticket1", "success", "Resolvido")}>
+                      <i class="fas fa-check-circle"></i>
                     </button>
                   </div>
                 </div>
               )}
             </div>
-            <div className="card ticket-card" id="ticket2">
+            <div class="card ticket-card" id="ticket2">
               <div
-                className="card-header bg-danger text-white"
+                class="card-header bg-danger text-white"
                 onClick={() => toggleBodyVisibility("ticket2")}
                 style={{ cursor: "pointer" }}
               >
                 Ticket #2 - Por resolver
               </div>
               {visibleBodies["ticket2"] && (
-                <div className="card-body">
+                <div class="card-body">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  <div className="mt-3">
-                    <button className="btn btn-danger" onClick={() => changeStatus("ticket2", "danger", "Por resolver")}>
-                      <i className="fas fa-times-circle"></i>
+                  <div class="mt-3">
+                    <button class="btn btn-danger" onClick={() => changeStatus("ticket2", "danger", "Por resolver")}>
+                      <i class="fas fa-times-circle"></i>
                     </button>
-                    <button className="btn btn-warning" onClick={() => changeStatus("ticket2", "warning", "Em resolução")}>
-                      <i className="fas fa-exclamation-triangle"></i>
+                    <button class="btn btn-warning" onClick={() => changeStatus("ticket2", "warning", "Em resolução")}>
+                      <i class="fas fa-exclamation-triangle"></i>
                     </button>
-                    <button className="btn btn-success" onClick={() => changeStatus("ticket2", "success", "Resolvido")}>
-                      <i className="fas fa-check-circle"></i>
+                    <button class="btn btn-success" onClick={() => changeStatus("ticket2", "success", "Resolvido")}>
+                      <i class="fas fa-check-circle"></i>
                     </button>
                   </div>
                 </div>
               )}
             </div>
-            <div className="card ticket-card" id="ticket3">
+            <div class="card ticket-card" id="ticket3">
               <div
-                className="card-header bg-success text-white"
+                class="card-header bg-success text-white"
                 onClick={() => toggleBodyVisibility("ticket3")}
                 style={{ cursor: "pointer" }}
               >
                 Ticket #3 - Resolvido
               </div>
               {visibleBodies["ticket3"] && (
-                <div className="card-body">
+                <div class="card-body">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  <div className="mt-3">
-                    <button className="btn btn-danger" onClick={() => changeStatus("ticket3", "danger", "Por resolver")}>
-                      <i className="fas fa-times-circle"></i>
+                  <div class="mt-3">
+                    <button class="btn btn-danger" onClick={() => changeStatus("ticket3", "danger", "Por resolver")}>
+                      <i class="fas fa-times-circle"></i>
                     </button>
-                    <button className="btn btn-warning" onClick={() => changeStatus("ticket3", "warning", "Em resolução")}>
-                      <i className="fas fa-exclamation-triangle"></i>
+                    <button class="btn btn-warning" onClick={() => changeStatus("ticket3", "warning", "Em resolução")}>
+                      <i class="fas fa-exclamation-triangle"></i>
                     </button>
-                    <button className="btn btn-success" onClick={() => changeStatus("ticket3", "success", "Resolvido")}>
-                      <i className="fas fa-check-circle"></i>
+                    <button class="btn btn-success" onClick={() => changeStatus("ticket3", "success", "Resolvido")}>
+                      <i class="fas fa-check-circle"></i>
                     </button>
                   </div>
                 </div>
