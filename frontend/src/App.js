@@ -4,7 +4,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './views/home';
 import Signup_comprador from './views/signup_comprador';
 import Shop from './views/Shop';
-import Shop_my from './views/Shop_my';
 import ShopProd from './views/ShopProd';
 import Shopconfirm from './views/Shopconfirm';
 import ShopSucess from './views/Shopsucess';
@@ -31,7 +30,6 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/signup/comprador" element={<Signup_comprador />} />
           <Route path="/shop" element={<Shop />} />
-          <Route path="/shop/my" element={<Shop_my />} />
           <Route path="/shop/:idproduto/" element={<ShopProd />} />
           <Route path="/shop/:idvenda/confirm" element={<Shopconfirm />} />
           <Route path="/shop/:idvenda/sucess" element={<ShopSucess />} />

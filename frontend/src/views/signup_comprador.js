@@ -46,44 +46,6 @@ export default function EditComponent() {
             </nav>
             {/* FIM NAVBAR */}
 
-             {/* CATEGORIAS */}
-             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container-fluid justify-content-center">
-                    <div class="collapse navbar-collapse justify-content-center" id="navbarCategories">
-                        <ul class="navbar-nav mb-2 mb-lg-0">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#"><FontAwesomeIcon icon={faFileAlt} /> Todos</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#"><FontAwesomeIcon icon={faGamepad} /> Jogos</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#"><FontAwesomeIcon icon={faCamera} /> Fotografia</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#"><FontAwesomeIcon icon={faVideo} /> Vídeo</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#"><FontAwesomeIcon icon={faCubes} /> 3D</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#"><FontAwesomeIcon icon={faEdit} /> Design Gráfico</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#"><FontAwesomeIcon icon={faBrush} /> Arte Digital</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#"><FontAwesomeIcon icon={faMusic} /> Música</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#"><FontAwesomeIcon icon={faNetworkWired} /> Networking</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-            {/* FIM CATEGORIAS */}
-
             {/* TITULO */}
             <h1 style={{ marginLeft: '5%', marginTop: '5%', marginBottom: '5%' }}>Os mais vendidos</h1>
 
