@@ -28,7 +28,7 @@ function App() {
     <Router>
         <Routes>
           <Route path="/home" element={<Home />} />
-          <Route path="/signup_comprador" element={<Signup_comprador />} />
+          <Route path="/signup/comprador" element={<Signup_comprador />} />
           <Route path="/shop" element={<Shop />} />
           <Route path="/shop/my" element={<Shop_my />} />
           <Route path="/shop/:idproduto/" element={<ShopProd />} />
@@ -53,4 +53,4 @@ function App() {
   );
 }
 
-export default App;
+export default App;
