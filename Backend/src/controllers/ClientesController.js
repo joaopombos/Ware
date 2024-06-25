@@ -176,15 +176,18 @@ clientesController.login = async (req, res) => {
 
 // Função de logout
 clientesController.logout = (req, res) => {
-  req.session.destroy(err => {
-    if (err) {
-      return res.status(500).send('Erro ao encerrar a sessão.');
-    }
-    res.clearCookie('token');
-    res.clearCookie('nif');
-    res.status(200).send('Logout realizado com sucesso.');
-  });
+  res.clearCookie('token');
+  res.clearCookie('nif');
+  res.clearCookie('iduser');
+  res.status(200).send('Logout realizado com sucesso.');
 };
+
+clientesController.logoutadmin = (req, res) => {
+  res.clearCookie('token');
+  res.clearCookie('idware');
+  res.status(200).send('Logout realizado com sucesso.');
+};
+
 
 
 

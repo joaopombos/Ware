@@ -40,11 +40,16 @@ adminController.updateSoftware = async (req, res) => {
             return res.status(404).json({ error: 'Software not found' });
         }
 
+        console.log('Dados recebidos:', nome, descricao, categoria, versao, precoproduto, logotipo, imagenssoftware);
+
         // Atualiza os atributos do software
         await software.update({ nome, descricao, categoria, versao, precoproduto, logotipo, imagenssoftware });
 
+        console.log('Software atualizado:', software);
+
         res.json(software);
     } catch (error) {
+        console.error('Erro ao atualizar software:', error);
         res.status(500).json({ error: 'Error updating software' });
     }
 };
