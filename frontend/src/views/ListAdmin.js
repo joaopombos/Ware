@@ -1,70 +1,115 @@
-// ListarSoftwares.js
+import React, { useState } from 'react';
+import axios from 'axios';  // Importar o axios corretamente
+import { useNavigate } from 'react-router-dom';  // Importar o useNavigate para redirecionamento
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 
-import React from 'react';
-import './listadmin.css'; // Import the separated CSS file
+export default function EditComponent() {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();  // Instanciar o useNavigate para redirecionamento
 
-const ListarSoftwares = () => {
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post('http://localhost:3000/login/admin', { username, password }, {
+        withCredentials: true // Se necessário
+      });
+      const { token } = response.data;
+      console.log('Login successful', token);
+
+      // Armazenar o token no localStorage
+      localStorage.setItem('token', token);
+
+      // Redirecionar para a página desejada após o login
+      navigate('/tickets/admin');
+    } catch (error) {
+      console.error('Login error', error);
+      if (error.response && error.response.data) {
+        setError(error.response.data.error || 'An unexpected error occurred');
+      } else if (error.message === 'Network Error') {
+        setError('Erro de rede. Verifique sua conexão ou tente novamente mais tarde.');
+      } else {
+        setError('An unexpected error occurred');
+      }
+    }
+  };
+
+
   return (
-    <div class="container-fluid">
-      <div class="row">
-        <div id="sidebar" class="col-md-3">
-          <div class="logo">
-            <img src="/images/Logos/logotipo copy.svg" alt="Logo" />
+    <div className="loginpage" style={{ overflow: 'hidden' }}>
+      {/* MENU BAR */}
+      <nav className="navbar navbar-expand-lg bg-dark">
+        <div className="container-fluid">
+          <a className="navbar-brand" href="/"><img src="images/Logos/logo.png" style={{ width: '20%' }} alt="Ware Logo" /></a>
+          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
           </div>
-          <ul class="list-unstyled components">
-            <li>
-              <a href="/tickets/admin"><i class="fas fa-ticket-alt"></i> Tickets</a>
-            </li>
-            <li>
-              <a href="/edit/admin"><i class="fas fa-edit"></i> Atualizar/Editar Software</a>
-            </li>
-            <li>
-              <a href="/add/admin"><i class="fas fa-plus"></i> Adicionar Software</a>
-            </li>
-            <li class="active">
-              <a href="/list/admin"><i class="fas fa-list"></i> Listar Software</a>
-            </li>
-            <li>
-              <a href="/budget/admin"><i class="fas fa-file-invoice-dollar"></i> Orçamentos</a>
-            </li>
-            <li>
-              <a href="/metrics/admin/"><i class="fas fa-chart-line"></i> Métricas de vendas</a>
-            </li>
-          </ul>
-          <div class="logout-button">
-          <a href="/home" class="btn btn-primary">Terminar Sessão</a>
-          </div>
+          <button className="btn btn-outline-light me-2" type="button">Iniciar Sessão</button>
         </div>
+      </nav>
+      {/* FIM MENU BAR */}
 
-        <div id="content" class="col-md-9">
-          <h2>Listar Softwares</h2>
-          <table class="software-list-table">
-            <thead>
-              <tr>
-                <th>Softwares</th>
-                <th>Classificação</th>
-                <th>Gestão</th>
-                <th>Última Atualização</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><img src="frontend/public/images/software-icons/adobe-photoshop.png" alt="Adobe Photoshop" /> Adobe Photoshop</td>
-                <td>4.3</td>
-                <td class="actions">
-                  <a href="#">Editar</a>
-                  <a href="#">Eliminar</a>
-                  <a href="#">Ver</a>
-                </td>
-                <td>08/03/2024 às 09:27</td>
-              </tr>
-              {/* Add more rows as needed */}
-            </tbody>
-          </table>
-        </div>
+      {/* LOG IN FORM */}
+      <div style={{ height: '100vh', overflow: 'hidden' }}>
+        <section className="d-flex align-items-center justify-content-center" style={{ height: '100vh', overflow: 'hidden' }}>
+          <div className="container-fluid" style={{ height: '100vh', overflow: 'hidden' }}>
+            <div className="row" style={{ height: '100vh', overflow: 'hidden' }}>
+              <div className="col-sm-6 text-black" style={{ height: '100vh', overflow: 'hidden' }}>
+                <div className="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
+                  <form style={{ width: '23rem', marginTop: '20%' }} onSubmit={handleLogin}>
+                    <h3 className="fw-normal mb-3 pb-3" style={{ letterSpacing: '1px' }}>Log in Admin</h3>
+                    <div className="form-outline mb-4">
+                      <input
+                        type="text"
+                        id="form2Example17"
+                        className="form-control form-control-lg"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                      />
+                      <label className="form-label" htmlFor="form2Example17">Nome do Utilizador</label>
+                    </div>
+                    <div className="form-outline mb-4">
+                      <input
+                        type="password"
+                        id="form2Example27"
+                        className="form-control form-control-lg"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                      />
+                      <label className="form-label" htmlFor="form2Example27">Password</label>
+                    </div>
+                    {error && <div className="alert alert-danger">{error}</div>}
+                    <div className="pt-1 mb-4">
+                      <button className="btn btn-info btn-lg btn-dark" type="submit" >Login</button>
+                    </div>
+                    <p className="small mb-5 pb-lg-2"><a className="text-muted" href="#!">Esqueceu-se do código?</a></p>
+                  </form>
+                </div>
+              </div>
+              <div className="col-sm-6 d-flex align-items-center justify-content-center" style={{ padding: 0, margin: 0 }}>
+                <img src="images/fundos/fundo branco.jpg" alt="image" style={{ width: 'auto', height: '100vh', objectFit: 'cover' }} />
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
-    </div>
-  );
+      {/* FIM LOG IN FORM */}
+
+      {/* FOOTER */}
+      <footer className="footer bg-dark text-light fixed-bottom">
+        <div className="container d-flex justify-content-center align-items-center">
+          <span className="text-center">&copy; Ware 2024</span>
+        </div>
+      </footer>
+      {/* FIM FOOTER */}
+    </div>
+  );
 }
 
-export default ListarSoftwares;
+
+
