@@ -1,24 +1,26 @@
-import axios from 'axios';
-import React, { useState } from "react";
+import React, { useState } from 'react';
+import axios from 'axios';  // Importar o axios corretamente
+import { useNavigate } from 'react-router-dom';  // Importar o useNavigate para redirecionamento
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 
 export default function EditComponent() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const navigate = useNavigate();  // Instanciar o useNavigate para redirecionamento
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
+  
     try {
-      const response = await axios.post('http://localhost:3000/loginAdmin', { username, password });
+      const response = await axios.post('http://localhost:3000/login/admin', { username, password });
       const { token } = response.data;
       console.log('Login successful', token);
-      window.location.href = '/home';
+      navigate('/tickets/admin');  // Redirecionar após o sucesso usando navigate
     } catch (error) {
       console.error('Login error', error);
-      if (error.response) {
-        setError(error.response.data.error);
+      if (error.response && error.response.data) {
+        setError(error.response.data.error || 'An unexpected error occurred');
       } else {
         setError('An unexpected error occurred');
       }
@@ -26,60 +28,60 @@ export default function EditComponent() {
   };
 
   return (
-    <div class="loginpage" style={{ overflow: 'hidden' }}>
+    <div className="loginpage" style={{ overflow: 'hidden' }}>
       {/* MENU BAR */}
-      <nav class="navbar navbar-expand-lg bg-dark">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="/"><img src="images/Logos/logo.png" style={{ width: '20%' }} alt="Ware Logo" /></a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+      <nav className="navbar navbar-expand-lg bg-dark">
+        <div className="container-fluid">
+          <a className="navbar-brand" href="/"><img src="images/Logos/logo.png" style={{ width: '20%' }} alt="Ware Logo" /></a>
+          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
             aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+            <span className="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
           </div>
-          <button class="btn btn-outline-light me-2" type="button">Iniciar Sessão</button>
+          <button className="btn btn-outline-light me-2" type="button">Iniciar Sessão</button>
         </div>
       </nav>
       {/* FIM MENU BAR */}
 
       {/* LOG IN FORM */}
       <div style={{ height: '100vh', overflow: 'hidden' }}>
-        <section class="d-flex align-items-center justify-content-center" style={{ height: '100vh', overflow: 'hidden' }}>
-          <div class="container-fluid" style={{ height: '100vh', overflow: 'hidden' }}>
-            <div class="row" style={{ height: '100vh', overflow: 'hidden' }}>
-              <div class="col-sm-6 text-black" style={{ height: '100vh', overflow: 'hidden' }}>
-                <div class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
+        <section className="d-flex align-items-center justify-content-center" style={{ height: '100vh', overflow: 'hidden' }}>
+          <div className="container-fluid" style={{ height: '100vh', overflow: 'hidden' }}>
+            <div className="row" style={{ height: '100vh', overflow: 'hidden' }}>
+              <div className="col-sm-6 text-black" style={{ height: '100vh', overflow: 'hidden' }}>
+                <div className="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
                   <form style={{ width: '23rem', marginTop: '20%' }} onSubmit={handleLogin}>
-                    <h3 class="fw-normal mb-3 pb-3" style={{ letterSpacing: '1px' }}>Log in Admin</h3>
-                    <div class="form-outline mb-4">
+                    <h3 className="fw-normal mb-3 pb-3" style={{ letterSpacing: '1px' }}>Log in Admin</h3>
+                    <div className="form-outline mb-4">
                       <input
-                        type="email"
+                        type="text"
                         id="form2Example17"
-                        class="form-control form-control-lg"
+                        className="form-control form-control-lg"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                       />
-                      <label class="form-label" htmlFor="form2Example17">Nome do Utilizador</label>
+                      <label className="form-label" htmlFor="form2Example17">Nome do Utilizador</label>
                     </div>
-                    <div class="form-outline mb-4">
+                    <div className="form-outline mb-4">
                       <input
                         type="password"
                         id="form2Example27"
-                        class="form-control form-control-lg"
+                        className="form-control form-control-lg"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                       />
-                      <label class="form-label" htmlFor="form2Example27">Password</label>
+                      <label className="form-label" htmlFor="form2Example27">Password</label>
                     </div>
-                    {error && <div class="alert alert-danger">{error}</div>}
-                    <div class="pt-1 mb-4">
-                      <button class="btn btn-info btn-lg btn-dark" type="submit">Login</button>
+                    {error && <div className="alert alert-danger">{error}</div>}
+                    <div className="pt-1 mb-4">
+                      <button className="btn btn-info btn-lg btn-dark" type="submit" >Login</button>
                     </div>
-                    <p class="small mb-5 pb-lg-2"><a class="text-muted" href="#!">Esqueceu-se do código?</a></p>
+                    <p className="small mb-5 pb-lg-2"><a className="text-muted" href="#!">Esqueceu-se do código?</a></p>
                   </form>
                 </div>
               </div>
-              <div class="col-sm-6 d-flex align-items-center justify-content-center" style={{ padding: 0, margin: 0 }}>
+              <div className="col-sm-6 d-flex align-items-center justify-content-center" style={{ padding: 0, margin: 0 }}>
                 <img src="images/fundos/fundo branco.jpg" alt="image" style={{ width: 'auto', height: '100vh', objectFit: 'cover' }} />
               </div>
             </div>
@@ -89,9 +91,9 @@ export default function EditComponent() {
       {/* FIM LOG IN FORM */}
 
       {/* FOOTER */}
-      <footer class="footer bg-dark text-light fixed-bottom">
-        <div class="container d-flex justify-content-center align-items-center">
-          <span class="text-center">&copy; Ware 2024</span>
+      <footer className="footer bg-dark text-light fixed-bottom">
+        <div className="container d-flex justify-content-center align-items-center">
+          <span className="text-center">&copy; Ware 2024</span>
         </div>
       </footer>
       {/* FIM FOOTER */}
