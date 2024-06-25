@@ -26,7 +26,7 @@ router.get('/shop/:idvenda/confirm', isAuthenticated, isBuyer, comprasController
 router.get('/shop/:idvenda/success', isAuthenticated, isBuyer, comprasController.purchaseSuccess);               //Erro
 
 // Rotas de biblioteca acessíveis aos compradores e gestores
-router.get('/library', isAuthenticated, appController.listAcquiredSoftwares);               //V
+router.get('/library', isAuthenticated, appController.listAcquiredSoftwares);               //VV - Ajustar frontEnd(card)
 router.get('/license/get', isAuthenticated, licencaController.getSoftwareLicenses);         //Erro
 router.post('/license/dist', isAuthenticated, licencaController.distributeLicense);         //ERRo
 router.delete('/license/remove', isAuthenticated, licencaController.removeLicense);         //Erro
@@ -46,4 +46,4 @@ router.get('/budget/admin/:idorca', isAuthenticated, isAdmin, appController.getB
 router.post('/budget/admin/:idorca', isAuthenticated, isAdmin, appController.respondToBudget);          //V 
 router.get('/metrics/admin', isAuthenticated, isAdmin, analyticsController.getMetrics);                 //V 
 
-module.exports = router;
+module.exports = router;

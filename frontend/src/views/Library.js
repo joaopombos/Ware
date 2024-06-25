@@ -12,12 +12,17 @@ const MySoftwares = () => {
     useEffect(() => {
         const fetchSoftwares = async () => {
             try {
-                const response = await axios.get('/library', {
-                    withCredentials: true,  // Ensure cookies are sent with the request
+                const response = await axios.get('http://localhost:3000/library', {
+                    withCredentials: true // Garante que os cookies são enviados com a requisição
                 });
                 setSoftwares(response.data);
             } catch (error) {
-                console.error('Error fetching softwares:', error);
+                console.error('Erro ao buscar softwares:', error);
+                if (error.response && error.response.status === 401) {
+                    // Redirecionar o usuário para a página de login ou mostrar mensagem de não autorizado
+                    // Exemplo de redirecionamento para a página de login:
+                    window.location.href = '/login';
+                }
             }
         };
 
@@ -25,7 +30,7 @@ const MySoftwares = () => {
     }, []);
 
     const handleButtonClick = (chaveproduto) => {
-        window.location.href = `/license/${chaveproduto}`;
+        window.location.href = /license/$,{chaveproduto};
     };
 
     const renderCard = (software) => (
@@ -36,7 +41,7 @@ const MySoftwares = () => {
                 </button>
                 <div className="card-body">
                     <h5 className="card-title">{software.nome}</h5>
-                    <p className="card-text">Licenças: {software.licenses.length}</p>
+                    <p className="card-text">Licenças: {software.licenses ? software.licenses.length : 0}</p>
                 </div>
             </div>
         </div>
@@ -87,4 +92,4 @@ const MySoftwares = () => {
     );
 };
 
-export default MySoftwares;
+export default MySoftwares;
