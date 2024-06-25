@@ -13,12 +13,10 @@ const AddSoftware = () => {
   const [idproduto, setIdProduto] = useState('');
   const [error, setError] = useState('');
 
-
-
   const handleSubmit = async () => {
     try {
       const token = localStorage.getItem('token'); // Obter token do localStorage
-  
+
       const formData = new FormData();
       formData.append('nome', nome);
       formData.append('descricao', descricao);
@@ -28,23 +26,22 @@ const AddSoftware = () => {
       formData.append('logotipo', logotipo);
       formData.append('imagenssoftware', imagenssoftware);
       formData.append('idproduto', idproduto);
-  
+
       const response = await axios.post('http://localhost:3000/add/admin', formData, {
         headers: {
           Authorization: `Bearer ${token}`, // Corrigido para utilizar template literal
           'Content-Type': 'multipart/form-data'
         }
       });
-  
+
       console.log('Resposta do servidor:', response.data);
       // Lógica de tratamento da resposta
-  
+
     } catch (error) {
       console.error('Erro ao adicionar software:', error);
       // Tratamento de erro
     }
   };
-}  
 
   // Verificar se o usuário está autenticado (exemplo simples)
   const isLoggedIn = localStorage.getItem('token') !== null;
@@ -52,7 +49,6 @@ const AddSoftware = () => {
   if (!isLoggedIn) {
     return <div>Você precisa iniciar sessão para acessar esta página.</div>;
   }
-
 
   return (
     <div className="body-container">
@@ -127,5 +123,6 @@ const AddSoftware = () => {
       </div>
     </div>
   );
+};
 
-export default AddSoftware;
+export default AddSoftware;
