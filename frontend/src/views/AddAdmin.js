@@ -26,12 +26,16 @@ const AddSoftware = () => {
         imagenssoftware,
       };
 
-      // Supondo que você tenha algum token de autenticação, você pode passá-lo nos headers
-      const token = 'seu-token-de-autenticacao'; // Substitua pelo seu token real
+      // Retrieve the token from localStorage
+      const token = localStorage.getItem('token'); // Ensure the token is correctly stored in localStorage
+      if (!token) {
+        throw new Error('Token not found');
+      }
+
       const response = await axios.post('http://localhost:3000/add/admin', softwareData, {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`, // Adicione o token de autenticação aqui
+          'Authorization': `Bearer ${token}`, // Include the token in the Authorization header
         },
       });
 
@@ -119,8 +123,3 @@ const AddSoftware = () => {
 }
 
 export default AddSoftware;
-
-
-
-
-
