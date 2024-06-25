@@ -30,7 +30,7 @@ const MySoftwares = () => {
     }, []);
 
     const handleButtonClick = (chaveproduto) => {
-        window.location.href = /license/$,{chaveproduto};
+        window.location.href = `/license/${chaveproduto}`;
     };
 
     const renderCard = (software) => (
