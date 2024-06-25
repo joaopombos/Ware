@@ -1,6 +1,10 @@
 import axios from 'axios';
 import React, { useState } from "react";
 import 'bootstrap/dist/js/bootstrap.bundle.min';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGamepad, faCamera, faVideo, faCubes, faEdit, faBrush, faFileAlt, faMusic, faNetworkWired } from '@fortawesome/free-solid-svg-icons';
+
 
 export default function EditComponent() {
     const [campTitulo, setCampTitulo] = useState("");
@@ -27,32 +31,58 @@ export default function EditComponent() {
             {/* NAVBAR */}
             <nav className="navbar navbar-expand-lg bg-dark">
                 <div className="container-fluid">
-                    <a className="navbar-brand" href="/signup_comprador">
-                        <img src="/images/Logos/logo.png" style={{ width: '20%' }} alt="Ware Logo" />
-                    </a>
+                    <a className="navbar-brand" href="#"><img src="images/Logos/logo.png" style={{ width: '20%' }} alt="Ware Logo" /></a>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
                         aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
-                    <div className="collapse navbar-collapse" id="navbarNavAltMarkup" style={{ marginLeft: '-32%' }}>
-                        <div className="navbar-nav">
-                            <a className="nav-link text-white"  href="/shop/my">Explorar</a>
-                            <a className="nav-link text-white" href="/library">Gestão</a>
-
-                        </div>
-                    </div>
-                    <form className="d-flex" role="search">
-                        <input className="form-control me-2" type="search" placeholder="Procurar" aria-label="Search" />
-                        <button className="btn btn-outline-light" type="submit">Procurar</button>
-                    </form>
-                    <button className="btn btn-outline-light me-2" style={{ marginLeft: '0.5%' }} type="button">
-                        <i className="bi bi-cart4"></i>
-                    </button>
-                    <a href="/home" className="btn btn-primary">Terminar Sessão</a>
-
+                    <div className="collapse navbar-collapse" id="navbarNavAltMarkup"></div>
+                    <a href="/login">
+                        <button className="btn btn-outline-light me-2" type="button">
+                            Iniciar Sessão
+                        </button>
+                    </a>
                 </div>
             </nav>
             {/* FIM NAVBAR */}
+
+             {/* CATEGORIAS */}
+             <nav className="navbar navbar-expand-lg navbar-light bg-light">
+                <div className="container-fluid justify-content-center">
+                    <div className="collapse navbar-collapse justify-content-center" id="navbarCategories">
+                        <ul className="navbar-nav mb-2 mb-lg-0">
+                            <li className="nav-item">
+                                <a className="nav-link" href="#"><FontAwesomeIcon icon={faFileAlt} /> Todos</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#"><FontAwesomeIcon icon={faGamepad} /> Jogos</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#"><FontAwesomeIcon icon={faCamera} /> Fotografia</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#"><FontAwesomeIcon icon={faVideo} /> Vídeo</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#"><FontAwesomeIcon icon={faCubes} /> 3D</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#"><FontAwesomeIcon icon={faEdit} /> Design Gráfico</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#"><FontAwesomeIcon icon={faBrush} /> Arte Digital</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#"><FontAwesomeIcon icon={faMusic} /> Música</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#"><FontAwesomeIcon icon={faNetworkWired} /> Networking</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            {/* FIM CATEGORIAS */}
 
             {/* TITULO */}
             <h1 style={{ marginLeft: '5%', marginTop: '5%', marginBottom: '5%' }}>Os mais vendidos</h1>
@@ -69,8 +99,8 @@ export default function EditComponent() {
                                         <h5 className="card-title mb-2">Adobe Illustrator</h5>
                                         <p className="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
                                         <p className="card-text mb-2" style={{ color: 'grey' }}>Design</p>
-                                        <p className="card-text">De ilustrações a logotipos, todas as ferramentas necessárias para seus projetos de design gráfico.</p>
-                                        <a href="/shop/:idproduto/" className="btn btn-dark w-100">Saber mais</a>
+                                        <p className="card-text">De ilustrações a logotipos, tenha todas as ferramentas necessárias para seus projetos de design gráfico.</p>
+                                        <a href="#" className="btn btn-dark w-100">Saber mais</a>
                                     </div>
                                 </div>
                             </div>
@@ -82,7 +112,7 @@ export default function EditComponent() {
                                         <p className="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
                                         <p className="card-text mb-2" style={{ color: 'grey' }}>Edição de Vídeo</p>
                                         <p className="card-text">A ferramenta mais poderosa de Hollywood para edição profissional em pós-edição de áudio!</p>
-                                        <a href="/shop/:idproduto/" className="btn btn-dark w-100">Saber mais</a>
+                                        <a href="#" className="btn btn-dark w-100">Saber mais</a>
                                     </div>
                                 </div>
                             </div>
@@ -94,7 +124,7 @@ export default function EditComponent() {
                                         <p className="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
                                         <p className="card-text mb-2" style={{ color: 'grey' }}>Modelagem 3D</p>
                                         <p className="card-text">Dê vida aos seus conceitos mais loucos e reimagine o que é possível fazer, tudo num software.</p>
-                                        <a href="/shop/:idproduto/" className="btn btn-dark w-100">Saber mais</a>
+                                        <a href="#" className="btn btn-dark w-100">Saber mais</a>
                                     </div>
                                 </div>
                             </div>
@@ -110,7 +140,7 @@ export default function EditComponent() {
                                         <p className="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
                                         <p className="card-text mb-2" style={{ color: 'grey' }}>Produtividade</p>
                                         <p className="card-text">Uma plataforma para conexões humanas ilimitadas. Conecte-se com amigos e colegas através de videoconferências.</p>
-                                        <a href="/shop/:idproduto/" className="btn btn-dark w-100">Saber mais</a>
+                                        <a href="#" className="btn btn-dark w-100">Saber mais</a>
                                     </div>
                                 </div>
                             </div>
@@ -122,7 +152,7 @@ export default function EditComponent() {
                                         <p className="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
                                         <p className="card-text mb-2" style={{ color: 'grey' }}>Planilhas</p>
                                         <p className="card-text">A ferramenta essencial para criar, organizar e analisar dados com precisão. Domine seus dados com facilidade.</p>
-                                        <a href="/shop/:idproduto/" className="btn btn-dark w-100">Saber mais</a>
+                                        <a href="#" className="btn btn-dark w-100">Saber mais</a>
                                     </div>
                                 </div>
                             </div>
@@ -134,7 +164,7 @@ export default function EditComponent() {
                                         <p className="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
                                         <p className="card-text mb-2" style={{ color: 'grey' }}>Desenho Técnico</p>
                                         <p className="card-text">A ferramenta de design assistido por computador mais poderosa do mercado, com precisão de engenharia.</p>
-                                        <a href="/shop/:idproduto/" className="btn btn-dark w-100">Saber mais</a>
+                                        <a href="#" className="btn btn-dark w-100">Saber mais</a>
                                     </div>
                                 </div>
                             </div>
@@ -173,7 +203,7 @@ export default function EditComponent() {
                                                 <p class="card-text">Produtividade</p>
                                                 <h5 class="card-title">Microsoft Excel</h5>
                                             </div>
-                                            <a href="/shop/:idproduto/" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
+                                            <a href="#" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
                                         </div>
                                     </div>
                                 </div>
@@ -187,7 +217,7 @@ export default function EditComponent() {
                                                 <p class="card-text">Comunicação</p>
                                                 <h5 class="card-title">Asana</h5>
                                             </div>
-                                            <a href="/shop/:idproduto/" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
+                                            <a href="#" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
                                         </div>
                                     </div>
                                 </div>
@@ -203,7 +233,7 @@ export default function EditComponent() {
                                                 <p class="card-text">Produtivade</p>
                                                 <h5 class="card-title">DropBox</h5>
                                             </div>
-                                            <a href="/shop/:idproduto/" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
+                                            <a href="#" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
                                         </div>
                                     </div>
                                 </div>
@@ -217,7 +247,7 @@ export default function EditComponent() {
                                                 <p class="card-text">Comunicação</p>
                                                 <h5 class="card-title">Miro</h5>
                                             </div>
-                                            <a href="/shop/:idproduto/" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
+                                            <a href="#" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
                                         </div>
                                     </div>
                                 </div>
@@ -237,7 +267,7 @@ export default function EditComponent() {
                                                 <p class="card-text">Produtivade</p>
                                                 <h5 class="card-title">Notion</h5>
                                             </div>
-                                            <a href="/shop/:idproduto/" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
+                                            <a href="#" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
                                         </div>
                                     </div>
                                 </div>
@@ -251,7 +281,7 @@ export default function EditComponent() {
                                                 <p class="card-text">Vídeo</p>
                                                 <h5 class="card-title">Final Cut Pro</h5>
                                             </div>
-                                            <a href="/shop/:idproduto/" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
+                                            <a href="#" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
                                         </div>
                                     </div>
                                 </div>
@@ -267,7 +297,7 @@ export default function EditComponent() {
                                                 <p class="card-text">Produtividade</p>
                                                 <h5 class="card-title">Office 365</h5>
                                             </div>
-                                            <a href="/shop/:idproduto/" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
+                                            <a href="#" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
                                         </div>
                                     </div>
                                 </div>
@@ -281,7 +311,7 @@ export default function EditComponent() {
                                                 <p class="card-text">Produtividade</p>
                                                 <h5 class="card-title">Slack</h5>
                                             </div>
-                                            <a href="/shop/:idproduto/" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
+                                            <a href="#" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
                                         </div>
                                     </div>
                                 </div>
@@ -302,13 +332,158 @@ export default function EditComponent() {
 
             <hr class="custom-hr" />
 
+            <h1 style={{ marginLeft: '5%', marginTop: '5%', marginBottom: '5%' }}>Recomendado para si</h1>
+
+            <div id="carouselatualizacoes" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="row justify-content-center">
+                            <div class="col-6 d-flex flex-column align-items-center">
+                                <div class="card card-custom" style={{ width: '70%', boxshadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col-md-3">
+                                            <img src="images/newicons/excel.png" class="card-img" alt="..." />
+                                        </div>
+                                        <div class="col-md-8 d-flex justify-content-between align-items-center">
+                                            <div class="card-body">
+                                                <p class="card-text">Produtividade</p>
+                                                <h5 class="card-title">Microsoft Excel</h5>
+                                            </div>
+                                            <a href="#" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card card-custom mt-3" style={{ width: '70%', boxshadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col-md-3">
+                                            <img src="images/newicons/asana.png" class="card-img" alt="..." />
+                                        </div>
+                                        <div class="col-md-8 d-flex justify-content-between align-items-center">
+                                            <div class="card-body">
+                                                <p class="card-text">Comunicação</p>
+                                                <h5 class="card-title">Asana</h5>
+                                            </div>
+                                            <a href="#" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 d-flex flex-column align-items-center" style={{ marginleft: '-5%' }}>
+                                <div class="card card-custom" style={{ width: '70%', boxshadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col-md-3">
+                                            <img src="images/newicons/dropbox.png" class="card-img" alt="..." />
+                                        </div>
+                                        <div class="col-md-8 d-flex justify-content-between align-items-center">
+                                            <div class="card-body">
+                                                <p class="card-text">Produtivade</p>
+                                                <h5 class="card-title">DropBox</h5>
+                                            </div>
+                                            <a href="#" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card card-custom mt-3" style={{ width: '70%', boxshadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col-md-3">
+                                            <img src="images/newicons/miro.png" class="card-img" alt="..." />
+                                        </div>
+                                        <div class="col-md-8 d-flex justify-content-between align-items-center">
+                                            <div class="card-body">
+                                                <p class="card-text">Comunicação</p>
+                                                <h5 class="card-title">Miro</h5>
+                                            </div>
+                                            <a href="#" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="row justify-content-center">
+                            <div class="col-6 d-flex flex-column align-items-center">
+                                <div class="card card-custom" style={{ width: '70%', boxshadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col-md-3">
+                                            <img src="images/newicons/notion.png" class="card-img" alt="..." />
+                                        </div>
+                                        <div class="col-md-8 d-flex justify-content-between align-items-center">
+                                            <div class="card-body">
+                                                <p class="card-text">Produtivade</p>
+                                                <h5 class="card-title">Notion</h5>
+                                            </div>
+                                            <a href="#" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card card-custom mt-3" style={{ width: '70%', boxshadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col-md-3">
+                                            <img src="images/newicons/fcp.png" class="card-img" alt="..." />
+                                        </div>
+                                        <div class="col-md-8 d-flex justify-content-between align-items-center">
+                                            <div class="card-body">
+                                                <p class="card-text">Vídeo</p>
+                                                <h5 class="card-title">Final Cut Pro</h5>
+                                            </div>
+                                            <a href="#" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 d-flex flex-column align-items-center" style={{ marginleft: '-5%' }}>
+                                <div class="card card-custom" style={{ width: '70%', boxshadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col-md-3">
+                                            <img src="images/newicons/office.png" class="card-img" alt="..." />
+                                        </div>
+                                        <div class="col-md-8 d-flex justify-content-between align-items-center">
+                                            <div class="card-body">
+                                                <p class="card-text">Produtividade</p>
+                                                <h5 class="card-title">Office 365</h5>
+                                            </div>
+                                            <a href="#" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card card-custom mt-3" style={{ width: '70%', boxshadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col-md-3">
+                                            <img src="images/newicons/slack.png" class="card-img" alt="..." />
+                                        </div>
+                                        <div class="col-md-8 d-flex justify-content-between align-items-center">
+                                            <div class="card-body">
+                                                <p class="card-text">Produtividade</p>
+                                                <h5 class="card-title">Slack</h5>
+                                            </div>
+                                            <a href="#" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselatualizacoes" data-bs-slide="prev" >
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselatualizacoes" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+
+            <hr class="custom-hr" />
+
 
             <h1 style={{ marginLeft: '5%', marginTop: '5%', marginBottom: '5%' }}>Avaliações</h1>
 
 
             <div class="row" style={{ margin: '0 auto', display: 'flex', justifyContent: 'center' }}>
                 <div class="col-md-3 mb-4">
-                     <div class="card" style={{ marginBottom: '5%', width: '18rem', padding: '25px' }}>
+                     <div class="card" style={{ marginBottom: '5%', width: '18rem' }}>
                         <img src="images/icons/aspas.png" class="card-img-top img-fluid mx-auto d-block" style={{ width: '75%', margintop: '30px' }} alt="..." />
                          <div class="card-body text-center">
                              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisi lacus, venenatis at
@@ -319,7 +494,7 @@ export default function EditComponent() {
                      </div>
                  </div>
                 <div class="col-md-3 mb-4">
-                     <div class="card" style={{ marginBottom: '5%', width: '18rem', padding: '25px' }}>
+                     <div class="card" style={{ marginBottom: '5%', width: '18rem' }}>
                         <img src="images/icons/aspas.png" class="card-img-top img-fluid mx-auto d-block" style={{ width: '75%', margintop: '30px' }} alt="..." />
                          <div class="card-body text-center">
                              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisi lacus, venenatis at
@@ -330,7 +505,7 @@ export default function EditComponent() {
                      </div>
                  </div>
                 <div class="col-md-3 mb-4">
-                     <div class="card" style={{ marginBottom: '5%', width: '18rem', padding: '25px' }}>
+                     <div class="card" style={{ marginBottom: '5%', width: '18rem' }}>
                         <img src="images/icons/aspas.png" class="card-img-top img-fluid mx-auto d-block" style={{ width: '75%', margintop: '30px' }} alt="..." />
                          <div class="card-body text-center">
                              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisi lacus, venenatis at
