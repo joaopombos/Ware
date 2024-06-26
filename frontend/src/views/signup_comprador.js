@@ -2,8 +2,6 @@ import axios from 'axios';
 import React, { useState } from "react";
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGamepad, faCamera, faVideo, faCubes, faEdit, faBrush, faFileAlt, faMusic, faNetworkWired } from '@fortawesome/free-solid-svg-icons';
 
 
 export default function EditComponent() {
