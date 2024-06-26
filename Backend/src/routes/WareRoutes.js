@@ -27,9 +27,9 @@ router.get('/shop/:idvenda/success', isAuthenticated, isBuyer, comprasController
 
 // Rotas de biblioteca acessíveis aos compradores e gestores
 router.get('/library', isAuthenticated, appController.listAcquiredSoftwares);               //VV - Ajustar frontEnd(card)
-router.get('/license/get', isAuthenticated, licencaController.getSoftwareLicenses);         //Erro
-router.post('/license/dist', isAuthenticated, licencaController.distributeLicense);         //ERRo
-router.delete('/license/remove', isAuthenticated, licencaController.removeLicense);         //Erro
+router.get('/license/:chaveproduto', isAuthenticated, licencaController.getSoftwareLicenses);
+router.put('/license/:chaveproduto', isAuthenticated, licencaController.updateLicense);
+
 router.post('/ticket/send', isAuthenticated, licencaController.sendTicket);                 //Erro
 router.get('/addons', isAuthenticated, appController.listAddons);                           //Erro
 router.get('/upgrade/software', isAuthenticated, appController.compareAndUpdateSoftware);  //Erro 

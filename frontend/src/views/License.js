@@ -1,191 +1,159 @@
-import React, { useState } from 'react';
+// License.js
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import './license.css';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, Button, Form } from 'react-bootstrap';
 
-function App() {
-    const [showAssignModal, setShowAssignModal] = useState(false);
-    const [showKeyModal, setShowKeyModal] = useState(false);
-    const [showInfoModal, setShowInfoModal] = useState(false);
-    const [showTicketModal, setShowTicketModal] = useState(false);
+const License = () => {
+    const { chaveproduto } = useParams();
+    const [software, setSoftware] = useState(null);
+    const [licenses, setLicenses] = useState([]);
+    const [showUpdateModal, setShowUpdateModal] = useState(false);
+    const [currentLicense, setCurrentLicense] = useState(null);
+    const [newNomepc, setNewNomepc] = useState('');
 
-    const handleAssignModalOpen = () => {
-        setShowAssignModal(true);
+    useEffect(() => {
+        const fetchSoftwareLicenses = async () => {
+            try {
+                const response = await axios.get(`http://localhost:3000/license/${chaveproduto}`, {
+                    withCredentials: true // Ensures cookies are sent with the request
+                });
+                setSoftware(response.data.software);
+                setLicenses(response.data.licenses);
+            } catch (error) {
+                console.error('Error fetching software licenses:', error);
+                if (error.response && error.response.status === 401) {
+                    // Redirect the user to the login page or show unauthorized message
+                    window.location.href = '/login';
+                }
+            }
+        };
+
+        fetchSoftwareLicenses();
+    }, [chaveproduto]);
+
+    const handleUpdateModalOpen = (license) => {
+        setCurrentLicense(license);
+        setNewNomepc(license.nomepc);
+        setShowUpdateModal(true);
     };
 
-    const handleAssignModalClose = () => {
-        setShowAssignModal(false);
+    const handleUpdateModalClose = () => {
+        setShowUpdateModal(false);
+        setCurrentLicense(null);
     };
 
-    const handleKeyModalOpen = () => {
-        setShowKeyModal(true);
+    const handleUpdateSubmit = async () => {
+        try {
+            const response = await axios.put(`http://localhost:3000/license/${chaveproduto}`, 
+            { idatribuida: currentLicense.idatribuida, nomepc: newNomepc }, {
+                withCredentials: true // Ensures cookies are sent with the request
+            });
+            setLicenses(licenses.map(license => license.idatribuida === response.data.idatribuida ? response.data : license));
+            handleUpdateModalClose();
+        } catch (error) {
+            console.error('Error updating license:', error);
+        }
     };
 
-    const handleKeyModalClose = () => {
-        setShowKeyModal(false);
+    const handleLicenseRemove = async (idatribuida) => {
+        try {
+            const response = await axios.put(`http://localhost:3000/license/${chaveproduto}`, 
+            { idatribuida, nomepc: null }, {
+                withCredentials: true // Ensures cookies are sent with the request
+            });
+            setLicenses(licenses.map(license => license.idatribuida === idatribuida ? response.data : license));
+        } catch (error) {
+            console.error('Error removing license:', error);
+        }
     };
 
-    const handleInfoModalOpen = () => {
-        setShowInfoModal(true);
-    };
-
-    const handleInfoModalClose = () => {
-        setShowInfoModal(false);
-    };
-
-    const handleTicketModalOpen = () => {
-        setShowTicketModal(true);
-    };
-
-    const handleTicketModalClose = () => {
-        setShowTicketModal(false);
-    };
+    if (!software) {
+        return <div>Loading...</div>;
+    }
 
     return (
-        <div>
-            {/* NAVBAR */}
-            <nav class="navbar navbar-expand-lg bg-dark">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="/signup_comprador">
+        <div className="d-flex flex-column min-vh-100">
+            <nav className="navbar navbar-expand-lg bg-dark">
+                <div className="container-fluid">
+                    <a className="navbar-brand" href="/signup_comprador">
                         <img src="/images/Logos/logo.png" style={{ width: '20%' }} alt="Ware Logo" />
                     </a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
                         aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
+                        <span className="navbar-toggler-icon"></span>
                     </button>
-                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup" style={{ marginLeft: '-32%' }}>
-                        <div class="navbar-nav">
-                            <a class="nav-link active text-white" aria-current="page" href="principalcomprador.html">Explorar</a>
-                            <a class="nav-link text-white" href="/library">Gestão</a>
+                    <div className="collapse navbar-collapse" id="navbarNavAltMarkup" style={{ marginLeft: '-32%' }}>
+                        <div className="navbar-nav">
+                            <a className="nav-link text-white" href="/shop/my">Explorar</a>
+                            <a className="nav-link active text-white" aria-current="page" href="/library">Gestão</a>
                         </div>
                     </div>
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Procurar" aria-label="Search" />
-                        <a class="btn btn-outline-light" href="/library" role="button">Procurar</a>
+                    <form className="d-flex" role="search">
+                        <input className="form-control me-2" type="search" placeholder="Procurar" aria-label="Search" />
+                        <button className="btn btn-outline-light" type="submit">Procurar</button>
                     </form>
-                    <button class="btn btn-outline-light me-2" style={{ marginLeft: '0.5%' }} type="button">
-                        <i class="bi bi-cart4"></i>
+                    <button className="btn btn-outline-light me-2" style={{ marginLeft: '0.5%' }} type="button">
+                        <i className="bi bi-cart4"></i>
                     </button>
-                    <a href="/home" class="btn btn-primary">Terminar Sessão</a>
+                    <a href="/home" className="btn btn-primary">Terminar Sessão</a>
                 </div>
             </nav>
-            {/* FIM NAVBAR */}
 
-            {/* CARD APLICAÇÃO */}
-            <div class="card app-card" style={{ backgroundColor: 'transparent' }}>
-                <div class="row no-gutters align-items-center">
-                    <div class="col-md-3">
-                        <img src="images/Logos/figma.png" class="card-img" alt="..." />
-                    </div>
-                    <div class="col-md-8 d-flex justify-content-between align-items-center">
-                        <div class="card-body">
-                            <h5 class="card-title">Nome Software</h5>
-                            <p class="card-text">Nº de licenças</p>
+            <h1 className="my-5" style={{ marginLeft: '5%' }}>Licenças para {software.nome}</h1>
+
+            <div className="container" style={{ marginBottom: '5%', marginTop: '-1%' }}>
+                <div className="row">
+                    {licenses.map(license => (
+                        <div className="col-sm-3 mb-4" key={license.idatribuida} style={{ margin: '20px' }}>
+                            <div className="card h-100" style={{ width: '200px', height: '300px', textAlign: 'center' }}>
+                                <div className="card-body d-flex flex-column justify-content-center align-items-center">
+                                    <h5 className="card-title">PC: {license.nomepc}</h5>
+                                    <p className="card-text">Data: {new Date(license.dataatri).toLocaleDateString()}</p>
+                                    <button className="btn btn-primary mb-2" onClick={() => handleUpdateModalOpen(license)}>Atualizar</button>
+                                    <button className="btn btn-danger mt-auto" onClick={() => handleLicenseRemove(license.idatribuida)}>Remover</button>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-3 d-flex justify-content-between align-items-center">
-                            <button class="btn btn-outline-danger btn-sm" onClick={handleAssignModalOpen}>Atribuir</button>
-                            <button class="btn btn-danger btn-sm" style={{ marginLeft: '20%' }} onClick={handleTicketModalOpen}>Ticket</button>
-                        </div>
-                    </div>
+                    ))}
                 </div>
             </div>
-            <Modal show={showAssignModal} onHide={handleAssignModalClose}>
+
+            <footer className="footer bg-dark text-light fixed-bottom">
+                <div className="container d-flex justify-content-center align-items-center">
+                    <span className="text-center">&copy; Ware 2024</span>
+                </div>
+            </footer>
+
+            <Modal show={showUpdateModal} onHide={handleUpdateModalClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Chave da licença a ser atribuída:</Modal.Title>
+                    <Modal.Title>Atualizar Nome do PC</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <p>XXXX-XXXX-XXXX-XXX</p>
+                    <Form>
+                        <Form.Group controlId="formNomepc">
+                            <Form.Label>Nome do PC</Form.Label>
+                            <Form.Control 
+                                type="text" 
+                                value={newNomepc} 
+                                onChange={(e) => setNewNomepc(e.target.value)} 
+                            />
+                        </Form.Group>
+                    </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleAssignModalClose}>
+                    <Button variant="secondary" onClick={handleUpdateModalClose}>
                         Fechar
+                    </Button>
+                    <Button variant="primary" onClick={handleUpdateSubmit}>
+                        Atualizar
                     </Button>
                 </Modal.Footer>
             </Modal>
-
-            {/* TABELA */}
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th scope="col">Computadores com licença ativa</th>
-                        <th scope="col">Remover licença</th>
-                        <th scope="col">Ultima atualização</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">
-                            PC-123
-                            <button class="btn btn-icon" aria-label="Info" onClick={handleInfoModalOpen}>
-                                <i class="bi bi-info-circle"></i>
-                            </button>
-                        </th>
-                        <td><button class="btn btn-danger btn-sm">Remover</button></td>
-                        <td>08/03/2024 às 09:27</td>
-                    </tr>
-                    {/* Additional rows as needed */}
-                </tbody>
-            </table>
-            {/* FIM TABELA */}
-
-            <Modal show={showInfoModal} onHide={handleInfoModalClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Licença</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <h3>Licença:</h3>
-                    <div class="rounded bg-light p-2 centered-div">
-                        <p class="mb-0">Nº Computador</p>
-                    </div>
-                    <h3 style={{ marginTop: '2%' }}>Produtos:</h3>
-                    <div class="rounded bg-light p-3">
-                        <div class="product-item">
-                            <img src="https://via.placeholder.com/50" alt="Placeholder Image" />
-                            <p class="mb-0">NOME</p>
-                        </div>
-                        <div class="product-item">
-                            <img src="https://via.placeholder.com/50" alt="Placeholder Image" />
-                            <p class="mb-0">NOME</p>
-                        </div>
-                    </div>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleInfoModalClose}>
-                        Fechar
-                    </Button>
-                </Modal.Footer>
-            </Modal>
-
-            <Modal show={showTicketModal} onHide={handleTicketModalClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Ticket</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <h3>Software:</h3>
-                    <div class="rounded bg-light p-2 centered-div">
-                        <p class="mb-0">NOME</p>
-                    </div>
-                    <h3 style={{ marginTop: '2%' }}>Ticket:</h3>
-                    <div class="rounded bg-light p-3">
-                        <input type="text" class="form-control" placeholder="Introduza aqui o seu ticket." />
-                    </div>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleTicketModalClose}>
-                        Fechar
-                    </Button>
-                </Modal.Footer>
-            </Modal>
-
-            {/* FOOTER */}
-            <footer class="footer bg-dark text-light fixed-bottom">
-        <div class="container d-flex justify-content-center align-items-center">
-          <span class="text-center">&copy; Ware 2024</span>
-        </div>
-      </footer>
         </div>
     );
-}
+};
 
-export default App;
+export default License;

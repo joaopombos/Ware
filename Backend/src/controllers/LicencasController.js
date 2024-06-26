@@ -22,23 +22,23 @@ licencaController.getSoftwareLicenses = async (req, res) => {
     }
 };
 
-// Distribuir uma licença
-licencaController.distributeLicense = async (req, res) => {
+licencaController.updateLicense = async (req, res) => {
     const { chaveproduto } = req.params;
-    const { nomepc, nif } = req.body;
+    const { idatribuida, nomepc } = req.body;
 
     try {
-        const license = await LicencasAtribuidas.create({
-            chaveproduto,
-            nomepc,
-            nif,
-            dataatri: new Date()
-        });
-        res.status(201).json(license);
+        const license = await LicencasAtribuidas.findOne({ where: { idatribuida, chaveproduto } });
+        if (!license) {
+            return res.status(404).json({ error: 'License not found' });
+        }
+
+        await license.update({ nomepc });
+        res.json(license);
     } catch (error) {
-        res.status(500).json({ error: 'Error distributing license' });
+        res.status(500).json({ error: 'Error updating license' });
     }
 };
+
 
 // Remover uma licença
 licencaController.removeLicense = async (req, res) => {
