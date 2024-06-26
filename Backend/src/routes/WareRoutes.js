@@ -4,7 +4,6 @@ const licencaController = require('../controllers/LicencasController');
 const clientesController = require('../controllers/ClientesController');
 const comprasController = require('../controllers/ComprasController');
 const appController = require('../controllers/AppController');
-const ticketController = require('../controllers/TicketController');
 const analyticsController = require('../controllers/AnalyticsController');
 
 const { isAuthenticated, isBuyer, isManager, isAdmin } = require('../middlewares/middleware');
@@ -21,7 +20,7 @@ router.get('/logout/admin', clientesController.logoutadmin);       //V
 router.get('/shop/c_gestor/:categoria', isAuthenticated, isBuyer, comprasController.listCategoriesOrSoftwares);  //Só está a mostrar a categoria devia mostrar mais
 router.get('/shop/', isAuthenticated, isBuyer, comprasController.listCategoriesOrSoftwares);                     //Dá só categoria 
 router.get('/shop/:categoria', isAuthenticated, isBuyer, comprasController.listCategoriesOrSoftwares);                   //V
-router.get('/shop/:idproduto/', isAuthenticated, appController.compareAndUpdateSoftware);    //NOVO              //Erro
+router.get('/shop/:idproduto/', isAuthenticated, comprasController.softwareDetails);    //NOVO              //Erro
 router.get('/shop/:idvenda/confirm', isAuthenticated, isBuyer, comprasController.confirmOrder);                  //Erro             
 router.get('/shop/:idvenda/success', isAuthenticated, isBuyer, comprasController.purchaseSuccess);               //Erro
 
