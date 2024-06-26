@@ -741,7 +741,7 @@ const CompareSoftware = () => {
     );
 };
 
-export default CompareSoftware;
+export default CompareSoftwar;
 
 
 */
