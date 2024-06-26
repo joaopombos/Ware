@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import axios from 'axios';
 import './addadmin.css'; // Importe o arquivo CSS separado
@@ -97,9 +96,6 @@ const AddSoftware = () => {
         <ul className="components">
           <li>
             <a href="/tickets/admin"><i className="fas fa-ticket-alt"></i> Tickets</a>
-          </li>
-          <li>
-            <a href="/edit/admin"><i className="fas fa-edit"></i> Atualizar/Editar Software</a>
           </li>
           <li className="active">
             <a href="/add/admin"><i className="fas fa-plus"></i> Adicionar Software</a>

@@ -30,6 +30,21 @@ adminController.listSoftwares = async (req, res) => {
     }
 };
 
+adminController.getSoftwareById = async (req, res) => {
+    const { idproduto } = req.params;
+
+    try {
+        const software = await TipoSoftwares.findByPk(idproduto);
+        if (!software) {
+            return res.status(404).json({ error: 'Software not found' });
+        }
+        res.json(software);
+    } catch (error) {
+        console.error('Erro ao buscar software:', error);
+        res.status(500).json({ error: 'Error fetching software' });
+    }
+};
+
 // Atualizar um software específico
 adminController.updateSoftware = async (req, res) => {
     const { idproduto } = req.params;
@@ -742,6 +757,3 @@ export default CompareSoftware;
 
 
 module.exports = adminController;
-
-
-

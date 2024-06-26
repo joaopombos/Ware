@@ -35,6 +35,10 @@ const ListAdmin = () => {
     fetchSoftwares();
   }, []);
 
+  const handleEdit = (idproduto) => {
+    navigate(`/edit/admin/${idproduto}`);
+  };
+
   return (
     <div className="body-container">
       <div id="sidebar">
@@ -46,16 +50,13 @@ const ListAdmin = () => {
             <a href="/tickets/admin"><i className="fas fa-ticket-alt"></i> Tickets</a>
           </li>
           <li>
-            <a href="/edit/admin"><i className="fas fa-edit"></i> Atualizar/Editar Software</a>
-          </li>
-          <li>
             <a href="/add/admin"><i className="fas fa-plus"></i> Adicionar Software</a>
           </li>
           <li className="active">
             <a href=""><i className="fas fa-list"></i> Listar Software</a>
           </li>
           <li>
-            <a href="#"><i className="fas fa-file-invoice-dollar"></i> Orçamentos</a>
+            <a href="/budget/admin"><i className="fas fa-file-invoice-dollar"></i> Orçamentos</a>
           </li>
           <li>
             <a href="#"><i className="fas fa-chart-line"></i> Métricas de vendas</a>
@@ -88,8 +89,8 @@ const ListAdmin = () => {
                 <td>{software.versao}</td>
                 <td>{software.classificacaoMedia ? software.classificacaoMedia.toFixed(1) : 'N/A'}</td>
                 <td className="actions">
-                  <a href="#">Editar</a>
-                  <a href="">Eliminar</a>
+                  <button onClick={() => handleEdit(software.idproduto)}>Editar</button>
+                  <button>Eliminar</button>
                 </td>
               </tr>
             ))}
@@ -98,9 +99,8 @@ const ListAdmin = () => {
       </div>
     </div>
   );
-}
+};
 
 export default ListAdmin;
-
 
 
