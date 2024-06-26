@@ -1,6 +1,10 @@
+
 import React, { useState } from 'react';
 import axios from 'axios';
 import './addadmin.css'; // Importe o arquivo CSS separado
+
+
+
 
 const AddSoftware = () => {
   const [nome, setNome] = useState('');
@@ -10,36 +14,69 @@ const AddSoftware = () => {
   const [precoproduto, setPrecoProduto] = useState('');
   const [logotipo, setLogotipo] = useState(null);
   const [imagenssoftware, setImagensSoftware] = useState(null);
-  const [idproduto, setIdProduto] = useState('');
+  const [idproduto, setIdProduto] = useState(); // Certifique-se de que o nome do estado corresponde ao campo esperado no backend
   const [error, setError] = useState('');
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
     try {
-      const token = localStorage.getItem('token'); // Obter token do localStorage
+      const token = localStorage.getItem('token');
 
-      const formData = new FormData();
-      formData.append('nome', nome);
-      formData.append('descricao', descricao);
-      formData.append('categoria', categoria);
-      formData.append('versao', versao);
-      formData.append('precoproduto', precoproduto);
-      formData.append('logotipo', logotipo);
-      formData.append('imagenssoftware', imagenssoftware);
-      formData.append('idproduto', idproduto);
+      // Criação de um objeto para enviar os dados
+      const softwareData = {
+        nome,
+        descricao,
+        categoria,
+        versao,
+        precoproduto,
+        idproduto,
+        logotipo,
+        imagenssoftware
+      };
 
-      const response = await axios.post('http://localhost:3000/add/admin', formData, {
+      console.log('Dados do software a serem enviados:', softwareData);
+
+      const config = {
         headers: {
-          Authorization: `Bearer ${token}`, // Corrigido para utilizar template literal
-          'Content-Type': 'multipart/form-data'
-        }
-      });
+          Authorization: `Bearer ${token}`,
+        },
+        withCredentials: true,
+      };
+
+      console.log('Token de Autorização:', token);
+
+      console.log('Enviando requisição para adicionar software...');
+      const response = await axios.post('http://localhost:3000/add/admin', softwareData, config);
 
       console.log('Resposta do servidor:', response.data);
       // Lógica de tratamento da resposta
+      window.alert('Software adicionado com sucesso!');
+
+      // Limpar campos após sucesso (opcional)
+      setNome('');
+      setDescricao('');
+      setCategoria('');
+      setVersao('');
+      setPrecoProduto('');
+      setIdProduto('');
+      setLogotipo(null);
+      setImagensSoftware(null);
 
     } catch (error) {
       console.error('Erro ao adicionar software:', error);
       // Tratamento de erro
+      if (error.response) {
+        console.error('Erro de resposta:', error.response.data);
+        setError(error.response.data.error); // Define o erro para exibição na interface
+        window.alert(`Erro ao adicionar software: ${error.response.data.error}`);
+      } else if (error.request) {
+        console.error('Erro de requisição:', error.request);
+        window.alert('Erro ao adicionar software: Erro de requisição.');
+      } else {
+        console.error('Erro geral:', error.message);
+        window.alert(`Erro ao adicionar software: ${error.message}`);
+      }
     }
   };
 
@@ -49,6 +86,7 @@ const AddSoftware = () => {
   if (!isLoggedIn) {
     return <div>Você precisa iniciar sessão para acessar esta página.</div>;
   }
+
 
   return (
     <div className="body-container">
@@ -97,7 +135,14 @@ const AddSoftware = () => {
               <label htmlFor="precoproduto" className="mt-3">Preço</label>
               <input type="text" className="form-control" id="precoproduto" value={precoproduto} onChange={(e) => setPrecoProduto(e.target.value)} placeholder="Preço" />
               <label htmlFor="idproduto" className="mt-3">ID do Produto</label>
-              <input type="text" className="form-control" id="idproduto" value={idproduto} onChange={(e) => setIdProduto(e.target.value)} placeholder="ID do Produto" />
+              <input
+                type="number"
+                className="form-control"
+                id="idproduto"
+                value={idproduto}
+                onChange={(e) => setIdProduto(e.target.value)}
+                placeholder="ID do Produto"
+              />
             </div>
             <div className="col-md-6">
               <label htmlFor="logotipo" className="mt-3">Logotipo</label>

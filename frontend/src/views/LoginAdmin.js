@@ -11,23 +11,31 @@ export default function EditComponent() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-  
+
     try {
       const response = await axios.post('http://localhost:3000/login/admin', { username, password }, {
-        withCredentials: true // Garante que os cookies são enviados com a requisição
+        withCredentials: true // Se necessário
       });
       const { token } = response.data;
       console.log('Login successful', token);
-      navigate('/tickets/admin');  // Redirecionar após o sucesso usando navigate
+
+      // Armazenar o token no localStorage
+      localStorage.setItem('token', token);
+
+      // Redirecionar para a página desejada após o login
+      navigate('/tickets/admin');
     } catch (error) {
       console.error('Login error', error);
       if (error.response && error.response.data) {
         setError(error.response.data.error || 'An unexpected error occurred');
+      } else if (error.message === 'Network Error') {
+        setError('Erro de rede. Verifique sua conexão ou tente novamente mais tarde.');
       } else {
         setError('An unexpected error occurred');
       }
     }
   };
+
 
   return (
     <div className="loginpage" style={{ overflow: 'hidden' }}>
@@ -79,7 +87,7 @@ export default function EditComponent() {
                     <div className="pt-1 mb-4">
                       <button className="btn btn-info btn-lg btn-dark" type="submit" >Login</button>
                     </div>
-                    <p className="small mb-5 pb-lg-2"><a className="text-muted" href="/login">Tem Conta Normal?</a></p>
+                    <p className="small mb-5 pb-lg-2"><a className="text-muted" href="#!">Esqueceu-se do código?</a></p>
                   </form>
                 </div>
               </div>
