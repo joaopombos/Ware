@@ -46,6 +46,7 @@ adminController.getSoftwareById = async (req, res) => {
 };
 
 // Atualizar um software específico
+// AppController.js
 adminController.updateSoftware = async (req, res) => {
     const { idproduto } = req.params;
     const { nome, descricao, categoria, versao, precoproduto, logotipo, imagenssoftware } = req.body;
@@ -56,43 +57,44 @@ adminController.updateSoftware = async (req, res) => {
             return res.status(404).json({ error: 'Software not found' });
         }
 
-        console.log('Dados recebidos para atualização:');
-        console.log('Nome:', nome);
-        console.log('Descrição:', descricao);
-        console.log('Categoria:', categoria);
-        console.log('Versão:', versao);
-        console.log('Preço do Produto:', precoproduto);
-        console.log('Logotipo:', logotipo);
-        console.log('Imagens do Software:', imagenssoftware);
+        const updateData = { nome, descricao, categoria, versao, precoproduto };
 
-        // Atualiza os atributos do software
-        await software.update({ nome, descricao, categoria, versao, precoproduto, logotipo, imagenssoftware });
+        if (logotipo) {
+            updateData.logotipo = logotipo; // Assuming logotipo is a base64 encoded string or a URL
+        }
 
-        console.log('Software atualizado no banco de dados:', software);
+        if (imagenssoftware) {
+            updateData.imagenssoftware = imagenssoftware; // Assuming imagenssoftware is an array of base64 encoded strings or URLs
+        }
+
+        await software.update(updateData);
 
         res.json(software);
     } catch (error) {
-        console.error('Erro ao atualizar software:', error);
+        console.error('Error updating software:', error);
         res.status(500).json({ error: 'Error updating software' });
     }
 };
 
+module.exports = adminController;
+
+
 // Excluir um software específico
-    adminController.deleteSoftware = async (req, res) => {
-        const { idproduto } = req.params;
+adminController.deleteSoftware = async (req, res) => {
+    const { idproduto } = req.params;
 
-        try {
-            const software = await TipoSoftwares.findByPk(idproduto);
-            if (!software) {
-                return res.status(404).json({ error: 'Software not found' });
-            }
-
-            await software.destroy();
-            res.json({ message: 'Software deleted successfully' });
-        } catch (error) {
-            res.status(500).json({ error: 'Error deleting software' });
+    try {
+        const software = await TipoSoftwares.findByPk(idproduto);
+        if (!software) {
+            return res.status(404).json({ error: 'Software not found' });
         }
-    };
+
+        await software.destroy();
+        res.json({ message: 'Software deleted successfully' });
+    } catch (error) {
+        res.status(500).json({ error: 'Error deleting software' });
+    }
+};
 
 
 /* Sugestão Frontend '/edit/admin' e '/list/admin'

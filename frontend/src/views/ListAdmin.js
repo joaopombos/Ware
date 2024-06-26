@@ -39,6 +39,22 @@ const ListAdmin = () => {
     navigate(`/edit/admin/${idproduto}`);
   };
 
+  const handleDelete = async (idproduto) => {
+    try {
+      const token = localStorage.getItem('token');
+      await axios.delete(`http://localhost:3000/edit/admin/${idproduto}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        withCredentials: true,
+      });
+      setSoftwares(softwares.filter(software => software.idproduto !== idproduto));
+    } catch (error) {
+      console.error('Error deleting software:', error);
+      setError('Erro ao deletar software. Por favor, tente novamente mais tarde.');
+    }
+  };
+
   return (
     <div className="body-container">
       <div id="sidebar">
@@ -89,8 +105,8 @@ const ListAdmin = () => {
                 <td>{software.versao}</td>
                 <td>{software.classificacaoMedia ? software.classificacaoMedia.toFixed(1) : 'N/A'}</td>
                 <td className="actions">
-                  <button onClick={() => handleEdit(software.idproduto)}>Editar</button>
-                  <button>Eliminar</button>
+                  <button className="btn btn-primary" onClick={() => handleEdit(software.idproduto)} style={{ width: '120px', marginRight: '10px' }}>Editar</button>
+                  <button className="btn btn-danger btn-block" onClick={() => handleDelete(software.idproduto)} style={{ width: '120px' }}>Eliminar</button>
                 </td>
               </tr>
             ))}
@@ -102,5 +118,3 @@ const ListAdmin = () => {
 };
 
 export default ListAdmin;
-
-
