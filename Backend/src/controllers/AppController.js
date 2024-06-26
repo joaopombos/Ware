@@ -340,13 +340,13 @@ export default AddAdmin;
 
 // Listar todos os orçamentos
 adminController.listBudgets = async (req, res) => {
-  try {
-      const budgets = await Orcamentos.findAll();
-      res.json(budgets);
-  } catch (error) {
-      res.status(500).json({ error: 'Error fetching budgets' });
-  }
-};
+    try {
+        const budgets = await Orcamentos.findAll();
+        res.json(budgets);
+    } catch (error) {
+        res.status(500).json({ error: 'Error fetching budgets' });
+    }
+  };
 
 
 
