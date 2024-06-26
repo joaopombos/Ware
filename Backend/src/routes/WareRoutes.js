@@ -4,7 +4,6 @@ const licencaController = require('../controllers/LicencasController');
 const clientesController = require('../controllers/ClientesController');
 const comprasController = require('../controllers/ComprasController');
 const appController = require('../controllers/AppController');
-const ticketController = require('../controllers/TicketController');
 const analyticsController = require('../controllers/AnalyticsController');
 
 const { isAuthenticated, isBuyer, isManager, isAdmin } = require('../middlewares/middleware');
