@@ -49,7 +49,7 @@ const MySoftwares = () => {
         <div className="d-flex flex-column min-vh-100">
             <nav className="navbar navbar-expand-lg bg-dark">
                 <div className="container-fluid">
-                    <a className="navbar-brand" href="/signup_comprador">
+                    <a className="navbar-brand" href="/shop">
                         <img src="/images/Logos/logo.png" style={{ width: '20%' }} alt="Ware Logo" />
                     </a>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
@@ -58,7 +58,7 @@ const MySoftwares = () => {
                     </button>
                     <div className="collapse navbar-collapse" id="navbarNavAltMarkup" style={{ marginLeft: '-32%' }}>
                         <div className="navbar-nav">
-                            <a className="nav-link text-white" href="/shop/my">Explorar</a>
+                            <a className="nav-link text-white" href="/shop">Explorar</a>
                             <a className="nav-link active text-white" aria-current="page" href="/library">Gestão</a>
                         </div>
                     </div>
@@ -69,7 +69,7 @@ const MySoftwares = () => {
                     <button className="btn btn-outline-light me-2" style={{ marginLeft: '0.5%' }} type="button">
                         <i className="bi bi-cart4"></i>
                     </button>
-                    <a href="/home" className="btn btn-primary">Terminar Sessão</a>
+                    <a href="/logout" className="btn btn-primary">Terminar Sessão</a>
                 </div>
             </nav>
 

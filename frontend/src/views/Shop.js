@@ -1,38 +1,44 @@
-// Shop.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFileAlt, faGamepad, faCamera, faVideo, faCubes, faEdit, faBrush, faMusic, faNetworkWired } from '@fortawesome/free-solid-svg-icons';
+import { faFileAlt, faCube } from '@fortawesome/free-solid-svg-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Shop = () => {
-    const [softwares, setSoftwares] = useState([]);
-    const [category, setCategory] = useState('Todos');
+    const [items, setItems] = useState([]);
+    const [type, setType] = useState('softwares'); // Estado para controlar se estamos exibindo softwares ou addons
 
     useEffect(() => {
-        const fetchSoftwares = async () => {
+        const fetchItems = async () => {
             try {
-                const endpoint = category === 'Todos' ? '/shop' : `/shop/category/${category}`;
+                let endpoint = '';
+                if (type === 'softwares') {
+                    endpoint = 'http://localhost:3000/shop/softwares'; // Rota para buscar softwares
+                } else if (type === 'addons') {
+                    endpoint = 'http://localhost:3000/shop/addons'; // Rota para buscar addons
+                }
+
                 const response = await axios.get(endpoint, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`
-                    }
+                    },
+                    withCredentials: true
                 });
-                setSoftwares(response.data);
+                setItems(response.data);
             } catch (error) {
-                console.error('Error fetching softwares:', error);
+                console.error('Erro ao buscar itens:', error);
             }
         };
 
-        fetchSoftwares();
-    }, [category]);
+        fetchItems();
+    }, [type]);
 
     return (
         <div>
             {/* NAVBAR */}
             <nav className="navbar navbar-expand-lg bg-dark">
                 <div className="container-fluid">
-                    <a className="navbar-brand" href="/signup_comprador">
+                    <a className="navbar-brand" href="/shop">
                         <img src="/images/Logos/logo.png" style={{ width: '20%' }} alt="Ware Logo" />
                     </a>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
@@ -41,7 +47,7 @@ const Shop = () => {
                     </button>
                     <div className="collapse navbar-collapse" id="navbarNavAltMarkup" style={{ marginLeft: '-32%' }}>
                         <div className="navbar-nav">
-                            <a className="nav-link text-white" href="/shop/my">Explorar</a>
+                            <a className="nav-link text-white" href="/shop">Explorar</a>
                             <a className="nav-link active text-white" aria-current="page" href="/library">Gestão</a>
                         </div>
                     </div>
@@ -56,102 +62,54 @@ const Shop = () => {
                 </div>
             </nav>
             {/* FIM NAVBAR */}
-            {/* CATEGORIAS */}
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                <div className="container-fluid justify-content-center">
-                    <div className="collapse navbar-collapse justify-content-center" id="navbarCategories">
-                        <ul className="navbar-nav mb-2 mb-lg-0">
-                            <li className="nav-item">
-                                <a className="nav-link" href="#" onClick={() => setCategory('Todos')}>
-                                    <FontAwesomeIcon icon={faFileAlt} /> Todos
-                                </a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#" onClick={() => setCategory('Jogos')}>
-                                    <FontAwesomeIcon icon={faGamepad} /> Jogos
-                                </a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#" onClick={() => setCategory('Fotografia')}>
-                                    <FontAwesomeIcon icon={faCamera} /> Fotografia
-                                </a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#" onClick={() => setCategory('Vídeo')}>
-                                    <FontAwesomeIcon icon={faVideo} /> Vídeo
-                                </a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#" onClick={() => setCategory('3D')}>
-                                    <FontAwesomeIcon icon={faCubes} /> 3D
-                                </a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#" onClick={() => setCategory('Design Gráfico')}>
-                                    <FontAwesomeIcon icon={faEdit} /> Design Gráfico
-                                </a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#" onClick={() => setCategory('Arte Digital')}>
-                                    <FontAwesomeIcon icon={faBrush} /> Arte Digital
-                                </a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#" onClick={() => setCategory('Música')}>
-                                    <FontAwesomeIcon icon={faMusic} /> Música
-                                </a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#" onClick={() => setCategory('Networking')}>
-                                    <FontAwesomeIcon icon={faNetworkWired} /> Networking
-                                </a>
-                            </li>
-                        </ul>
+
+            {/* BOTÕES DE CATEGORIA */}
+            <div className="container mt-3">
+                <div className="row justify-content-center">
+                    <div className="col-auto">
+                        <button className={`btn btn-outline-primary ${type === 'softwares' ? 'active' : ''}`} onClick={() => setType('softwares')}>
+                            <FontAwesomeIcon icon={faFileAlt} /> Softwares
+                        </button>
+                    </div>
+                    <div className="col-auto">
+                        <button className={`btn btn-outline-primary ${type === 'addons' ? 'active' : ''}`} onClick={() => setType('addons')}>
+                            <FontAwesomeIcon icon={faCube} /> Addons
+                        </button>
                     </div>
                 </div>
-            </nav>
-            {/* FIM CATEGORAS */}
+            </div>
+            {/* FIM BOTÕES DE CATEGORIA */}
 
+            {/* LISTA DE ITENS */}
             <div className="container mt-5">
                 <div className="row">
-                    {softwares.map(software => (
-                        <div className="col-md-4" key={software.idproduto}>
-                            <div className="card mb-4">
-                                <img src={software.logotipo} className="card-img-top" alt={software.nome} />
+                    {items.map(item => (
+                        <div className="col-md-4 mb-4" key={item.id}>
+                            <div className="card">
+                                <img src={item.image} className="card-img-top" alt={item.name} />
                                 <div className="card-body">
-                                    <h5 className="card-title">{software.nome}</h5>
-                                    <p className="card-text">{software.descricao}</p>
-                                    <p className="card-text">Versão: {software.versao}</p>
-                                    <p className="card-text">Preço: ${software.precoproduto}</p>
+                                    <h5 className="card-title">{item.name}</h5>
+                                    <p className="card-text">{item.description}</p>
+                                    <p className="card-text">Preço: ${item.price}</p>
+                                    <a href={`/details/${item.id}`} className="btn btn-primary">Ver Detalhes</a>
                                 </div>
                             </div>
                         </div>
                     ))}
                 </div>
             </div>
-            <hr className="custom-hr" />
+            {/* FIM LISTA DE ITENS */}
 
+            {/* RECOMENDAÇÕES */}
+            <hr className="custom-hr" />
             <h1 style={{ marginLeft: '5%', marginTop: '5%', marginBottom: '5%' }}>Recomendado para si</h1>
 
             <div id="carouselrecomendado" className="carousel slide" data-bs-ride="carousel">
                 <div className="carousel-inner">
                     <div className="carousel-item active">
                         <div className="row justify-content-center">
+                            {/* Exemplo de cartões de recomendação */}
                             <div className="col-6 d-flex flex-column align-items-center">
-                                <div className="card card-custom" style={{ width: '70%', boxShadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
-                                    <div className="row no-gutters align-items-center">
-                                        <div className="col-md-3">
-                                            <img src="/images/newicons/excel.png" className="card-img" alt="..." />
-                                        </div>
-                                        <div className="col-md-8 d-flex justify-content-between align-items-center">
-                                            <div className="card-body">
-                                                <p className="card-text">Produtividade</p>
-                                                <h5 className="card-title">Microsoft Excel</h5>
-                                            </div>
-                                            <a href="#" className="btn btn-dark btn-sm" style={{ marginRight: '-15px' }}>Saber mais</a>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div className="card card-custom mt-3" style={{ width: '70%', boxShadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
                                     <div className="row no-gutters align-items-center">
                                         <div className="col-md-3">
@@ -167,6 +125,7 @@ const Shop = () => {
                                     </div>
                                 </div>
                             </div>
+                            {/* Outro exemplo de cartão */}
                             <div className="col-6 d-flex flex-column align-items-center" style={{ marginLeft: '-5%' }}>
                                 <div className="card card-custom" style={{ width: '70%', boxShadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
                                     <div className="row no-gutters align-items-center">
@@ -175,112 +134,39 @@ const Shop = () => {
                                         </div>
                                         <div className="col-md-8 d-flex justify-content-between align-items-center">
                                             <div className="card-body">
-                                                <p className="card-text">Produtivade</p>
+                                                <p className="card-text">Produtividade</p>
                                                 <h5 className="card-title">DropBox</h5>
                                             </div>
                                             <a href="#" className="btn btn-dark btn-sm" style={{ marginRight: '-15px' }}>Saber mais</a>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="card card-custom mt-3" style={{ width: '70%', boxShadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
-                                    <div className="row no-gutters align-items-center">
-                                        <div className="col-md-3">
-                                            <img src="/images/newicons/miro.png" className="card-img" alt="..." />
-                                        </div>
-                                        <div className="col-md-8 d-flex justify-content-between align-items-center">
-                                            <div className="card-body">
-                                                <p className="card-text">Comunicação</p>
-                                                <h5 className="card-title">Miro</h5>
-                                            </div>
-                                            <a href="#" className="btn btn-dark btn-sm" style={{ marginRight: '-15px' }}>Saber mais</a>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
+                            {/* Fim dos exemplos */}
                         </div>
                     </div>
-                    <div className="carousel-item">
-                        <div className="row justify-content-center">
-                            <div className="col-6 d-flex flex-column align-items-center">
-                                <div className="card card-custom" style={{ width: '70%', boxShadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
-                                    <div className="row no-gutters align-items-center">
-                                        <div className="col-md-3">
-                                            <img src="/images/newicons/notion.png" className="card-img" alt="..." />
-                                        </div>
-                                        <div className="col-md-8 d-flex justify-content-between align-items-center">
-                                            <div className="card-body">
-                                                <p className="card-text">Produtivade</p>
-                                                <h5 className="card-title">Notion</h5>
-                                            </div>
-                                            <a href="#" className="btn btn-dark btn-sm" style={{ marginRight: '-15px' }}>Saber mais</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="card card-custom mt-3" style={{ width: '70%', boxShadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
-                                    <div className="row no-gutters align-items-center">
-                                        <div className="col-md-3">
-                                            <img src="/images/newicons/fcp.png" className="card-img" alt="..." />
-                                        </div>
-                                        <div className="col-md-8 d-flex justify-content-between align-items-center">
-                                            <div className="card-body">
-                                                <p className="card-text">Vídeo</p>
-                                                <h5 class="card-title">Final Cut Pro</h5>
-                                            </div>
-                                            <a href="#" className="btn btn-dark btn-sm" style={{ marginRight: '-15px' }}>Saber mais</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-6 d-flex flex-column align-items-center" style={{ marginLeft: '-5%' }}>
-                                <div className="card card-custom" style={{ width: '70%', boxShadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
-                                    <div className="row no-gutters align-items-center">
-                                        <div className="col-md-3">
-                                            <img src="/images/newicons/office.png" className="card-img" alt="..." />
-                                        </div>
-                                        <div className="col-md-8 d-flex justify-content-between align-items-center">
-                                            <div className="card-body">
-                                                <p className="card-text">Produtividade</p>
-                                                <h5 className="card-title">Office 365</h5>
-                                            </div>
-                                            <a href="#" className="btn btn-dark btn-sm" style={{ marginRight: '-15px' }}>Saber mais</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="card card-custom mt-3" style={{ width: '70%', boxShadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
-                                    <div className="row no-gutters align-items-center">
-                                        <div className="col-md-3">
-                                            <img src="/images/newicons/slack.png" className="card-img" alt="..." />
-                                        </div>
-                                        <div className="col-md-8 d-flex justify-content-between align-items-center">
-                                            <div className="card-body">
-                                                <p className="card-text">Produtividade</p>
-                                                <h5 className="card-title">Slack</h5>
-                                            </div>
-                                            <a href="#" className="btn btn-dark btn-sm" style={{ marginRight: '-15px' }}>Saber mais</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    {/* Mais itens do carrossel podem ser adicionados aqui */}
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselrecomendado" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
+                <button className="carousel-control-prev" type="button" data-bs-target="#carouselrecomendado" data-bs-slide="prev">
+                    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span className="visually-hidden">Previous</span>
                 </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselrecomendado" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
+                <button className="carousel-control-next" type="button" data-bs-target="#carouselrecomendado" data-bs-slide="next">
+                    <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span className="visually-hidden">Next</span>
                 </button>
             </div>
-            <br />
+            {/* FIM RECOMENDAÇÕES */}
+
+            {/* RODAPÉ */}
             <footer className="footer bg-dark text-light">
                 <div className="container d-flex justify-content-center align-items-center">
                     <span className="text-center">&copy; Ware 2024</span>
-                 </div>
-             </footer>
+                </div>
+            </footer>
+            {/* FIM RODAPÉ */}
         </div>
     );
 };
 
-export default Shop;
+export default Shop; 

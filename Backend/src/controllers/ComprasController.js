@@ -21,47 +21,20 @@ shopController.listForUser = async (req, res) => {
 
 // Função unificada para listar categorias ou softwares baseado na presnça do parâmetro 'categoria'
 shopController.listCategoriesOrSoftwares = async (req, res) => {
-    const { categoria } = req.query; // Capture 'categoria' from query string
-
-    if (categoria) {
-        // If 'categoria' is present in the query, list softwares in that category
-        try {
-            const softwares = await TipoSoftwares.findAll({
-                where: { categoria },
-                attributes: [
-                    'logotipo',
-                    'nome',
-                    'descricao',
-                    [Sequelize.fn('AVG', Sequelize.col('avaliacoes.classificacao')), 'classificacao'] // Calculate average rating
-                ],
-                include: [{
-                    model: Avaliacoes,
-                    attributes: [] // We do not need additional fields from Avaliacoes table
-                }],
-                group: ['tipossoftwares.idproduto', 'tipossoftwares.logotipo', 'tipossoftwares.nome', 'tipossoftwares.descricao'], // Ensure all necessary fields are grouped
-                order: [['nome', 'ASC']] // Order alphabetically by software name
-            });
-            res.json(softwares);
-        } catch (error) {
-            res.status(500).json({ error: `Error fetching softwares for category ${categoria}` });
-        }
-    } else {
-        // If 'categoria' is not present, list all available categories
-        try {
-            const categories = await TipoSoftwares.findAll({
-                attributes: ['categoria'],
-                group: ['categoria'], // Group by 'categoria' column to avoid duplicates
-                where: {
-                    categoria: {
-                        [Op.ne]: null  // Filter to avoid null categories
-                    }
-                },
-                order: [['categoria', 'ASC']] // Order alphabetically by category
-            });
-            res.json(categories.map(cat => cat.categoria));
-        } catch (error) {
-            res.status(500).json({ error: 'Error fetching categories' });
-        }
+    try {
+        const softwares = await TipoSoftwares.findAll({
+            attributes: [
+                'idproduto',
+                'logotipo',
+                'nome',
+                'descricao',
+                'precoproduto'
+            ],
+            order: [['nome', 'ASC']] // Ordena por nome do software em ordem alfabética
+        });
+        res.json(softwares);
+    } catch (error) {
+        res.status(500).json({ error: 'Error fetching all softwares' });
     }
 };
 
@@ -292,48 +265,7 @@ shopController.purchaseSuccess = async (req, res) => {
 };
 
 
-/*  Sugestão Front end para '/shop/:idvenda/sucess'
 
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import axios from 'axios';
-
-const PurchaseSuccess = () => {
-    const { idvenda } = useParams();
-    const [successDetails, setSuccessDetails] = useState(null);
-
-    useEffect(() => {
-        const fetchSuccessDetails = async () => {
-            try {
-                const response = await axios.get(`/shop/${idvenda}/success`);
-                setSuccessDetails(response.data);
-            } catch (error) {
-                console.error('Error fetching success details:', error);
-            }
-        };
-
-        fetchSuccessDetails();
-    }, [idvenda]);
-
-    if (!successDetails) {
-        return <div>Loading...</div>;
-    }
-
-    return (
-        <div>
-            <h1>Compra Bem-sucedida</h1>
-            <p>Obrigado pela sua compra!</p>
-            <p>Chave do Produto: {successDetails.chaveProduto}</p>
-            <p>Nome do Software: {successDetails.softwareInfo.nome}</p>
-            { Adicione mais informações conforme necessário }
-            </div>
-          );
-      };
-      
-      export default PurchaseSuccess;
-
-      
-*/
 
 
 
