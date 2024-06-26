@@ -48,7 +48,10 @@ const License = () => {
     const handleUpdateSubmit = async () => {
         try {
             const response = await axios.put(`http://localhost:3000/license/${chaveproduto}`, 
-            { idatribuida: currentLicense.idatribuida, nomepc: newNomepc }, {
+            { 
+                idatribuida: currentLicense.idatribuida, 
+                nomepc: newNomepc 
+            }, {
                 withCredentials: true // Ensures cookies are sent with the request
             });
             setLicenses(licenses.map(license => license.idatribuida === response.data.idatribuida ? response.data : license));
@@ -61,7 +64,10 @@ const License = () => {
     const handleLicenseRemove = async (idatribuida) => {
         try {
             const response = await axios.put(`http://localhost:3000/license/${chaveproduto}`, 
-            { idatribuida, nomepc: null }, {
+            { 
+                idatribuida, 
+                nomepc: null 
+            }, {
                 withCredentials: true // Ensures cookies are sent with the request
             });
             setLicenses(licenses.map(license => license.idatribuida === idatribuida ? response.data : license));

@@ -32,7 +32,10 @@ licencaController.updateLicense = async (req, res) => {
             return res.status(404).json({ error: 'License not found' });
         }
 
-        await license.update({ nomepc });
+        await license.update({ 
+            nomepc, 
+            dataatri: new Date() // Update dataatri to the current date
+        });
         res.json(license);
     } catch (error) {
         res.status(500).json({ error: 'Error updating license' });

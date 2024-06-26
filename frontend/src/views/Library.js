@@ -1,3 +1,4 @@
+// Library.js
 import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
@@ -12,13 +13,12 @@ const MySoftwares = () => {
         const fetchSoftwares = async () => {
             try {
                 const response = await axios.get('http://localhost:3000/library', {
-                    withCredentials: true // Garante que os cookies são enviados com a requisição
+                    withCredentials: true // Ensures cookies are sent with the request
                 });
                 setSoftwares(response.data);
             } catch (error) {
                 console.error('Erro ao buscar softwares:', error);
                 if (error.response && error.response.status === 401) {
-                    // Redirecionar o usuário para a página de login ou mostrar mensagem de não autorizado
                     window.location.href = '/login';
                 }
             }

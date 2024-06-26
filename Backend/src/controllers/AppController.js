@@ -2,6 +2,7 @@ const TipoSoftwares = require('../models/tipossoftwares');
 const Orcamentos = require('../models/orcamentos');
 const Clientes = require('../models/clientes');
 const SoftwaresAdquiridos = require('../models/softwaresadquiridos');
+const LicencasAtribuidas = require('../models/licencasatribuidas');
 const Addons = require('../models/addons');
 const nodemailer = require('nodemailer');
 const { Op } = require('sequelize');
@@ -539,28 +540,36 @@ export default BudgetDetails;
 // Listar todos os softwares adquiridos para a empresa do usuário logado
 adminController.listAcquiredSoftwares = async (req, res) => {
     try {
-        const nif = req.cookies.nif; // Busca o NIF dos cookies
+        const nif = req.cookies.nif; // Fetch the NIF from cookies
 
         if (!nif) {
             return res.status(400).json({ error: 'NIF do usuário não fornecido nos cookies' });
         }
 
-        // Encontrar o cliente pelo NIF do usuário logado
+        // Find the client by the logged-in user's NIF
         const cliente = await Clientes.findOne({ where: { nif } });
 
         if (!cliente) {
             return res.status(404).json({ error: 'Cliente não encontrado' });
         }
 
-        // Listar todos os softwares adquiridos pela empresa do cliente
+        // List all softwares acquired by the client's company
         const softwares = await SoftwaresAdquiridos.findAll({ where: { nif: cliente.emp_nif } });
 
-        // Verifica se há softwares encontrados
         if (!softwares || softwares.length === 0) {
             return res.status(404).json({ error: 'Nenhum software adquirido encontrado para este cliente' });
         }
 
-        res.json(softwares);
+        // Include licenses for each software
+        const softwaresWithLicenses = await Promise.all(softwares.map(async (software) => {
+            const licenses = await LicencasAtribuidas.findAll({ where: { chaveproduto: software.chaveproduto } });
+            return {
+                ...software.dataValues,
+                licenses
+            };
+        }));
+
+        res.json(softwaresWithLicenses);
     } catch (error) {
         console.error('Erro ao buscar softwares adquiridos:', error);
         res.status(500).json({ error: 'Erro ao buscar softwares adquiridos' });
