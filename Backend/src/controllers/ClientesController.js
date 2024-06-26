@@ -1,4 +1,4 @@
-const Clientes = require('../models/clientes'); // Verifique se o caminho do modelo está correto
+const Clientes = require('../models/clientes');
 const  Empresas  = require('../models/empresas');
 const TipoUser = require('../models/tipouser');
 const Ware = require('../models/ware')
@@ -11,12 +11,12 @@ const bcrypt = require('bcrypt');
 
 const clientesController = {};
 
-// Função para gerar senha aleatória
+
 function generatePassword() {
-  return crypto.randomBytes(6).toString('hex'); // Gera uma senha aleatória de 8 caracteres
+  return crypto.randomBytes(6).toString('hex');
 }
 
-// Listar todos os clientes
+
 clientesController.list = async (req, res) => {
   try {
     const clients = await Clientes.findAll({ include: [Empresas, TipoUser] });
@@ -26,12 +26,11 @@ clientesController.list = async (req, res) => {
   }
 };
 
-// Adicionar um novo cliente
+
 clientesController.createSignup = async (req, res) => {
   try {
     const { nomeempresa, emp_nif, localizacao, contacto_empresa, nome, email, contacto_cliente, nif } = req.body;
 
-    // Verificar campos obrigatórios
     if (!nomeempresa || !emp_nif || !nome || !email || !nif) {
       return res.status(400).json({
         error: 'Faltam campos obrigatórios',
@@ -45,24 +44,18 @@ clientesController.createSignup = async (req, res) => {
       });
     }
 
-    // Verificar se a empresa já existe
     let empresa = await Empresas.findOne({ where: { nif: emp_nif } });
 
     if (!empresa) {
-      // Criar a empresa se não existir
       empresa = await Empresas.create({ nomeempresa, nif: emp_nif, localizacao,  contacto: contacto_empresa });
     }
 
-    // Gerar código pessoal
     const codigopessoal = generatePassword();
 
-    // Definir iduser como 2 (outra lógica pode ser aplicada conforme necessário)
     const iduser = 1;
 
-    // Criar o cliente usando o modelo Clientes
     const client = await Clientes.create({ emp_nif, iduser, nome, email, codigopessoal, contacto: contacto_cliente, nif });
 
-    // Configurar o transportador de e-mail
     let transporter = nodemailer.createTransport({
       host: 'smtp-relay.brevo.com',
       port: 587,
@@ -73,7 +66,6 @@ clientesController.createSignup = async (req, res) => {
       from: 'rodrigo.pina113@gmail.com'
     });
 
-    // Configurar as opções do e-mail
     let mailOptions = {
       from: '"Ware" <rodrigo.pina113@gmail.com>',
       to: email,
@@ -82,7 +74,6 @@ clientesController.createSignup = async (req, res) => {
       html: `<p>Olá ${nome},</p><p>O código pessoal é: <strong>${codigopessoal}</strong></p><p>Obrigado!</p>`
     };
 
-    // Enviar o e-mail
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
         return res.status(500).json({ error: 'Erro ao enviar e-mail', details: error.message });
@@ -96,7 +87,6 @@ clientesController.createSignup = async (req, res) => {
 };
 
 
-// Atualizar um cliente
 clientesController.update = async (req, res) => {
   try {
     const { NIF } = req.params;
@@ -113,7 +103,6 @@ clientesController.update = async (req, res) => {
   }
 };
 
-// Deletar um cliente
 clientesController.delete = async (req, res) => {
   try {
     const { NIF } = req.params;
@@ -129,7 +118,6 @@ clientesController.delete = async (req, res) => {
   }
 };
 
-// Função de login
 
 const jwtSecret = 'seuSegredoAqui';
 
@@ -137,32 +125,26 @@ clientesController.login = async (req, res) => {
   const { email, codigopessoal } = req.body;
 
   try {
-    // Validação de entrada
     if (!email || !codigopessoal) {
       return res.status(400).json({ error: 'Email e código pessoal são obrigatórios.' });
     }
 
-    // Encontrar o cliente pelo email
     const client = await Clientes.findOne({ where: { email } });
 
-    // Se o cliente não for encontrado
     if (!client) {
       return res.status(401).json({ error: 'Credenciais inválidas' });
     }
 
-    // Comparar o codigopessoal diretamente
     if (codigopessoal !== client.codigopessoal) {
       return res.status(401).json({ error: 'Credenciais inválidas' });
     }
 
-    // Criar token JWT
     const token = jwt.sign(
       { id: client.nif, email: client.email, iduser: client.iduser },
       jwtSecret,
       { expiresIn: '1h' }
     );
 
-    // Armazenar o token JWT e o NIF em cookies seguros
     res.cookie('token', token, { httpOnly: true, secure: false, maxAge: 3600000 }); // 1 hora
     res.cookie('nif', client.nif, { httpOnly: true, secure: false, maxAge: 3600000 }); // 1 hora
     res.cookie('iduser', client.iduser, { httpOnly: true, secure: false, maxAge: 3600000 }); // 1 hora
@@ -174,7 +156,6 @@ clientesController.login = async (req, res) => {
   }
 };
 
-// Função de logout
 clientesController.logout = (req, res) => {
   res.clearCookie('token');
   res.clearCookie('nif');
@@ -195,7 +176,6 @@ clientesController.create_gestor = async (req, res) => {
   try {
     const { emp_nif, nome, email, contacto: contacto_cliente, nif  } = req.body;
 
-    // Verificar campos obrigatórios
     if (!emp_nif || !nome || !email || !nif) {
       return res.status(400).json({
         error: 'Faltam campos obrigatórios',
@@ -208,7 +188,6 @@ clientesController.create_gestor = async (req, res) => {
       });
     }
 
-    // Verificar se emp_nif existe
     const empresaExistente = await Empresas.findOne({ where: { nif: emp_nif } });
     if (!empresaExistente) {
       return res.status(400).json({
@@ -221,10 +200,8 @@ clientesController.create_gestor = async (req, res) => {
 
     const iduser = 2;
 
-    // Criar o cliente
     const client = await Clientes.create({ emp_nif, iduser, nome, email, codigopessoal, contacto: contacto_cliente, nif });
 
-    // Configurar o transportador de e-mail
     let transporter = nodemailer.createTransport({
       host: 'smtp-relay.brevo.com',
       port: 587,
@@ -235,7 +212,6 @@ clientesController.create_gestor = async (req, res) => {
       from: 'rodrigo.pina113@gmail.com'
     });
 
-    // Configurar as opções do e-mail
     let mailOptions = {
       from: '"Ware" <rodrigo.pina113@gmail.com>',
       to: email,
@@ -244,7 +220,6 @@ clientesController.create_gestor = async (req, res) => {
       html: `<p>Olá ${nome},</p><p>O seu código pessoal é: <strong>${codigopessoal}</strong></p><p>Obrigado!</p>`
     };
 
-    // Enviar o e-mail
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
         return res.status(500).json({ error: 'Erro ao enviar e-mail', details: error.message });
@@ -261,15 +236,12 @@ clientesController.loginadmin = async (req, res) => {
   const { username, password } = req.body;
 
   try {
-    // Validação de entrada
     if (!username || !password) {
       return res.status(400).json({ error: 'Username e password são obrigatórios.' });
     }
 
-    // Encontrar o usuário Ware pelo username
     const wareUser = await Ware.findOne({ where: { username } });
 
-    // Se o usuário não for encontrado
     if (!wareUser) {
       return res.status(401).json({ error: 'Credenciais inválidas' });
     }
@@ -279,14 +251,12 @@ clientesController.loginadmin = async (req, res) => {
       return res.status(401).json({ error: 'Credenciais inválidas' });
     }
 
-    // Criar token JWT
     const token = jwt.sign(
       { idware: wareUser.idware, username: wareUser.username },
       jwtSecret,
       { expiresIn: '1h' }
     );
 
-    // Armazenar o token JWT e o ID do Ware em cookies seguros
     res.cookie('token', token, { httpOnly: true, secure: false, maxAge: 3600000 }); // 1 hora
     res.cookie('idware', wareUser.idware, { httpOnly: true, secure: false, maxAge: 3600000 }); // 1 hora
 
@@ -298,90 +268,3 @@ clientesController.loginadmin = async (req, res) => {
 };
 
 module.exports = clientesController;
-
-
-
-
-/* Sugestão Middleware e Frontend '/login'
-
-// middlewares/auth.js
-const jwt = require('jsonwebtoken');
-const Clientes = require('../models/clientes');
-
-const authenticate = async (req, res, next) => {
-    const token = req.header('Authorization').replace('Bearer ', '');
-    try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        const cliente = await Clientes.findOne({ where: { nif: decoded.nif } });
-        if (!cliente) {
-            throw new Error();
-        }
-        req.user = cliente;
-        next();
-    } catch (error) {
-        res.status(401).json({ error: 'Please authenticate.' });
-    }
-};
-
-module.exports = { authenticate };
-
-
-
-
-FRONTEND
-
-
-
-import React, { useState } from 'react';
-import axios from 'axios';
-import { useHistory } from 'react-router-dom';
-
-const Login = () => {
-    const [email, setEmail] = useState('');
-    const [codigopessoal, setCodigopessoal] = useState('');
-    const history = useHistory();
-
-    const handleLogin = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await axios.post('/login', { email, codigopessoal });
-            localStorage.setItem('token', response.data.token);
-            history.push('/library'); // Redirecionar para a página da biblioteca após login
-        } catch (error) {
-            console.error('Error logging in:', error);
-            alert('Credenciais inválidas. Tente novamente.');
-        }
-    };
-
-    return (
-        <div>
-            <h1>Login</h1>
-            <form onSubmit={handleLogin}>
-                <div>
-                    <label>Email:</label>
-                    <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <label>Código Pessoal:</label>
-                    <input
-                        type="password"
-                        value={codigopessoal}
-                        onChange={(e) => setCodigopessoal(e.target.value)}
-                    />
-                </div>
-                <button type="submit">Login</button>
-            </form>
-        </div>
-    );
-};
-
-export default Login;
-
-
-*/
-
-

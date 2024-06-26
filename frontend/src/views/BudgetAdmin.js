@@ -81,12 +81,6 @@ const Orcamentos = ({ token }) => {
           </div>
           <ul className="list-unstyled components">
             <li>
-              <a href="/tickets/admin"><i className="fas fa-ticket-alt"></i> Tickets</a>
-            </li>
-            <li>
-              <a href="/edit/admin"><i className="fas fa-edit"></i> Atualizar/Editar Software</a>
-            </li>
-            <li>
               <a href="/add/admin"><i className="fas fa-plus"></i> Adicionar Software</a>
             </li>
             <li>
@@ -100,7 +94,7 @@ const Orcamentos = ({ token }) => {
             </li>
           </ul>
           <div className="logout-button">
-            <a href="/home" className="btn btn-primary">Terminar Sessão</a>
+            <a href="/" className="btn btn-primary">Terminar Sessão</a>
           </div>
         </div>
 

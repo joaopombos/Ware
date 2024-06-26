@@ -23,7 +23,7 @@ export default function EditComponent() {
       localStorage.setItem('token', token);
 
       // Redirecionar para a página desejada após o login
-      navigate('/tickets/admin');
+      navigate('/list/admin');
     } catch (error) {
       console.error('Login error', error);
       if (error.response && error.response.data) {

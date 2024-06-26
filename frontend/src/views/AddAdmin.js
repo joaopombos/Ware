@@ -94,9 +94,6 @@ const AddSoftware = () => {
           <img src="/images/Logos/logotipo copy.svg" alt="Logo" />
         </div>
         <ul className="components">
-          <li>
-            <a href="/tickets/admin"><i className="fas fa-ticket-alt"></i> Tickets</a>
-          </li>
           <li className="active">
             <a href="/add/admin"><i className="fas fa-plus"></i> Adicionar Software</a>
           </li>
@@ -111,7 +108,7 @@ const AddSoftware = () => {
           </li>
         </ul>
         <div className="logout-button">
-          <button className="btn btn-primary">Terminar Sessão</button>
+        <a href="/" class="btn btn-primary">Terminar Sessão</a>
         </div>
       </div>
 

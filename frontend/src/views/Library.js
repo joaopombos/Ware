@@ -47,9 +47,10 @@ const MySoftwares = () => {
 
     return (
         <div className="d-flex flex-column min-vh-100">
+            {/* NAVBAR */}
             <nav className="navbar navbar-expand-lg bg-dark">
                 <div className="container-fluid">
-                    <a className="navbar-brand" href="/shop">
+                    <a className="navbar-brand" href="/signup/comprador">
                         <img src="/images/Logos/logo.png" style={{ width: '20%' }} alt="Ware Logo" />
                     </a>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
@@ -64,14 +65,12 @@ const MySoftwares = () => {
                     </div>
                     <form className="d-flex" role="search">
                         <input className="form-control me-2" type="search" placeholder="Procurar" aria-label="Search" />
-                        <button className="btn btn-outline-light" type="submit">Procurar</button>
+                        <button className="btn btn-outline-light" type="submit" style={{ marginRight: '10px' }}>Procurar</button>
                     </form>
-                    <button className="btn btn-outline-light me-2" style={{ marginLeft: '0.5%' }} type="button">
-                        <i className="bi bi-cart4"></i>
-                    </button>
-                    <a href="/logout" className="btn btn-primary">Terminar Sessão</a>
+                    <a href="/" className="btn btn-primary">Terminar Sessão</a>
                 </div>
             </nav>
+            {/* FIM NAVBAR */}
 
             <h1 className="my-5" style={{ marginLeft: '5%' }}>Os meus softwares</h1>
 

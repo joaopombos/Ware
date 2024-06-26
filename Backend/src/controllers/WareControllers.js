@@ -17,7 +17,6 @@ const fs = require("fs");
 const wareController = {};
 
 
-// register: To handle user registration.
 wareController.register = async (req, res) => {
   try {
     const { username, password, lucros, gastos } = req.body;
@@ -36,7 +35,7 @@ wareController.register = async (req, res) => {
   }
 };
 
-// login: To handle user login.
+
 wareController.login = async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -55,7 +54,7 @@ wareController.login = async (req, res) => {
   }
 };
 
-//   logout: To handle user logout.
+
 wareController.logout = async (req, res) => {
   try {
     res.status(200).json({ message: 'Logout bem-sucedido' });
@@ -65,7 +64,7 @@ wareController.logout = async (req, res) => {
   }
 };
 
-// getUser: To fetch the authenticated user’s details.
+
 wareController.getUser = async (req, res) => {
   try {
     const userId = req.params.userId;
@@ -82,7 +81,7 @@ wareController.getUser = async (req, res) => {
   }
 };
 
-// updateUser: To update user information.
+
 wareController.updateUser = async (req, res) => {
   try {
     const userId = req.params.userId;
@@ -107,7 +106,7 @@ wareController.updateUser = async (req, res) => {
   }
 };
 
-// deleteUser: To delete a user account.
+
 wareController.deleteUser = async (req, res) => {
   try {
     const userId = req.params.userId;

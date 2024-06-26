@@ -13,7 +13,7 @@ export default function Sign_tipo() {
         }}>
             <nav class="navbar navbar-expand-lg bg-dark">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#">
+                    <a class="navbar-brand" href="/">
                         <img src={'/images/Logos/logo.png'} style={{ width: '20%' }} alt="Ware Logo" />
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
@@ -22,7 +22,7 @@ export default function Sign_tipo() {
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     </div>
-                    <a class="btn btn-outline-light me-2" href="/home" role="button">Iniciar Sessão</a>
+                    <a class="btn btn-outline-light me-2" href="/login" role="button">Iniciar Sessão</a>
 
                 </div>
             </nav>

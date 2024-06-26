@@ -74,13 +74,10 @@ const Metrics = () => {
         </div>
         <ul className="components">
           <li>
-            <a href="/tickets/admin"><i className="fas fa-ticket-alt"></i> Tickets</a>
-          </li>
-          <li>
             <a href="/add/admin"><i className="fas fa-plus"></i> Adicionar Software</a>
           </li>
           <li>
-            <a href=""><i className="fas fa-list"></i> Listar Software</a>
+            <a href="/list/admin"><i className="fas fa-list"></i> Listar Software</a>
           </li>
           <li>
             <a href="/budget/admin"><i className="fas fa-file-invoice-dollar"></i> Orçamentos</a>
@@ -90,7 +87,7 @@ const Metrics = () => {
           </li>
         </ul>
         <div className="logout-button">
-          <a href="/home" className="btn btn-primary">Terminar Sessão</a>
+          <a href="/" className="btn btn-primary">Terminar Sessão</a>
         </div>
       </div>
 

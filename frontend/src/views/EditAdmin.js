@@ -83,9 +83,6 @@ const SoftwareUpdate = () => {
                     </div>
                     <ul className="list-unstyled components">
                         <li>
-                            <a href="/tickets/admin"><i className="fas fa-ticket-alt"></i> Tickets</a>
-                        </li>
-                        <li>
                             <a href="/add/admin"><i className="fas fa-plus"></i> Add Software</a>
                         </li>
                         <li>

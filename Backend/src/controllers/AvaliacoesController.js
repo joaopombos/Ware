@@ -1,10 +1,8 @@
-// controllers/AvaliacoesController.js
 const Avaliacoes = require('../models/avaliacoes');
 const TiposSoftwares = require('../models/tipossoftwares');
 
 const avaliacoesController = {};
 
-// List all reviews for a product
 avaliacoesController.list = async (req, res) => {
   try {
     const reviews = await Avaliacoes.findAll({ where: { IDPRODUTO: req.params.productId } });
@@ -14,7 +12,6 @@ avaliacoesController.list = async (req, res) => {
   }
 };
 
-// Add a new review
 avaliacoesController.create = async (req, res) => {
   try {
     const { IDPRODUTO, COMENTARIO, CLASSIFICACAO, DATAAVALIACAO } = req.body;
@@ -25,7 +22,6 @@ avaliacoesController.create = async (req, res) => {
   }
 };
 
-// Update a review
 avaliacoesController.update = async (req, res) => {
   try {
     const { IDAVALIACAO } = req.params;
@@ -42,7 +38,6 @@ avaliacoesController.update = async (req, res) => {
   }
 };
 
-// Delete a review
 avaliacoesController.delete = async (req, res) => {
   try {
     const { IDAVALIACAO } = req.params;

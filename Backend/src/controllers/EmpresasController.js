@@ -1,9 +1,8 @@
-// controllers/EmpresasController.js
 const Empresas = require('../models/empresas');
 
 const empresasController = {};
 
-// List all companies
+
 empresasController.list = async (req, res) => {
   try {
     const companies = await Empresas.findAll();
@@ -13,7 +12,7 @@ empresasController.list = async (req, res) => {
   }
 };
 
-// Add a new company
+
 empresasController.create = async (req, res) => {
   try {
     const { NOMEEMPRESA, NIF, LOCALIZACAO, CODIGOCONVITE, CONTACTO } = req.body;
@@ -24,7 +23,7 @@ empresasController.create = async (req, res) => {
   }
 };
 
-// Update a company
+
 empresasController.update = async (req, res) => {
   try {
     const { NIF } = req.params;
@@ -41,7 +40,7 @@ empresasController.update = async (req, res) => {
   }
 };
 
-// Delete a company
+
 empresasController.delete = async (req, res) => {
   try {
     const { NIF } = req.params;

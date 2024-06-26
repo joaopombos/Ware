@@ -36,16 +36,17 @@ export default function Sign_cGestor() {
 
     return (
         <div>
-            <nav className="navbar navbar-expand-lg bg-dark">
-                <div className="container-fluid">
-                    <a className="navbar-brand" href="#"><img src="/images/Logos/logo.png" style={{ width: '20%' }} alt="ware logo" /></a>
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+            <nav class="navbar navbar-expand-lg bg-dark">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="/"><img src="/images/Logos/logo.png" style={{ width: '20%' }} alt="ware logo" /></a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
                         aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
+                        <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     </div>
-                    <button className="btn btn-outline-light me-2" type="button">Iniciar Sessão</button>
+                    <a class="btn btn-outline-light me-2" href="/login" role="button">Iniciar Sessão</a>
+
                 </div>
             </nav>
             <div className="row">
@@ -100,7 +101,7 @@ export default function Sign_cGestor() {
                             <div className="pt-1 mb-4" style={{ marginTop: '5%' }}>
                                 <button className="btn btn-info btn-lg btn-dark" type="submit">Enviar código</button>
                             </div>
-                            <p>Já tem conta? <a href="#" className="link-info">Clique aqui.</a></p>
+                            <p>Já tem conta? <a href="/login" className="link-info">Clique aqui.</a></p>
                         </form>
                         <br></br><br></br>
                     </div>

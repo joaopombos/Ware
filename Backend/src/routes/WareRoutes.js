@@ -29,14 +29,10 @@ router.get('/shop/:idvenda/success', isAuthenticated, isBuyer, comprasController
 router.get('/library', isAuthenticated, appController.listAcquiredSoftwares);               //VV - Ajustar frontEnd(card)
 router.get('/license/:chaveproduto', isAuthenticated, licencaController.getSoftwareLicenses);
 router.put('/license/:chaveproduto', isAuthenticated, licencaController.updateLicense);
-
-router.post('/ticket/send', isAuthenticated, licencaController.sendTicket);                 //Erro
 router.get('/addons', isAuthenticated, appController.listAddons);                           //Erro
 router.get('/upgrade/software', isAuthenticated, appController.compareAndUpdateSoftware);  //Erro 
 
 // Rotas do administrador
-router.get('/list/tickets', isAuthenticated, isAdmin, ticketController.listTickets);                       //V
-router.put('/update/tickets/:idticket', isAuthenticated, isAdmin, ticketController.updateTicketStatus);   //V
 router.get('/list/admin', isAuthenticated, isAdmin, appController.listSoftwares);                        //V
 router.put('/update/admin/:idproduto', isAuthenticated, isAdmin, appController.updateSoftware);         //V
 router.get('/edit/admin/:idproduto', isAuthenticated, isAdmin, appController.getSoftwareById);

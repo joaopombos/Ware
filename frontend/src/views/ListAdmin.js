@@ -63,9 +63,6 @@ const ListAdmin = () => {
         </div>
         <ul className="components">
           <li>
-            <a href="/tickets/admin"><i className="fas fa-ticket-alt"></i> Tickets</a>
-          </li>
-          <li>
             <a href="/add/admin"><i className="fas fa-plus"></i> Adicionar Software</a>
           </li>
           <li className="active">
@@ -75,11 +72,11 @@ const ListAdmin = () => {
             <a href="/budget/admin"><i className="fas fa-file-invoice-dollar"></i> Orçamentos</a>
           </li>
           <li>
-            <a href="#"><i className="fas fa-chart-line"></i> Métricas de vendas</a>
+            <a href="/metrics/admin"><i className="fas fa-chart-line"></i> Métricas de vendas</a>
           </li>
         </ul>
         <div className="logout-button">
-          <a href="/home" className="btn btn-primary">Terminar Sessão</a>
+          <a href="/" className="btn btn-primary">Terminar Sessão</a>
         </div>
       </div>
 
