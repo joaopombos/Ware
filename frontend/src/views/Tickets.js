@@ -63,11 +63,7 @@ const App = () => {
               <i class="fas fa-ticket-alt"></i> Tickets
             </a>
           </li>
-          <li>
-            <a href="/edit/admin">
-              <i class="fas fa-edit"></i> Atualizar/Editar Software
-            </a>
-          </li>
+
           <li>
             <a href="/add/admin">
               <i class="fas fa-plus"></i> Adicionar Software

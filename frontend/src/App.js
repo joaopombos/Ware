@@ -34,7 +34,7 @@ function App() {
           <Route path="/shop/:idvenda/confirm" element={<Shopconfirm />} />
           <Route path="/shop/:idvenda/sucess" element={<ShopSucess />} />
           <Route path="/tickets/admin" element={<Tickets />} />
-          <Route path="/edit/admin" element={<EditAdmin />} />
+          <Route path="/edit/admin/:idproduto" element={<EditAdmin />} />
           <Route path="/add/admin" element={<AddAdmin />} />
           <Route path="/list/admin" element={<ListAdmin />} />
           <Route path="/budget/admin" element={<BudgetAdmin />} />

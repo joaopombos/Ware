@@ -39,6 +39,7 @@ router.get('/list/tickets', isAuthenticated, isAdmin, ticketController.listTicke
 router.put('/update/tickets/:idticket', isAuthenticated, isAdmin, ticketController.updateTicketStatus);   //V
 router.get('/list/admin', isAuthenticated, isAdmin, appController.listSoftwares);                        //V
 router.put('/update/admin/:idproduto', isAuthenticated, isAdmin, appController.updateSoftware);         //V
+router.get('/edit/admin/:idproduto', isAuthenticated, isAdmin, appController.getSoftwareById);
 router.delete('/edit/admin/:idproduto', isAuthenticated, isAdmin, appController.deleteSoftware);        //V
 router.post('/add/admin', isAuthenticated, isAdmin, appController.addSoftware);                         //V
 router.get('/budget/admin', isAuthenticated, isAdmin, appController.listBudgets);                       //V

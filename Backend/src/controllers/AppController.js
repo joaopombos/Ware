@@ -2,7 +2,7 @@ const TipoSoftwares = require('../models/tipossoftwares');
 const Orcamentos = require('../models/orcamentos');
 const Clientes = require('../models/clientes');
 const SoftwaresAdquiridos = require('../models/softwaresadquiridos');
-const LicencasAtribuidas = require('../models/licencasatribuidas');
+const Avaliacoes = require('../models/avaliacoes');
 const Addons = require('../models/addons');
 const nodemailer = require('nodemailer');
 const { Op } = require('sequelize');
@@ -27,6 +27,21 @@ adminController.listSoftwares = async (req, res) => {
         res.json(softwares);
     } catch (error) {
         res.status(500).json({ error: 'Error fetching softwares' });
+    }
+};
+
+adminController.getSoftwareById = async (req, res) => {
+    const { idproduto } = req.params;
+
+    try {
+        const software = await TipoSoftwares.findByPk(idproduto);
+        if (!software) {
+            return res.status(404).json({ error: 'Software not found' });
+        }
+        res.json(software);
+    } catch (error) {
+        console.error('Erro ao buscar software:', error);
+        res.status(500).json({ error: 'Error fetching software' });
     }
 };
 
@@ -63,21 +78,21 @@ adminController.updateSoftware = async (req, res) => {
 };
 
 // Excluir um software específico
-adminController.deleteSoftware = async (req, res) => {
-    const { idproduto } = req.params;
+    adminController.deleteSoftware = async (req, res) => {
+        const { idproduto } = req.params;
 
-    try {
-        const software = await TipoSoftwares.findByPk(idproduto);
-        if (!software) {
-            return res.status(404).json({ error: 'Software not found' });
+        try {
+            const software = await TipoSoftwares.findByPk(idproduto);
+            if (!software) {
+                return res.status(404).json({ error: 'Software not found' });
+            }
+
+            await software.destroy();
+            res.json({ message: 'Software deleted successfully' });
+        } catch (error) {
+            res.status(500).json({ error: 'Error deleting software' });
         }
-
-        await software.destroy();
-        res.json({ message: 'Software deleted successfully' });
-    } catch (error) {
-        res.status(500).json({ error: 'Error deleting software' });
-    }
-};
+    };
 
 
 /* Sugestão Frontend '/edit/admin' e '/list/admin'
@@ -540,36 +555,28 @@ export default BudgetDetails;
 // Listar todos os softwares adquiridos para a empresa do usuário logado
 adminController.listAcquiredSoftwares = async (req, res) => {
     try {
-        const nif = req.cookies.nif; // Fetch the NIF from cookies
+        const nif = req.cookies.nif; // Busca o NIF dos cookies
 
         if (!nif) {
             return res.status(400).json({ error: 'NIF do usuário não fornecido nos cookies' });
         }
 
-        // Find the client by the logged-in user's NIF
+        // Encontrar o cliente pelo NIF do usuário logado
         const cliente = await Clientes.findOne({ where: { nif } });
 
         if (!cliente) {
             return res.status(404).json({ error: 'Cliente não encontrado' });
         }
 
-        // List all softwares acquired by the client's company
+        // Listar todos os softwares adquiridos pela empresa do cliente
         const softwares = await SoftwaresAdquiridos.findAll({ where: { nif: cliente.emp_nif } });
 
+        // Verifica se há softwares encontrados
         if (!softwares || softwares.length === 0) {
             return res.status(404).json({ error: 'Nenhum software adquirido encontrado para este cliente' });
         }
 
-        // Include licenses for each software
-        const softwaresWithLicenses = await Promise.all(softwares.map(async (software) => {
-            const licenses = await LicencasAtribuidas.findAll({ where: { chaveproduto: software.chaveproduto } });
-            return {
-                ...software.dataValues,
-                licenses
-            };
-        }));
-
-        res.json(softwaresWithLicenses);
+        res.json(softwares);
     } catch (error) {
         console.error('Erro ao buscar softwares adquiridos:', error);
         res.status(500).json({ error: 'Erro ao buscar softwares adquiridos' });

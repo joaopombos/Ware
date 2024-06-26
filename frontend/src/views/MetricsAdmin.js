@@ -77,16 +77,13 @@ const Metrics = () => {
             <a href="/tickets/admin"><i className="fas fa-ticket-alt"></i> Tickets</a>
           </li>
           <li>
-            <a href="/edit/admin"><i className="fas fa-edit"></i> Atualizar/Editar Software</a>
-          </li>
-          <li>
             <a href="/add/admin"><i className="fas fa-plus"></i> Adicionar Software</a>
           </li>
           <li>
             <a href=""><i className="fas fa-list"></i> Listar Software</a>
           </li>
           <li>
-            <a href="#"><i className="fas fa-file-invoice-dollar"></i> Orçamentos</a>
+            <a href="/budget/admin"><i className="fas fa-file-invoice-dollar"></i> Orçamentos</a>
           </li>
           <li className="active">
             <a href="#"><i className="fas fa-chart-line"></i> Métricas de vendas</a>
@@ -120,4 +117,3 @@ const Metrics = () => {
 }
 
 export default Metrics;
-
