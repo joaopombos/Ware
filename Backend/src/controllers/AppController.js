@@ -40,12 +40,19 @@ adminController.updateSoftware = async (req, res) => {
             return res.status(404).json({ error: 'Software not found' });
         }
 
-        console.log('Dados recebidos:', nome, descricao, categoria, versao, precoproduto, logotipo, imagenssoftware);
+        console.log('Dados recebidos para atualização:');
+        console.log('Nome:', nome);
+        console.log('Descrição:', descricao);
+        console.log('Categoria:', categoria);
+        console.log('Versão:', versao);
+        console.log('Preço do Produto:', precoproduto);
+        console.log('Logotipo:', logotipo);
+        console.log('Imagens do Software:', imagenssoftware);
 
         // Atualiza os atributos do software
         await software.update({ nome, descricao, categoria, versao, precoproduto, logotipo, imagenssoftware });
 
-        console.log('Software atualizado:', software);
+        console.log('Software atualizado no banco de dados:', software);
 
         res.json(software);
     } catch (error) {
@@ -211,25 +218,37 @@ export default ListAdmin;
 
 // Adicionar um novo software
 adminController.addSoftware = async (req, res) => {
-  const { nome, descricao, categoria, idproduto,versao, precoproduto, logotipo, imagenssoftware } = req.body;
-
-  try {
-      const novoSoftware = await TipoSoftwares.create({
+    try {
+        const { nome, descricao, categoria, versao, precoproduto, idproduto, logotipo, imagenssoftware } = req.body;
+    
+        console.log('Dados recebidos para adicionar software:', req.body);
+    
+        // Validar se o ID do produto foi fornecido
+        if (!idproduto) {
+          return res.status(400).json({ error: 'ID do produto não fornecido.' });
+        }
+    
+        // Criar o novo software no banco de dados
+        const novoSoftware = await TipoSoftwares.create({
           nome,
           descricao,
           categoria,
-          idproduto,
           versao,
           precoproduto,
+          idproduto,
           logotipo,
           imagenssoftware
-      });
-      res.status(201).json(novoSoftware);
-  } catch (error) {
-      console.error('Error adding software:', error);
-      res.status(500).json({ error: 'Error adding software' });
-  }
-};
+        });
+    
+        console.log('Software adicionado:', novoSoftware);
+    
+        // Responder com o novo software criado
+        res.status(201).json(novoSoftware);
+      } catch (error) {
+        console.error('Erro ao adicionar software:', error);
+        res.status(500).json({ error: 'Erro ao adicionar software.' });
+      }
+  };
 
 
 
@@ -321,13 +340,13 @@ export default AddAdmin;
 
 // Listar todos os orçamentos
 adminController.listBudgets = async (req, res) => {
-  try {
-      const budgets = await Orcamentos.findAll();
-      res.json(budgets);
-  } catch (error) {
-      res.status(500).json({ error: 'Error fetching budgets' });
-  }
-};
+    try {
+        const budgets = await Orcamentos.findAll();
+        res.json(budgets);
+    } catch (error) {
+        res.status(500).json({ error: 'Error fetching budgets' });
+    }
+  };
 
 
 

@@ -10,8 +10,7 @@ const TipoSoftwares = sequelize.define("tipossoftwares", {
   idproduto: {
     type: Sequelize.INTEGER,
     allowNull: false,
-    primaryKey: true,
-    AutoIncrement: true
+    primaryKey: true
   },
   idplanos: {
     type: Sequelize.INTEGER,
