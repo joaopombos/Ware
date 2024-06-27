@@ -2,9 +2,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './addadmin.css'; // Importe o arquivo CSS separado
 
-
-
-
 const AddSoftware = () => {
   const [nome, setNome] = useState('');
   const [descricao, setDescricao] = useState('');
@@ -13,7 +10,7 @@ const AddSoftware = () => {
   const [precoproduto, setPrecoProduto] = useState('');
   const [logotipo, setLogotipo] = useState(null);
   const [imagenssoftware, setImagensSoftware] = useState(null);
-  const [idproduto, setIdProduto] = useState(); // Certifique-se de que o nome do estado corresponde ao campo esperado no backend
+  const [idproduto, setIdProduto] = useState('');
   const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
@@ -21,8 +18,29 @@ const AddSoftware = () => {
 
     try {
       const token = localStorage.getItem('token');
+      
+      // Verificar se o token existe
+      if (!token) {
+        window.alert('Token de autenticação não encontrado.');
+        return;
+      }
 
-      // Criação de um objeto para enviar os dados
+      // Função para converter arquivo para base64
+      const convertToBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = () => resolve(reader.result);
+          reader.onerror = error => reject(error);
+        });
+      };
+
+      // Converter logotipo para base64
+      const logotipoBase64 = logotipo ? await convertToBase64(logotipo) : null;
+      // Converter imagens do software para base64
+      const imagenssoftwareBase64 = imagenssoftware ? await convertToBase64(imagenssoftware) : null;
+
+      // Dados do software a serem enviados
       const softwareData = {
         nome,
         descricao,
@@ -30,20 +48,21 @@ const AddSoftware = () => {
         versao,
         precoproduto,
         idproduto,
-        logotipo,
-        imagenssoftware
+        logotipo: logotipoBase64,
+        imagenssoftware: imagenssoftwareBase64
       };
 
       console.log('Dados do software a serem enviados:', softwareData);
 
       const config = {
         headers: {
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
         withCredentials: true,
       };
 
-      console.log('Token de Autorização:', token);
+      console.log('Configuração da requisição:', config);
 
       console.log('Enviando requisição para adicionar software...');
       const response = await axios.post('http://localhost:3000/add/admin', softwareData, config);
@@ -79,13 +98,22 @@ const AddSoftware = () => {
     }
   };
 
+  // Função para lidar com seleção de logotipo
+  const handleLogotipoChange = (e) => {
+    setLogotipo(e.target.files[0]);
+  };
+
+  // Função para lidar com seleção de imagens do software
+  const handleImagensSoftwareChange = (e) => {
+    setImagensSoftware(e.target.files[0]);
+  };
+
   // Verificar se o usuário está autenticado (exemplo simples)
   const isLoggedIn = localStorage.getItem('token') !== null;
 
   if (!isLoggedIn) {
     return <div>Você precisa iniciar sessão para acessar esta página.</div>;
   }
-
 
   return (
     <div className="body-container">
@@ -108,7 +136,7 @@ const AddSoftware = () => {
           </li>
         </ul>
         <div className="logout-button">
-        <a href="/" class="btn btn-primary">Terminar Sessão</a>
+          <a href="/" className="btn btn-primary">Terminar Sessão</a>
         </div>
       </div>
 
@@ -140,15 +168,15 @@ const AddSoftware = () => {
             <div className="col-md-6">
               <label htmlFor="logotipo" className="mt-3">Logotipo</label>
               <div className="file-upload-container">
-                <input type="file" id="logotipo" className="form-control-file" onChange={(e) => setLogotipo(e.target.files[0])} />
+                <input type="file" id="logotipo" className="form-control-file" onChange={handleLogotipoChange} />
                 <p>JPG, PNG ou PDF, tamanho máximo de 10MB</p>
-                <button className="btn btn-primary">Selecionar ficheiro</button>
+                <button className="btn btn-primary">Selecionar arquivo</button>
               </div>
               <label htmlFor="imagenssoftware" className="mt-3">Imagens do Software</label>
               <div className="file-upload-container">
-                <input type="file" id="imagenssoftware" className="form-control-file" onChange={(e) => setImagensSoftware(e.target.files[0])} />
+                <input type="file" id="imagenssoftware" className="form-control-file" onChange={handleImagensSoftwareChange} />
                 <p>JPG, PNG ou PDF, tamanho máximo de 10MB</p>
-                <button className="btn btn-primary">Selecionar ficheiro</button>
+                <button className="btn btn-primary">Selecionar arquivo</button>
               </div>
             </div>
           </div>

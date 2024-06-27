@@ -4,9 +4,9 @@ import { Modal, Button, Form } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 
 export default function ShopProd() {
+    const { idproduto } = useParams();
     const [software, setSoftware] = useState(null);
     const [error, setError] = useState(null);
-    const { idproduto } = useParams();
     const [showhistModal, setShowhistModal] = useState(false);
     const [showorcModal, setShoworcModal] = useState(false);
 
@@ -19,8 +19,6 @@ export default function ShopProd() {
                     },
                     withCredentials: true
                 });
-
-                console.log(response.data); // Log the response data
 
                 setSoftware(response.data[0]); // Assuming response.data is an array with a single object
             } catch (error) {
@@ -44,49 +42,48 @@ export default function ShopProd() {
         <>
             {software && (
                 <>
-                  {/* NAVBAR */}
-                  <nav className="navbar navbar-expand-lg bg-dark">
-                <div className="container-fluid">
-                    <a className="navbar-brand" href="/shop">
-                        <img src="/images/Logos/logo.png" style={{ width: '20%' }} alt="Ware Logo" />
-                    </a>
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-                        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
-                    <div className="collapse navbar-collapse" id="navbarNavAltMarkup" style={{ marginLeft: '-32%' }}>
-                        <div className="navbar-nav">
-                            <a className="nav-link text-white" href="/shop">Explorar</a>
-                            <a className="nav-link active text-white" aria-current="page" href="/library">Gestão</a>
+                    {/* NAVBAR */}
+                    <nav className="navbar navbar-expand-lg bg-dark">
+                        <div className="container-fluid">
+                            <a className="navbar-brand" href="/shop">
+                                <img src="/images/Logos/logo.png" style={{ width: '20%' }} alt="Ware Logo" />
+                            </a>
+                            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                                <span className="navbar-toggler-icon"></span>
+                            </button>
+                            <div className="collapse navbar-collapse" id="navbarNavAltMarkup" style={{ marginLeft: '-32%' }}>
+                                <div className="navbar-nav">
+                                    <a className="nav-link text-white" href="/shop">Explorar</a>
+                                    <a className="nav-link active text-white" aria-current="page" href="/library">Gestão</a>
+                                </div>
+                            </div>
+                            <form className="d-flex" role="search">
+                                <input className="form-control me-2" type="search" placeholder="Procurar" aria-label="Search" />
+                                <button className="btn btn-outline-light" type="submit">Procurar</button>
+                            </form>
+                            <button className="btn btn-outline-light me-2" style={{ marginLeft: '0.5%' }} type="button">
+                                <i className="bi bi-cart4"></i>
+                            </button>
+                            <a href="/home" className="btn btn-primary">Terminar Sessão</a>
                         </div>
-                    </div>
-                    <form className="d-flex" role="search">
-                        <input className="form-control me-2" type="search" placeholder="Procurar" aria-label="Search" />
-                        <button className="btn btn-outline-light" type="submit">Procurar</button>
-                    </form>
-                    <button className="btn btn-outline-light me-2" style={{ marginLeft: '0.5%' }} type="button">
-                        <i className="bi bi-cart4"></i>
-                    </button>
-                    <a href="/home" className="btn btn-primary">Terminar Sessão</a>
-                </div>
-            </nav>
-            {/* FIM NAVBAR */}
+                    </nav>
+                    {/* FIM NAVBAR */}
 
-                    <div className="container" style={{ marginTop: '4%' }}>
+                    <div className="container mt-4">
                         <div className="row no-gutters align-items-center">
                             <div className="col-md-2">
-                                {/* Placeholder for logo */}
                                 <img src={`/images/${software.logotipo}`} className="card-img" alt="Software Logo" />
                             </div>
                             <div className="col-md-10 d-flex justify-content-between align-items-center">
-                                <div className="card-body" style={{ marginLeft: '3%' }}>
-                                    <h2 className="card-title">{software.nome}</h2>
-                                </div>
-                                <div className="d-flex justify-content-start align-items-center" style={{ marginLeft: 'auto', paddingRight: '10%' }}>
-                                <p className="mb-0 ms-2">€{software.precoproduto}</p>
-                                    <a className="btn btn-outline-danger btn-sm" href={`/shop/${software.idproduto}/confirm`} role="button">
-                                        Comprar
-                                    </a>
+                                <div className="card-body" style={{ marginLeft: '100%', marginRight: '3%' }}>
+                                    <h2 className="card-title" style={{ marginBottom: '1rem' }}>{software.nome}</h2>
+                                    <div className="d-flex justify-content-start align-items-center">
+                                        <p className="mb-0 me-3">€{software.precoproduto}</p>
+                                        <a className="btn btn-outline-danger btn-sm" href={`/shop/${software.idproduto}/confirm`} role="button">
+                                            Comprar
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -94,16 +91,16 @@ export default function ShopProd() {
 
                     <hr className="custom-hr" />
 
-                    <h1 style={{ marginLeft: '5%', marginTop: '5%', marginBottom: '5%' }}>Descrição</h1>
+                    <h1 className="ms-5 mt-5 mb-5">Descrição</h1>
 
                     <div className="container">
-                    <h4 className="card-text">{software.descricao}</h4>
+                        <h4 className="card-text">{software.descricao}</h4>
                     </div>
 
                     <hr className="custom-hr" />
 
-                    <div className="container-fluid" style={{ marginTop: '5%' }}>
-                        <div className="d-flex justify-content-between" style={{ marginLeft: '5%', marginRight: '5%' }}>
+                    <div className="container-fluid mt-5">
+                        <div className="d-flex justify-content-between ms-5 me-5">
                             <Button variant="secondary" onClick={handleModalhistOpen}>
                                 Versões
                             </Button>
@@ -117,7 +114,20 @@ export default function ShopProd() {
                                 <Modal.Title>Historial de Versões</Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
-                            <h4>{software.versao}</h4>
+                                <Form>
+                                    {software.versao && (
+                                        <Form.Group controlId="formVersao">
+                                            <Form.Label>Versão do Software</Form.Label>
+                                            <Form.Control
+                                                type="text"
+                                                placeholder="Insira a versão do software"
+                                                value={software.versao}
+                                                readOnly
+                                            />
+                                        </Form.Group>
+                                    )}
+                                </Form>
+
                             </Modal.Body>
                             <Modal.Footer>
                                 <Button variant="secondary" onClick={handleModalhistClose}>
@@ -133,20 +143,8 @@ export default function ShopProd() {
                             <Modal.Body>
                                 <Form>
                                     <Form.Group className="mb-3" controlId="formNomeEmpresa">
-                                        <Form.Label>Nome da Empresa</Form.Label>
-                                        <Form.Control type="text" placeholder="Digite o nome da empresa" />
-                                    </Form.Group>
-                                    <Form.Group className="mb-3" controlId="formEmailEmpresa">
-                                        <Form.Label>Email da Empresa</Form.Label>
-                                        <Form.Control type="email" placeholder="Digite o email da empresa" />
-                                    </Form.Group>
-                                    <Form.Group className="mb-3" controlId="formTelefoneEmpresa">
-                                        <Form.Label>Telefone da Empresa</Form.Label>
-                                        <Form.Control type="tel" placeholder="Digite o telefone da empresa" />
-                                    </Form.Group>
-                                    <Form.Group className="mb-3" controlId="formDescricaoOrcamento">
-                                        <Form.Label>Descrição do Pedido de Orçamento</Form.Label>
-                                        <Form.Control as="textarea" rows={3} placeholder="Descreva o que você precisa" />
+                                        <Form.Label>Quantidade</Form.Label>
+                                        <Form.Control type="text" placeholder="Digite a quantidade de licenças." />
                                     </Form.Group>
                                 </Form>
                             </Modal.Body>
@@ -160,6 +158,115 @@ export default function ShopProd() {
                             </Modal.Footer>
                         </Modal>
                     </div>
+
+                    <hr className="custom-hr" />
+
+                    <h1 style={{ marginLeft: '5%', marginTop: '5%', marginBottom: '5%' }}>Planos</h1>
+
+                    <div className="container-fluid" style={{ background: 'linear-gradient(220.55deg, #00E0EE 0%, #AD00FE 100%)' }}>
+                        <div className="container p-5 row row-cols-1 row-cols-md-3 g-4 justify-content-evenly">
+                            <div className="col">
+                                <div className="card h-100 shadow-lg" style={{ background: 'white', width: '18rem' }}>
+                                    <div className="card-body">
+                                        <div className="text-center p-3">
+                                            <h5 className="card-title">Pequenas Empresas</h5>
+                                            <br />
+                                            <span className="h2">€</span>/preço unitário
+                                            <br /><br />
+                                        </div>
+                                        <h4 style={{ textAlign: 'center' }}>-10% de desconto</h4>
+                                        <p className="card-text" style={{ textAlign: 'center' }}>A partir de 50 licenças e máximo de 100.</p>
+                                    </div>
+                                    <div className="card-body text-center" style={{ animation: 'fadeIn 0.5s ease-in-out' }}>
+                                        <button className="btn btn-outline-dark btn-lg" style={{ borderRadius: '30px' }}>Selecionar</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col">
+                                <div className="card h-100 shadow-lg" style={{ background: 'white', width: '18rem' }}>
+                                    <div className="card-body">
+                                        <div className="text-center p-3">
+                                            <h5 className="card-title">Médias Empresas</h5>
+                                            <br />
+                                            <span className="h2">€</span>/preço unitário
+                                            <br /><br />
+                                        </div>
+                                        <h4 style={{ textAlign: 'center' }}>-20% de desconto</h4>
+                                        <p className="card-text" style={{ textAlign: 'center' }}>A partir de 100 licenças e máximo de 200.</p>
+                                    </div>
+                                    <div className="card-body text-center" style={{ animation: 'fadeIn 0.5s ease-in-out' }}>
+                                        <button className="btn btn-outline-dark btn-lg" style={{ borderRadius: '30px' }}>Selecionar</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col">
+                                <div className="card h-100 shadow-lg" style={{ background: 'white', width: '18rem' }}>
+                                    <div className="card-body">
+                                        <div className="text-center p-3">
+                                            <h5 className="card-title">Grandes Empresas</h5>
+                                            <br />
+                                            <span className="h2">€</span>/preço unitário
+                                            <br /><br />
+                                        </div>
+                                        <h4 style={{ textAlign: 'center' }}>-30% de desconto</h4>
+                                        <p className="card-text" style={{ textAlign: 'center' }}>A partir de 200 licenças.</p>
+                                    </div>
+                                    <div className="card-body text-center" style={{ animation: 'fadeIn 0.5s ease-in-out' }}>
+                                        <button className="btn btn-outline-dark btn-lg" style={{ borderRadius: '30px' }}>Selecionar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="container d-flex justify-content-center" style={{ marginTop: '2%' }}>
+                            <p className="text-center" style={{ color: 'white' }}>Se o que procura não está representado acima, peça um orçamento <a href="#" onClick={handleModalorcOpen} className="text-light"><span className="text-dark">aqui</span></a>.</p>
+                        </div>
+                    </div>
+
+                    <hr className="custom-hr" />
+
+                    <h1 style={{ marginLeft: '5%', marginTop: '5%', marginBottom: '5%' }}>Avaliações</h1>
+
+                    <div className="row" style={{ margin: '0 auto', display: 'flex', justifyContent: 'center' }}>
+                        <div className="col-md-3 mb-4">
+                            <div className="card" style={{ marginBottom: '5%', width: '18rem' }}>
+                                <img src="/images/icons/aspas.png" className="card-img-top img-fluid mx-auto d-block" style={{ width: '75%', margintop: '30px' }} alt="..." />
+                                <div className="card-body text-center">
+                                    <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisi lacus, venenatis at
+                                        est id, tristique viverra mauris. </p>
+                                    <p className="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
+                                    <p className="card-text mb-2">Categoria</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-md-3 mb-4">
+                            <div className="card" style={{ marginBottom: '5%', width: '18rem' }}>
+                                <img src="/images/icons/aspas.png" className="card-img-top img-fluid mx-auto d-block" style={{ width: '75%', margintop: '30px' }} alt="..." />
+                                <div className="card-body text-center">
+                                    <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisi lacus, venenatis at
+                                        est id, tristique viverra mauris. </p>
+                                    <p className="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
+                                    <p className="card-text mb-2">Categoria</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-md-3 mb-4">
+                            <div className="card" style={{ marginBottom: '5%', width: '18rem' }}>
+                                <img src="/images/icons/aspas.png" className="card-img-top img-fluid mx-auto d-block" style={{ width: '75%', margintop: '30px' }} alt="..." />
+                                <div className="card-body text-center">
+                                    <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisi lacus, venenatis at
+                                        est id, tristique viverra mauris. </p>
+                                    <p className="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
+                                    <p className="card-text mb-2">Categoria</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <footer className="footer bg-dark text-light">
+                        <div className="container d-flex justify-content-center align-items-center">
+                            <span className="text-center">&copy; Ware 2024</span>
+                        </div>
+                    </footer>
                 </>
             )}
         </>

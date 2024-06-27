@@ -90,41 +90,42 @@ adminController.deleteSoftware = async (req, res) => {
         res.status(500).json({ error: 'Error deleting software' });
     }
 };
-
-
-
 adminController.addSoftware = async (req, res) => {
     try {
-        const { nome, descricao, categoria, versao, precoproduto, idproduto, logotipo, imagenssoftware } = req.body;
-    
-        console.log('Dados recebidos para adicionar software:', req.body);
-
-        if (!idproduto) {
-          return res.status(400).json({ error: 'ID do produto não fornecido.' });
-        }
-
-        const novoSoftware = await TipoSoftwares.create({
-          nome,
-          descricao,
-          categoria,
-          versao,
-          precoproduto,
-          idproduto,
-          logotipo,
-          imagenssoftware
-        });
-    
-        console.log('Software adicionado:', novoSoftware);
-
-        res.status(201).json(novoSoftware);
-      } catch (error) {
-        console.error('Erro ao adicionar software:', error);
-        res.status(500).json({ error: 'Erro ao adicionar software.' });
+      const { nome, descricao, categoria, versao, precoproduto, idproduto, logotipo, imagenssoftware } = req.body;
+  
+      console.log('Dados recebidos para adicionar software:', req.body);
+  
+      if (!idproduto) {
+        return res.status(400).json({ error: 'ID do produto não fornecido.' });
       }
+  
+      // Função para converter base64 para Buffer
+      const base64ToBuffer = (base64String) => {
+        if (!base64String) return null;
+        return Buffer.from(base64String.replace(/^data:image\/\w+;base64,/, ''), 'base64');
+      };
+  
+      const novoSoftware = await TipoSoftwares.create({
+        nome,
+        descricao,
+        categoria,
+        versao,
+        precoproduto,
+        idproduto,
+        logotipo: base64ToBuffer(logotipo),
+        imagenssoftware: base64ToBuffer(imagenssoftware)
+      });
+  
+      console.log('Software adicionado:', novoSoftware);
+  
+      res.status(201).json(novoSoftware);
+    } catch (error) {
+      console.error('Erro ao adicionar software:', error);
+      res.status(500).json({ error: 'Erro ao adicionar software.' });
+    }
   };
-
-
-
+  
 adminController.listBudgets = async (req, res) => {
     try {
         const budgets = await Orcamentos.findAll();
@@ -272,7 +273,6 @@ adminController.compareAndUpdateSoftware = async (req, res) => {
         res.status(500).json({ error: 'Error comparing and updating software' });
     }
 };
-
-
-
 module.exports = adminController;
+
+
