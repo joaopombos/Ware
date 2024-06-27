@@ -1,276 +1,274 @@
-const Pedidos = require('../models/pedidos');
-const LicencasAtribuidas = require('../models/licencasatribuidas');
-const SoftwaresAdquiridos = require('../models/softwaresadquiridos');
-const TipoSoftwares = require('../models/tipossoftwares');
-const Avaliacoes = require('../models/avaliacoes')
-const { Op } = require('sequelize');
-
-
-const shopController = {};
-
-// List all purchases for a user
-shopController.listForUser = async (req, res) => {
-  try {
-    const { userId } = req.params;
-    const purchases = await Purchase.findAll({ where: { userId }, include: [App] });
-    res.json(purchases);
-  } catch (error) {
-    res.status(500).json({ error: 'Error fetching purchases' });
-  }
-};
-
-// Função unificada para listar categorias ou softwares baseado na presnça do parâmetro 'categoria'
-shopController.listCategoriesOrSoftwares = async (req, res) => {
-    try {
-        const softwares = await TipoSoftwares.findAll({
-            attributes: [
-                'idproduto',
-                'logotipo',
-                'nome',
-                'descricao',
-                'precoproduto',
-                'versao'
-            ],
-            order: [['nome', 'ASC']] // Ordena por nome do software em ordem alfabética
-        });
-        res.json(softwares);
-    } catch (error) {
-        res.status(500).json({ error: 'Error fetching all softwares' });
-    }
-};
-
-
-
-
-
-shopController.softwareDetails = async (req, res) => {
-    const { idproduto } = req.params; // Captura o 'idproduto' dos parâmetros da rota
-
-    try {
-        const software = await TipoSoftwares.findByPk(idproduto);
-
-        if (!software) {
-            return res.status(404).json({ error: 'Software not found' });
-        }
-
-        res.json(software);
-    } catch (error) {
-        console.error('Error retrieving software details:', error);
-        res.status(500).json({ error: 'Error retrieving software details' });
-    }
-};
-/*  Sugestão para '/shop/:idproduto/'
-
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
+import { Modal, Button, Form } from 'react-bootstrap';
+import { useParams } from 'react-router-dom';
 
-const SoftwareDetails = () => {
+export default function ShopProd() {
     const { idproduto } = useParams();
     const [software, setSoftware] = useState(null);
+    const [error, setError] = useState(null);
+    const [showhistModal, setShowhistModal] = useState(false);
+    const [showorcModal, setShoworcModal] = useState(false);
 
     useEffect(() => {
-        const fetchSoftwareDetails = async () => {
+        const fetchSoftware = async () => {
             try {
-                const response = await axios.get(`/shop/${idproduto}/`);
-                setSoftware(response.data);
+                const response = await axios.get(`http://localhost:3000/shop/${idproduto}`, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('token')}`
+                    },
+                    withCredentials: true
+                });
+
+                setSoftware(response.data[0]); // Assuming response.data is an array with a single object
             } catch (error) {
-                console.error('Error fetching software details:', error);
+                setError(error);
             }
         };
 
-        fetchSoftwareDetails();
+        fetchSoftware();
     }, [idproduto]);
 
-    if (!software) {
-        return <div>Loading...</div>;
+    const handleModalhistOpen = () => setShowhistModal(true);
+    const handleModalhistClose = () => setShowhistModal(false);
+    const handleModalorcOpen = () => setShoworcModal(true);
+    const handleModalorcClose = () => setShoworcModal(false);
+
+    if (error) {
+        return <div>Erro ao carregar dados: {error.message}</div>;
     }
 
     return (
-        <div>
-            <h1>{software.nome}</h1>
-            <p>{software.descricao}</p>
-            <p>Versão: {software.versao}</p>
-            <p>Preço: {software.precoproduto}</p>
-            <Link to={`/shop/${idproduto}/confirm`}>
-                <button>Comprar</button>
-            </Link>
-        </div>
+        <>
+            {software && (
+                <>
+                    {/* NAVBAR */}
+                    <nav className="navbar navbar-expand-lg bg-dark">
+                        <div className="container-fluid">
+                            <a className="navbar-brand" href="/shop">
+                                <img src="/images/Logos/logo.png" style={{ width: '20%' }} alt="Ware Logo" />
+                            </a>
+                            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                                <span className="navbar-toggler-icon"></span>
+                            </button>
+                            <div className="collapse navbar-collapse" id="navbarNavAltMarkup" style={{ marginLeft: '-32%' }}>
+                                <div className="navbar-nav">
+                                    <a className="nav-link text-white" href="/shop">Explorar</a>
+                                    <a className="nav-link active text-white" aria-current="page" href="/library">Gestão</a>
+                                </div>
+                            </div>
+                            <form className="d-flex" role="search">
+                                <input className="form-control me-2" type="search" placeholder="Procurar" aria-label="Search" />
+                                <button className="btn btn-outline-light" type="submit">Procurar</button>
+                            </form>
+                            <button className="btn btn-outline-light me-2" style={{ marginLeft: '0.5%' }} type="button">
+                                <i className="bi bi-cart4"></i>
+                            </button>
+                            <a href="/home" className="btn btn-primary">Terminar Sessão</a>
+                        </div>
+                    </nav>
+                    {/* FIM NAVBAR */}
+
+                    <div className="container mt-4">
+                        <div className="row no-gutters align-items-center">
+                            <div className="col-md-2">
+                                <img src={`/images/${software.logotipo}`} className="card-img" alt="Software Logo" />
+                            </div>
+                            <div className="col-md-10 d-flex justify-content-between align-items-center">
+                                <div className="card-body" style={{ marginLeft: '100%', marginRight: '3%' }}>
+                                    <h2 className="card-title" style={{ marginBottom: '1rem' }}>{software.nome}</h2>
+                                    <div className="d-flex justify-content-start align-items-center">
+                                        <p className="mb-0 me-3">€{software.precoproduto}</p>
+                                        <a className="btn btn-outline-danger btn-sm" href={`/shop/${software.idproduto}/confirm`} role="button">
+                                            Comprar
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr className="custom-hr" />
+
+                    <h1 className="ms-5 mt-5 mb-5">Descrição</h1>
+
+                    <div className="container">
+                        <h4 className="card-text">{software.descricao}</h4>
+                    </div>
+
+                    <hr className="custom-hr" />
+
+                    <div className="container-fluid mt-5">
+                        <div className="d-flex justify-content-between ms-5 me-5">
+                            <Button variant="secondary" onClick={handleModalhistOpen}>
+                                Versões
+                            </Button>
+                            <Button variant="secondary" onClick={handleModalorcOpen}>
+                                Pedir Orçamento
+                            </Button>
+                        </div>
+
+                        <Modal show={showhistModal} onHide={handleModalhistClose}>
+                            <Modal.Header closeButton>
+                                <Modal.Title>Historial de Versões</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                <Form>
+                                    {software.versao && (
+                                        <Form.Group controlId="formVersao">
+                                            <Form.Label>Versão do Software</Form.Label>
+                                            <Form.Control
+                                                type="text"
+                                                placeholder="Insira a versão do software"
+                                                value={software.versao}
+                                                readOnly
+                                            />
+                                        </Form.Group>
+                                    )}
+                                </Form>
+
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button variant="secondary" onClick={handleModalhistClose}>
+                                    Fechar
+                                </Button>
+                            </Modal.Footer>
+                        </Modal>
+
+                        <Modal show={showorcModal} onHide={handleModalorcClose}>
+                            <Modal.Header closeButton>
+                                <Modal.Title>Pedir Orçamento</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                <Form>
+                                    <Form.Group className="mb-3" controlId="formNomeEmpresa">
+                                        <Form.Label>Quantidade</Form.Label>
+                                        <Form.Control type="text" placeholder="Digite a quantidade de licenças." />
+                                    </Form.Group>
+                                </Form>
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button variant="secondary" onClick={handleModalorcClose}>
+                                    Fechar
+                                </Button>
+                                <Button variant="primary" onClick={() => alert('Pedido enviado!')}>
+                                    Enviar Pedido
+                                </Button>
+                            </Modal.Footer>
+                        </Modal>
+                    </div>
+
+                    <hr className="custom-hr" />
+
+                    <h1 style={{ marginLeft: '5%', marginTop: '5%', marginBottom: '5%' }}>Planos</h1>
+
+                    <div className="container-fluid" style={{ background: 'linear-gradient(220.55deg, #00E0EE 0%, #AD00FE 100%)' }}>
+                        <div className="container p-5 row row-cols-1 row-cols-md-3 g-4 justify-content-evenly">
+                            <div className="col">
+                                <div className="card h-100 shadow-lg" style={{ background: 'white', width: '18rem' }}>
+                                    <div className="card-body">
+                                        <div className="text-center p-3">
+                                            <h5 className="card-title">Pequenas Empresas</h5>
+                                            <br />
+                                            <span className="h2">€</span>/preço unitário
+                                            <br /><br />
+                                        </div>
+                                        <h4 style={{ textAlign: 'center' }}>-10% de desconto</h4>
+                                        <p className="card-text" style={{ textAlign: 'center' }}>A partir de 50 licenças e máximo de 100.</p>
+                                    </div>
+                                    <div className="card-body text-center" style={{ animation: 'fadeIn 0.5s ease-in-out' }}>
+                                        <button className="btn btn-outline-dark btn-lg" style={{ borderRadius: '30px' }}>Selecionar</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col">
+                                <div className="card h-100 shadow-lg" style={{ background: 'white', width: '18rem' }}>
+                                    <div className="card-body">
+                                        <div className="text-center p-3">
+                                            <h5 className="card-title">Médias Empresas</h5>
+                                            <br />
+                                            <span className="h2">€</span>/preço unitário
+                                            <br /><br />
+                                        </div>
+                                        <h4 style={{ textAlign: 'center' }}>-20% de desconto</h4>
+                                        <p className="card-text" style={{ textAlign: 'center' }}>A partir de 100 licenças e máximo de 200.</p>
+                                    </div>
+                                    <div className="card-body text-center" style={{ animation: 'fadeIn 0.5s ease-in-out' }}>
+                                        <button className="btn btn-outline-dark btn-lg" style={{ borderRadius: '30px' }}>Selecionar</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col">
+                                <div className="card h-100 shadow-lg" style={{ background: 'white', width: '18rem' }}>
+                                    <div className="card-body">
+                                        <div className="text-center p-3">
+                                            <h5 className="card-title">Grandes Empresas</h5>
+                                            <br />
+                                            <span className="h2">€</span>/preço unitário
+                                            <br /><br />
+                                        </div>
+                                        <h4 style={{ textAlign: 'center' }}>-30% de desconto</h4>
+                                        <p className="card-text" style={{ textAlign: 'center' }}>A partir de 200 licenças.</p>
+                                    </div>
+                                    <div className="card-body text-center" style={{ animation: 'fadeIn 0.5s ease-in-out' }}>
+                                        <button className="btn btn-outline-dark btn-lg" style={{ borderRadius: '30px' }}>Selecionar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="container d-flex justify-content-center" style={{ marginTop: '2%' }}>
+                            <p className="text-center" style={{ color: 'white' }}>Se o que procura não está representado acima, peça um orçamento <a href="#" onClick={handleModalorcOpen} className="text-light"><span className="text-dark">aqui</span></a>.</p>
+                        </div>
+                    </div>
+
+                    <hr className="custom-hr" />
+
+                    <h1 style={{ marginLeft: '5%', marginTop: '5%', marginBottom: '5%' }}>Avaliações</h1>
+
+                    <div className="row" style={{ margin: '0 auto', display: 'flex', justifyContent: 'center' }}>
+                        <div className="col-md-3 mb-4">
+                            <div className="card" style={{ marginBottom: '5%', width: '18rem' }}>
+                                <img src="/images/icons/aspas.png" className="card-img-top img-fluid mx-auto d-block" style={{ width: '75%', margintop: '30px' }} alt="..." />
+                                <div className="card-body text-center">
+                                    <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisi lacus, venenatis at
+                                        est id, tristique viverra mauris. </p>
+                                    <p className="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
+                                    <p className="card-text mb-2">Categoria</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-md-3 mb-4">
+                            <div className="card" style={{ marginBottom: '5%', width: '18rem' }}>
+                                <img src="/images/icons/aspas.png" className="card-img-top img-fluid mx-auto d-block" style={{ width: '75%', margintop: '30px' }} alt="..." />
+                                <div className="card-body text-center">
+                                    <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisi lacus, venenatis at
+                                        est id, tristique viverra mauris. </p>
+                                    <p className="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
+                                    <p className="card-text mb-2">Categoria</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-md-3 mb-4">
+                            <div className="card" style={{ marginBottom: '5%', width: '18rem' }}>
+                                <img src="/images/icons/aspas.png" className="card-img-top img-fluid mx-auto d-block" style={{ width: '75%', margintop: '30px' }} alt="..." />
+                                <div className="card-body text-center">
+                                    <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisi lacus, venenatis at
+                                        est id, tristique viverra mauris. </p>
+                                    <p className="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
+                                    <p className="card-text mb-2">Categoria</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <footer className="footer bg-dark text-light">
+                        <div className="container d-flex justify-content-center align-items-center">
+                            <span className="text-center">&copy; Ware 2024</span>
+                        </div>
+                    </footer>
+                </>
+            )}
+        </>
     );
-};
-
-export default SoftwareDetails;
-
-*/
-
-
-
-
-
-// Função para buscar detalhes de um pedido específico pelo ID
-shopController.confirmOrder = async (req, res) => {
-  const { idvenda } = req.params; // Captura o 'idvenda' dos parâmetros da rota
-
-  try {
-      const pedido = await Pedidos.findByPk(idvenda, {
-          include: [{
-              model: TipoSoftwares,
-              as: 'softwares', // Ajuste conforme a associação definida
-              required: true
-          }]
-      });
-
-      if (!pedido) {
-          return res.status(404).json({ error: 'Order not found' });
-      }
-
-      const softwares = await TipoSoftwares.findAll({
-          where: { idproduto: pedido.idproduto },
-          order: ['nome']
-      });
-
-      res.json({
-          pedido,
-          softwares,
-          total: pedido.precofinal
-      });
-  } catch (error) {
-      res.status(500).json({ error: 'Error confirming order' });
-  }
-};
-
-/*  Sugestão Front end para '/shop/:idvenda/confirm'
-
-import React, { useState, useEffect } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
-import axios from 'axios';
-
-const ConfirmOrder = () => {
-    const { idvenda } = useParams();
-    const history = useHistory();
-    const [orderDetails, setOrderDetails] = useState(null);
-    const [cardDetails, setCardDetails] = useState({ number: '', expiry: '', cvc: '' });
-
-    useEffect(() => {
-        const fetchOrderDetails = async () => {
-            try {
-                const response = await axios.get(`/shop/${idvenda}/confirm`);
-                setOrderDetails(response.data);
-            } catch (error) {
-                console.error('Error fetching order details:', error);
-            }
-        };
-
-        fetchOrderDetails();
-    }, [idvenda]);
-
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setCardDetails({ ...cardDetails, [name]: value });
-    };
-
-    const handleConfirmPurchase = async () => {
-        try {
-            // Implementar a lógica para processar o pagamento e confirmar a compra
-            // Redirecionar para a página de sucesso após a compra
-            history.push(`/shop/${idvenda}/success`);
-        } catch (error) {
-            console.error('Error confirming purchase:', error);
-        }
-    };
-
-    if (!orderDetails) {
-        return <div>Loading...</div>;
-    }
-
-    return (
-        <div>
-            <h1>Confirmação de Compra</h1>
-            <h2>Softwares no Carrinho:</h2>
-            <ul>
-                {orderDetails.softwares.map(software => (
-                    <li key={software.idproduto}>
-                        {software.nome} - Quantidade: {orderDetails.pedido.quantidade} - Preço: {software.precoproduto}
-                    </li>
-                ))}
-            </ul>
-            <h3>Total: {orderDetails.total}</h3>
-
-            <h2>Detalhes do Cartão de Crédito:</h2>
-            <form>
-                <div>
-                    <label>Número do Cartão:</label>
-                    <input type="text" name="number" value={cardDetails.number} onChange={handleInputChange} />
-                </div>
-                <div>
-                    <label>Data de Validade:</label>
-                    <input type="text" name="expiry" value={cardDetails.expiry} onChange={handleInputChange} />
-                </div>
-                <div>
-                    <label>CVC:</label>
-                    <input type="text" name="cvc" value={cardDetails.cvc} onChange={handleInputChange} />
-                </div>
-                <button type="button" onClick={handleConfirmPurchase}>Confirmar Compra</button>
-            </form>
-        </div>
-    );
-};
-
-
-export default ConfirmOrder;
-*/
-
-
-
-// Função para confirmar a compra e atribuir uma chave de licença
-shopController.purchaseSuccess = async (req, res) => {
-  const { idvenda } = req.params;
-
-  try {
-      // Busca o pedido pelo ID
-      const pedido = await Pedidos.findByPk(idvenda);
-      if (!pedido) {
-          return res.status(404).json({ error: 'Order not found' });
-      }
-
-      // Busca detalhes do software específico no pedido
-      const software = await TipoSoftwares.findByPk(pedido.idproduto);
-      if (!software) {
-          return res.status(404).json({ error: 'Software not found' });
-      }
-
-      // Gera uma nova chave de licença
-      const chaveProduto = uuidv4(); // Usando UUID para gerar uma chave única
-
-      // Cria uma nova entrada no SoftwaresAdquiridos
-      const novoSoftware = await SoftwaresAdquiridos.create({
-          nome: software.nome, // Nome do software adquirido
-          chaveproduto: chaveProduto,
-          nif: pedido.nif
-      });
-
-      // Cria uma nova entrada no LicencasAtribuidas
-      const novaLicenca = await LicencasAtribuidas.create({
-          chaveproduto: chaveProduto,
-          nomepc: 'PC do Cliente', // Ajuste conforme necessário
-          dataatri: new Date(),
-          idatribuida: uuidv4() // Usando UUID para gerar um ID único para a licença
-      });
-
-      res.json({
-          message: 'Purchase successful',
-          chaveProduto: chaveProduto,
-          softwareInfo: novoSoftware
-      });
-  } catch (error) {
-      res.status(500).json({ error: 'Error processing purchase success' });
-  }
-};
-
-
-
-
-
-
-
-module.exports = shopController;
+}
