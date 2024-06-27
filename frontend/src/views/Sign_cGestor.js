@@ -16,7 +16,7 @@ export default function Sign_cGestor() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:3000/signin/comprador', {
+            await axios.post('https://ware-1789.onrender.com/signin/comprador', {
 
                 email,
                 nome,

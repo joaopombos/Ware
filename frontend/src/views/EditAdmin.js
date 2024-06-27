@@ -20,7 +20,7 @@ const SoftwareUpdate = () => {
         const fetchSoftware = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const response = await axios.get(`http://localhost:3000/edit/admin/${idproduto}`, {
+                const response = await axios.get(`https://ware-1789.onrender.com/edit/admin/${idproduto}`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -58,7 +58,7 @@ const SoftwareUpdate = () => {
                 withCredentials: true,
             };
 
-            await axios.put(`http://localhost:3000/update/admin/${idproduto}`, software, config);
+            await axios.put(`https://ware-1789.onrender.com/update/admin/${idproduto}`, software, config);
 
             window.alert('Software updated successfully!');
             navigate('/list/admin');

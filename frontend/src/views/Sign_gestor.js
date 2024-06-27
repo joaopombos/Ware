@@ -13,7 +13,7 @@ export default function Sign_gestor() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:3000/signin/gestor', {
+            await axios.post('https://ware-1789.onrender.com/signin/gestor', {
                 nome,
                 emp_nif,
                 email,
