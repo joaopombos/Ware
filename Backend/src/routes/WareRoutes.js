@@ -21,7 +21,7 @@ router.get('/shop/softwares', isAuthenticated, isBuyer, comprasController.listCa
 router.get('/shop/addons', isAuthenticated, isBuyer, comprasController.listCategoriesOrAddons);                     
 router.get('/shop/:idproduto/', isAuthenticated, comprasController.softwareDetails);             
 router.get('/addons/:idaddon', isAuthenticated, comprasController.addonDetails);
-router.post('/shop/compra', isAuthenticated, isBuyer, comprasController.purchaseSuccess);                       
+router.post('/shop/:idproduto/', isAuthenticated, isBuyer, comprasController.purchaseSuccess);                       
 router.get('/shop/:idvenda/success', isAuthenticated, isBuyer, comprasController.purchaseSuccess);     
 
 // Rotas de biblioteca acessíveis aos compradores e gestores

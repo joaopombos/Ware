@@ -53,14 +53,17 @@ export default function ShopProd() {
         try {
             const response = await axios.post('http://localhost:3000/shop/compra', {
                 quantidade: quantidadeLicencas,
-                produtoId: item.id,
+                produtoId: item.idproduto || item.idaddon,
+                nome: item.nome,
+                versao: item.versao,
+                emp_nif: '123456789' // Replace with actual emp_nif value as needed
             }, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 },
                 withCredentials: true
             });
-
+    
             alert(`Compra realizada com sucesso para ${quantidadeLicencas} licença(s)`);
             handleModalCompraClose();
         } catch (error) {
@@ -68,6 +71,7 @@ export default function ShopProd() {
             alert(`Erro ao realizar compra: ${error.message}`);
         }
     };
+    
 
     if (error) {
         console.error('Rendering error message:', error);

@@ -1,8 +1,10 @@
+const { v4: uuidv4 } = require('uuid');
+const sequelize = require('../models/database'); // Import the sequelize instance
+const { fn, col } = require('sequelize'); // Import Sequelize functions
 const Pedidos = require('../models/pedidos');
 const LicencasAtribuidas = require('../models/licencasatribuidas');
 const SoftwaresAdquiridos = require('../models/softwaresadquiridos');
 const TipoSoftwares = require('../models/tipossoftwares');
-const Avaliacoes = require('../models/avaliacoes')
 const Addons = require('../models/addons');
 const Clientes = require('../models/clientes');
 const { Op } = require('sequelize');
@@ -166,44 +168,41 @@ shopController.realizarCompra = async (req, res) => {
 
 shopController.purchaseSuccess = async (req, res) => {
     try {
-        const software = await TipoSoftwares.findByPk(req.body.produtoId);
+        const { produtoId, nome, versao, quantidade, emp_nif } = req.body;
+
+        const software = await TipoSoftwares.findByPk(produtoId);
         if (!software) {
             return res.status(404).json({ error: 'Software not found' });
         }
 
-        const nif = req.cookies.nif;
-        if (!nif) {
-            return res.status(400).json({ error: 'NIF do usuário não fornecido nos cookies' });
+        if (!emp_nif) {
+            return res.status(400).json({ error: 'NIF da empresa não fornecido no pedido' });
         }
 
-        const cliente = await Clientes.findOne({ where: { nif } });
-        if (!cliente) {
-            return res.status(404).json({ error: 'Cliente não encontrado' });
-        }
-
-        const chaveProduto = uuidv4();
-
+        const chaveProduto = uuidv4().replace(/-/g, '').slice(0, 12);
 
         const novoSoftware = await SoftwaresAdquiridos.create({
-            nome: software.nome, 
+            nome, 
             chaveproduto: chaveProduto,
-            nif: cliente.nif, 
-            versaoadquirida: software.versao 
+            nif: emp_nif, 
+            versaoadquirida: versao 
         });
 
-        const quantidadeLicencas = req.body.quantidade;
-        const licencasCriadas = [];
+        const maxIdResult = await LicencasAtribuidas.findOne({
+            attributes: [[sequelize.fn('max', sequelize.col('idatribuida')), 'maxId']]
+        });
+        const maxId = maxIdResult ? maxIdResult.get('maxId') || 0 : 0;
 
-        for (let i = 0; i < quantidadeLicencas; i++) {
-            const novaLicenca = await LicencasAtribuidas.create({
+        let idCounter = maxId + 1;
+
+        const licencasCriadas = await Promise.all(
+            Array.from({ length: quantidade }).map(() => LicencasAtribuidas.create({
                 chaveproduto: chaveProduto,
-                nomepc: `PC do Cliente ${i + 1}`,
+                nomepc: `PC do Cliente`,
                 dataatri: new Date(),
-                idatribuida: uuidv4()
-            });
-
-            licencasCriadas.push(novaLicenca);
-        }
+                idatribuida: idCounter++
+            }))
+        );
 
         res.json({
             message: 'Compra realizada com sucesso',
@@ -212,7 +211,7 @@ shopController.purchaseSuccess = async (req, res) => {
             createdLicenses: licencasCriadas
         });
     } catch (error) {
-        console.error('Erro ao processar compra:', error);
+        console.error('Erro ao processar compra:', error.message, error.stack);
         res.status(500).json({ error: 'Erro ao processar compra' });
     }
 };
