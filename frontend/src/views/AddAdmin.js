@@ -65,7 +65,7 @@ const AddSoftware = () => {
       console.log('Configuração da requisição:', config);
 
       console.log('Enviando requisição para adicionar software...');
-      const response = await axios.post('http://localhost:3000/add/admin', softwareData, config);
+      const response = await axios.post('https://ware-1789.onrender.com/add/admin', softwareData, config);
 
       console.log('Resposta do servidor:', response.data);
       // Lógica de tratamento da resposta
