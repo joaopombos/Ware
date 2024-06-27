@@ -98,7 +98,7 @@ const AddSoftware = () => {
     }
   };
 
-  // Função para lidar com seleção de logotipo
+  // Função para lidar com seleção de logotip
   const handleLogotipoChange = (e) => {
     setLogotipo(e.target.files[0]);
   };
