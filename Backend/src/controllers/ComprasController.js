@@ -43,19 +43,21 @@ shopController.listCategoriesOrSoftwares = async (req, res) => {
 
 
 shopController.softwareDetails = async (req, res) => {
-  const { idproduto } = req.params; // Captura o 'idproduto' dos parâmetros da rota
+    const { idproduto } = req.params; // Captura o 'idproduto' dos parâmetros da rota
 
-  try {
-      const software = await TipoSoftwares.findByPk(idproduto);
-      if (!software) {
-          return res.status(404).json({ error: 'Software not found' });
-      }
-      res.json(software);
-  } catch (error) {
-      res.status(500).json({ error: 'Error retrieving software details' });
-  }
+    try {
+        const software = await TipoSoftwares.findByPk(idproduto);
+
+        if (!software) {
+            return res.status(404).json({ error: 'Software not found' });
+        }
+
+        res.json(software);
+    } catch (error) {
+        console.error('Error retrieving software details:', error);
+        res.status(500).json({ error: 'Error retrieving software details' });
+    }
 };
-
 /*  Sugestão para '/shop/:idproduto/'
 
 import React, { useState, useEffect } from 'react';
