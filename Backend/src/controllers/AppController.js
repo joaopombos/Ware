@@ -2,7 +2,7 @@ const TipoSoftwares = require('../models/tipossoftwares');
 const Orcamentos = require('../models/orcamentos');
 const Clientes = require('../models/clientes');
 const SoftwaresAdquiridos = require('../models/softwaresadquiridos');
-const Avaliacoes = require('../models/avaliacoes');
+const LicencasAtribuidas = require('../models/licencasatribuidas');
 const Addons = require('../models/addons');
 const nodemailer = require('nodemailer');
 const { Op } = require('sequelize');
@@ -214,7 +214,15 @@ adminController.listAcquiredSoftwares = async (req, res) => {
             return res.status(404).json({ error: 'Nenhum software adquirido encontrado para este cliente' });
         }
 
-        res.json(softwares);
+        const softwaresWithLicenses = await Promise.all(softwares.map(async (software) => {
+            const licenses = await LicencasAtribuidas.findAll({ where: { chaveproduto: software.chaveproduto } });
+            return {
+                ...software.dataValues,
+                licenses
+            };
+        }));
+
+        res.json(softwaresWithLicenses);
     } catch (error) {
         console.error('Erro ao buscar softwares adquiridos:', error);
         res.status(500).json({ error: 'Erro ao buscar softwares adquiridos' });
