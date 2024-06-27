@@ -9,10 +9,13 @@ export default function ShopProd() {
     const [error, setError] = useState(null);
     const [showhistModal, setShowhistModal] = useState(false);
     const [showorcModal, setShoworcModal] = useState(false);
+    const [showCompraModal, setShowCompraModal] = useState(false);
+    const [quantidadeLicencas, setQuantidadeLicencas] = useState(1);
 
     useEffect(() => {
         const fetchSoftware = async () => {
             try {
+                console.log(`Fetching software with id ${idproduto}`);
                 const response = await axios.get(`http://localhost:3000/shop/${idproduto}`, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -20,8 +23,10 @@ export default function ShopProd() {
                     withCredentials: true
                 });
 
+                console.log('Response data:', response.data);
                 setSoftware(response.data[0]); // Assuming response.data is an array with a single object
             } catch (error) {
+                console.error('Error fetching software:', error);
                 setError(error);
             }
         };
@@ -34,9 +39,40 @@ export default function ShopProd() {
     const handleModalorcOpen = () => setShoworcModal(true);
     const handleModalorcClose = () => setShoworcModal(false);
 
+    const handleModalCompraOpen = () => {
+        setShowCompraModal(true);
+    };
+
+    const handleModalCompraClose = () => {
+        setShowCompraModal(false);
+    };
+
+    const handleCompra = async () => {
+        try {
+            const response = await axios.post('http://localhost:3000/shop/compra', {
+                quantidade: quantidadeLicencas,
+                produtoId: software.id,
+                // Add other relevant data for purchase
+            }, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                },
+                withCredentials: true
+            });
+    
+            alert(`Compra realizada com sucesso para ${quantidadeLicencas} licença(s)`);
+            handleModalCompraClose();
+        } catch (error) {
+            console.error('Error during purchase:', error);
+            alert(`Erro ao realizar compra: ${error.message}`);
+        }
+    };
+    
     if (error) {
+        console.error('Rendering error message:', error);
         return <div>Erro ao carregar dados: {error.message}</div>;
     }
+
 
     return (
         <>
@@ -80,9 +116,9 @@ export default function ShopProd() {
                                     <h2 className="card-title" style={{ marginBottom: '1rem' }}>{software.nome}</h2>
                                     <div className="d-flex justify-content-start align-items-center">
                                         <p className="mb-0 me-3">€{software.precoproduto}</p>
-                                        <a className="btn btn-outline-danger btn-sm" href={`/shop/${software.idproduto}/confirm`} role="button">
+                                        <Button variant="outline-danger" onClick={handleModalCompraOpen}>
                                             Comprar
-                                        </a>
+                                        </Button>
                                     </div>
                                 </div>
                             </div>
@@ -127,7 +163,6 @@ export default function ShopProd() {
                                         </Form.Group>
                                     )}
                                 </Form>
-
                             </Modal.Body>
                             <Modal.Footer>
                                 <Button variant="secondary" onClick={handleModalhistClose}>
@@ -154,6 +189,31 @@ export default function ShopProd() {
                                 </Button>
                                 <Button variant="primary" onClick={() => alert('Pedido enviado!')}>
                                     Enviar Pedido
+                                </Button>
+                            </Modal.Footer>
+                        </Modal>
+
+                        <Modal show={showCompraModal} onHide={handleModalCompraClose}>
+                            <Modal.Header closeButton>
+                                <Modal.Title>Comprar Licenças</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                <Form.Group controlId="formQuantidadeLicencas">
+                                    <Form.Label>Quantidade de Licenças</Form.Label>
+                                    <Form.Control
+                                        type="number"
+                                        value={quantidadeLicencas}
+                                        onChange={(e) => setQuantidadeLicencas(parseInt(e.target.value))}
+                                        min={1}
+                                    />
+                                </Form.Group>
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button variant="secondary" onClick={handleModalCompraClose}>
+                                    Cancelar
+                                </Button>
+                                <Button variant="primary" onClick={handleCompra}>
+                                    Comprar
                                 </Button>
                             </Modal.Footer>
                         </Modal>
@@ -229,7 +289,7 @@ export default function ShopProd() {
                     <div className="row" style={{ margin: '0 auto', display: 'flex', justifyContent: 'center' }}>
                         <div className="col-md-3 mb-4">
                             <div className="card" style={{ marginBottom: '5%', width: '18rem' }}>
-                                <img src="/images/icons/aspas.png" className="card-img-top img-fluid mx-auto d-block" style={{ width: '75%', margintop: '30px' }} alt="..." />
+                                <img src="/images/icons/aspas.png" className="card-img-top img-fluid mx-auto d-block" style={{ width: '75%', margin: '30px' }} alt="..." />
                                 <div className="card-body text-center">
                                     <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisi lacus, venenatis at
                                         est id, tristique viverra mauris. </p>
@@ -240,7 +300,7 @@ export default function ShopProd() {
                         </div>
                         <div className="col-md-3 mb-4">
                             <div className="card" style={{ marginBottom: '5%', width: '18rem' }}>
-                                <img src="/images/icons/aspas.png" className="card-img-top img-fluid mx-auto d-block" style={{ width: '75%', margintop: '30px' }} alt="..." />
+                                <img src="/images/icons/aspas.png" className="card-img-top img-fluid mx-auto d-block" style={{ width: '75%', margin: '30px' }} alt="..." />
                                 <div className="card-body text-center">
                                     <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisi lacus, venenatis at
                                         est id, tristique viverra mauris. </p>
@@ -251,7 +311,7 @@ export default function ShopProd() {
                         </div>
                         <div className="col-md-3 mb-4">
                             <div className="card" style={{ marginBottom: '5%', width: '18rem' }}>
-                                <img src="/images/icons/aspas.png" className="card-img-top img-fluid mx-auto d-block" style={{ width: '75%', margintop: '30px' }} alt="..." />
+                                <img src="/images/icons/aspas.png" className="card-img-top img-fluid mx-auto d-block" style={{ width: '75%', margin: '30px' }} alt="..." />
                                 <div className="card-body text-center">
                                     <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisi lacus, venenatis at
                                         est id, tristique viverra mauris. </p>
