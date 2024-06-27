@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFileAlt, faCube } from '@fortawesome/free-solid-svg-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Shop = () => {
@@ -68,12 +66,12 @@ const Shop = () => {
                 <div className="row justify-content-center">
                     <div className="col-auto">
                         <button className={`btn btn-outline-primary ${type === 'softwares' ? 'active' : ''}`} onClick={() => setType('softwares')}>
-                            <FontAwesomeIcon icon={faFileAlt} /> Softwares
+                             Softwares
                         </button>
                     </div>
                     <div className="col-auto">
                         <button className={`btn btn-outline-primary ${type === 'addons' ? 'active' : ''}`} onClick={() => setType('addons')}>
-                            <FontAwesomeIcon icon={faCube} /> Addons
+                            Addons
                         </button>
                     </div>
                 </div>
