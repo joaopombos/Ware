@@ -34,23 +34,24 @@
             fetchItems();
         }, [type]);
     
-        const handleButtonClick = (id) => {
-            const route = type === 'softwares' ? `/shop/${id}` : `/shop/addon/${id}`;
+        const handleButtonClick = (id, type) => {
+            const route = `/shop/${id}?type=${type}`;
             window.location.href = route;
         };
-    
+        
         const renderCard = (item) => (
             <div className="col-sm-2 mb-4" key={item.idproduto || item.idaddon} style={{ margin: '15px' }}>
                 <div className="card h-100" style={{ textAlign: 'center' }}>
-                    <button className="btn-img" onClick={() => handleButtonClick(item.idproduto || item.idaddon)} style={{ padding: '0', border: 'none', background: 'none' }}>
-                    <img src="/images/Logos/figma.png" className="card-img-top" alt={item.nome} style={{ width: '100%', height: 'auto' }} />
-                </button>
-                <div className="card-body">
-                    <h5 className="card-title">{item.nome}</h5>
-                </div>
+                    <button className="btn-img" onClick={() => handleButtonClick(item.idproduto || item.idaddon, type)} style={{ padding: '0', border: 'none', background: 'none' }}>
+                        <img src="/images/Logos/figma.png" className="card-img-top" alt={item.nome} style={{ width: '100%', height: 'auto' }} />
+                    </button>
+                    <div className="card-body">
+                        <h5 className="card-title">{item.nome}</h5>
+                    </div>
                 </div>
             </div>
         );
+        
     
         return (
             <div>

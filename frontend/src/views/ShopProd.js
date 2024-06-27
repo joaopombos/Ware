@@ -1,65 +1,66 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Modal, Button, Form } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 
 export default function ShopProd() {
     const { idproduto } = useParams();
-    const [software, setSoftware] = useState(null);
+    const location = useLocation();
+    const [item, setItem] = useState(null);
     const [error, setError] = useState(null);
     const [showhistModal, setShowhistModal] = useState(false);
     const [showorcModal, setShoworcModal] = useState(false);
     const [showCompraModal, setShowCompraModal] = useState(false);
     const [quantidadeLicencas, setQuantidadeLicencas] = useState(1);
 
+    const query = new URLSearchParams(location.search);
+    const type = query.get('type');
+
     useEffect(() => {
-        const fetchSoftware = async () => {
+        const fetchItem = async () => {
             try {
-                console.log(`Fetching software with id ${idproduto}`);
-                const response = await axios.get(`http://localhost:3000/shop/${idproduto}`, {
+                let endpoint = '';
+                if (type === 'softwares') {
+                    endpoint = `http://localhost:3000/shop/${idproduto}`;
+                } else if (type === 'addons') {
+                    endpoint = `http://localhost:3000/addons/${idproduto}`;
+                }
+                const response = await axios.get(endpoint, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`
                     },
                     withCredentials: true
                 });
-
-                console.log('Response data:', response.data);
-                setSoftware(response.data[0]); // Assuming response.data is an array with a single object
+                setItem(response.data);
             } catch (error) {
-                console.error('Error fetching software:', error);
+                console.error('Error fetching item:', error);
                 setError(error);
             }
         };
 
-        fetchSoftware();
-    }, [idproduto]);
+        fetchItem();
+    }, [idproduto, type]);
 
     const handleModalhistOpen = () => setShowhistModal(true);
     const handleModalhistClose = () => setShowhistModal(false);
     const handleModalorcOpen = () => setShoworcModal(true);
     const handleModalorcClose = () => setShoworcModal(false);
 
-    const handleModalCompraOpen = () => {
-        setShowCompraModal(true);
-    };
-
-    const handleModalCompraClose = () => {
-        setShowCompraModal(false);
-    };
+    const handleModalCompraOpen = () => setShowCompraModal(true);
+    const handleModalCompraClose = () => setShowCompraModal(false);
 
     const handleCompra = async () => {
         try {
             const response = await axios.post('http://localhost:3000/shop/compra', {
                 quantidade: quantidadeLicencas,
-                produtoId: software.id,
-                // Add other relevant data for purchase
+                produtoId: item.id,
             }, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 },
                 withCredentials: true
             });
-    
+
             alert(`Compra realizada com sucesso para ${quantidadeLicencas} licença(s)`);
             handleModalCompraClose();
         } catch (error) {
@@ -67,21 +68,20 @@ export default function ShopProd() {
             alert(`Erro ao realizar compra: ${error.message}`);
         }
     };
-    
+
     if (error) {
         console.error('Rendering error message:', error);
         return <div>Erro ao carregar dados: {error.message}</div>;
     }
 
-
     return (
         <>
-            {software && (
+            {item && (
                 <>
                     {/* NAVBAR */}
                     <nav className="navbar navbar-expand-lg bg-dark">
                         <div className="container-fluid">
-                            <a className="navbar-brand" href="/shop">
+                            <a className="navbar-brand" href="/signup/comprador">
                                 <img src="/images/Logos/logo.png" style={{ width: '20%' }} alt="Ware Logo" />
                             </a>
                             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
@@ -96,12 +96,9 @@ export default function ShopProd() {
                             </div>
                             <form className="d-flex" role="search">
                                 <input className="form-control me-2" type="search" placeholder="Procurar" aria-label="Search" />
-                                <button className="btn btn-outline-light" type="submit">Procurar</button>
+                                <button className="btn btn-outline-light" type="submit" style={{ marginRight: '10px' }}>Procurar</button>
                             </form>
-                            <button className="btn btn-outline-light me-2" style={{ marginLeft: '0.5%' }} type="button">
-                                <i className="bi bi-cart4"></i>
-                            </button>
-                            <a href="/home" className="btn btn-primary">Terminar Sessão</a>
+                            <a href="/" className="btn btn-primary">Terminar Sessão</a>
                         </div>
                     </nav>
                     {/* FIM NAVBAR */}
@@ -109,13 +106,13 @@ export default function ShopProd() {
                     <div className="container mt-4">
                         <div className="row no-gutters align-items-center">
                             <div className="col-md-2">
-                                <img src={`/images/${software.logotipo}`} className="card-img" alt="Software Logo" />
+                                <img src={`/images/${item.logotipo}`} className="card-img" alt="Item Logo" />
                             </div>
                             <div className="col-md-10 d-flex justify-content-between align-items-center">
                                 <div className="card-body" style={{ marginLeft: '100%', marginRight: '3%' }}>
-                                    <h2 className="card-title" style={{ marginBottom: '1rem' }}>{software.nome}</h2>
+                                    <h2 className="card-title" style={{ marginBottom: '1rem' }}>{item.nome}</h2>
                                     <div className="d-flex justify-content-start align-items-center">
-                                        <p className="mb-0 me-3">€{software.precoproduto}</p>
+                                        <p className="mb-0 me-3">€{item.precoproduto || item.preco}</p>
                                         <Button variant="outline-danger" onClick={handleModalCompraOpen}>
                                             Comprar
                                         </Button>
@@ -130,7 +127,7 @@ export default function ShopProd() {
                     <h1 className="ms-5 mt-5 mb-5">Descrição</h1>
 
                     <div className="container">
-                        <h4 className="card-text">{software.descricao}</h4>
+                        <h4 className="card-text">{item.descricao}</h4>
                     </div>
 
                     <hr className="custom-hr" />
@@ -151,13 +148,13 @@ export default function ShopProd() {
                             </Modal.Header>
                             <Modal.Body>
                                 <Form>
-                                    {software.versao && (
+                                    {item.versao && (
                                         <Form.Group controlId="formVersao">
-                                            <Form.Label>Versão do Software</Form.Label>
+                                            <Form.Label>Versão do Item</Form.Label>
                                             <Form.Control
                                                 type="text"
-                                                placeholder="Insira a versão do software"
-                                                value={software.versao}
+                                                placeholder="Insira a versão do item"
+                                                value={item.versao}
                                                 readOnly
                                             />
                                         </Form.Group>
