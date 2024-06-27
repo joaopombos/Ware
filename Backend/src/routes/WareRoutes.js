@@ -22,7 +22,7 @@ router.get('/shop/softwares', isAuthenticated, isBuyer, comprasController.listCa
 router.get('/shop/addons', isAuthenticated, isBuyer, comprasController.listCategoriesOrAddons);                     //
 router.get('/shop/:categoria', isAuthenticated, isBuyer, comprasController.listCategoriesOrSoftwares);                   //V
 router.get('/shop/:idproduto/', isAuthenticated, comprasController.softwareDetails);    //NOVO              //Erro
-router.get('/shop/:idvenda/confirm', isAuthenticated, isBuyer, comprasController.confirmOrder);                  //Erro             
+router.post('/shop/compra', isAuthenticated, isBuyer, comprasController.purchaseSuccess);                 //Erro             
 router.get('/shop/:idvenda/success', isAuthenticated, isBuyer, comprasController.purchaseSuccess);               //Erro
 
 // Rotas de biblioteca acessíveis aos compradores e gestores
