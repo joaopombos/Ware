@@ -3,6 +3,7 @@ const LicencasAtribuidas = require('../models/licencasatribuidas');
 const SoftwaresAdquiridos = require('../models/softwaresadquiridos');
 const TipoSoftwares = require('../models/tipossoftwares');
 const Avaliacoes = require('../models/avaliacoes')
+const Addons = require('../models/addons');
 const { Op } = require('sequelize');
 
 
@@ -35,6 +36,24 @@ shopController.listCategoriesOrSoftwares = async (req, res) => {
         res.json(softwares);
     } catch (error) {
         res.status(500).json({ error: 'Error fetching all softwares' });
+    }
+};
+
+shopController.listCategoriesOrAddons = async (req, res) => {
+    try {
+        const addons = await Addons.findAll({
+            attributes: [
+                'idaddon',
+                'logotipo',
+                'nome',
+                'descricao',
+                'preco'
+            ],
+            order: [['nome', 'ASC']]
+        });
+        res.json(addons);
+    } catch (error) {
+        res.status(500).json({ error: 'Error fetching all addons' });
     }
 };
 

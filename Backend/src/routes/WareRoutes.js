@@ -18,7 +18,8 @@ router.get('/logout/admin', clientesController.logoutadmin);       //V
 
 // Rotas de loja acessíveis aos comprador
 router.get('/shop/c_gestor/:categoria', isAuthenticated, isBuyer, comprasController.listCategoriesOrSoftwares);  //Só está a mostrar a categoria devia mostrar mais
-router.get('/shop/', isAuthenticated, isBuyer, comprasController.listCategoriesOrSoftwares);                     //
+router.get('/shop/softwares', isAuthenticated, isBuyer, comprasController.listCategoriesOrSoftwares);
+router.get('/shop/addons', isAuthenticated, isBuyer, comprasController.listCategoriesOrAddons);                     //
 router.get('/shop/:categoria', isAuthenticated, isBuyer, comprasController.listCategoriesOrSoftwares);                   //V
 router.get('/shop/:idproduto/', isAuthenticated, comprasController.softwareDetails);    //NOVO              //Erro
 router.get('/shop/:idvenda/confirm', isAuthenticated, isBuyer, comprasController.confirmOrder);                  //Erro             
