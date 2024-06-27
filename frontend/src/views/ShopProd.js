@@ -1,167 +1,276 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Modal, Button, Form } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
+const Pedidos = require('../models/pedidos');
+const LicencasAtribuidas = require('../models/licencasatribuidas');
+const SoftwaresAdquiridos = require('../models/softwaresadquiridos');
+const TipoSoftwares = require('../models/tipossoftwares');
+const Avaliacoes = require('../models/avaliacoes')
+const { Op } = require('sequelize');
 
-export default function ShopProd() {
-    const [software, setSoftware] = useState(null);
-    const [error, setError] = useState(null);
+
+const shopController = {};
+
+// List all purchases for a user
+shopController.listForUser = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const purchases = await Purchase.findAll({ where: { userId }, include: [App] });
+    res.json(purchases);
+  } catch (error) {
+    res.status(500).json({ error: 'Error fetching purchases' });
+  }
+};
+
+// Função unificada para listar categorias ou softwares baseado na presnça do parâmetro 'categoria'
+shopController.listCategoriesOrSoftwares = async (req, res) => {
+    try {
+        const softwares = await TipoSoftwares.findAll({
+            attributes: [
+                'idproduto',
+                'logotipo',
+                'nome',
+                'descricao',
+                'precoproduto',
+                'versao'
+            ],
+            order: [['nome', 'ASC']] // Ordena por nome do software em ordem alfabética
+        });
+        res.json(softwares);
+    } catch (error) {
+        res.status(500).json({ error: 'Error fetching all softwares' });
+    }
+};
+
+
+
+
+
+shopController.softwareDetails = async (req, res) => {
+    const { idproduto } = req.params; // Captura o 'idproduto' dos parâmetros da rota
+
+    try {
+        const software = await TipoSoftwares.findByPk(idproduto);
+
+        if (!software) {
+            return res.status(404).json({ error: 'Software not found' });
+        }
+
+        res.json(software);
+    } catch (error) {
+        console.error('Error retrieving software details:', error);
+        res.status(500).json({ error: 'Error retrieving software details' });
+    }
+};
+/*  Sugestão para '/shop/:idproduto/'
+
+import React, { useState, useEffect } from 'react';
+import { useParams, Link } from 'react-router-dom';
+import axios from 'axios';
+
+const SoftwareDetails = () => {
     const { idproduto } = useParams();
-    const [showhistModal, setShowhistModal] = useState(false);
-    const [showorcModal, setShoworcModal] = useState(false);
+    const [software, setSoftware] = useState(null);
 
     useEffect(() => {
-        const fetchSoftware = async () => {
+        const fetchSoftwareDetails = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/shop/${idproduto}`, {
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem('token')}`
-                    },
-                    withCredentials: true
-                });
-
-                console.log(response.data); // Log the response data
-
-                setSoftware(response.data[0]); // Assuming response.data is an array with a single object
+                const response = await axios.get(`/shop/${idproduto}/`);
+                setSoftware(response.data);
             } catch (error) {
-                setError(error);
+                console.error('Error fetching software details:', error);
             }
         };
 
-        fetchSoftware();
+        fetchSoftwareDetails();
     }, [idproduto]);
 
-    const handleModalhistOpen = () => setShowhistModal(true);
-    const handleModalhistClose = () => setShowhistModal(false);
-    const handleModalorcOpen = () => setShoworcModal(true);
-    const handleModalorcClose = () => setShoworcModal(false);
-
-    if (error) {
-        return <div>Erro ao carregar dados: {error.message}</div>;
+    if (!software) {
+        return <div>Loading...</div>;
     }
 
     return (
-        <>
-            {software && (
-                <>
-                  {/* NAVBAR */}
-                  <nav className="navbar navbar-expand-lg bg-dark">
-                <div className="container-fluid">
-                    <a className="navbar-brand" href="/shop">
-                        <img src="/images/Logos/logo.png" style={{ width: '20%' }} alt="Ware Logo" />
-                    </a>
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-                        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
-                    <div className="collapse navbar-collapse" id="navbarNavAltMarkup" style={{ marginLeft: '-32%' }}>
-                        <div className="navbar-nav">
-                            <a className="nav-link text-white" href="/shop">Explorar</a>
-                            <a className="nav-link active text-white" aria-current="page" href="/library">Gestão</a>
-                        </div>
-                    </div>
-                    <form className="d-flex" role="search">
-                        <input className="form-control me-2" type="search" placeholder="Procurar" aria-label="Search" />
-                        <button className="btn btn-outline-light" type="submit">Procurar</button>
-                    </form>
-                    <button className="btn btn-outline-light me-2" style={{ marginLeft: '0.5%' }} type="button">
-                        <i className="bi bi-cart4"></i>
-                    </button>
-                    <a href="/home" className="btn btn-primary">Terminar Sessão</a>
-                </div>
-            </nav>
-            {/* FIM NAVBAR */}
-
-                    <div className="container" style={{ marginTop: '4%' }}>
-                        <div className="row no-gutters align-items-center">
-                            <div className="col-md-2">
-                                {/* Placeholder for logo */}
-                                <img src={`/images/${software.logotipo}`} className="card-img" alt="Software Logo" />
-                            </div>
-                            <div className="col-md-10 d-flex justify-content-between align-items-center">
-                                <div className="card-body" style={{ marginLeft: '3%' }}>
-                                    <h2 className="card-title">{software.nome}</h2>
-                                </div>
-                                <div className="d-flex justify-content-start align-items-center" style={{ marginLeft: 'auto', paddingRight: '10%' }}>
-                                <p className="mb-0 ms-2">€{software.precoproduto}</p>
-                                    <a className="btn btn-outline-danger btn-sm" href={`/shop/${software.idproduto}/confirm`} role="button">
-                                        Comprar
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <hr className="custom-hr" />
-
-                    <h1 style={{ marginLeft: '5%', marginTop: '5%', marginBottom: '5%' }}>Descrição</h1>
-
-                    <div className="container">
-                    <h4 className="card-text">{software.descricao}</h4>
-                    </div>
-
-                    <hr className="custom-hr" />
-
-                    <div className="container-fluid" style={{ marginTop: '5%' }}>
-                        <div className="d-flex justify-content-between" style={{ marginLeft: '5%', marginRight: '5%' }}>
-                            <Button variant="secondary" onClick={handleModalhistOpen}>
-                                Versões
-                            </Button>
-                            <Button variant="secondary" onClick={handleModalorcOpen}>
-                                Pedir Orçamento
-                            </Button>
-                        </div>
-
-                        <Modal show={showhistModal} onHide={handleModalhistClose}>
-                            <Modal.Header closeButton>
-                                <Modal.Title>Historial de Versões</Modal.Title>
-                            </Modal.Header>
-                            <Modal.Body>
-                            <h4>{software.versao}</h4>
-                            </Modal.Body>
-                            <Modal.Footer>
-                                <Button variant="secondary" onClick={handleModalhistClose}>
-                                    Fechar
-                                </Button>
-                            </Modal.Footer>
-                        </Modal>
-
-                        <Modal show={showorcModal} onHide={handleModalorcClose}>
-                            <Modal.Header closeButton>
-                                <Modal.Title>Pedir Orçamento</Modal.Title>
-                            </Modal.Header>
-                            <Modal.Body>
-                                <Form>
-                                    <Form.Group className="mb-3" controlId="formNomeEmpresa">
-                                        <Form.Label>Nome da Empresa</Form.Label>
-                                        <Form.Control type="text" placeholder="Digite o nome da empresa" />
-                                    </Form.Group>
-                                    <Form.Group className="mb-3" controlId="formEmailEmpresa">
-                                        <Form.Label>Email da Empresa</Form.Label>
-                                        <Form.Control type="email" placeholder="Digite o email da empresa" />
-                                    </Form.Group>
-                                    <Form.Group className="mb-3" controlId="formTelefoneEmpresa">
-                                        <Form.Label>Telefone da Empresa</Form.Label>
-                                        <Form.Control type="tel" placeholder="Digite o telefone da empresa" />
-                                    </Form.Group>
-                                    <Form.Group className="mb-3" controlId="formDescricaoOrcamento">
-                                        <Form.Label>Descrição do Pedido de Orçamento</Form.Label>
-                                        <Form.Control as="textarea" rows={3} placeholder="Descreva o que você precisa" />
-                                    </Form.Group>
-                                </Form>
-                            </Modal.Body>
-                            <Modal.Footer>
-                                <Button variant="secondary" onClick={handleModalorcClose}>
-                                    Fechar
-                                </Button>
-                                <Button variant="primary" onClick={() => alert('Pedido enviado!')}>
-                                    Enviar Pedido
-                                </Button>
-                            </Modal.Footer>
-                        </Modal>
-                    </div>
-                </>
-            )}
-        </>
+        <div>
+            <h1>{software.nome}</h1>
+            <p>{software.descricao}</p>
+            <p>Versão: {software.versao}</p>
+            <p>Preço: {software.precoproduto}</p>
+            <Link to={`/shop/${idproduto}/confirm`}>
+                <button>Comprar</button>
+            </Link>
+        </div>
     );
-}
+};
+
+export default SoftwareDetails;
+
+*/
+
+
+
+
+
+// Função para buscar detalhes de um pedido específico pelo ID
+shopController.confirmOrder = async (req, res) => {
+  const { idvenda } = req.params; // Captura o 'idvenda' dos parâmetros da rota
+
+  try {
+      const pedido = await Pedidos.findByPk(idvenda, {
+          include: [{
+              model: TipoSoftwares,
+              as: 'softwares', // Ajuste conforme a associação definida
+              required: true
+          }]
+      });
+
+      if (!pedido) {
+          return res.status(404).json({ error: 'Order not found' });
+      }
+
+      const softwares = await TipoSoftwares.findAll({
+          where: { idproduto: pedido.idproduto },
+          order: ['nome']
+      });
+
+      res.json({
+          pedido,
+          softwares,
+          total: pedido.precofinal
+      });
+  } catch (error) {
+      res.status(500).json({ error: 'Error confirming order' });
+  }
+};
+
+/*  Sugestão Front end para '/shop/:idvenda/confirm'
+
+import React, { useState, useEffect } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
+import axios from 'axios';
+
+const ConfirmOrder = () => {
+    const { idvenda } = useParams();
+    const history = useHistory();
+    const [orderDetails, setOrderDetails] = useState(null);
+    const [cardDetails, setCardDetails] = useState({ number: '', expiry: '', cvc: '' });
+
+    useEffect(() => {
+        const fetchOrderDetails = async () => {
+            try {
+                const response = await axios.get(`/shop/${idvenda}/confirm`);
+                setOrderDetails(response.data);
+            } catch (error) {
+                console.error('Error fetching order details:', error);
+            }
+        };
+
+        fetchOrderDetails();
+    }, [idvenda]);
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setCardDetails({ ...cardDetails, [name]: value });
+    };
+
+    const handleConfirmPurchase = async () => {
+        try {
+            // Implementar a lógica para processar o pagamento e confirmar a compra
+            // Redirecionar para a página de sucesso após a compra
+            history.push(`/shop/${idvenda}/success`);
+        } catch (error) {
+            console.error('Error confirming purchase:', error);
+        }
+    };
+
+    if (!orderDetails) {
+        return <div>Loading...</div>;
+    }
+
+    return (
+        <div>
+            <h1>Confirmação de Compra</h1>
+            <h2>Softwares no Carrinho:</h2>
+            <ul>
+                {orderDetails.softwares.map(software => (
+                    <li key={software.idproduto}>
+                        {software.nome} - Quantidade: {orderDetails.pedido.quantidade} - Preço: {software.precoproduto}
+                    </li>
+                ))}
+            </ul>
+            <h3>Total: {orderDetails.total}</h3>
+
+            <h2>Detalhes do Cartão de Crédito:</h2>
+            <form>
+                <div>
+                    <label>Número do Cartão:</label>
+                    <input type="text" name="number" value={cardDetails.number} onChange={handleInputChange} />
+                </div>
+                <div>
+                    <label>Data de Validade:</label>
+                    <input type="text" name="expiry" value={cardDetails.expiry} onChange={handleInputChange} />
+                </div>
+                <div>
+                    <label>CVC:</label>
+                    <input type="text" name="cvc" value={cardDetails.cvc} onChange={handleInputChange} />
+                </div>
+                <button type="button" onClick={handleConfirmPurchase}>Confirmar Compra</button>
+            </form>
+        </div>
+    );
+};
+
+
+export default ConfirmOrder;
+*/
+
+
+
+// Função para confirmar a compra e atribuir uma chave de licença
+shopController.purchaseSuccess = async (req, res) => {
+  const { idvenda } = req.params;
+
+  try {
+      // Busca o pedido pelo ID
+      const pedido = await Pedidos.findByPk(idvenda);
+      if (!pedido) {
+          return res.status(404).json({ error: 'Order not found' });
+      }
+
+      // Busca detalhes do software específico no pedido
+      const software = await TipoSoftwares.findByPk(pedido.idproduto);
+      if (!software) {
+          return res.status(404).json({ error: 'Software not found' });
+      }
+
+      // Gera uma nova chave de licença
+      const chaveProduto = uuidv4(); // Usando UUID para gerar uma chave única
+
+      // Cria uma nova entrada no SoftwaresAdquiridos
+      const novoSoftware = await SoftwaresAdquiridos.create({
+          nome: software.nome, // Nome do software adquirido
+          chaveproduto: chaveProduto,
+          nif: pedido.nif
+      });
+
+      // Cria uma nova entrada no LicencasAtribuidas
+      const novaLicenca = await LicencasAtribuidas.create({
+          chaveproduto: chaveProduto,
+          nomepc: 'PC do Cliente', // Ajuste conforme necessário
+          dataatri: new Date(),
+          idatribuida: uuidv4() // Usando UUID para gerar um ID único para a licença
+      });
+
+      res.json({
+          message: 'Purchase successful',
+          chaveProduto: chaveProduto,
+          softwareInfo: novoSoftware
+      });
+  } catch (error) {
+      res.status(500).json({ error: 'Error processing purchase success' });
+  }
+};
+
+
+
+
+
+
+
+module.exports = shopController;

@@ -28,7 +28,8 @@ shopController.listCategoriesOrSoftwares = async (req, res) => {
                 'logotipo',
                 'nome',
                 'descricao',
-                'precoproduto'
+                'precoproduto',
+                'versao'
             ],
             order: [['nome', 'ASC']] // Ordena por nome do software em ordem alfabética
         });
