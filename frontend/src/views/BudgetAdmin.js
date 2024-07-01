@@ -10,7 +10,7 @@ const Orcamentos = ({ token }) => {
   useEffect(() => {
     const fetchBudgets = async () => {
       try {
-        const response = await axios.get('https://ware-1789.onrender.com/budget/admin', {
+        const response = await axios.get('http://localhost:3000/budget/admin', {
           headers: {
             Authorization: `Bearer ${token}`
           },
@@ -47,7 +47,7 @@ const Orcamentos = ({ token }) => {
     const resposta = prompt("Digite sua resposta:");
     if (resposta) {
       try {
-        const response = await axios.post(`https://ware-1789.onrender.com/budget/respond/${id}`, { resposta }, {
+        const response = await axios.post(`http://localhost:3000/budget/respond/${id}`, { resposta }, {
           headers: {
             Authorization: `Bearer ${token}`
           },

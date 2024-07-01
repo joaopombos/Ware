@@ -11,7 +11,7 @@ export default function EditComponent() {
     e.preventDefault();
 
     try {
-      const response = await axios.post('https://ware-1789.onrender.com/login', { email, codigopessoal }, { withCredentials: true });
+      const response = await axios.post('http://localhost:3000/login', { email, codigopessoal }, { withCredentials: true });
       const { token } = response.data;
       console.log('Login successful', token);
       window.location.href = '/signup/comprador';

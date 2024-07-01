@@ -21,9 +21,9 @@ export default function ShopProd() {
             try {
                 let endpoint = '';
                 if (type === 'softwares') {
-                    endpoint = `https://ware-1789.onrender.com/shop/${idproduto}`;
+                    endpoint = `http://localhost:3000/shop/${idproduto}`;
                 } else if (type === 'addons') {
-                    endpoint = `https://ware-1789.onrender.com/addons/${idproduto}`;
+                    endpoint = `http://localhost:3000/addons/${idproduto}`;
                 }
                 const response = await axios.get(endpoint, {
                     headers: {
@@ -51,7 +51,7 @@ export default function ShopProd() {
 
     const handleCompra = async () => {
         try {
-            const response = await axios.post('https://ware-1789.onrender.com/shop/compra', {
+            const response = await axios.post('http://localhost:3000/shop/compra', {
                 quantidade: quantidadeLicencas,
                 produtoId: item.idproduto || item.idaddon,
                 nome: item.nome,

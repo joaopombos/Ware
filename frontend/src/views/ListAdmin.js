@@ -13,7 +13,7 @@ const ListAdmin = () => {
     const fetchSoftwares = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get('https://ware-1789.onrender.com/list/admin', {
+        const response = await axios.get('http://localhost:3000/list/admin', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -42,7 +42,7 @@ const ListAdmin = () => {
   const handleDelete = async (idproduto) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`https://ware-1789.onrender.com/edit/admin/${idproduto}`, {
+      await axios.delete(`http://localhost:3000/edit/admin/${idproduto}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

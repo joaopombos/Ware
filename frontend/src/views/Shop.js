@@ -13,9 +13,9 @@
                 try {
                     let endpoint = '';
                     if (type === 'softwares') {
-                        endpoint = 'https://ware-1789.onrender.com/shop/softwares'; // Route to fetch softwares
+                        endpoint = 'http://localhost:3000/shop/softwares'; // Route to fetch softwares
                     } else if (type === 'addons') {
-                        endpoint = 'https://ware-1789.onrender.com/shop/addons'; // Route to fetch addons
+                        endpoint = 'http://localhost:3000/shop/addons'; // Route to fetch addons
                     }
     
                     const response = await axios.get(endpoint, {

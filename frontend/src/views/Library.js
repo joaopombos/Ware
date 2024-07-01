@@ -11,7 +11,7 @@ const MySoftwares = () => {
     useEffect(() => {
         const fetchSoftwares = async () => {
             try {
-                const response = await axios.get('https://ware-1789.onrender.com/library', {
+                const response = await axios.get('http://localhost:3000/library', {
                     withCredentials: true // Ensures cookies are sent with the request
                 });
                 setSoftwares(response.data);

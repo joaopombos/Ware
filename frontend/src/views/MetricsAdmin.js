@@ -14,7 +14,7 @@ const Metrics = () => {
     const fetchMetrics = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get('https://ware-1789.onrender.com/metrics/admin', {
+        const response = await axios.get('http://localhost:3000/metrics/admin', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
