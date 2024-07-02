@@ -86,6 +86,8 @@ const ListAdmin = () => {
         <table className="software-list-table">
           <thead>
             <tr>
+              <th>Logotipo</th>
+              <th>Foto</th>
               <th>Softwares</th>
               <th>Versão</th>
               <th>Avaliação</th>
@@ -96,9 +98,14 @@ const ListAdmin = () => {
             {softwares.map(software => (
               <tr key={software.idproduto}>
                 <td>
-                  <img src={`data:image/png;base64,${software.logotipo}`} alt={software.nome} />
-                  {software.nome}
+                  {console.log('Logotipo Base64:', software.logotipo)} {/* Debugging line */}
+                  {software.logotipo && <img src={`data:image/png;base64,${software.logotipo}`} alt={software.nome} className="software-image" />}
                 </td>
+                <td>
+                  {console.log('Imagenssoftware Base64:', software.imagenssoftware)} {/* Debugging line */}
+                  {software.imagenssoftware && <img src={`data:image/png;base64,${software.imagenssoftware}`} alt={software.nome} className="software-image" />}
+                </td>
+                <td>{software.nome}</td>
                 <td>{software.versao}</td>
                 <td>{software.classificacaoMedia ? software.classificacaoMedia.toFixed(1) : 'N/A'}</td>
                 <td className="actions">
@@ -115,3 +122,4 @@ const ListAdmin = () => {
 };
 
 export default ListAdmin;
+

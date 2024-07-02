@@ -23,8 +23,22 @@ adminController.listSoftwares = async (req, res) => {
 
     try {
         const softwares = await TipoSoftwares.findAll({ where: whereCondition });
-        res.json(softwares);
+
+        // Converte a imagem BLOB em base64
+        const softwaresComBase64 = softwares.map(software => {
+            const jsonSoftware = software.toJSON();
+            return {
+                ...jsonSoftware,
+                logotipo: jsonSoftware.logotipo ? jsonSoftware.logotipo.toString('base64') : null, // Converte logotipo
+                imagenssoftware: jsonSoftware.imagenssoftware ? jsonSoftware.imagenssoftware.toString('base64') : null // Converte imagenssoftware
+            };
+        });
+
+        console.log('Softwares com Base64:', softwaresComBase64); // Debugging line
+
+        res.json(softwaresComBase64);
     } catch (error) {
+        console.error(error);
         res.status(500).json({ error: 'Error fetching softwares' });
     }
 };
@@ -274,5 +288,4 @@ adminController.compareAndUpdateSoftware = async (req, res) => {
     }
 };
 module.exports = adminController;
-
 

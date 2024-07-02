@@ -81,6 +81,10 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Credentials', 'true'); // Permitir envio de cookies
   next();
 });
+// Erro Payload 
+const bodyParser = require('body-parser');
+app.use(bodyParser.json({ limit: '200Mb' }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '200Mb' }));
 
 // Configurar sessão
 app.use(session({
@@ -114,5 +118,6 @@ app.listen(PORT, () => {
 });
 
 module.exports = app;
+
 
 
