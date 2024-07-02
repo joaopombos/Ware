@@ -1,5 +1,5 @@
 import React from 'react';
-import './budgetadminorc.css'; // Import the separated CSS file
+import '../CSS/budgetadminorc.css'; // Import the separated CSS file
 
 const Orcamentos = () => {
   return (

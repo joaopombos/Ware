@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import './addadmin.css'; // Importe o arquivo CSS separado
+import '../CSS/addadmin.css'; // Importe o arquivo CSS separado
 
 const AddSoftware = () => {
   const [nome, setNome] = useState('');

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
-import './listadmin.css';
+import '../CSS/listadmin.css';
 
 const ListAdmin = () => {
   const [softwares, setSoftwares] = useState([]);

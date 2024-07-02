@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import './editadmin.css';
+import '../CSS/editadmin.css';
 
 const SoftwareUpdate = () => {
     const { idproduto } = useParams();

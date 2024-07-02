@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './budgetadmin.css';
+import '../CSS/budgetadmin.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Orcamentos = ({ token }) => {

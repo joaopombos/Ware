@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import Chart from 'chart.js/auto';
-import './metricsadmin.css';
+import '../CSS/metricsadmin.css';
 
 const Metrics = () => {
   const totalPriceChartRef = useRef(null);
