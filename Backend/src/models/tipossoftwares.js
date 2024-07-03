@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../models/database");
-const Planos = require("./planos");
+const TipoSoftAdd = require("./tiposoftadd");
 
 const TipoSoftwares = sequelize.define("tipossoftwares", {
   categoria: {
@@ -12,12 +12,12 @@ const TipoSoftwares = sequelize.define("tipossoftwares", {
     allowNull: false,
     primaryKey: true
   },
-  idplanos: {
+  idptipo: {
     type: Sequelize.INTEGER,
     allowNull: true,
     references: {
-      model: Planos,
-      key: "idplanos"
+      model: TipoSoftAdd,
+      key: "idtipo"
     }
   },
   logotipo: {
@@ -56,7 +56,7 @@ const TipoSoftwares = sequelize.define("tipossoftwares", {
     },
     {
       name: "relationship_14_fk",
-      fields: [{ name: "idplanos" }]
+      fields: [{ name: "idtipo" }]
     },
     {
       name: "tipossoftwares_pk",
@@ -66,6 +66,6 @@ const TipoSoftwares = sequelize.define("tipossoftwares", {
   ]
 });
 
-TipoSoftwares.belongsTo(Planos, { foreignKey: "idplanos" });
+TipoSoftwares.belongsTo(TipoSoftAdd, { foreignKey: "idtipo" });
 
 module.exports = TipoSoftwares;
