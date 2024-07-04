@@ -18,12 +18,12 @@ const Tiposoftadd = sequelize.define("TipoSoftAdd", {
   timestamps: false,
   indexes: [
     {
-      name: "pk_planos",
+      name: "pk_tiposoftadd",
       unique: true,
       fields: [{ name: "idtipo" }]
     },
     {
-      name: "planos_pk",
+      name: "tiposoftadd_pk",
       unique: true,
       fields: [{ name: "idtipo" }]
     },
