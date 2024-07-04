@@ -12,12 +12,12 @@ const cookieParser = require('cookie-parser');
 const Clientes = require('../Backend/src/models/clientes');
 const Empresas = require('../Backend/src/models/empresas');
 const TipoUser = require('../Backend/src/models/tipouser');
-const Addons = require('../Backend/src/models/addons');
+const tiposoftadd = require('../Backend/src/models/tiposoftadd');
 const Avaliacoes = require('../Backend/src/models/avaliacoes');
 const LicencasAtribuidas = require('../Backend/src/models/licencasatribuidas');
 const Orcamentos = require('../Backend/src/models/orcamentos');
 const Pedidos = require('../Backend/src/models/pedidos');
-const Planos = require('../Backend/src/models/planos');
+const Versoes = require('../Backend/src/models/Versoes');
 const SoftwaresAdquiridos = require('../Backend/src/models/softwaresadquiridos');
 const Tickets = require('../Backend/src/models/tickets');
 const TiposSoftwares = require('../Backend/src/models/tipossoftwares');
@@ -31,14 +31,14 @@ async function syncModels() {
     await TipoUser.sync();
     await Clientes.sync();
     await Pedidos.sync();
-    await Planos.sync();
+    await Versoes.sync();
     await Ware.sync();
     await TiposSoftwares.sync();
     await SoftwaresAdquiridos.sync();
     await Tickets.sync();
     await Orcamentos.sync();
     await LicencasAtribuidas.sync();
-    await Addons.sync();
+    await tiposoftadd.sync();
     await Avaliacoes.sync();
 
     console.log("All models were synchronized successfully.");
@@ -56,6 +56,12 @@ async function syncModels() {
     // Inserir dados iniciais na tabela Ware
     await Ware.bulkCreate([
       { idware: 1, username: 'admin', password: 'admin', lucros: 0, gastos: 0 }
+    ], {
+      ignoreDuplicates: true // Ignorar duplicados se já existirem
+    });
+
+    await tiposoftadd.bulkCreate([
+      { idtipo: 1, designcaosoftadd: 'Software', idtipo: 2, designcaosoftadd: 'Addons' }
     ], {
       ignoreDuplicates: true // Ignorar duplicados se já existirem
     });

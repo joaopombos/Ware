@@ -3,7 +3,7 @@ const Orcamentos = require('../models/orcamentos');
 const Clientes = require('../models/clientes');
 const SoftwaresAdquiridos = require('../models/softwaresadquiridos');
 const LicencasAtribuidas = require('../models/licencasatribuidas');
-const Addons = require('../models/addons');
+const tiposoftadd = require('../models/tiposoftadd');
 const nodemailer = require('nodemailer');
 const { Op } = require('sequelize');
 
