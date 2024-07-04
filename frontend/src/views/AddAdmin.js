@@ -11,7 +11,7 @@ const AddSoftware = () => {
   const [logotipo, setLogotipo] = useState(null);
   const [imagenssoftware, setImagensSoftware] = useState(null);
   const [idproduto, setIdProduto] = useState('');
-  const [error, setError] = useState('');
+  const [,setError] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();

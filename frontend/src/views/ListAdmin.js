@@ -66,7 +66,7 @@ const ListAdmin = () => {
             <a href="/add/admin"><i className="fas fa-plus"></i> Adicionar Software</a>
           </li>
           <li className="active">
-            <a href=""><i className="fas fa-list"></i> Listar Software</a>
+            <a href="/list/admin"><i className="fas fa-list"></i> Listar Software</a>
           </li>
           <li>
             <a href="/budget/admin"><i className="fas fa-file-invoice-dollar"></i> Orçamentos</a>

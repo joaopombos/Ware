@@ -5,32 +5,26 @@ const Orcamentos = () => {
   return (
     <div class="container-fluid">
       <div class="row">
-        <div id="sidebar" class="col-md-3">
-          <div class="logo">
+      <div id="sidebar" className="col-md-3">
+          <div className="logo">
             <img src="/images/Logos/logotipo copy.svg" alt="Logo" />
           </div>
-          <ul class="list-unstyled components">
+          <ul className="list-unstyled components">
             <li>
-              <a href="#"><i class="fas fa-ticket-alt"></i> Tickets</a>
+              <a href="/add/admin"><i className="fas fa-plus"></i> Adicionar Software</a>
             </li>
             <li>
-              <a href="#"><i class="fas fa-edit"></i> Atualizar/Editar Software</a>
+              <a href="/list/admin"><i className="fas fa-list"></i> Listar Software</a>
+            </li>
+            <li className="active">
+              <a href="/budget/admin"><i className="fas fa-file-invoice-dollar"></i> Orçamentos</a>
             </li>
             <li>
-              <a href="#"><i class="fas fa-plus"></i> Adicionar Software</a>
-            </li>
-            <li>
-              <a href="#"><i class="fas fa-list"></i> Listar Software</a>
-            </li>
-            <li class="active">
-              <a href="#"><i class="fas fa-file-invoice-dollar"></i> Orçamentos</a>
-            </li>
-            <li>
-              <a href="#"><i class="fas fa-chart-line"></i> Métricas de vendas</a>
+              <a href="/metrics/admin/"><i className="fas fa-chart-line"></i> Métricas de vendas</a>
             </li>
           </ul>
-          <div class="logout-button">
-            <button class="btn btn-primary">Terminar Sessão</button>
+          <div className="logout-button">
+            <a href="/" className="btn btn-primary">Terminar Sessão</a>
           </div>
         </div>
 

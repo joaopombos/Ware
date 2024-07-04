@@ -92,7 +92,7 @@ export default function EditComponent() {
                 </div>
               </div>
               <div className="col-sm-6 d-flex align-items-center justify-content-center" style={{ padding: 0, margin: 0 }}>
-                <img src="images/fundos/fundo branco.jpg" alt="image" style={{ width: 'auto', height: '100vh', objectFit: 'cover' }} />
+                <img src="images/fundos/fundo branco.jpg" alt="fundo branco" style={{ width: 'auto', height: '100vh', objectFit: 'cover' }} />
               </div>
             </div>
           </div>
