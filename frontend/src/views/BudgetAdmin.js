@@ -72,6 +72,13 @@ const Orcamentos = ({ token }) => {
     }
   };
 
+    // Verificar se o usuário está autenticado (exemplo simples)
+    const isLoggedIn = localStorage.getItem('token') !== null;
+
+    if (!isLoggedIn) {
+      return <div>Você precisa iniciar sessão para acessar esta página.</div>;
+    }
+
   return (
     <div className="container-fluid">
       <div className="row">

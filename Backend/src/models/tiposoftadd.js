@@ -30,6 +30,6 @@ const Tiposoftadd = sequelize.define("TipoSoftAdd", {
   ]
 });
 
-Tiposoftadd.belongsTo(Pedidos, { foreignKey: "idvenda" });
+
 
 module.exports = Tiposoftadd;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../CSS/addadmin.css'; // Importe o arquivo CSS separado
 
@@ -11,7 +11,13 @@ const AddSoftware = () => {
   const [logotipo, setLogotipo] = useState(null);
   const [imagenssoftware, setImagensSoftware] = useState(null);
   const [idproduto, setIdProduto] = useState('');
-  const [,setError] = useState('');
+  const [idtipo, setIdTipo] = useState(''); // Adicionar estado para idtipo
+  const [, setError] = useState('');
+
+  // Função para lidar com a mudança de tipo (Software ou Addon)
+  const handleTipoChange = (e) => {
+    setIdTipo(e.target.value);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -49,7 +55,8 @@ const AddSoftware = () => {
         precoproduto,
         idproduto,
         logotipo: logotipoBase64,
-        imagenssoftware: imagenssoftwareBase64
+        imagenssoftware: imagenssoftwareBase64,
+        idtipo // Adicionando idtipo ao softwareData
       };
 
       console.log('Dados do software a serem enviados:', softwareData);
@@ -80,6 +87,7 @@ const AddSoftware = () => {
       setIdProduto('');
       setLogotipo(null);
       setImagensSoftware(null);
+      setIdTipo(''); // Limpar idtipo
 
     } catch (error) {
       console.error('Erro ao adicionar software:', error);
@@ -98,7 +106,7 @@ const AddSoftware = () => {
     }
   };
 
-  // Função para lidar com seleção de logotip
+  // Função para lidar com seleção de logotipo
   const handleLogotipoChange = (e) => {
     setLogotipo(e.target.files[0]);
   };
@@ -123,10 +131,10 @@ const AddSoftware = () => {
         </div>
         <ul className="components">
           <li className="active">
-            <a href="/add/admin"><i className="fas fa-plus"></i> Adicionar Software</a>
+            <a href="/add/admin"><i className="fas fa-plus"></i> Adicionar Software/Addon</a>
           </li>
           <li>
-            <a href="/list/admin"><i className="fas fa-list"></i> Listar Software</a>
+            <a href="/list/admin"><i className="fas fa-list"></i> Listar Softwares/Addons</a>
           </li>
           <li>
             <a href="/budget/admin"><i className="fas fa-file-invoice-dollar"></i> Orçamentos</a>
@@ -141,7 +149,7 @@ const AddSoftware = () => {
       </div>
 
       <div id="content">
-        <h2>Adicionar Software</h2>
+        <h2>Adicionar Software/Addon</h2>
         <div className="form-container">
           <div className="row">
             <div className="col-md-6">
@@ -164,6 +172,12 @@ const AddSoftware = () => {
                 onChange={(e) => setIdProduto(e.target.value)}
                 placeholder="ID do Produto"
               />
+              <label htmlFor="idtipo" className="mt-3">Tipo</label>
+              <select className="form-control" id="idtipo" value={idtipo} onChange={handleTipoChange}>
+                <option value="">Selecione o tipo</option>
+                <option value="1">Software</option>
+                <option value="2">Addon</option>
+              </select>
             </div>
             <div className="col-md-6">
               <label htmlFor="logotipo" className="mt-3">Logotipo</label>
@@ -192,3 +206,4 @@ const AddSoftware = () => {
 };
 
 export default AddSoftware;
+

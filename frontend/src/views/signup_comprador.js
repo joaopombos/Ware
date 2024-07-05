@@ -23,6 +23,12 @@ export default function EditComponent() {
         }
     };
 
+    // Verificar se o usuário está autenticado (exemplo simples)
+    const isLoggedIn = localStorage.getItem('token') !== null;
+
+    if (!isLoggedIn) {
+        return <div>Você precisa iniciar sessão para acessar esta página.</div>;
+    }
 
     return (
         <div>
@@ -304,45 +310,45 @@ export default function EditComponent() {
 
             <div class="row" style={{ margin: '0 auto', display: 'flex', justifyContent: 'center' }}>
                 <div class="col-md-3 mb-4">
-                     <div class="card" style={{ marginBottom: '5%', width: '18rem' }}>
+                    <div class="card" style={{ marginBottom: '5%', width: '18rem' }}>
                         <img src="/images/icons/aspas.png" class="card-img-top img-fluid mx-auto d-block" style={{ width: '75%', margin: '30px' }} alt="..." />
-                         <div class="card-body text-center">
-                             <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisi lacus, venenatis at
-                                 est id, tristique viverra mauris. </p>
-                             <p class="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
-                             <p class="card-text mb-2">Categoria</p>
-                         </div>
-                     </div>
-                 </div>
+                        <div class="card-body text-center">
+                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisi lacus, venenatis at
+                                est id, tristique viverra mauris. </p>
+                            <p class="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
+                            <p class="card-text mb-2">Categoria</p>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-md-3 mb-4">
-                     <div class="card" style={{ marginBottom: '5%', width: '18rem' }}>
+                    <div class="card" style={{ marginBottom: '5%', width: '18rem' }}>
                         <img src="/images/icons/aspas.png" class="card-img-top img-fluid mx-auto d-block" style={{ width: '75%', margin: '30px' }} alt="..." />
-                         <div class="card-body text-center">
-                             <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisi lacus, venenatis at
-                                 est id, tristique viverra mauris. </p>
-                             <p class="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
-                             <p class="card-text mb-2">Categoria</p>
-                         </div>
-                     </div>
-                 </div>
+                        <div class="card-body text-center">
+                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisi lacus, venenatis at
+                                est id, tristique viverra mauris. </p>
+                            <p class="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
+                            <p class="card-text mb-2">Categoria</p>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-md-3 mb-4">
-                     <div class="card" style={{ marginBottom: '5%', width: '18rem' }}>
+                    <div class="card" style={{ marginBottom: '5%', width: '18rem' }}>
                         <img src="/images/icons/aspas.png" class="card-img-top img-fluid mx-auto d-block" style={{ width: '75%', margin: '30px' }} alt="..." />
-                         <div class="card-body text-center">
-                             <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisi lacus, venenatis at
-                                 est id, tristique viverra mauris. </p>
-                             <p class="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
-                             <p class="card-text mb-2">Categoria</p>
-                         </div>
-                     </div>
-                 </div>
+                        <div class="card-body text-center">
+                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisi lacus, venenatis at
+                                est id, tristique viverra mauris. </p>
+                            <p class="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
+                            <p class="card-text mb-2">Categoria</p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <footer class="footer bg-dark text-light">
                 <div class="container d-flex justify-content-center align-items-center">
                     <span class="text-center">&copy; Ware 2024</span>
-                 </div>
-             </footer>
+                </div>
+            </footer>
         </div>
     );
 

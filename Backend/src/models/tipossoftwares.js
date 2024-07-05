@@ -12,7 +12,7 @@ const TipoSoftwares = sequelize.define("tipossoftwares", {
     allowNull: false,
     primaryKey: true
   },
-  idptipo: {
+  idtipo: {
     type: Sequelize.INTEGER,
     allowNull: true,
     references: {

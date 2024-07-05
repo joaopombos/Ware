@@ -30,6 +30,7 @@ const MySoftwares = () => {
         window.location.href = `/license/${chaveproduto}`;
     };
 
+
     const renderCard = (software) => (
         <div className="col-sm-2 mb-4" key={software.chaveproduto} style={{ margin: '15px' }}>
             <div className="card h-100" style={{ textAlign: 'center' }}>
@@ -43,6 +44,13 @@ const MySoftwares = () => {
             </div>
         </div>
     );
+
+    // Verificar se o usuário está autenticado (exemplo simples)
+    const isLoggedIn = localStorage.getItem('token') !== null;
+
+    if (!isLoggedIn) {
+        return <div>Você precisa iniciar sessão para acessar esta página.</div>;
+    }
 
     return (
         <div className="d-flex flex-column min-vh-100">

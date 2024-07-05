@@ -9,8 +9,9 @@ const { Op } = require('sequelize');
 
 const adminController = {};
 
+
 adminController.listSoftwares = async (req, res) => {
-    const { query } = req.query;
+    const { tipo, query } = req.query;
 
     let whereCondition = {};
     if (query) {
@@ -22,7 +23,12 @@ adminController.listSoftwares = async (req, res) => {
     }
 
     try {
-        const softwares = await TipoSoftwares.findAll({ where: whereCondition });
+        let softwares;
+        if (tipo === 'softwares') {
+            softwares = await TipoSoftwares.findAll({ where: { ...whereCondition, idtipo: 1 } });
+        } else {
+            softwares = await TipoSoftwares.findAll({ where: { ...whereCondition, idtipo: 2 } }); // Busca softwares (idtipo = 1)
+        }
 
         // Converte a imagem BLOB em base64
         const softwaresComBase64 = softwares.map(software => {
@@ -61,7 +67,7 @@ adminController.getSoftwareById = async (req, res) => {
 
 adminController.updateSoftware = async (req, res) => {
     const { idproduto } = req.params;
-    const { nome, descricao, categoria, versao, precoproduto, logotipo, imagenssoftware } = req.body;
+    const { nome, descricao, categoria, versao, precoproduto, logotipo, imagenssoftware, idtipo } = req.body;
 
     try {
         const software = await TipoSoftwares.findByPk(idproduto);
@@ -69,15 +75,25 @@ adminController.updateSoftware = async (req, res) => {
             return res.status(404).json({ error: 'Software not found' });
         }
 
-        const updateData = { nome, descricao, categoria, versao, precoproduto };
+        // Função para converter base64 para Buffer
+        const base64ToBuffer = (base64String) => {
+            if (!base64String) return null;
+            return Buffer.from(base64String.replace(/^data:image\/\w+;base64,/, ''), 'base64');
+        };
 
-        if (logotipo) {
-            updateData.logotipo = logotipo; // Assuming logotipo is a base64 encoded string or a URL
-        }
+        const updateData = {
+            nome,
+            descricao,
+            categoria,
+            versao,
+            precoproduto,
+            idproduto,
+            logotipo: base64ToBuffer(logotipo),
+            imagenssoftware: base64ToBuffer(imagenssoftware),
+            idtipo
+        };
 
-        if (imagenssoftware) {
-            updateData.imagenssoftware = imagenssoftware; // Assuming imagenssoftware is an array of base64 encoded strings or URLs
-        }
+
 
         await software.update(updateData);
 
@@ -104,42 +120,44 @@ adminController.deleteSoftware = async (req, res) => {
         res.status(500).json({ error: 'Error deleting software' });
     }
 };
+
 adminController.addSoftware = async (req, res) => {
     try {
-      const { nome, descricao, categoria, versao, precoproduto, idproduto, logotipo, imagenssoftware } = req.body;
-  
-      console.log('Dados recebidos para adicionar software:', req.body);
-  
-      if (!idproduto) {
-        return res.status(400).json({ error: 'ID do produto não fornecido.' });
-      }
-  
-      // Função para converter base64 para Buffer
-      const base64ToBuffer = (base64String) => {
-        if (!base64String) return null;
-        return Buffer.from(base64String.replace(/^data:image\/\w+;base64,/, ''), 'base64');
-      };
-  
-      const novoSoftware = await TipoSoftwares.create({
-        nome,
-        descricao,
-        categoria,
-        versao,
-        precoproduto,
-        idproduto,
-        logotipo: base64ToBuffer(logotipo),
-        imagenssoftware: base64ToBuffer(imagenssoftware)
-      });
-  
-      console.log('Software adicionado:', novoSoftware);
-  
-      res.status(201).json(novoSoftware);
+        const { nome, descricao, categoria, versao, precoproduto, idproduto, logotipo, imagenssoftware, idtipo } = req.body;
+
+        console.log('Dados recebidos para adicionar software:', req.body);
+
+        if (!idproduto) {
+            return res.status(400).json({ error: 'ID do produto não fornecido.' });
+        }
+
+        // Função para converter base64 para Buffer
+        const base64ToBuffer = (base64String) => {
+            if (!base64String) return null;
+            return Buffer.from(base64String.replace(/^data:image\/\w+;base64,/, ''), 'base64');
+        };
+
+        const novoSoftware = await TipoSoftwares.create({
+            nome,
+            descricao,
+            categoria,
+            versao,
+            precoproduto,
+            idproduto,
+            logotipo: base64ToBuffer(logotipo),
+            imagenssoftware: base64ToBuffer(imagenssoftware),
+            idtipo
+        });
+
+        console.log('Software adicionado:', novoSoftware);
+
+        res.status(201).json(novoSoftware);
     } catch (error) {
-      console.error('Erro ao adicionar software:', error);
-      res.status(500).json({ error: 'Erro ao adicionar software.' });
+        console.error('Erro ao adicionar software:', error);
+        res.status(500).json({ error: 'Erro ao adicionar software.' });
     }
-  };
-  
+};
+
 adminController.listBudgets = async (req, res) => {
     try {
         const budgets = await Orcamentos.findAll();
@@ -147,22 +165,22 @@ adminController.listBudgets = async (req, res) => {
     } catch (error) {
         res.status(500).json({ error: 'Error fetching budgets' });
     }
-  };
+};
 
 
 
 adminController.getBudgetDetails = async (req, res) => {
-  const { idorca } = req.params;
+    const { idorca } = req.params;
 
-  try {
-      const budget = await Orcamentos.findByPk(idorca);
-      if (!budget) {
-          return res.status(404).json({ error: 'Budget not found' });
-      }
-      res.json(budget);
-  } catch (error) {
-      res.status(500).json({ error: 'Error fetching budget details' });
-  }
+    try {
+        const budget = await Orcamentos.findByPk(idorca);
+        if (!budget) {
+            return res.status(404).json({ error: 'Budget not found' });
+        }
+        res.json(budget);
+    } catch (error) {
+        res.status(500).json({ error: 'Error fetching budget details' });
+    }
 };
 
 adminController.respondToBudget = async (req, res) => {
@@ -216,13 +234,13 @@ adminController.listAcquiredSoftwares = async (req, res) => {
         if (!nif) {
             return res.status(400).json({ error: 'NIF do usuário não fornecido nos cookies' });
         }
-        
+
         const cliente = await Clientes.findOne({ where: { nif } });
 
         if (!cliente) {
             return res.status(404).json({ error: 'Cliente não encontrado' });
         }
-        
+
         const softwares = await SoftwaresAdquiridos.findAll({ where: { nif: cliente.emp_nif } });
 
         if (!softwares || softwares.length === 0) {

@@ -7,13 +7,14 @@ import '../CSS/listadmin.css';
 const ListAdmin = () => {
   const [softwares, setSoftwares] = useState([]);
   const [error, setError] = useState('');
+  const [tipoListagem, setTipoListagem] = useState('softwares'); // Estado para controlar o tipo de listagem
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchSoftwares = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:3000/list/admin', {
+        const response = await axios.get(`http://localhost:3000/list/admin?tipo=${tipoListagem}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -33,7 +34,7 @@ const ListAdmin = () => {
     };
 
     fetchSoftwares();
-  }, []);
+  }, [tipoListagem]);
 
   const handleEdit = (idproduto) => {
     navigate(`/edit/admin/${idproduto}`);
@@ -55,6 +56,18 @@ const ListAdmin = () => {
     }
   };
 
+  // Função para alterar o tipo de listagem
+  const handleTipoChange = (e) => {
+    setTipoListagem(e.target.value);
+  };
+
+  // Verificar se o usuário está autenticado (exemplo simples)
+  const isLoggedIn = localStorage.getItem('token') !== null;
+
+  if (!isLoggedIn) {
+    return <div>Você precisa iniciar sessão para acessar esta página.</div>;
+  }
+
   return (
     <div className="body-container">
       <div id="sidebar">
@@ -63,10 +76,10 @@ const ListAdmin = () => {
         </div>
         <ul className="components">
           <li>
-            <a href="/add/admin"><i className="fas fa-plus"></i> Adicionar Software</a>
+            <a href="/add/admin"><i className="fas fa-plus"></i> Adicionar Software/Addon</a>
           </li>
           <li className="active">
-            <a href="/list/admin"><i className="fas fa-list"></i> Listar Software</a>
+            <a href="/list/admin"><i className="fas fa-list"></i> Listar Softwares/Addons</a>
           </li>
           <li>
             <a href="/budget/admin"><i className="fas fa-file-invoice-dollar"></i> Orçamentos</a>
@@ -81,7 +94,13 @@ const ListAdmin = () => {
       </div>
 
       <div id="content">
-        <h2 style={{ marginBottom: '3%' }}>Listar Softwares</h2>
+        <div className="list-header d-flex align-items-center justify-content-between">
+          <h2 style={{ marginBottom: '3%', flex: '1' }}>Listar {tipoListagem === 'softwares' ? 'Softwares' : 'Addons'}</h2>
+          <select id="tipoListagem" className="form-control" value={tipoListagem} onChange={handleTipoChange}>
+            <option value="softwares">Softwares</option>
+            <option value="addons">Addons</option>
+          </select>
+        </div>
         {error && <div className="alert alert-danger">{error}</div>}
         <table className="software-list-table">
           <thead>
@@ -98,11 +117,9 @@ const ListAdmin = () => {
             {softwares.map(software => (
               <tr key={software.idproduto}>
                 <td>
-                  {console.log('Logotipo Base64:', software.logotipo)} {/* Debugging line */}
                   {software.logotipo && <img src={`data:image/png;base64,${software.logotipo}`} alt={software.nome} className="software-image" />}
                 </td>
                 <td>
-                  {console.log('Imagenssoftware Base64:', software.imagenssoftware)} {/* Debugging line */}
                   {software.imagenssoftware && <img src={`data:image/png;base64,${software.imagenssoftware}`} alt={software.nome} className="software-image" />}
                 </td>
                 <td>{software.nome}</td>
@@ -122,4 +139,7 @@ const ListAdmin = () => {
 };
 
 export default ListAdmin;
+
+
+
 

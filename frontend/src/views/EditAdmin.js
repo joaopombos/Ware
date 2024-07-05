@@ -1,4 +1,3 @@
-// EditAdmin.js
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -13,6 +12,8 @@ const SoftwareUpdate = () => {
         versao: '',
         precoproduto: ''
     });
+    const [logotipo, setLogotipo] = useState(null);
+    const [imagenssoftware, setImagensSoftware] = useState(null);
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
@@ -50,6 +51,32 @@ const SoftwareUpdate = () => {
 
         try {
             const token = localStorage.getItem('token');
+
+            const convertToBase64 = (file) => {
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    reader.onload = () => resolve(reader.result);
+                    reader.onerror = error => reject(error);
+                });
+            };
+
+            let logotipoBase64 = null;
+            if (logotipo) {
+                logotipoBase64 = await convertToBase64(logotipo);
+            }
+
+            let imagenssoftwareBase64 = null;
+            if (imagenssoftware) {
+                imagenssoftwareBase64 = await convertToBase64(imagenssoftware);
+            }
+
+            const updateData = {
+                ...software,
+                logotipo: logotipoBase64,
+                imagenssoftware: imagenssoftwareBase64,
+            };
+
             const config = {
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -58,7 +85,7 @@ const SoftwareUpdate = () => {
                 withCredentials: true,
             };
 
-            await axios.put(`http://localhost:3000/update/admin/${idproduto}`, software, config);
+            await axios.put(`http://localhost:3000/update/admin/${idproduto}`, updateData, config);
 
             window.alert('Software updated successfully!');
             navigate('/list/admin');
@@ -68,6 +95,14 @@ const SoftwareUpdate = () => {
         }
     };
 
+    const handleLogotipoChange = (e) => {
+        setLogotipo(e.target.files[0]);
+    };
+
+    const handleImagensSoftwareChange = (e) => {
+        setImagensSoftware(e.target.files[0]);
+    };
+
     const isLoggedIn = localStorage.getItem('token') !== null;
 
     if (!isLoggedIn) {
@@ -75,109 +110,66 @@ const SoftwareUpdate = () => {
     }
 
     return (
-        <div className="wrapper">
-            <div className="row no-gutters">
-            <div id="sidebar" className="col-md-3">
-          <div className="logo">
-            <img src="/images/Logos/logotipo copy.svg" alt="Logo" />
-          </div>
-          <ul className="list-unstyled components">
-            <li>
-              <a href="/add/admin"><i className="fas fa-plus"></i> Adicionar Software</a>
-            </li>
-            <li>
-              <a href="/list/admin"><i className="fas fa-list"></i> Listar Software</a>
-            </li>
-            <li className="active">
-              <a href="/budget/admin"><i className="fas fa-file-invoice-dollar"></i> Orçamentos</a>
-            </li>
-            <li>
-              <a href="/metrics/admin/"><i className="fas fa-chart-line"></i> Métricas de vendas</a>
-            </li>
-          </ul>
-          <div className="logout-button">
-            <a href="/" className="btn btn-primary">Terminar Sessão</a>
-          </div>
-        </div>
+        <div className="body-container">
+            <div id="sidebar">
+                <div className="logo">
+                    <img src="/images/Logos/logotipo copy.svg" alt="Logo" />
+                </div>
+                <ul className="components">
+                    <li>
+                        <a href="/add/admin"><i className="fas fa-plus"></i> Adicionar Software/Addon</a>
+                    </li>
+                    <li>
+                        <a href="/list/admin"><i className="fas fa-list"></i> Listar Softwares/Addons</a>
+                    </li>
+                    <li>
+                        <a href="/budget/admin"><i className="fas fa-file-invoice-dollar"></i> Orçamentos</a>
+                    </li>
+                    <li>
+                        <a href="/metrics/admin/"><i className="fas fa-chart-line"></i> Métricas de vendas</a>
+                    </li>
+                </ul>
+                <div className="logout-button">
+                    <a href="/" className="btn btn-primary">Terminar Sessão</a>
+                </div>
+            </div>
 
-                <div id="content" className="col-md-9">
-                    <h2 style={{ marginBottom: '3%' }}>Update Software</h2>
-                    {error && <div className="alert alert-danger">{error}</div>}
-                    <form onSubmit={handleSubmit}>
-                        <div className="form-group">
-                            <label>Name</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                name="nome"
-                                value={software.nome}
-                                onChange={handleChange}
-                                required
-                            />
+            <div id="content">
+                <h2>Update Software</h2>
+                <div className="form-container">
+                    <div className="row">
+                        <div className="col-md-6">
+                            <label htmlFor="nome">Nome</label>
+                            <input type="text" className="form-control" id="nome" name="nome" value={software.nome} onChange={handleChange} placeholder="Nome" />
+                            <label htmlFor="descricao" className="mt-3">Descrição</label>
+                            <textarea className="form-control" id="descricao" name="descricao" value={software.descricao} onChange={handleChange} rows="3" placeholder="Descrição"></textarea>
+                            <label htmlFor="categoria" className="mt-3">Categoria</label>
+                            <input type="text" className="form-control" id="categoria" name="categoria" value={software.categoria} onChange={handleChange} placeholder="Categoria" />
+                            <label htmlFor="versao" className="mt-3">Versão do Software</label>
+                            <input type="text" className="form-control" id="versao" name="versao" value={software.versao} onChange={handleChange} placeholder="Versão do Software" />
+                            <label htmlFor="precoproduto" className="mt-3">Preço</label>
+                            <input type="text" className="form-control" id="precoproduto" name="precoproduto" value={software.precoproduto} onChange={handleChange} placeholder="Preço" />
                         </div>
-                        <div className="form-group">
-                            <label>Description</label>
-                            <textarea
-                                className="form-control"
-                                name="descricao"
-                                value={software.descricao}
-                                onChange={handleChange}
-                                required
-                            ></textarea>
+                        <div className="col-md-6">
+                            <label htmlFor="logotipo" className="mt-3">Logotipo</label>
+                            <div className="file-upload-container">
+                                <input type="file" id="logotipo" className="form-control-file" onChange={handleLogotipoChange} />
+                                <p>JPG, PNG ou PDF, tamanho máximo de 10MB</p>
+                                <button className="btn btn-primary">Selecionar arquivo</button>
+                            </div>
+                            <label htmlFor="imagenssoftware" className="mt-3">Imagens do Software</label>
+                            <div className="file-upload-container">
+                                <input type="file" id="imagenssoftware" className="form-control-file" onChange={handleImagensSoftwareChange} />
+                                <p>JPG, PNG ou PDF, tamanho máximo de 10MB</p>
+                                <button className="btn btn-primary">Selecionar arquivo</button>
+                            </div>
                         </div>
-                        <div className="form-group">
-                            <label>Category</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                name="categoria"
-                                value={software.categoria}
-                                onChange={handleChange}
-                                required
-                            />
+                    </div>
+                    <div className="row">
+                        <div className="col-12 text-end">
+                            <button className="btn btn-danger" onClick={handleSubmit}>Guardar</button>
                         </div>
-                        <div className="form-group">
-                            <label>Version</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                name="versao"
-                                value={software.versao}
-                                onChange={handleChange}
-                                required
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label>Price</label>
-                            <input
-                                type="number"
-                                className="form-control"
-                                name="precoproduto"
-                                value={software.precoproduto}
-                                onChange={handleChange}
-                                required
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label>Logo</label>
-                            <input
-                                type="file"
-                                className="form-control"
-                                name="logotipo"
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label>Software Images</label>
-                            <input
-                                type="file"
-                                className="form-control"
-                                name="imagenssoftware"
-                            />
-                        </div>
-                        <button type="submit" className="btn btn-primary">
-                            Update
-                        </button>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -185,3 +177,7 @@ const SoftwareUpdate = () => {
 };
 
 export default SoftwareUpdate;
+
+
+
+

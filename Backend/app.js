@@ -61,7 +61,8 @@ async function syncModels() {
     });
 
     await tiposoftadd.bulkCreate([
-      { idtipo: 1, designcaosoftadd: 'Software', idtipo: 2, designcaosoftadd: 'Addons' }
+      {idtipo: 2, designcaosoftadd: 'Addons' },
+      { idtipo: 1, designcaosoftadd: 'Software'}
     ], {
       ignoreDuplicates: true // Ignorar duplicados se já existirem
     });
@@ -89,8 +90,8 @@ app.use((req, res, next) => {
 });
 // Erro Payload 
 const bodyParser = require('body-parser');
-app.use(bodyParser.json({ limit: '200Mb' }));
-app.use(bodyParser.urlencoded({ extended: true, limit: '200Mb' }));
+app.use(bodyParser.json({ limit: '500Mb' }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '500Mb' }));
 
 // Configurar sessão
 app.use(session({

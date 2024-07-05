@@ -47,11 +47,11 @@ const License = () => {
 
     const handleUpdateSubmit = async () => {
         try {
-            const response = await axios.put(`http://localhost:3000/license/${chaveproduto}`, 
-            { 
-                idatribuida: currentLicense.idatribuida, 
-                nomepc: newNomepc 
-            }, {
+            const response = await axios.put(`http://localhost:3000/license/${chaveproduto}`,
+                {
+                    idatribuida: currentLicense.idatribuida,
+                    nomepc: newNomepc
+                }, {
                 withCredentials: true // Ensures cookies are sent with the request
             });
             setLicenses(licenses.map(license => license.idatribuida === response.data.idatribuida ? response.data : license));
@@ -63,11 +63,11 @@ const License = () => {
 
     const handleLicenseRemove = async (idatribuida) => {
         try {
-            const response = await axios.put(`http://localhost:3000/license/${chaveproduto}`, 
-            { 
-                idatribuida, 
-                nomepc: null 
-            }, {
+            const response = await axios.put(`http://localhost:3000/license/${chaveproduto}`,
+                {
+                    idatribuida,
+                    nomepc: null
+                }, {
                 withCredentials: true // Ensures cookies are sent with the request
             });
             setLicenses(licenses.map(license => license.idatribuida === idatribuida ? response.data : license));
@@ -78,6 +78,13 @@ const License = () => {
 
     if (!software) {
         return <div>Loading...</div>;
+    }
+
+    // Verificar se o usuário está autenticado (exemplo simples)
+    const isLoggedIn = localStorage.getItem('token') !== null;
+
+    if (!isLoggedIn) {
+        return <div>Você precisa iniciar sessão para acessar esta página.</div>;
     }
 
     return (
@@ -140,10 +147,10 @@ const License = () => {
                     <Form>
                         <Form.Group controlId="formNomepc">
                             <Form.Label>Nome do PC</Form.Label>
-                            <Form.Control 
-                                type="text" 
-                                value={newNomepc} 
-                                onChange={(e) => setNewNomepc(e.target.value)} 
+                            <Form.Control
+                                type="text"
+                                value={newNomepc}
+                                onChange={(e) => setNewNomepc(e.target.value)}
                             />
                         </Form.Group>
                     </Form>

@@ -11,6 +11,13 @@ const ShopConfirm = () => {
         setPaymentOption(e.target.value);
     };
 
+    // Verificar se o usuário está autenticado (exemplo simples)
+    const isLoggedIn = localStorage.getItem('token') !== null;
+
+    if (!isLoggedIn) {
+        return <div>Você precisa iniciar sessão para acessar esta página.</div>;
+    }
+
     return (
         <div class="d-flex flex-column min-vh-100">
             <nav class="navbar navbar-expand-lg bg-dark">
@@ -26,7 +33,7 @@ const ShopConfirm = () => {
 
                 </div>
             </nav>
-            
+
             <div class="flex-grow-1 d-flex justify-content-center align-items-center">
                 <div class="container d-flex rounded shadow">
                     <div class="left-section bg-gradient-to-bottom rounded-left p-4 text-white" style={{ width: '50%' }}>
@@ -105,12 +112,12 @@ const ShopConfirm = () => {
                 </div>
             </div>
 
-            
+
             <footer class="footer bg-dark text-light">
                 <div class="container d-flex justify-content-center align-items-center">
                     <span class="text-center">&copy; Ware 2024</span>
-                 </div>
-             </footer>
+                </div>
+            </footer>
         </div>
     );
 };
