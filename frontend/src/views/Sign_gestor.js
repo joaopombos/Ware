@@ -74,7 +74,7 @@ export default function Sign_gestor() {
                                 </label>
                             </div>
                             <div class="pt-1 mb-4" style={{ marginTop: '5%' }}>
-                                <button class="btn btn-info btn-lg btn-dark" type='submit' role="button">Enviar código</button>
+                                <button class="btn btn-info btn-lg btn-dark" type='submit'>Enviar código</button>
 
                             </div>
                             <p>Já tem conta? <a href="/login" class="link-info">Clique aqui.</a></p>

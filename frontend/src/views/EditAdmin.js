@@ -14,7 +14,7 @@ const SoftwareUpdate = () => {
     });
     const [logotipo, setLogotipo] = useState(null);
     const [imagenssoftware, setImagensSoftware] = useState(null);
-    const [error, setError] = useState('');
+    const [, setError] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {

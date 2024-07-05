@@ -1,12 +1,11 @@
-import axios from "axios";
-import React, { useState } from "react";
+import React, { } from "react";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 export default function Sign_sucess() {
   return (
     <div>
       <nav class="navbar navbar-expand-lg bg-dark">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">
+          <a class="navbar-brand" href="/shop">
             <img
               src="/images/Logos/logo.png"
               style={{ width: "20%" }}

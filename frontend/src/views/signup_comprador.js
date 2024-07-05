@@ -1,28 +1,9 @@
-import axios from 'axios';
-import React, { useState } from "react";
+import React from 'react';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-
 export default function EditComponent() {
-    const [campTitulo, setCampTitulo] = useState("");
-    const [campDescricao, setCampDescricao] = useState("");
-    const [campFoto, setCampFoto] = useState("");
-    const [selectGeneroId, setSelectGeneroId] = useState("");
-
-    const handleFotoChange = (event) => {
-        const file = event.target.files[0];
-
-        if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                const fotoBase64 = reader.result;
-                setCampFoto(fotoBase64);
-            };
-            reader.readAsDataURL(file);
-        }
-    };
-
+    // Removed unused useState hooks
     // Verificar se o usuário está autenticado (exemplo simples)
     const isLoggedIn = localStorage.getItem('token') !== null;
 
@@ -73,7 +54,7 @@ export default function EditComponent() {
                                         <p class="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
                                         <p class="card-text mb-2" style={{ color: 'grey' }}>Design</p>
                                         <p class="card-text">De ilustrações a logotipos, todas as ferramentas necessárias para seus projetos de design gráfico.</p>
-                                        <a href="#" class="btn btn-dark w-100">Saber mais</a>
+                                        <a href="/shop" class="btn btn-dark w-100">Saber mais</a>
                                     </div>
                                 </div>
                             </div>
@@ -85,7 +66,7 @@ export default function EditComponent() {
                                         <p class="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
                                         <p class="card-text mb-2" style={{ color: 'grey' }}>Edição de Vídeo</p>
                                         <p class="card-text">A ferramenta mais poderosa de Hollywood para edição profissional em pós-edição de áudio!</p>
-                                        <a href="#" class="btn btn-dark w-100">Saber mais</a>
+                                        <a href="/shop" class="btn btn-dark w-100">Saber mais</a>
                                     </div>
                                 </div>
                             </div>
@@ -97,7 +78,7 @@ export default function EditComponent() {
                                         <p class="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
                                         <p class="card-text mb-2" style={{ color: 'grey' }}>Modelagem 3D</p>
                                         <p class="card-text">Dê vida aos seus conceitos mais loucos e reimagine o que é possível fazer, tudo num software.</p>
-                                        <a href="#" class="btn btn-dark w-100">Saber mais</a>
+                                        <a href="/shop" class="btn btn-dark w-100">Saber mais</a>
                                     </div>
                                 </div>
                             </div>
@@ -113,7 +94,7 @@ export default function EditComponent() {
                                         <p class="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
                                         <p class="card-text mb-2" style={{ color: 'grey' }}>Produtividade</p>
                                         <p class="card-text">Uma plataforma para conexões humanas ilimitadas. Conecte-se com amigos e colegas através de videoconferências.</p>
-                                        <a href="#" class="btn btn-dark w-100">Saber mais</a>
+                                        <a href="/shop" class="btn btn-dark w-100">Saber mais</a>
                                     </div>
                                 </div>
                             </div>
@@ -125,7 +106,7 @@ export default function EditComponent() {
                                         <p class="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
                                         <p class="card-text mb-2" style={{ color: 'grey' }}>Planilhas</p>
                                         <p class="card-text">A ferramenta essencial para criar, organizar e analisar dados com precisão. Domine seus dados com facilidade.</p>
-                                        <a href="#" class="btn btn-dark w-100">Saber mais</a>
+                                        <a href="/shop" class="btn btn-dark w-100">Saber mais</a>
                                     </div>
                                 </div>
                             </div>
@@ -137,7 +118,7 @@ export default function EditComponent() {
                                         <p class="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
                                         <p class="card-text mb-2" style={{ color: 'grey' }}>Desenho Técnico</p>
                                         <p class="card-text">A ferramenta de design assistido por computador mais poderosa do mercado, com precisão de engenharia.</p>
-                                        <a href="#" class="btn btn-dark w-100">Saber mais</a>
+                                        <a href="/shop" class="btn btn-dark w-100">Saber mais</a>
                                     </div>
                                 </div>
                             </div>
@@ -176,7 +157,7 @@ export default function EditComponent() {
                                                 <p class="card-text">Produtividade</p>
                                                 <h5 class="card-title">Microsoft Excel</h5>
                                             </div>
-                                            <a href="#" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
+                                            <a href="/shop" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
                                         </div>
                                     </div>
                                 </div>
@@ -190,7 +171,7 @@ export default function EditComponent() {
                                                 <p class="card-text">Comunicação</p>
                                                 <h5 class="card-title">Asana</h5>
                                             </div>
-                                            <a href="#" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
+                                            <a href="/shop" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
                                         </div>
                                     </div>
                                 </div>
@@ -206,7 +187,7 @@ export default function EditComponent() {
                                                 <p class="card-text">Produtivade</p>
                                                 <h5 class="card-title">DropBox</h5>
                                             </div>
-                                            <a href="#" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
+                                            <a href="/shop" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
                                         </div>
                                     </div>
                                 </div>
@@ -220,7 +201,7 @@ export default function EditComponent() {
                                                 <p class="card-text">Comunicação</p>
                                                 <h5 class="card-title">Miro</h5>
                                             </div>
-                                            <a href="#" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
+                                            <a href="/shop" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
                                         </div>
                                     </div>
                                 </div>
@@ -240,7 +221,7 @@ export default function EditComponent() {
                                                 <p class="card-text">Produtivade</p>
                                                 <h5 class="card-title">Notion</h5>
                                             </div>
-                                            <a href="#" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
+                                            <a href="/shop" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
                                         </div>
                                     </div>
                                 </div>
@@ -254,7 +235,7 @@ export default function EditComponent() {
                                                 <p class="card-text">Vídeo</p>
                                                 <h5 class="card-title">Final Cut Pro</h5>
                                             </div>
-                                            <a href="#" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
+                                            <a href="/shop" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
                                         </div>
                                     </div>
                                 </div>
@@ -270,7 +251,7 @@ export default function EditComponent() {
                                                 <p class="card-text">Produtividade</p>
                                                 <h5 class="card-title">Office 365</h5>
                                             </div>
-                                            <a href="#" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
+                                            <a href="/shop" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
                                         </div>
                                     </div>
                                 </div>
@@ -284,7 +265,7 @@ export default function EditComponent() {
                                                 <p class="card-text">Produtividade</p>
                                                 <h5 class="card-title">Slack</h5>
                                             </div>
-                                            <a href="#" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
+                                            <a href="/shop" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
                                         </div>
                                     </div>
                                 </div>

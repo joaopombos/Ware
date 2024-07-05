@@ -279,7 +279,7 @@ export default function ShopProd() {
                             </div>
                         </div>
                         <div className="container d-flex justify-content-center" style={{ marginTop: '2%' }}>
-                            <p className="text-center" style={{ color: 'white' }}>Se o que procura não está representado acima, peça um orçamento <a href="#" onClick={handleModalorcOpen} className="text-light"><span className="text-dark">aqui</span></a>.</p>
+                            <p className="text-center" style={{ color: 'white' }}>Se o que procura não está representado acima, peça um orçamento <a href="/shop/compra" onClick={handleModalorcOpen} className="text-light"><span className="text-dark">aqui</span></a>.</p>
                         </div>
                     </div>
 

@@ -1,27 +1,8 @@
-import axios from 'axios';
-import React, { useState } from "react";
+import React from 'react';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import '../CSS/home.css';
 
-
 export default function EditComponent() {
-    const [campTitulo, setCampTitulo] = useState("");
-    const [campDescricao, setCampDescricao] = useState("");
-    const [campFoto, setCampFoto] = useState("");
-    const [selectGeneroId, setSelectGeneroId] = useState("");
-
-    const handleFotoChange = (event) => {
-        const file = event.target.files[0];
-
-        if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                const fotoBase64 = reader.result;
-                setCampFoto(fotoBase64);
-            };
-            reader.readAsDataURL(file);
-        }
-    };
 
 
     return (

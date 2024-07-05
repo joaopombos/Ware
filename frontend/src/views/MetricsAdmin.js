@@ -7,7 +7,7 @@ const Metrics = () => {
   const totalPriceChartRef = useRef(null);
   const averagePriceChartRef = useRef(null);
   const totalBudgetsChartRef = useRef(null);
-  const [metrics, setMetrics] = useState({ totalCost: 0, averageCost: 0, totalBudgets: 0 });
+  const [, setMetrics] = useState({ totalCost: 0, averageCost: 0, totalBudgets: 0 });
   const [error, setError] = useState('');
 
   useEffect(() => {
@@ -90,7 +90,7 @@ const Metrics = () => {
             <a href="/budget/admin"><i className="fas fa-file-invoice-dollar"></i> Orçamentos</a>
           </li>
           <li className="active">
-            <a href="#"><i className="fas fa-chart-line"></i> Métricas de vendas</a>
+            <a href="/metrics/admin/"><i className="fas fa-chart-line"></i> Métricas de vendas</a>
           </li>
         </ul>
         <div className="logout-button">

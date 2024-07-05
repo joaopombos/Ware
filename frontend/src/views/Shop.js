@@ -124,7 +124,7 @@
                                                     <p className="card-text">Comunicação</p>
                                                     <h5 className="card-title">Asana</h5>
                                                 </div>
-                                                <a href="#" className="btn btn-dark btn-sm" style={{ marginRight: '-15px' }}>Saber mais</a>
+                                                <a href="/shop" className="btn btn-dark btn-sm" style={{ marginRight: '-15px' }}>Saber mais</a>
                                             </div>
                                         </div>
                                     </div>
@@ -141,7 +141,7 @@
                                                     <p className="card-text">Produtividade</p>
                                                     <h5 className="card-title">DropBox</h5>
                                                 </div>
-                                                <a href="#" className="btn btn-dark btn-sm" style={{ marginRight: '-15px' }}>Saber mais</a>
+                                                <a href="/shop" className="btn btn-dark btn-sm" style={{ marginRight: '-15px' }}>Saber mais</a>
                                             </div>
                                         </div>
                                     </div>
