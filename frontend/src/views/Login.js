@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, { useState } from "react";
 import 'bootstrap/dist/js/bootstrap.bundle.min';
+import '../CSS/ware.css';
+
 
 export default function EditComponent() {
   const [email, setEmail] = useState('');
@@ -26,11 +28,11 @@ export default function EditComponent() {
   };
 
   return (
-    <div class="loginpage" style={{ overflow: 'hidden' }}>
+    <div class="loginpage">
       {/* MENU BAR */}
       <nav class="navbar navbar-expand-lg bg-dark">
         <div class="container-fluid">
-          <a class="navbar-brand" href="/"><img src="images/Logos/logo.png" style={{ width: '20%' }} alt="Ware Logo" /></a>
+          <a class="navbar-brand" href="/"><img class="warelogo" src="images/Logos/logo.png" alt="Ware Logo" /></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
             aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -43,30 +45,22 @@ export default function EditComponent() {
       {/* FIM MENU BAR */}
 
       {/* LOG IN FORM */}
-      <div style={{ height: '100vh', overflow: 'hidden' }}>
-        <section class="d-flex align-items-center justify-content-center" style={{ height: '100vh', overflow: 'hidden' }}>
-          <div class="container-fluid" style={{ height: '100vh', overflow: 'hidden' }}>
-            <div class="row" style={{ height: '100vh', overflow: 'hidden' }}>
-              <div class="col-sm-6 text-black" style={{ height: '100vh', overflow: 'hidden' }}>
+      <div class="logform">
+        <section class="d-flex align-items-center justify-content-center">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-sm-6 text-black">
                 <div class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
-                  <form style={{ width: '23rem', marginTop: '20%' }} onSubmit={handleLogin}>
-                    <h3 class="fw-normal mb-3 pb-3" style={{ letterSpacing: '1px' }}>Log in</h3>
+                  <form class="actform" onSubmit={handleLogin}>
+                    <h3 class="fw-normal mb-3 pb-3">Log in</h3>
                     <div class="form-outline mb-4">
-                      <input
-                        type="email"
-                        id="form2Example17"
-                        class="form-control form-control-lg"
-                        value={email}
+                      <input class="form-control form-control-lg" type="email" id="form2Example17" value={email}
                         onChange={(e) => setEmail(e.target.value)}
                       />
                       <label class="form-label" htmlFor="form2Example17">Endereço de email</label>
                     </div>
                     <div class="form-outline mb-4">
-                      <input
-                        type="password"
-                        id="form2Example27"
-                        class="form-control form-control-lg"
-                        value={codigopessoal}
+                      <input class="form-control form-control-lg" type="password" id="form2Example27" value={codigopessoal}
                         onChange={(e) => setCodigoPessoal(e.target.value)}
                       />
                       <label class="form-label" htmlFor="form2Example27">Código</label>
@@ -80,8 +74,8 @@ export default function EditComponent() {
                   </form>
                 </div>
               </div>
-              <div class="col-sm-6 d-flex align-items-center justify-content-center" style={{ padding: 0, margin: 0 }}>
-                <img src="images/fundos/fundo branco.jpg" alt="fundo branco" style={{ width: 'auto', height: '100vh', objectFit: 'cover' }} />
+              <div class="col-sm-6 d-flex align-items-center justify-content-center">
+                <img class="sideimg" src="images/fundos/fundo branco.jpg" alt="image" />
               </div>
             </div>
           </div>

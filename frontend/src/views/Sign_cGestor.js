@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
+import '../CSS/ware.css';
 
 export default function Sign_cGestor() {
     const [email, setEmail] = useState('');
@@ -38,7 +39,7 @@ export default function Sign_cGestor() {
         <div>
             <nav class="navbar navbar-expand-lg bg-dark">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="/"><img src="/images/Logos/logo.png" style={{ width: '20%' }} alt="ware logo" /></a>
+                    <a class="navbar-brand" href="/"><img class="warelogo" src="/images/Logos/logo.png" alt="ware logo" /></a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
                         aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -50,14 +51,14 @@ export default function Sign_cGestor() {
                 </div>
             </nav>
             <div className="row">
-                <div className="col-sm-6" style={{ alignItems: 'center', height: '150vh' }}>
-                    <img src="/images/fundos/fundo preto.jpg" className="img-fluid" alt="fundo preto" style={{ height: '100%', objectFit: 'cover' }} />
+                <div className="col-sm-6">
+                    <img class="sideimgrep" src="/images/fundos/fundo preto.jpg"/>
                 </div>
                 <div className="col-sm-6 text-black">
                     <br></br>
                     <div className="align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
-                        <form onSubmit={handleSubmit} className="form-signin" style={{ width: '23rem', marginTop: '-5%' }}>
-                            <h3 className="fw-normal mb-3 pb-3" style={{ letterSpacing: '1px' }}>Criar conta</h3>
+                        <form onSubmit={handleSubmit} className="rightform form-signin">
+                            <h3 className="fw-normal mb-3 pb-3">Criar conta</h3>
                             <p style={{ color: '#B3B3B3' }}>Todos os campos são obrigatórios.</p>
                             
                             <div className="form-outline mb-4">
@@ -98,7 +99,7 @@ export default function Sign_cGestor() {
                                     Aceitar os termos de uso.
                                 </label>
                             </div>
-                            <div className="pt-1 mb-4" style={{ marginTop: '5%' }}>
+                            <div className="botaoselect pt-1 mb-4">
                                 <button className="btn btn-info btn-lg btn-dark" type="submit">Enviar código</button>
                             </div>
                             <p>Já tem conta? <a href="/login" className="link-info">Clique aqui.</a></p>
