@@ -17,8 +17,7 @@ router.get('/logout', clientesController.logout);
 router.get('/logout/admin', clientesController.logoutadmin);     
 
 // Rotas de loja acessíveis aos comprador
-router.get('/shop/softwares', isAuthenticated, isBuyer, comprasController.listCategoriesOrSoftwares);
-router.get('/shop/addons', isAuthenticated, isBuyer, comprasController.listCategoriesOrAddons);                     
+router.get('/shop/softwares', isAuthenticated, isBuyer, comprasController.listCategoriesOrSoftwares);                 
 router.get('/shop/:idproduto/', isAuthenticated, comprasController.softwareDetails);             
 router.get('/addons/:idaddon', isAuthenticated, comprasController.addonDetails);
 router.post('/shop/compra/', isAuthenticated, isBuyer, comprasController.purchaseSuccess);                       

@@ -23,23 +23,48 @@ shopController.listForUser = async (req, res) => {
 };
 
 shopController.listCategoriesOrSoftwares = async (req, res) => {
+    const { type, query } = req.query; // 'type' is used instead of 'tipo' for consistency in the shop context
+
+    let whereCondition = {};
+    if (query) {
+        whereCondition.nome = { [Op.iLike]: `%${query}%` }; // Filter by name if a query is provided
+    }
+
     try {
-        const softwares = await TipoSoftwares.findAll({
-            attributes: [
-                'idproduto',
-                'logotipo',
-                'nome',
-                'descricao',
-                'precoproduto',
-                'versao'
-            ],
-            order: [['nome', 'ASC']]
+        let items;
+        if (type === 'softwares') {
+            items = await TipoSoftwares.findAll({
+                where: { ...whereCondition, idtipo: 1 } // idtipo = 1 for softwares
+            });
+        } else {
+            items = await TipoSoftwares.findAll({
+                where: { ...whereCondition, idtipo: 2 } // idtipo = 2 for addons
+            });
+        }
+
+        // Convert BLOB images to base64
+        const itemsWithBase64 = items.map(item => {
+            const jsonItem = item.toJSON();
+            return {
+                ...jsonItem,
+                logotipo: jsonItem.logotipo ? Buffer.from(jsonItem.logotipo).toString('base64') : null,
+                imagenssoftware: jsonItem.imagenssoftware ? Buffer.from(jsonItem.imagenssoftware).toString('base64') : null
+            };
         });
-        res.json(softwares);
+
+        console.log('Items with Base64:', itemsWithBase64); // Debugging line
+
+        res.json(itemsWithBase64);
     } catch (error) {
-        res.status(500).json({ error: 'Error fetching all softwares' });
+        console.error('Error fetching items:', error);
+        res.status(500).json({ error: 'Error fetching items' });
     }
 };
+
+
+
+
+
 
 shopController.listCategoriesOrAddons = async (req, res) => {
     try {

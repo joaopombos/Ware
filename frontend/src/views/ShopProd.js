@@ -101,12 +101,7 @@ export default function ShopProd() {
             useEffect(() => {
                 const fetchItem = async () => {
                     try {
-                        let endpoint = '';
-                        if (type === 'softwares') {
-                            endpoint = `http://localhost:3000/shop/${idproduto}`;
-                        } else if (type === 'addons') {
-                            endpoint = `http://localhost:3000/addons/${idproduto}`;
-                        }
+                        const endpoint = `http://localhost:3000/shop/${idproduto}`;
                         const response = await axios.get(endpoint, {
                             headers: {
                                 Authorization: `Bearer ${localStorage.getItem('token')}`
