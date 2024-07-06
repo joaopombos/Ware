@@ -1,13 +1,20 @@
-.logonav {
-    width: 20%;
+/*NAVBAR*/
+.navbar{
+    margin: 0 !important;
 }
 
+.warelogo{
+    width: 20%;
+}
+/*FIM NAVBAR*/
+
+
+/*ESPAÇO HEROI*/
 .heroi {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: -3%;
-    /*background-image: url('/images/fundos/fundo.jpg');*/
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -75,7 +82,9 @@
 .icontext{
     color: white;
 }
+/*FIM ESPAÇO HEROI*/
 
+/*SOBRE WARE HOME*/
 .sobreware{
     background-color: rgba(128, 128, 128, 0.351);
     height: 40rem;
@@ -103,6 +112,7 @@
     margin-top: 5%;
     margin-bottom: 5%;
 }
+/*FIM SOBRE WARE HOME*/
 
 .carousel{
     max-width: 90%;
@@ -149,4 +159,91 @@
 
 .upscreen{
     margin-right:-10%;
+}
+
+
+/*FORMS*/
+.form-control{
+    width: 30rem;
+}
+
+.form-label{
+    margin-top: 1%;
+    color:grey;
+}
+
+.loginpage{
+    overflow: hidden; 
+}
+
+.logform{
+    height: 90vh;
+    overflow: hidden;
+}
+
+.actform{
+    width: 23rem;
+    margin-top: 20%; 
+}
+
+.sideimg{
+    height: 90vh;
+    margin-left: -8%;
+}
+
+.sideimgrep{
+    height: 150vh;
+    margin-left: -85%;
+    background-repeat: repeat-y;
+}
+
+.fundopagtipo{
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    height: 100vh;
+}
+
+
+.tipoconta{
+    margin-left: 10%;
+}
+
+.cardstipos{
+    height: 90vh;
+}
+
+.tipocontacards{
+    text-align: center;
+    margin-top: 5%;
+}
+
+.tipocardtit{
+    margin-bottom: 10%;
+}
+
+.tipocardtit1{
+    margin-bottom: 35%;
+}
+
+.tipocardtex{
+    line-height: 3;
+}
+
+.ultipo{
+    list-style: none;
+    padding: 0;
+    text-align: center;
+}
+
+.botaoselect{
+    margin-top: 5%;
+}
+
+.rightform{
+    width: 20rem;
+}
+
+.obrigatorio{
+    color: #B3B3B3; 
 }

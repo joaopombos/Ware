@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';  // Importar o axios corretamente
 import { useNavigate } from 'react-router-dom';  // Importar o useNavigate para redirecionamento
 import 'bootstrap/dist/js/bootstrap.bundle.min';
+import '../CSS/ware.css';
+
 
 export default function EditComponent() {
   const [username, setUsername] = useState('');
@@ -38,11 +40,11 @@ export default function EditComponent() {
 
 
   return (
-    <div className="loginpage" style={{ overflow: 'hidden' }}>
+    <div className="loginpage">
       {/* MENU BAR */}
       <nav className="navbar navbar-expand-lg bg-dark">
         <div className="container-fluid">
-          <a className="navbar-brand" href="/"><img src="images/Logos/logo.png" style={{ width: '20%' }} alt="Ware Logo" /></a>
+          <a className="navbar-brand" href="/"><img class="warelogo" src="images/Logos/logo.png" alt="Ware Logo" /></a>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
             aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
@@ -55,14 +57,14 @@ export default function EditComponent() {
       {/* FIM MENU BAR */}
 
       {/* LOG IN FORM */}
-      <div style={{ height: '100vh', overflow: 'hidden' }}>
-        <section className="d-flex align-items-center justify-content-center" style={{ height: '100vh', overflow: 'hidden' }}>
-          <div className="container-fluid" style={{ height: '100vh', overflow: 'hidden' }}>
-            <div className="row" style={{ height: '100vh', overflow: 'hidden' }}>
-              <div className="col-sm-6 text-black" style={{ height: '100vh', overflow: 'hidden' }}>
+      <div class="logform">
+        <section className="d-flex align-items-center justify-content-center">
+          <div className="container-fluid">
+            <div className="row">
+              <div className="col-sm-6 text-black">
                 <div className="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
-                  <form style={{ width: '23rem', marginTop: '20%' }} onSubmit={handleLogin}>
-                    <h3 className="fw-normal mb-3 pb-3" style={{ letterSpacing: '1px' }}>Log in Admin</h3>
+                  <form class="actform" onSubmit={handleLogin}>
+                    <h3 className="fw-normal mb-3 pb-3">Log in Admin</h3>
                     <div className="form-outline mb-4">
                       <input
                         type="text"
@@ -91,8 +93,8 @@ export default function EditComponent() {
                   </form>
                 </div>
               </div>
-              <div className="col-sm-6 d-flex align-items-center justify-content-center" style={{ padding: 0, margin: 0 }}>
-                <img src="images/fundos/fundo branco.jpg" alt="fundo branco" style={{ width: 'auto', height: '100vh', objectFit: 'cover' }} />
+              <div class="col-sm-6 d-flex align-items-center justify-content-center">
+                <img class="sideimg" src="images/fundos/fundo branco.jpg" alt="image" />
               </div>
             </div>
           </div>

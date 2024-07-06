@@ -1,8 +1,27 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useState } from "react";
 import 'bootstrap/dist/js/bootstrap.bundle.min';
-import '../CSS/home.css';
+import '../CSS/ware.css';
+
 
 export default function EditComponent() {
+    const [campTitulo, setCampTitulo] = useState("");
+    const [campDescricao, setCampDescricao] = useState("");
+    const [campFoto, setCampFoto] = useState("");
+    const [selectGeneroId, setSelectGeneroId] = useState("");
+
+    const handleFotoChange = (event) => {
+        const file = event.target.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                const fotoBase64 = reader.result;
+                setCampFoto(fotoBase64);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
 
 
     return (
@@ -10,7 +29,7 @@ export default function EditComponent() {
             {/* NAVBAR */}
             <nav class="navbar navbar-expand-lg bg-dark">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="/"><img class="logonav" src="images/Logos/logo.png" alt="Ware Logo" /></a>
+                    <a class="navbar-brand" href="/"><img class="warelogo" src="images/Logos/logo.png" alt="Ware Logo" /></a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
                         aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -26,8 +45,8 @@ export default function EditComponent() {
             {/* FIM NAVBAR */}
 
             {/* ESPAÇO HEROI */}
-            <div class="heroi">
-                <div class="textoheroi">
+            <div className="heroi" style={{ backgroundImage: `url('images/fundos/fundo.jpg')` }}>
+            <div class="textoheroi">
                     <h1 class="tituloheroi">Conectar empresas</h1>
                     <h1 class="tituloheroi1">com soluções inteligentes</h1>
                     <div class="searchbar">
