@@ -88,14 +88,27 @@ shopController.purchaseSuccess = async (req, res) => {
             return res.status(400).json({ error: 'NIF da empresa não fornecido no pedido' });
         }
 
-        const chaveProduto = uuidv4().replace(/-/g, '').slice(0, 12);
-
-        const novoSoftware = await SoftwaresAdquiridos.create({
-            nome, 
-            chaveproduto: chaveProduto,
-            nif: emp_nif, 
-            versaoadquirida: versao 
+        // Check if the software is already purchased
+        const existingPurchase = await SoftwaresAdquiridos.findOne({
+            where: {
+                nome: nome,
+                versaoadquirida: versao,
+                nif: emp_nif
+            }
         });
+
+        let chaveProduto;
+        if (existingPurchase) {
+            chaveProduto = existingPurchase.chaveproduto;
+        } else {
+            chaveProduto = uuidv4().replace(/-/g, '').slice(0, 12);
+            await SoftwaresAdquiridos.create({
+                nome, 
+                chaveproduto: chaveProduto,
+                nif: emp_nif, 
+                versaoadquirida: versao 
+            });
+        }
 
         const maxIdResult = await LicencasAtribuidas.findOne({
             attributes: [[sequelize.fn('max', sequelize.col('idatribuida')), 'maxId']]
@@ -116,7 +129,6 @@ shopController.purchaseSuccess = async (req, res) => {
         res.json({
             message: 'Compra realizada com sucesso',
             chaveProduto: chaveProduto,
-            softwareInfo: novoSoftware,
             createdLicenses: licencasCriadas
         });
     } catch (error) {

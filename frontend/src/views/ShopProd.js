@@ -1,5 +1,3 @@
-/*  Este Funciona
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Modal, Button, Form } from 'react-bootstrap';
@@ -21,12 +19,7 @@ export default function ShopProd() {
     useEffect(() => {
         const fetchItem = async () => {
             try {
-                let endpoint = '';
-                if (type === 'softwares') {
-                    endpoint = `http://localhost:3000/shop/${idproduto}`;
-                } else if (type === 'addons') {
-                    endpoint = `http://localhost:3000/addons/${idproduto}`;
-                }
+                const endpoint = `http://localhost:3000/shop/${idproduto}`;
                 const response = await axios.get(endpoint, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -53,19 +46,19 @@ export default function ShopProd() {
 
     const handleCompra = async () => {
         try {
-            const response = await axios.post('http://localhost:3000/shop/compra', {
+            await axios.post('http://localhost:3000/shop/compra', {
                 quantidade: quantidadeLicencas,
-                produtoId: item.idproduto || item.idaddon,
+                produtoId: item.idproduto,
                 nome: item.nome,
                 versao: item.versao,
-                emp_nif: '123456789' // Replace with actual emp_nif value as needed
+                emp_nif: '123456789'
             }, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 },
                 withCredentials: true
             });
-    
+
             alert(`Compra realizada com sucesso para ${quantidadeLicencas} licença(s)`);
             handleModalCompraClose();
         } catch (error) {
@@ -73,86 +66,11 @@ export default function ShopProd() {
             alert(`Erro ao realizar compra: ${error.message}`);
         }
     };
-    
 
     if (error) {
         console.error('Rendering error message:', error);
         return <div>Erro ao carregar dados: {error.message}</div>;
-    }  */
-
-        import React, { useState, useEffect } from 'react';
-        import axios from 'axios';
-        import { Modal, Button, Form } from 'react-bootstrap';
-        import { useParams, useLocation } from 'react-router-dom';
-        
-        export default function ShopProd() {
-            const { idproduto } = useParams();
-            const location = useLocation();
-            const [item, setItem] = useState(null);
-            const [error, setError] = useState(null);
-            const [showhistModal, setShowhistModal] = useState(false);
-            const [showorcModal, setShoworcModal] = useState(false);
-            const [showCompraModal, setShowCompraModal] = useState(false);
-            const [quantidadeLicencas, setQuantidadeLicencas] = useState(1);
-        
-            const query = new URLSearchParams(location.search);
-            const type = query.get('type');
-        
-            useEffect(() => {
-                const fetchItem = async () => {
-                    try {
-                        const endpoint = `http://localhost:3000/shop/${idproduto}`;
-                        const response = await axios.get(endpoint, {
-                            headers: {
-                                Authorization: `Bearer ${localStorage.getItem('token')}`
-                            },
-                            withCredentials: true
-                        });
-                        setItem(response.data);
-                    } catch (error) {
-                        console.error('Error fetching item:', error);
-                        setError(error);
-                    }
-                };
-        
-                fetchItem();
-            }, [idproduto, type]);
-        
-            const handleModalhistOpen = () => setShowhistModal(true);
-            const handleModalhistClose = () => setShowhistModal(false);
-            const handleModalorcOpen = () => setShoworcModal(true);
-            const handleModalorcClose = () => setShoworcModal(false);
-        
-            const handleModalCompraOpen = () => setShowCompraModal(true);
-            const handleModalCompraClose = () => setShowCompraModal(false);
-        
-            const handleCompra = async () => {
-                try {
-                    await axios.post('http://localhost:3000/shop/compra', {
-                        quantidade: quantidadeLicencas,
-                        produtoId: item.idproduto || item.idaddon,
-                        nome: item.nome,
-                        versao: item.versao,
-                        emp_nif: '123456789'
-                    }, {
-                        headers: {
-                            Authorization: `Bearer ${localStorage.getItem('token')}`
-                        },
-                        withCredentials: true
-                    });
-        
-                    alert(`Compra realizada com sucesso para ${quantidadeLicencas} licença(s)`);
-                    handleModalCompraClose();
-                } catch (error) {
-                    console.error('Error during purchase:', error);
-                    alert(`Erro ao realizar compra: ${error.message}`);
-                }
-            };
-        
-            if (error) {
-                console.error('Rendering error message:', error);
-                return <div>Erro ao carregar dados: {error.message}</div>;
-            }
+    }
 
     return (
         <>
