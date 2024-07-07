@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import '../CSS/ware.css';
 
@@ -9,29 +8,19 @@ export default function EditComponent() {
   const [email, setEmail] = useState('');
   const [codigopessoal, setCodigoPessoal] = useState('');
   const [error, setError] = useState('');
-  const navigate = useNavigate(); 
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:3000/login', { email, codigopessoal }, {
-        withCredentials: true // Se necessário
-      });
+      const response = await axios.post('http://localhost:3000/login', { email, codigopessoal }, { withCredentials: true });
       const { token } = response.data;
       console.log('Login successful', token);
-
-      // Armazenar o token no localStorage
-      localStorage.setItem('token', token);
-
-      // Redirecionar para a página desejada após o login
-      navigate('/signup/comprador');
+      window.location.href = '/signup/comprador';
     } catch (error) {
       console.error('Login error', error);
-      if (error.response && error.response.data) {
-        setError(error.response.data.error || 'An unexpected error occurred');
-      } else if (error.message === 'Network Error') {
-        setError('Erro de rede. Verifique sua conexão ou tente novamente mais tarde.');
+      if (error.response) {
+        setError(error.response.data.error);
       } else {
         setError('An unexpected error occurred');
       }

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
-import '../CSS/shopconfirm.css';
+import '../CSS/ware.css';
 
 const ShopConfirm = () => {
     const [paymentOption, setPaymentOption] = useState('card');
@@ -22,27 +22,36 @@ const ShopConfirm = () => {
         <div class="d-flex flex-column min-vh-100">
             <nav class="navbar navbar-expand-lg bg-dark">
                 <div class="container-fluid">
-                    <a href="/shop" class="navbar-brand">
-                        <img src="/images/Logos/logo.png" style={{ width: '20%' }} alt="Ware Logo" />
+                    <a class="navbar-brand" href="/signup/comprador">
+                        <img class="warelogo" src="/images/Logos/logo.png" alt="Ware Logo" />
                     </a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup"></div>
-                    <a href="/home" class="btn btn-outline-light me-2" role="button">Terminar Sessão</a>
-
+                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                        <div class="navbar-nav">
+                            <a class="nav-link text-white" href="/shop">Explorar</a>
+                            <a class="nav-link active text-white" aria-current="page" href="/library">Gestão</a>
+                        </div>
+                    </div>
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Procurar" aria-label="Search" />
+                        <button class="btn btn-outline-light" type="submit">Procurar</button>
+                    </form>
+                    <a href="/" class="btn btn-primary">Terminar Sessão</a>
                 </div>
             </nav>
 
             <div class="flex-grow-1 d-flex justify-content-center align-items-center">
-                <div class="container d-flex rounded shadow">
-                    <div class="left-section bg-gradient-to-bottom rounded-left p-4 text-white" style={{ width: '50%' }}>
+                <div class="containershop d-flex rounded shadow">
+                    <div class="left-section bg-gradient-to-bottom rounded-left p-4 text-white">
                         <div class="text-center mb-4">
                             <div class="fs-3">Total: 2,648.00€</div>
                         </div>
                         <div class="payment-item mb-4">
                             <div class="payment-item-details d-flex align-items-center">
-                                <img src="/images/Logos/figma.png" alt="Creative Cloud" style={{ width: '50px', marginRight: '1rem' }} />
+                                <img src="/images/Logos/figma.png" alt="Creative Cloud"/>
                                 <div>
                                     <div>Creative Cloud</div>
                                     <div class="payment-item-quantity">
@@ -54,7 +63,7 @@ const ShopConfirm = () => {
                         </div>
                         <div class="payment-item mb-4">
                             <div class="payment-item-details d-flex align-items-center">
-                                <img src="/images/Logos/figma.png" alt="Office 365" style={{ width: '50px', marginRight: '1rem' }} />
+                                <img src="/images/Logos/figma.png" alt="Office 365"/>
                                 <div>
                                     <div>Office 365</div>
                                     <div class="payment-item-quantity">
@@ -65,7 +74,7 @@ const ShopConfirm = () => {
                             <div>668.00€</div>
                         </div>
                     </div>
-                    <div class="right-section bg-white rounded-right p-4" style={{ width: '50%' }}>
+                    <div class="right-section bg-white rounded-right p-4">
                         <div class="mb-3">
                             <label>Email</label>
                             <input type="email" class="form-control mb-3" placeholder="Endereço de email" />

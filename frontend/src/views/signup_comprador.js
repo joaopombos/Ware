@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '../CSS/ware.css';
 
 export default function EditComponent() {
     // Removed unused useState hooks
@@ -14,71 +15,64 @@ export default function EditComponent() {
     return (
         <div>
             {/* NAVBAR */}
-            <nav className="navbar navbar-expand-lg bg-dark">
-                <div className="container-fluid">
-                    <a className="navbar-brand" href="/signup/comprador">
-                        <img src="/images/Logos/logo.png" style={{ width: '20%' }} alt="Ware Logo" />
-                    </a>
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+            <nav class="navbar navbar-expand-lg bg-dark">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="/"><img class="warelogo" src="images/Logos/logo.png" alt="Ware Logo" /></a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
                         aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
+                        <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div className="collapse navbar-collapse" id="navbarNavAltMarkup" style={{ marginLeft: '-32%' }}>
-                        <div className="navbar-nav">
-                            <a className="nav-link text-white" href="/shop">Explorar</a>
-                            <a className="nav-link active text-white" aria-current="page" href="/library">Gestão</a>
-                        </div>
-                    </div>
-                    <form className="d-flex" role="search">
-                        <input className="form-control me-2" type="search" placeholder="Procurar" aria-label="Search" />
-                        <button className="btn btn-outline-light" type="submit" style={{ marginRight: '10px' }}>Procurar</button>
-                    </form>
-                    <a href="/" className="btn btn-primary">Terminar Sessão</a>
+                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup"></div>
+                    <a href="/login">
+                        <button class="btn btn-outline-light me-2" type="button">
+                            Iniciar Sessão
+                        </button>
+                    </a>
                 </div>
             </nav>
             {/* FIM NAVBAR */}
 
             {/* TITULO */}
-            <h1 style={{ marginLeft: '5%', marginTop: '5%', marginBottom: '5%' }}>Os mais vendidos</h1>
+            <h1 class="titulo">Os mais vendidos</h1>
 
             {/* CARROSSEL OS MAIS VENDIDOS */}
-            <div id="carouselmaisvendidos" class="carousel slide mx-auto" data-bs-ride="carousel" style={{ maxWidth: '90%' }}>
+            <div id="carouselmaisvendidos" class="carousel slide mx-auto" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
                         <div class="row justify-content-center">
                             <div class="col-md-3">
-                                <div class="card mb-3" style={{ boxShadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none', width: '18rem' }}>
-                                    <img src="/images/mais_vendidos/Illustrator.jpg" class="card-img-top img-fluid" alt="Adobe Illustrator" />
+                                <div class="cardvendidos card mb-3">
+                                    <img src="images/mais_vendidos/Illustrator.jpg" class="card-img-top img-fluid" alt="Adobe Illustrator" />
                                     <div class="card-body">
                                         <h5 class="card-title mb-2">Adobe Illustrator</h5>
                                         <p class="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
-                                        <p class="card-text mb-2" style={{ color: 'grey' }}>Design</p>
+                                        <p class="cardcat card-text mb-2">Design</p>
                                         <p class="card-text">De ilustrações a logotipos, todas as ferramentas necessárias para seus projetos de design gráfico.</p>
-                                        <a href="/shop" class="btn btn-dark w-100">Saber mais</a>
+                                        <a href="/shop/:idproduto/" class="btn btn-dark w-100">Saber mais</a>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <div class="card mb-3" style={{ boxShadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none', width: '18rem' }}>
-                                    <img src="/images/mais_vendidos/Davinci.jpg" class="card-img-top img-fluid" alt="DaVinci Resolve" />
+                                <div class="cardvendidos card mb-3">
+                                    <img src="images/mais_vendidos/Davinci.jpg" class="card-img-top img-fluid" alt="DaVinci Resolve" />
                                     <div class="card-body">
                                         <h5 class="card-title mb-2">DaVinci Resolve</h5>
                                         <p class="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
-                                        <p class="card-text mb-2" style={{ color: 'grey' }}>Edição de Vídeo</p>
+                                        <p class="cardcat card-text mb-2">Edição de Vídeo</p>
                                         <p class="card-text">A ferramenta mais poderosa de Hollywood para edição profissional em pós-edição de áudio!</p>
-                                        <a href="/shop" class="btn btn-dark w-100">Saber mais</a>
+                                        <a href="/shop/:idproduto/" class="btn btn-dark w-100">Saber mais</a>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <div class="card mb-3" style={{ boxShadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none', width: '18rem' }}>
-                                    <img src="/images/mais_vendidos/Sketchup.jpg" class="card-img-top img-fluid" alt="SketchUp" />
+                                <div class="cardvendidos card mb-3">
+                                    <img src="images/mais_vendidos/Sketchup.jpg" class="card-img-top img-fluid" alt="SketchUp" />
                                     <div class="card-body">
                                         <h5 class="card-title mb-2">SketchUp</h5>
                                         <p class="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
-                                        <p class="card-text mb-2" style={{ color: 'grey' }}>Modelagem 3D</p>
+                                        <p class="cardcat card-text mb-2">Modelagem 3D</p>
                                         <p class="card-text">Dê vida aos seus conceitos mais loucos e reimagine o que é possível fazer, tudo num software.</p>
-                                        <a href="/shop" class="btn btn-dark w-100">Saber mais</a>
+                                        <a href="/shop/:idproduto/" class="btn btn-dark w-100">Saber mais</a>
                                     </div>
                                 </div>
                             </div>
@@ -87,38 +81,38 @@ export default function EditComponent() {
                     <div class="carousel-item">
                         <div class="row justify-content-center">
                             <div class="col-md-3">
-                                <div class="card mb-3" style={{ boxShadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none', width: '18rem' }}>
-                                    <img src="/images/mais_vendidos/Zoom.jpg" class="card-img-top img-fluid" alt="Zoom" />
+                                <div class="cardvendidos card mb-3">
+                                    <img src="images/mais_vendidos/Zoom.jpg" class="card-img-top img-fluid" alt="Zoom" />
                                     <div class="card-body">
                                         <h5 class="card-title mb-2">Zoom</h5>
                                         <p class="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
-                                        <p class="card-text mb-2" style={{ color: 'grey' }}>Produtividade</p>
+                                        <p class="cardcat card-text mb-2">Produtividade</p>
                                         <p class="card-text">Uma plataforma para conexões humanas ilimitadas. Conecte-se com amigos e colegas através de videoconferências.</p>
-                                        <a href="/shop" class="btn btn-dark w-100">Saber mais</a>
+                                        <a href="/shop/:idproduto/" class="btn btn-dark w-100">Saber mais</a>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <div class="card mb-3" style={{ boxShadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none', width: '18rem' }}>
-                                    <img src="/images/mais_vendidos/VisualStudio.jpg" class="card-img-top img-fluid" alt="Microsoft Excel" />
+                                <div class="cardvendidos card mb-3">
+                                    <img src="images/mais_vendidos/VisualStudio.jpg" class="card-img-top img-fluid" alt="Microsoft Excel" />
                                     <div class="card-body">
                                         <h5 class="card-title mb-2">Microsoft Excel</h5>
                                         <p class="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
-                                        <p class="card-text mb-2" style={{ color: 'grey' }}>Planilhas</p>
+                                        <p class="cardcat card-text mb-2">Planilhas</p>
                                         <p class="card-text">A ferramenta essencial para criar, organizar e analisar dados com precisão. Domine seus dados com facilidade.</p>
-                                        <a href="/shop" class="btn btn-dark w-100">Saber mais</a>
+                                        <a href="/shop/:idproduto/" class="btn btn-dark w-100">Saber mais</a>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <div class="card mb-3" style={{ boxShadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none', width: '18rem' }}>
-                                    <img src="/images/mais_vendidos/Wordpress.jpg" class="card-img-top img-fluid" alt="AutoCAD" />
+                                <div class="cardvendidos card mb-3">
+                                    <img src="images/mais_vendidos/Wordpress.jpg" class="card-img-top img-fluid" alt="AutoCAD" />
                                     <div class="card-body">
                                         <h5 class="card-title mb-2">AutoCAD</h5>
                                         <p class="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
-                                        <p class="card-text mb-2" style={{ color: 'grey' }}>Desenho Técnico</p>
+                                        <p class="cardcat card-text mb-2">Desenho Técnico</p>
                                         <p class="card-text">A ferramenta de design assistido por computador mais poderosa do mercado, com precisão de engenharia.</p>
-                                        <a href="/shop" class="btn btn-dark w-100">Saber mais</a>
+                                        <a href="/shop/:idproduto/" class="btn btn-dark w-100">Saber mais</a>
                                     </div>
                                 </div>
                             </div>
@@ -136,72 +130,70 @@ export default function EditComponent() {
             </div>
             {/* FIM CARROSSEL OS MAIS VENDIDOS */}
 
-
-
             <hr class="custom-hr" />
 
-            <h1 style={{ marginLeft: '5%', marginTop: '5%', marginBottom: '5%' }}>Últimas atualizações</h1>
+            <h1 class="titulo">Últimas atualizações</h1>
 
-            <div id="carouselatualizacoes" class="carousel slide" data-bs-ride="carousel">
+            <div id="carouselatualizacoes" class="carousel slide mx-auto" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
                         <div class="row justify-content-center">
-                            <div class="col-6 d-flex flex-column align-items-center">
-                                <div class="card card-custom" style={{ width: '70%', boxshadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
+                            <div class="upscreen col-6 d-flex flex-column align-items-center">
+                                <div class="cardup card card-custom" >
                                     <div class="row no-gutters align-items-center">
                                         <div class="col-md-3">
-                                            <img src="/images/newicons/excel.png" class="card-img" alt="..." />
+                                            <img src="images/newicons/excel.png" class="card-img" alt="..." />
                                         </div>
                                         <div class="col-md-8 d-flex justify-content-between align-items-center">
                                             <div class="card-body">
                                                 <p class="card-text">Produtividade</p>
                                                 <h5 class="card-title">Microsoft Excel</h5>
                                             </div>
-                                            <a href="/shop" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
+                                            <a href="/shop/:idproduto/" class="btnup btn btn-dark btn-sm">Saber mais</a>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card card-custom mt-3" style={{ width: '70%', boxshadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
+                                <div class="cardup card card-custom mt-3">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col-md-3">
-                                            <img src="/images/newicons/asana.png" class="card-img" alt="..." />
+                                            <img src="images/newicons/asana.png" class="card-img" alt="..." />
                                         </div>
                                         <div class="col-md-8 d-flex justify-content-between align-items-center">
                                             <div class="card-body">
                                                 <p class="card-text">Comunicação</p>
                                                 <h5 class="card-title">Asana</h5>
                                             </div>
-                                            <a href="/shop" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
+                                            <a href="/shop/:idproduto/" class="btnup btn btn-dark btn-sm">Saber mais</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-6 d-flex flex-column align-items-center" style={{ marginleft: '-5%' }}>
-                                <div class="card card-custom" style={{ width: '70%', boxshadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
+                            <div class="col-6 d-flex flex-column align-items-center">
+                                <div class="cardup card card-custom">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col-md-3">
-                                            <img src="/images/newicons/dropbox.png" class="card-img" alt="..." />
+                                            <img src="images/newicons/dropbox.png" class="card-img" alt="..." />
                                         </div>
                                         <div class="col-md-8 d-flex justify-content-between align-items-center">
                                             <div class="card-body">
                                                 <p class="card-text">Produtivade</p>
                                                 <h5 class="card-title">DropBox</h5>
                                             </div>
-                                            <a href="/shop" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
+                                            <a href="/shop/:idproduto/" class="btnup btn btn-dark btn-sm">Saber mais</a>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card card-custom mt-3" style={{ width: '70%', boxshadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
+                                <div class="cardup card card-custom mt-3">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col-md-3">
-                                            <img src="/images/newicons/miro.png" class="card-img" alt="..." />
+                                            <img src="images/newicons/miro.png" class="card-img" alt="..." />
                                         </div>
                                         <div class="col-md-8 d-flex justify-content-between align-items-center">
                                             <div class="card-body">
                                                 <p class="card-text">Comunicação</p>
                                                 <h5 class="card-title">Miro</h5>
                                             </div>
-                                            <a href="/shop" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
+                                            <a href="/shop/:idproduto/" class="btnup btn btn-dark btn-sm">Saber mais</a>
                                         </div>
                                     </div>
                                 </div>
@@ -210,62 +202,62 @@ export default function EditComponent() {
                     </div>
                     <div class="carousel-item">
                         <div class="row justify-content-center">
-                            <div class="col-6 d-flex flex-column align-items-center">
-                                <div class="card card-custom" style={{ width: '70%', boxshadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
+                            <div class="upscreen col-6 d-flex flex-column align-items-center">
+                                <div class="cardup card card-custom">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col-md-3">
-                                            <img src="/images/newicons/notion.png" class="card-img" alt="..." />
+                                            <img src="images/newicons/notion.png" class="card-img" alt="..." />
                                         </div>
                                         <div class="col-md-8 d-flex justify-content-between align-items-center">
                                             <div class="card-body">
                                                 <p class="card-text">Produtivade</p>
                                                 <h5 class="card-title">Notion</h5>
                                             </div>
-                                            <a href="/shop" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
+                                            <a href="/shop/:idproduto/" class="btnup btn btn-dark btn-sm">Saber mais</a>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card card-custom mt-3" style={{ width: '70%', boxshadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
+                                <div class="cardup card card-custom mt-3">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col-md-3">
-                                            <img src="/images/newicons/fcp.png" class="card-img" alt="..." />
+                                            <img src="images/newicons/fcp.png" class="card-img" alt="..." />
                                         </div>
                                         <div class="col-md-8 d-flex justify-content-between align-items-center">
                                             <div class="card-body">
                                                 <p class="card-text">Vídeo</p>
                                                 <h5 class="card-title">Final Cut Pro</h5>
                                             </div>
-                                            <a href="/shop" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
+                                            <a href="/shop/:idproduto/" class="btnup btn btn-dark btn-sm">Saber mais</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-6 d-flex flex-column align-items-center" style={{ marginleft: '-5%' }}>
-                                <div class="card card-custom" style={{ width: '70%', boxshadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
+                            <div class="col-6 d-flex flex-column align-items-center">
+                                <div class="cardup card card-custom">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col-md-3">
-                                            <img src="/images/newicons/office.png" class="card-img" alt="..." />
+                                            <img src="images/newicons/office.png" class="card-img" alt="..." />
                                         </div>
                                         <div class="col-md-8 d-flex justify-content-between align-items-center">
                                             <div class="card-body">
                                                 <p class="card-text">Produtividade</p>
                                                 <h5 class="card-title">Office 365</h5>
                                             </div>
-                                            <a href="/shop" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
+                                            <a href="/shop/:idproduto/" class="btnup btn btn-dark btn-sm">Saber mais</a>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card card-custom mt-3" style={{ width: '70%', boxshadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
+                                <div class="cardup card card-custom mt-3">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col-md-3">
-                                            <img src="/images/newicons/slack.png" class="card-img" alt="..." />
+                                            <img src="images/newicons/slack.png" class="card-img" alt="..." />
                                         </div>
                                         <div class="col-md-8 d-flex justify-content-between align-items-center">
                                             <div class="card-body">
                                                 <p class="card-text">Produtividade</p>
                                                 <h5 class="card-title">Slack</h5>
                                             </div>
-                                            <a href="/shop" class="btn btn-dark btn-sm" style={{ marginright: '-15px' }}>Saber mais</a>
+                                            <a href="/shop/:idproduto/" class="btnup btn btn-dark btn-sm">Saber mais</a>
                                         </div>
                                     </div>
                                 </div>
@@ -285,14 +277,14 @@ export default function EditComponent() {
 
             <hr class="custom-hr" />
 
+            <h1 class="titulo">Avaliações</h1>
 
-            <h1 style={{ marginLeft: '5%', marginTop: '5%', marginBottom: '5%' }}>Avaliações</h1>
 
 
-            <div class="row" style={{ margin: '0 auto', display: 'flex', justifyContent: 'center' }}>
+            <div class="avrow row">
                 <div class="col-md-3 mb-4">
-                    <div class="card" style={{ marginBottom: '5%', width: '18rem' }}>
-                        <img src="/images/icons/aspas.png" class="card-img-top img-fluid mx-auto d-block" style={{ width: '75%', margin: '30px' }} alt="..." />
+                    <div class="cardvav card">
+                        <img src="images/icons/aspas.png" class="aspas card-img-top img-fluid mx-auto d-block" alt="..." />
                         <div class="card-body text-center">
                             <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisi lacus, venenatis at
                                 est id, tristique viverra mauris. </p>
@@ -302,8 +294,8 @@ export default function EditComponent() {
                     </div>
                 </div>
                 <div class="col-md-3 mb-4">
-                    <div class="card" style={{ marginBottom: '5%', width: '18rem' }}>
-                        <img src="/images/icons/aspas.png" class="card-img-top img-fluid mx-auto d-block" style={{ width: '75%', margin: '30px' }} alt="..." />
+                    <div class="cardvav card">
+                        <img src="images/icons/aspas.png" class="aspas card-img-top img-fluid mx-auto d-block" alt="..." />
                         <div class="card-body text-center">
                             <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisi lacus, venenatis at
                                 est id, tristique viverra mauris. </p>
@@ -313,8 +305,8 @@ export default function EditComponent() {
                     </div>
                 </div>
                 <div class="col-md-3 mb-4">
-                    <div class="card" style={{ marginBottom: '5%', width: '18rem' }}>
-                        <img src="/images/icons/aspas.png" class="card-img-top img-fluid mx-auto d-block" style={{ width: '75%', margin: '30px' }} alt="..." />
+                    <div class="cardvav card">
+                        <img src="images/icons/aspas.png" class="aspas card-img-top img-fluid mx-auto d-block" alt="..." />
                         <div class="card-body text-center">
                             <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisi lacus, venenatis at
                                 est id, tristique viverra mauris. </p>

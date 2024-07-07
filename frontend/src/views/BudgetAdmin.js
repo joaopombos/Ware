@@ -83,7 +83,7 @@ const Orcamentos = ({ token }) => {
 
       import React, { useState, useEffect } from 'react';
       import axios from 'axios';
-      import '../CSS/budgetadmin.css';
+      import '../CSS/ware.css';
       import 'bootstrap/dist/css/bootstrap.min.css';
       
       const Orcamentos = ({ token }) => {
@@ -160,47 +160,49 @@ const Orcamentos = ({ token }) => {
           }
 
   return (
-    <div className="container-fluid">
-      <div className="row">
-        <div id="sidebar" className="col-md-3">
-          <div className="logo">
+    <div class="body-container">
+        <div class="sidebar">
+          <div class="logo">
             <img src="/images/Logos/logotipo copy.svg" alt="Logo" />
           </div>
-          <ul className="list-unstyled components">
+          <ul class="list-unstyled components">
             <li>
-              <a href="/add/admin"><i className="fas fa-plus"></i> Adicionar Software</a>
+              <a href="/add/admin"><i class="fas fa-plus"></i> Adicionar Software/Addon</a>
             </li>
             <li>
-              <a href="/list/admin"><i className="fas fa-list"></i> Listar Software</a>
+              <a href="/edit/admin"><i class="fas fa-plus"></i> Editar/Atualizar Software</a>
+          </li>
+            <li>
+              <a href="/list/admin"><i class="fas fa-list"></i> Listar Softwares/Addons</a>
             </li>
-            <li className="active">
-              <a href="/budget/admin"><i className="fas fa-file-invoice-dollar"></i> Orçamentos</a>
+            <li class="active">
+              <a href="/budget/admin"><i class="fas fa-file-invoice-dollar"></i> Orçamentos</a>
             </li>
             <li>
-              <a href="/metrics/admin/"><i className="fas fa-chart-line"></i> Métricas de vendas</a>
+              <a href="/metrics/admin/"><i class="fas fa-chart-line"></i> Métricas de vendas</a>
             </li>
           </ul>
-          <div className="logout-button">
-            <a href="/" className="btn btn-primary">Terminar Sessão</a>
+          <div class="logout-button">
+            <a href="/" class="btn btn-primary">Terminar Sessão</a>
           </div>
         </div>
 
-        <div id="content" className="col-md-9">
-          <h2>Orçamentos</h2>
-          <div className="budget-container">
+        <div id="content" class="col-md-9">
+          <h2 class="tituloadmin">Orçamentos</h2>
+          <div class="budget-container">
             {budgetItems.length === 0 ? (
               <p>Não há orçamentos disponíveis.</p>
             ) : (
               budgetItems.map(item => (
                 <div 
                   key={item.id} 
-                  className={`budget-item ${expandedItems[item.id] ? 'expanded' : ''}`} 
+                  class={`budget-item ${expandedItems[item.id] ? 'expanded' : ''}`} 
                   onClick={() => toggleExpand(item.id)}
                 >
-                  <div className="details">
+                  <div class="details">
                     <strong>Orçamento #{item.id}</strong>
                     {expandedItems[item.id] && (
-                      <div className="extra-details">
+                      <div class="extra-details">
                         <p>{item.text}</p>
                         <h5>Detalhes do Orçamento:</h5>
                         <ul>
@@ -210,7 +212,7 @@ const Orcamentos = ({ token }) => {
                           <li>Quantidade: {item.quantidade}</li>
                           <li>Preço do Orçamento: ${item.precoorcamento}</li>
                         </ul>
-                        <button className="btn btn-success respond-button" onClick={() => handleRespond(item.id)}>
+                        <button class="btn btn-success respond-button" onClick={() => handleRespond(item.id)}>
                           Responder
                         </button>
                       </div>
@@ -222,7 +224,6 @@ const Orcamentos = ({ token }) => {
           </div>
         </div>
       </div>
-    </div>
   );
 };
 

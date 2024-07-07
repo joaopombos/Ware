@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
-import '../CSS/listadmin.css';
+import '../CSS/ware.css';
 
 const ListAdmin = () => {
   const [softwares, setSoftwares] = useState([]);
@@ -69,40 +69,43 @@ const ListAdmin = () => {
   }
 
   return (
-    <div className="body-container">
-      <div id="sidebar">
-        <div className="logo">
+    <div class="body-container">
+      <div class="sidebar">
+        <div class="logo">
           <img src="/images/Logos/logotipo copy.svg" alt="Logo" />
         </div>
-        <ul className="components">
+        <ul class="components">
           <li>
-            <a href="/add/admin"><i className="fas fa-plus"></i> Adicionar Software/Addon</a>
-          </li>
-          <li className="active">
-            <a href="/list/admin"><i className="fas fa-list"></i> Listar Softwares/Addons</a>
+            <a href="/add/admin"><i class="fas fa-plus"></i> Adicionar Software/Addon</a>
           </li>
           <li>
-            <a href="/budget/admin"><i className="fas fa-file-invoice-dollar"></i> Orçamentos</a>
+              <a href="/edit/admin"><i class="fas fa-plus"></i> Editar/Atualizar Software</a>
+          </li>
+          <li class="active">
+            <a href="/list/admin"><i class="fas fa-list"></i> Listar Softwares/Addons</a>
           </li>
           <li>
-            <a href="/metrics/admin"><i className="fas fa-chart-line"></i> Métricas de vendas</a>
+            <a href="/budget/admin"><i class="fas fa-file-invoice-dollar"></i> Orçamentos</a>
+          </li>
+          <li>
+            <a href="/metrics/admin"><i class="fas fa-chart-line"></i> Métricas de vendas</a>
           </li>
         </ul>
-        <div className="logout-button">
-          <a href="/" className="btn btn-primary">Terminar Sessão</a>
+        <div class="logout-button">
+          <a href="/" class="btn btn-primary">Terminar Sessão</a>
         </div>
       </div>
 
       <div id="content">
-        <div className="list-header d-flex align-items-center justify-content-between">
+        <div class="list-header d-flex align-items-center justify-content-between">
           <h2 style={{ marginBottom: '3%', flex: '1' }}>Listar {tipoListagem === 'softwares' ? 'Softwares' : 'Addons'}</h2>
-          <select id="tipoListagem" className="form-control" value={tipoListagem} onChange={handleTipoChange}>
+          <select id="tipoListagem" class="form-control" value={tipoListagem} onChange={handleTipoChange}>
             <option value="softwares">Softwares</option>
             <option value="addons">Addons</option>
           </select>
         </div>
-        {error && <div className="alert alert-danger">{error}</div>}
-        <table className="software-list-table">
+        {error && <div class="alert alert-danger">{error}</div>}
+        <table class="software-list-table">
           <thead>
             <tr>
               <th>Logotipo</th>
@@ -117,17 +120,17 @@ const ListAdmin = () => {
             {softwares.map(software => (
               <tr key={software.idproduto}>
                 <td>
-                  {software.logotipo && <img src={`data:image/png;base64,${software.logotipo}`} alt={software.nome} className="software-image" />}
+                  {software.logotipo && <img src={`data:image/png;base64,${software.logotipo}`} alt={software.nome} class="software-image" />}
                 </td>
                 <td>
-                  {software.imagenssoftware && <img src={`data:image/png;base64,${software.imagenssoftware}`} alt={software.nome} className="software-image" />}
+                  {software.imagenssoftware && <img src={`data:image/png;base64,${software.imagenssoftware}`} alt={software.nome} class="software-image" />}
                 </td>
                 <td>{software.nome}</td>
                 <td>{software.versao}</td>
                 <td>{software.classificacaoMedia ? software.classificacaoMedia.toFixed(1) : 'N/A'}</td>
-                <td className="actions">
-                  <button className="btn btn-primary" onClick={() => handleEdit(software.idproduto)} style={{ width: '120px', marginRight: '10px' }}>Editar</button>
-                  <button className="btn btn-danger btn-block" onClick={() => handleDelete(software.idproduto)} style={{ width: '120px' }}>Eliminar</button>
+                <td class="actions">
+                  <button class="btn btn-primary" onClick={() => handleEdit(software.idproduto)} style={{ width: '120px', marginRight: '10px' }}>Editar</button>
+                  <button class="btn btn-danger btn-block" onClick={() => handleDelete(software.idproduto)} style={{ width: '120px' }}>Eliminar</button>
                 </td>
               </tr>
             ))}
