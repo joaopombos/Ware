@@ -12,15 +12,6 @@ const { Op } = require('sequelize');
 
 const shopController = {};
 
-shopController.listForUser = async (req, res) => {
-  try {
-    const { userId } = req.params;
-    const purchases = await Purchase.findAll({ where: { userId }, include: [App] });
-    res.json(purchases);
-  } catch (error) {
-    res.status(500).json({ error: 'Error fetching purchases' });
-  }
-};
 
 shopController.listCategoriesOrSoftwares = async (req, res) => {
     const { type, query } = req.query; // 'type' is used instead of 'tipo' for consistency in the shop context
@@ -65,29 +56,6 @@ shopController.listCategoriesOrSoftwares = async (req, res) => {
 
 
 
-
-shopController.listCategoriesOrAddons = async (req, res) => {
-    try {
-        const addons = await Addons.findAll({
-            attributes: [
-                'idaddon',
-                'logotipo',
-                'nome',
-                'descricao',
-                'preco'
-            ],
-            order: [['nome', 'ASC']]
-        });
-        res.json(addons);
-    } catch (error) {
-        res.status(500).json({ error: 'Error fetching all addons' });
-    }
-};
-
-
-
-
-
 shopController.softwareDetails = async (req, res) => {
     const { idproduto } = req.params; // Captura o 'idproduto' dos parâmetros da rota
 
@@ -102,90 +70,6 @@ shopController.softwareDetails = async (req, res) => {
     } catch (error) {
         console.error('Error retrieving software details:', error);
         res.status(500).json({ error: 'Error retrieving software details' });
-    }
-};
-
-
-shopController.addonDetails = async (req, res) => {
-    const { idaddon } = req.params; // Assuming the identifier for addons is idaddon
-  
-    try {
-      const addon = await Addons.findByPk(idaddon);
-  
-      if (!addon) {
-        return res.status(404).json({ error: 'Addon not found' });
-      }
-  
-      res.json(addon);
-    } catch (error) {
-      console.error('Error retrieving addon details:', error);
-      res.status(500).json({ error: 'Error retrieving addon details' });
-    }
-  };
-
-
-shopController.confirmOrder = async (req, res) => {
-    const { idvenda } = req.params;
-  
-    try {
-        const pedido = await Pedidos.findByPk(idvenda, {
-            include: [{
-                model: TipoSoftwares,
-                as: 'softwares',
-                required: true
-            }]
-        });
-  
-        if (!pedido) {
-            return res.status(404).json({ error: 'Order not found' });
-        }
-  
-        const softwares = await TipoSoftwares.findAll({
-            where: { idproduto: pedido.idproduto },
-            order: ['nome']
-        });
-  
-        res.json({
-            pedido,
-            softwares,
-            total: pedido.precofinal
-        });
-    } catch (error) {
-        res.status(500).json({ error: 'Error confirming order' });
-    }
-  };
-  
-
-
-shopController.realizarCompra = async (req, res) => {
-    const { quantidade, produtoId } = req.body;
-    const { nif } = req.user;
-
-    try {
-        const software = await TipoSoftwares.findByPk(produtoId);
-        if (!software) {
-            return res.status(404).json({ error: 'Software not found' });
-        }
-
-        const novoPedido = await Pedidos.create({
-            idproduto: produtoId,
-            idcliente: nif,
-            quantidade,
-            precofinal: software.precoproduto * quantidade,
-            status: 'pendente'
-        });
-
-
-        await Licencas.bulkCreate(Array.from({ length: quantidade }).map(() => ({
-            idpedido: novoPedido.id,
-            idsoftware: produtoId,
-            status: 'ativa'
-        })));
-
-        res.status(201).json({ message: 'Compra realizada com sucesso', pedido: novoPedido });
-    } catch (error) {
-        console.error('Error completing purchase:', error);
-        res.status(500).json({ error: 'Error completing purchase' });
     }
 };
 
@@ -243,11 +127,5 @@ shopController.purchaseSuccess = async (req, res) => {
 
 
   
-
-
-
-
-
-
 
 module.exports = shopController;

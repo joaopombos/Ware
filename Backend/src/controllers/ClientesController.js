@@ -17,16 +17,6 @@ function generatePassword() {
 }
 
 
-clientesController.list = async (req, res) => {
-  try {
-    const clients = await Clientes.findAll({ include: [Empresas, TipoUser] });
-    res.json(clients);
-  } catch (error) {
-    res.status(500).json({ error: 'Erro ao buscar clientes' });
-  }
-};
-
-
 clientesController.createSignup = async (req, res) => {
   try {
     const { nomeempresa, emp_nif, localizacao, contacto_empresa, nome, email, contacto_cliente, nif } = req.body;
@@ -83,38 +73,6 @@ clientesController.createSignup = async (req, res) => {
 
   } catch (error) {
     res.status(500).json({ error: 'Erro ao criar cliente', details: error.message });
-  }
-};
-
-
-clientesController.update = async (req, res) => {
-  try {
-    const { NIF } = req.params;
-    const { EMP_NIF, IDUSER, NOME, EMAIL, CODIGOPESSOAL, CONTACTO } = req.body;
-    const client = await Clientes.findByPk(NIF);
-    if (client) {
-      await client.update({ EMP_NIF, IDUSER, NOME, EMAIL, CODIGOPESSOAL, CONTACTO });
-      res.json(client);
-    } else {
-      res.status(404).json({ error: 'Cliente não encontrado' });
-    }
-  } catch (error) {
-    res.status(500).json({ error: 'Erro ao atualizar cliente' });
-  }
-};
-
-clientesController.delete = async (req, res) => {
-  try {
-    const { NIF } = req.params;
-    const client = await Clientes.findByPk(NIF);
-    if (client) {
-      await client.destroy();
-      res.json({ message: 'Cliente deletado' });
-    } else {
-      res.status(404).json({ error: 'Cliente não encontrado' });
-    }
-  } catch (error) {
-    res.status(500).json({ error: 'Erro ao deletar cliente' });
   }
 };
 

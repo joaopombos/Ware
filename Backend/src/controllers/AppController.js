@@ -264,19 +264,6 @@ adminController.listAcquiredSoftwares = async (req, res) => {
 
 
 
-adminController.listAddons = async (req, res) => {
-    const { idproduto } = req.params;
-
-    try {
-        const addons = await Addons.findAll({ where: { idproduto } });
-        res.json(addons);
-    } catch (error) {
-        res.status(500).json({ error: 'Error fetching addons' });
-    }
-};
-
-
-
 
 adminController.compareAndUpdateSoftware = async (req, res) => {
     const { chaveproduto } = req.params;

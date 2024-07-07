@@ -19,7 +19,6 @@ router.get('/logout/admin', clientesController.logoutadmin);
 // Rotas de loja acessíveis aos comprador
 router.get('/shop/softwares', isAuthenticated, isBuyer, comprasController.listCategoriesOrSoftwares);                 
 router.get('/shop/:idproduto/', isAuthenticated, comprasController.softwareDetails);             
-router.get('/addons/:idaddon', isAuthenticated, comprasController.addonDetails);
 router.post('/shop/compra/', isAuthenticated, isBuyer, comprasController.purchaseSuccess);                       
 router.get('/shop/:idvenda/success', isAuthenticated, isBuyer, comprasController.purchaseSuccess);     
 
@@ -27,7 +26,6 @@ router.get('/shop/:idvenda/success', isAuthenticated, isBuyer, comprasController
 router.get('/library', isAuthenticated, appController.listAcquiredSoftwares);             
 router.get('/license/:chaveproduto', isAuthenticated, licencaController.getSoftwareLicenses);
 router.put('/license/:chaveproduto', isAuthenticated, licencaController.updateLicense);
-router.get('/addons', isAuthenticated, appController.listAddons);                          
 router.get('/upgrade/software', isAuthenticated, appController.compareAndUpdateSoftware);  
 
 // Rotas do administrador
