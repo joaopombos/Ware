@@ -3,8 +3,6 @@ import React, { useState, useEffect } from 'react';
     import 'bootstrap/dist/css/bootstrap.min.css';
     import 'bootstrap-icons/font/bootstrap-icons.css';
     import 'bootstrap/dist/js/bootstrap.bundle.min';
-    import '../CSS/ware.css'; // Importe o arquivo CSS separado
-
     
     const Shop = () => {
         const [items, setItems] = useState([]);
@@ -48,13 +46,13 @@ import React, { useState, useEffect } from 'react';
         
     
         const renderCard = (item) => (
-            <div class="col-sm-2 mb-4" key={item.idproduto} style={{ margin: '15px' }}>
-                <div class="card h-100" style={{ textAlign: 'center' }}>
-                    <button class="btn-img" onClick={() => handleButtonClick(item.idproduto, type)} style={{ padding: '0', border: 'none', background: 'none' }}>
+            <div className="col-sm-2 mb-4" key={item.idproduto} style={{ margin: '15px' }}>
+                <div className="card h-100" style={{ textAlign: 'center' }}>
+                    <button className="btn-img" onClick={() => handleButtonClick(item.idproduto, type)} style={{ padding: '0', border: 'none', background: 'none' }}>
                         <img src={`data:image/png;base64,${item.logotipo}`} alt={item.nome} style={{ width: '100%', height: 'auto' }} />
                     </button>
-                    <div class="card-body">
-                        <h5 class="card-title">{item.nome}</h5>
+                    <div className="card-body">
+                        <h5 className="card-title">{item.nome}</h5>
                         <p>{item.descricao}</p>
                     </div>
                 </div>
@@ -63,95 +61,97 @@ import React, { useState, useEffect } from 'react';
     
         return (
             <div>
-            <nav class="navbar navbar-expand-lg bg-dark">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="/signup/comprador">
-                        <img class="warelogo" src="/images/Logos/logo.png" alt="Ware Logo" />
-                    </a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-                        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                        <div class="navbar-nav">
-                            <a class="nav-link text-white" href="/shop">Explorar</a>
-                            <a class="nav-link active text-white" aria-current="page" href="/library">Gestão</a>
+                {/* NAVBAR */}
+                <nav className="navbar navbar-expand-lg bg-dark">
+                    <div className="container-fluid">
+                        <a className="navbar-brand" href="/signup/comprador">
+                            <img src="/images/Logos/logo.png" alt="Ware Logo" style={{ width: '20%' }} />
+                        </a>
+                        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                            <span className="navbar-toggler-icon"></span>
+                        </button>
+                        <div className="collapse navbar-collapse" id="navbarNavAltMarkup" style={{ marginLeft: '-32%' }}>
+                            <div className="navbar-nav">
+                                <a className="nav-link text-white" href="/shop">Explore</a>
+                                <a className="nav-link active text-white" href="/library">Management</a>
+                            </div>
                         </div>
+                        <form className="d-flex" role="search">
+                            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                            <button className="btn btn-outline-light" type="submit" style={{ marginRight: '10px' }}>Search</button>
+                        </form>
+                        <a href="/" className="btn btn-primary">Log Out</a>
                     </div>
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Procurar" aria-label="Search" />
-                        <button class="btn btn-outline-light" type="submit">Procurar</button>
-                    </form>
-                    <a href="/" class="btn btn-primary">Terminar Sessão</a>
-                </div>
-            </nav>
+                </nav>
+                {/* END NAVBAR */}
     
-                <div class="container mt-3">
-                    <div class="row justify-content-center">
-                        <div class="col-auto">
-                            <button class={`btn btn-outline-primary ${type === 'softwares' ? 'active' : ''}`}
+                <div className="container mt-3">
+                    <div className="row justify-content-center">
+                        <div className="col-auto">
+                            <button className={`btn btn-outline-primary ${type === 'softwares' ? 'active' : ''}`}
                                 onClick={() => handleTypeChange('softwares')}>
                                 Softwares
                             </button>
                         </div>
-                        <div class="col-auto">
-                            <button class={`btn btn-outline-primary ${type === 'addons' ? 'active' : ''}`}
+                        <div className="col-auto">
+                            <button className={`btn btn-outline-primary ${type === 'addons' ? 'active' : ''}`}
                                 onClick={() => handleTypeChange('addons')}>
                                 Addons
                             </button>
                         </div>
                     </div>
                 </div>
-                <div class="container mt-5">
-                    <div class="row">
+                <div className="container mt-5">
+                    <div className="row">
                         {items.map(renderCard)}
                     </div>
                 </div>
     
                 {/* RECOMMENDATIONS */}
-                <hr class="custom-hr" />
-                <h1 class="titulo">Recomendado para si</h1>
+                <hr className="custom-hr" />
+                <h1 style={{ marginLeft: '5%', marginTop: '5%', marginBottom: '5%' }}>Recommended for You</h1>
     
-                <div id="carouselrecomendado" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <div class="row justify-content-center">
+                <div id="carouselrecomendado" className="carousel slide" data-bs-ride="carousel">
+                    <div className="carousel-inner">
+                        <div className="carousel-item active">
+                            <div className="row justify-content-center">
                                 {/* Example recommendation cards */}
-                                <div class="col-6 d-flex flex-column align-items-center">
-                                    <div class="cardup card card-custom mt-3">
-                                        <div class="row no-gutters align-items-center">
-                                        <div class="col-md-3">
-                                            <img src="images/newicons/asana.png" class="card-img" alt="..." />
-                                        </div>
-                                        <div class="col-md-8 d-flex justify-content-between align-items-center">
-                                            <div class="card-body">
-                                                <p class="card-text">Comunicação</p>
-                                                <h5 class="card-title">Asana</h5>
+                                <div className="col-6 d-flex flex-column align-items-center">
+                                    <div className="card card-custom mt-3" style={{ width: '70%', boxShadow: '5px 0 10px rgba(0, 0, 0, 0.1)', border: 'none' }}>
+                                        <div className="row no-gutters align-items-center">
+                                            <div className="col-md-3">
+                                                <img src="/images/newicons/asana.png" className="card-img" alt="..." />
                                             </div>
-                                            <a href="/shop/:idproduto/" class="btnup btn btn-dark btn-sm">Saber mais</a>
+                                            <div className="col-md-8 d-flex justify-content-between align-items-center">
+                                                <div className="card-body">
+                                                    <p className="card-text">Communication</p>
+                                                    <h5 className="card-title">Asana</h5>
+                                                </div>
+                                                <a href="/shop" className="btn btn-dark btn-sm" style={{ marginRight: '-15px' }}>Learn More</a>
+                                            </div>
                                         </div>
-                                    </div>
                                     </div>
                                 </div>
                                 {/* More examples can be added here */}
                             </div>
                         </div>
                     </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselrecomendado" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
+                    <button className="carousel-control-prev" type="button" data-bs-target="#carouselrecomendado" data-bs-slide="prev">
+                        <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span className="visually-hidden">Previous</span>
                     </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselrecomendado" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
+                    <button className="carousel-control-next" type="button" data-bs-target="#carouselrecomendado" data-bs-slide="next">
+                        <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span className="visually-hidden">Next</span>
                     </button>
                 </div>
                 {/* END RECOMMENDATIONS */}
     
                 {/* FOOTER */}
-                <footer class="footer bg-dark text-light">
-                    <div class="container d-flex justify-content-center align-items-center">
-                        <span class="text-center">&copy; Ware 2024</span>
+                <footer className="footer bg-dark text-light">
+                    <div className="container d-flex justify-content-center align-items-center">
+                        <span className="text-center">&copy; Ware 2024</span>
                     </div>
                 </footer>
                 {/* END FOOTER */}
@@ -160,4 +160,3 @@ import React, { useState, useEffect } from 'react';
     };
     
     export default Shop;
-    
