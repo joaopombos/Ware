@@ -4,6 +4,7 @@ const Clientes = require('../models/clientes');
 const SoftwaresAdquiridos = require('../models/softwaresadquiridos');
 const LicencasAtribuidas = require('../models/licencasatribuidas');
 const tiposoftadd = require('../models/tiposoftadd');
+const Versoes = require('../models/versoes');
 const nodemailer = require('nodemailer');
 const { Op } = require('sequelize');
 
@@ -75,6 +76,9 @@ adminController.updateSoftware = async (req, res) => {
             return res.status(404).json({ error: 'Software not found' });
         }
 
+        // Check if the version has changed
+        const versaoChanged = software.versao !== versao;
+
         // Função para converter base64 para Buffer
         const base64ToBuffer = (base64String) => {
             if (!base64String) return null;
@@ -93,9 +97,17 @@ adminController.updateSoftware = async (req, res) => {
             idtipo
         };
 
-
-
         await software.update(updateData);
+
+        // If the version has changed, add a new entry to Versoes
+        if (versaoChanged) {
+            const novaVersao = await Versoes.create({
+                versao: versao,
+                datamodifi: new Date(), // Set the current date
+                idproduto: idproduto
+            });
+            console.log('Versão adicionada:', novaVersao);
+        }
 
         res.json(software);
     } catch (error) {
@@ -103,6 +115,7 @@ adminController.updateSoftware = async (req, res) => {
         res.status(500).json({ error: 'Error updating software' });
     }
 };
+
 
 
 adminController.deleteSoftware = async (req, res) => {
@@ -151,12 +164,22 @@ adminController.addSoftware = async (req, res) => {
 
         console.log('Software adicionado:', novoSoftware);
 
-        res.status(201).json(novoSoftware);
+        // Add an entry to Versoes
+        const novaVersao = await Versoes.create({
+            versao: versao,
+            datamodifi: new Date(), // Set the current date
+            idproduto: idproduto
+        });
+
+        console.log('Versão adicionada:', novaVersao);
+
+        res.status(201).json({ novoSoftware, novaVersao });
     } catch (error) {
         console.error('Erro ao adicionar software:', error);
         res.status(500).json({ error: 'Erro ao adicionar software.' });
     }
 };
+
 
 adminController.listBudgets = async (req, res) => {
     try {
