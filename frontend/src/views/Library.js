@@ -4,6 +4,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import axios from 'axios';
+import '../CSS/ware.css';
+
 
 const MySoftwares = () => {
     const [softwares, setSoftwares] = useState([]);
@@ -32,14 +34,14 @@ const MySoftwares = () => {
 
 
     const renderCard = (software) => (
-        <div className="col-sm-2 mb-4" key={software.chaveproduto} style={{ margin: '15px' }}>
-            <div className="card h-100" style={{ textAlign: 'center' }}>
-                <button className="btn-img" onClick={() => handleButtonClick(software.chaveproduto)} style={{ padding: '0', border: 'none', background: 'none' }}>
-                    <img src="/images/Logos/figma.png" className="card-img-top" alt={software.nome} style={{ width: '100%', height: 'auto' }} />
+        <div class="col-sm-2 mb-4" key={software.chaveproduto} style={{ margin: '15px' }}>
+            <div class="card h-100" style={{ textAlign: 'center' }}>
+                <button class="btn-img" onClick={() => handleButtonClick(software.chaveproduto)} style={{ padding: '0', border: 'none', background: 'none' }}>
+                    <img src="/images/Logos/figma.png" class="card-img-top" alt={software.nome} style={{ width: '100%', height: 'auto' }} />
                 </button>
-                <div className="card-body">
-                    <h5 className="card-title">{software.nome}</h5>
-                    <p className="card-text">Licenças: {software.licenses ? software.licenses.length : 0}</p>
+                <div class="card-body">
+                    <h5 class="card-title">{software.nome}</h5>
+                    <p class="card-text">Licenças: {software.licenses ? software.licenses.length : 0}</p>
                 </div>
             </div>
         </div>
@@ -53,43 +55,43 @@ const MySoftwares = () => {
     }
 
     return (
-        <div className="d-flex flex-column min-vh-100">
+        <div class="d-flex flex-column min-vh-100">
             {/* NAVBAR */}
-            <nav className="navbar navbar-expand-lg bg-dark">
-                <div className="container-fluid">
-                    <a className="navbar-brand" href="/signup/comprador">
-                        <img src="/images/Logos/logo.png" style={{ width: '20%' }} alt="Ware Logo" />
+            <nav class="navbar navbar-expand-lg bg-dark">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="/signup/comprador">
+                        <img src="/images/Logos/logo.png" alt="Ware Logo" />
                     </a>
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
                         aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
+                        <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div className="collapse navbar-collapse" id="navbarNavAltMarkup" style={{ marginLeft: '-32%' }}>
-                        <div className="navbar-nav">
-                            <a className="nav-link text-white" href="/shop">Explorar</a>
-                            <a className="nav-link active text-white" aria-current="page" href="/library">Gestão</a>
+                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                        <div class="navbar-nav">
+                            <a class="nav-link text-white" href="/shop">Explorar</a>
+                            <a class="nav-link active text-white" aria-current="page" href="/library">Gestão</a>
                         </div>
                     </div>
-                    <form className="d-flex" role="search">
-                        <input className="form-control me-2" type="search" placeholder="Procurar" aria-label="Search" />
-                        <button className="btn btn-outline-light" type="submit" style={{ marginRight: '10px' }}>Procurar</button>
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Procurar" aria-label="Search" />
+                        <button class="btn btn-outline-light" type="submit">Procurar</button>
                     </form>
-                    <a href="/" className="btn btn-primary">Terminar Sessão</a>
+                    <a href="/" class="btn btn-primary">Terminar Sessão</a>
                 </div>
             </nav>
             {/* FIM NAVBAR */}
 
-            <h1 className="my-5" style={{ marginLeft: '5%' }}>Os meus softwares</h1>
+            <h1 class="titulo">Os meus softwares</h1>
 
-            <div className="container" style={{ marginBottom: '5%', marginTop: '-1%' }}>
-                <div className="row">
+            <div class="librarycont container">
+                <div class="row">
                     {softwares.map(renderCard)}
                 </div>
             </div>
 
-            <footer className="footer bg-dark text-light fixed-bottom">
-                <div className="container d-flex justify-content-center align-items-center">
-                    <span className="text-center">&copy; Ware 2024</span>
+            <footer class="footer bg-dark text-light fixed-bottom">
+                <div class="container d-flex justify-content-center align-items-center">
+                    <span class="text-center">&copy; Ware 2024</span>
                 </div>
             </footer>
         </div>

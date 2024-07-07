@@ -2,23 +2,24 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
-import '../CSS/shopsucess.css';
+import '../CSS/ware.css';
 
 const Success = () => {
     return (
         <div class="d-flex flex-column min-vh-100">
             <nav class="navbar navbar-expand-lg bg-dark">
                 <div class="container-fluid">
-                    <a href="/shop" class="navbar-brand">
-                        <img src="/images/Logos/logo.png" style={{ width: '20%' }} alt="Ware Logo" />
-                    </a>
+                    <a class="navbar-brand" href="/"><img class="warelogo" src="images/Logos/logo.png" alt="Ware Logo" /></a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
                         aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNavAltMarkup"></div>
-                    <a href="/home" class="btn btn-outline-light me-2" role="button">Terminar Sessão</a>
-
+                    <a href="/login">
+                        <button class="btn btn-outline-light me-2" type="button">
+                            Iniciar Sessão
+                        </button>
+                    </a>
                 </div>
             </nav>
 

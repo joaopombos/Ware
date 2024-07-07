@@ -1,29 +1,9 @@
-import axios from 'axios';
 import React, { useState } from "react";
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import '../CSS/ware.css';
 
 
 export default function EditComponent() {
-    const [campTitulo, setCampTitulo] = useState("");
-    const [campDescricao, setCampDescricao] = useState("");
-    const [campFoto, setCampFoto] = useState("");
-    const [selectGeneroId, setSelectGeneroId] = useState("");
-
-    const handleFotoChange = (event) => {
-        const file = event.target.files[0];
-
-        if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                const fotoBase64 = reader.result;
-                setCampFoto(fotoBase64);
-            };
-            reader.readAsDataURL(file);
-        }
-    };
-
-
     return (
         <div>
             {/* NAVBAR */}
@@ -45,7 +25,7 @@ export default function EditComponent() {
             {/* FIM NAVBAR */}
 
             {/* ESPAÇO HEROI */}
-            <div className="heroi" style={{ backgroundImage: `url('images/fundos/fundo.jpg')` }}>
+            <div class="heroi" style={{ backgroundImage: `url('images/fundos/fundo.jpg')` }}>
             <div class="textoheroi">
                     <h1 class="tituloheroi">Conectar empresas</h1>
                     <h1 class="tituloheroi1">com soluções inteligentes</h1>

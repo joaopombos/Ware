@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import Chart from 'chart.js/auto';
-import '../CSS/metricsadmin.css';
+import '../CSS/ware.css';
 
 const Metrics = () => {
   const totalPriceChartRef = useRef(null);
@@ -74,44 +74,47 @@ const Metrics = () => {
     }
 
   return (
-    <div className="body-container">
-      <div id="sidebar">
-        <div className="logo">
+    <div class="body-container">
+      <div class="sidebar">
+        <div class="logo">
           <img src="/images/Logos/logotipo copy.svg" alt="Logo" />
         </div>
-        <ul className="components">
+        <ul class="components">
           <li>
-            <a href="/add/admin"><i className="fas fa-plus"></i> Adicionar Software</a>
+            <a href="/add/admin"><i class="fas fa-plus"></i> Adicionar Software/Addon</a>
           </li>
           <li>
-            <a href="/list/admin"><i className="fas fa-list"></i> Listar Software</a>
+              <a href="/edit/admin"><i class="fas fa-plus"></i> Editar/Atualizar Software</a>
           </li>
           <li>
-            <a href="/budget/admin"><i className="fas fa-file-invoice-dollar"></i> Orçamentos</a>
+            <a href="/list/admin"><i class="fas fa-list"></i> Listar Software/Addons</a>
           </li>
-          <li className="active">
-            <a href="/metrics/admin/"><i className="fas fa-chart-line"></i> Métricas de vendas</a>
+          <li>
+            <a href="/budget/admin"><i class="fas fa-file-invoice-dollar"></i> Orçamentos</a>
+          </li>
+          <li class="active">
+            <a href="/metrics/admin/"><i class="fas fa-chart-line"></i> Métricas de vendas</a>
           </li>
         </ul>
-        <div className="logout-button">
-          <a href="/" className="btn btn-primary">Terminar Sessão</a>
+        <div class="logout-button">
+          <a href="/" class="btn btn-primary">Terminar Sessão</a>
         </div>
       </div>
 
       <div id="content">
-        <h2 style={{ marginBottom: '3%' }}>Métricas de vendas</h2>
-        {error && <div className="alert alert-danger">{error}</div>}
-        <div className="chart-wrapper">
-          <div className="chart-container">
-            <h5 className="card-title">Preço total</h5>
+        <h2 class="tituloadmin">Métricas de vendas</h2>
+        {error && <div class="alert alert-danger">{error}</div>}
+        <div class="chart-wrapper">
+          <div class="chart-container">
+            <h5 class="card-title">Preço total</h5>
             <canvas id="totalPriceChart"></canvas>
           </div>
-          <div className="chart-container">
-            <h5 className="card-title">Média de preço</h5>
+          <div class="chart-container">
+            <h5 class="card-title">Média de preço</h5>
             <canvas id="averagePriceChart"></canvas>
           </div>
-          <div className="chart-container">
-            <h5 className="card-title">Total de Orçamentos</h5>
+          <div class="chart-container">
+            <h5 class="card-title">Total de Orçamentos</h5>
             <canvas id="totalBudgetsChart"></canvas>
           </div>
         </div>

@@ -1,37 +1,39 @@
 import React from 'react';
-import '../CSS/budgetadminorc.css'; // Import the separated CSS file
+import '../CSS/ware.css';
 
 const Orcamentos = () => {
   return (
-    <div class="container-fluid">
-      <div class="row">
-      <div id="sidebar" className="col-md-3">
-          <div className="logo">
+    <div class="body-container">
+      <div class="sidebar">
+          <div class="logo">
             <img src="/images/Logos/logotipo copy.svg" alt="Logo" />
           </div>
-          <ul className="list-unstyled components">
+          <ul class="list-unstyled components">
             <li>
-              <a href="/add/admin"><i className="fas fa-plus"></i> Adicionar Software</a>
+              <a href="/add/admin"><i class="fas fa-plus"></i> Adicionar Software/Addon</a>
             </li>
             <li>
-              <a href="/list/admin"><i className="fas fa-list"></i> Listar Software</a>
-            </li>
-            <li className="active">
-              <a href="/budget/admin"><i className="fas fa-file-invoice-dollar"></i> Orçamentos</a>
+              <a href="/edit/admin"><i class="fas fa-plus"></i> Editar/Atualizar Software</a>
             </li>
             <li>
-              <a href="/metrics/admin/"><i className="fas fa-chart-line"></i> Métricas de vendas</a>
+              <a href="/list/admin"><i class="fas fa-list"></i> Listar Software/Addons</a>
+            </li>
+            <li class="active">
+              <a href="/budget/admin"><i class="fas fa-file-invoice-dollar"></i> Orçamentos</a>
+            </li>
+            <li>
+              <a href="/metrics/admin/"><i class="fas fa-chart-line"></i> Métricas de vendas</a>
             </li>
           </ul>
-          <div className="logout-button">
-            <a href="/" className="btn btn-primary">Terminar Sessão</a>
+          <div class="logout-button">
+            <a href="/" class="btn btn-primary">Terminar Sessão</a>
           </div>
         </div>
 
         <div id="content" class="col-md-9">
-          <h2>Orçamentos</h2>
-          <div class="budget-container">
-            <div class="budget-item">
+          <h2 class="tituloadmin">Orçamentos</h2>
+          <div class="adminbudcont budget-container">
+            <div class="adminbudit budget-item">
               <h4>Orçamento #345</h4>
               <div class="client-info">
                 <p><strong>Nome Cliente:</strong> Nome do Cliente</p>
@@ -58,14 +60,13 @@ const Orcamentos = () => {
               </table>
               <div class="response-container">
                 <label htmlFor="response">Resposta</label>
-                <textarea id="response" class="form-control response-textarea"></textarea>
+                <textarea id="response" class="formadmin form-control response-textarea"></textarea>
               </div>
               <button class="btn btn-success respond-button mt-2">Responder</button>
             </div>
           </div>
         </div>
       </div>
-    </div>
   );
 }
 

@@ -5,6 +5,8 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { Modal, Button, Form } from 'react-bootstrap';
+import '../CSS/ware.css';
+
 
 const License = () => {
     const { chaveproduto } = useParams();
@@ -88,44 +90,37 @@ const License = () => {
     }
 
     return (
-        <div className="d-flex flex-column min-vh-100">
-            {/* NAVBAR */}
-            <nav className="navbar navbar-expand-lg bg-dark">
-                <div className="container-fluid">
-                    <a className="navbar-brand" href="/signup/comprador">
-                        <img src="/images/Logos/logo.png" style={{ width: '20%' }} alt="Ware Logo" />
-                    </a>
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+        <div class="d-flex flex-column min-vh-100">
+           {/* NAVBAR */}
+           <nav class="navbar navbar-expand-lg bg-dark">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="/"><img class="warelogo" src="images/Logos/logo.png" alt="Ware Logo" /></a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
                         aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
+                        <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div className="collapse navbar-collapse" id="navbarNavAltMarkup" style={{ marginLeft: '-32%' }}>
-                        <div className="navbar-nav">
-                            <a className="nav-link text-white" href="/shop">Explorar</a>
-                            <a className="nav-link active text-white" aria-current="page" href="/library">Gestão</a>
-                        </div>
-                    </div>
-                    <form className="d-flex" role="search">
-                        <input className="form-control me-2" type="search" placeholder="Procurar" aria-label="Search" />
-                        <button className="btn btn-outline-light" type="submit" style={{ marginRight: '10px' }}>Procurar</button>
-                    </form>
-                    <a href="/" className="btn btn-primary">Terminar Sessão</a>
+                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup"></div>
+                    <a href="/login">
+                        <button class="btn btn-outline-light me-2" type="button">
+                            Iniciar Sessão
+                        </button>
+                    </a>
                 </div>
             </nav>
             {/* FIM NAVBAR */}
 
-            <h1 className="my-5" style={{ marginLeft: '5%' }}>Licenças para {software.nome}</h1>
+            <h1 class="titulo">Licenças para {software.nome}</h1>
 
-            <div className="container" style={{ marginBottom: '5%', marginTop: '-1%' }}>
-                <div className="row">
+            <div class="contlice container">
+                <div class="row">
                     {licenses.map(license => (
-                        <div className="col-sm-3 mb-4" key={license.idatribuida} style={{ margin: '20px' }}>
-                            <div className="card h-100" style={{ width: '200px', height: '300px', textAlign: 'center' }}>
-                                <div className="card-body d-flex flex-column justify-content-center align-items-center">
-                                    <h5 className="card-title">PC: {license.nomepc}</h5>
-                                    <p className="card-text">Data: {new Date(license.dataatri).toLocaleDateString()}</p>
-                                    <button className="btn btn-primary mb-2" onClick={() => handleUpdateModalOpen(license)}>Atualizar</button>
-                                    <button className="btn btn-danger mt-auto" onClick={() => handleLicenseRemove(license.idatribuida)}>Remover</button>
+                        <div class="licen col-sm-3 mb-4" key={license.idatribuida}>
+                            <div class="cardlice card h-100">
+                                <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                                    <h5 class="card-title">PC: {license.nomepc}</h5>
+                                    <p class="card-text">Data: {new Date(license.dataatri).toLocaleDateString()}</p>
+                                    <button class="btn btn-primary mb-2" onClick={() => handleUpdateModalOpen(license)}>Atualizar</button>
+                                    <button class="btn btn-danger mt-auto" onClick={() => handleLicenseRemove(license.idatribuida)}>Remover</button>
                                 </div>
                             </div>
                         </div>
@@ -133,9 +128,9 @@ const License = () => {
                 </div>
             </div>
 
-            <footer className="footer bg-dark text-light fixed-bottom">
-                <div className="container d-flex justify-content-center align-items-center">
-                    <span className="text-center">&copy; Ware 2024</span>
+            <footer class="footer bg-dark text-light fixed-bottom">
+                <div class="container d-flex justify-content-center align-items-center">
+                    <span class="text-center">&copy; Ware 2024</span>
                 </div>
             </footer>
 

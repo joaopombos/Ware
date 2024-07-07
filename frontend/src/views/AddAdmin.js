@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import '../CSS/addadmin.css'; // Importe o arquivo CSS separado
+import '../CSS/ware.css'; // Importe o arquivo CSS separado
 
 const AddSoftware = () => {
   const [nome, setNome] = useState('');
@@ -124,79 +124,82 @@ const AddSoftware = () => {
   }
 
   return (
-    <div className="body-container">
-      <div id="sidebar">
-        <div className="logo">
+    <div class="body-container">
+      <div class="sidebar">
+        <div class="logo">
           <img src="/images/Logos/logotipo copy.svg" alt="Logo" />
         </div>
-        <ul className="components">
-          <li className="active">
-            <a href="/add/admin"><i className="fas fa-plus"></i> Adicionar Software/Addon</a>
+        <ul class="components">
+          <li class="active">
+            <a href="/add/admin"><i class="fas fa-plus"></i> Adicionar Software/Addon</a>
           </li>
           <li>
-            <a href="/list/admin"><i className="fas fa-list"></i> Listar Softwares/Addons</a>
+              <a href="/edit/admin"><i class="fas fa-plus"></i> Editar/Atualizar Software</a>
           </li>
           <li>
-            <a href="/budget/admin"><i className="fas fa-file-invoice-dollar"></i> Orçamentos</a>
+            <a href="/list/admin"><i class="fas fa-list"></i> Listar Softwares/Addons</a>
           </li>
           <li>
-            <a href="/metrics/admin/"><i className="fas fa-chart-line"></i> Métricas de vendas</a>
+            <a href="/budget/admin"><i class="fas fa-file-invoice-dollar"></i> Orçamentos</a>
+          </li>
+          <li>
+            <a href="/metrics/admin/"><i class="fas fa-chart-line"></i> Métricas de vendas</a>
           </li>
         </ul>
-        <div className="logout-button">
-          <a href="/" className="btn btn-primary">Terminar Sessão</a>
+        <div class="logout-button">
+          <a href="/" class="btn btn-primary">Terminar Sessão</a>
         </div>
       </div>
 
       <div id="content">
-        <h2>Adicionar Software/Addon</h2>
-        <div className="form-container">
-          <div className="row">
-            <div className="col-md-6">
+        <h2 class="tituloadmin">Adicionar Software/Addon</h2>
+        <div class="form-container">
+          <div class="row">
+            <div class="col-md-6">
               <label htmlFor="nome">Nome</label>
-              <input type="text" className="form-control" id="nome" value={nome} onChange={(e) => setNome(e.target.value)} placeholder="Nome" />
-              <label htmlFor="descricao" className="mt-3">Descrição</label>
-              <textarea className="form-control" id="descricao" value={descricao} onChange={(e) => setDescricao(e.target.value)} rows="3" placeholder="Descrição"></textarea>
-              <label htmlFor="categoria" className="mt-3">Categoria</label>
-              <input type="text" className="form-control" id="categoria" value={categoria} onChange={(e) => setCategoria(e.target.value)} placeholder="Categoria" />
-              <label htmlFor="versao" className="mt-3">Versão do Software</label>
-              <input type="text" className="form-control" id="versao" value={versao} onChange={(e) => setVersao(e.target.value)} placeholder="Versão do Software" />
-              <label htmlFor="precoproduto" className="mt-3">Preço</label>
-              <input type="text" className="form-control" id="precoproduto" value={precoproduto} onChange={(e) => setPrecoProduto(e.target.value)} placeholder="Preço" />
-              <label htmlFor="idproduto" className="mt-3">ID do Produto</label>
+              <input type="text" class="formadmin form-control" id="nome" value={nome} onChange={(e) => setNome(e.target.value)} placeholder="Nome" />
+              <label htmlFor="descricao" class="mt-3">Descrição</label>
+              <textarea class="formadmin form-control" id="descricao" value={descricao} onChange={(e) => setDescricao(e.target.value)} rows="3" placeholder="Descrição"></textarea>
+              <label htmlFor="categoria" class="mt-3">Categoria</label>
+              <input type="text" class="formadmin form-control" id="categoria" value={categoria} onChange={(e) => setCategoria(e.target.value)} placeholder="Categoria" />
+              <label htmlFor="versao" class="mt-3">Versão do Software</label>
+              <input type="text" class="formadmin form-control" id="versao" value={versao} onChange={(e) => setVersao(e.target.value)} placeholder="Versão do Software" />
+              <label htmlFor="precoproduto" class="mt-3">Preço</label>
+              <input type="text" class="formadmin form-control" id="precoproduto" value={precoproduto} onChange={(e) => setPrecoProduto(e.target.value)} placeholder="Preço" />
+              <label htmlFor="idproduto" class="mt-3">ID do Produto</label>
               <input
                 type="number"
-                className="form-control"
+                class="form-control"
                 id="idproduto"
                 value={idproduto}
                 onChange={(e) => setIdProduto(e.target.value)}
                 placeholder="ID do Produto"
               />
-              <label htmlFor="idtipo" className="mt-3">Tipo</label>
-              <select className="form-control" id="idtipo" value={idtipo} onChange={handleTipoChange}>
+              <label htmlFor="idtipo" class="mt-3">Tipo</label>
+              <select class="formadmin form-control" id="idtipo" value={idtipo} onChange={handleTipoChange}>
                 <option value="">Selecione o tipo</option>
                 <option value="1">Software</option>
                 <option value="2">Addon</option>
               </select>
             </div>
-            <div className="col-md-6">
-              <label htmlFor="logotipo" className="mt-3">Logotipo</label>
-              <div className="file-upload-container">
-                <input type="file" id="logotipo" className="form-control-file" onChange={handleLogotipoChange} />
+            <div class="col-md-6">
+              <label htmlFor="logotipo" class="mt-3">Logotipo</label>
+              <div class="file-upload-container">
+                <input type="file" id="logotipo" class="formadmin form-control-file" onChange={handleLogotipoChange} />
                 <p>JPG, PNG ou PDF, tamanho máximo de 10MB</p>
-                <button className="btn btn-primary">Selecionar arquivo</button>
+                <button class="btn btn-primary">Selecionar arquivo</button>
               </div>
-              <label htmlFor="imagenssoftware" className="mt-3">Imagens do Software</label>
-              <div className="file-upload-container">
-                <input type="file" id="imagenssoftware" className="form-control-file" onChange={handleImagensSoftwareChange} />
+              <label htmlFor="imagenssoftware" class="mt-3">Imagens do Software</label>
+              <div class="file-upload-container">
+                <input type="file" id="imagenssoftware" class="formadmin form-control-file" onChange={handleImagensSoftwareChange} />
                 <p>JPG, PNG ou PDF, tamanho máximo de 10MB</p>
-                <button className="btn btn-primary">Selecionar arquivo</button>
+                <button class="btn btn-primary">Selecionar arquivo</button>
               </div>
             </div>
           </div>
-          <div className="row">
-            <div className="col-12 text-end">
-              <button className="btn btn-danger" onClick={handleSubmit}>Guardar</button>
+          <div class="row">
+            <div class="col-12 text-end">
+              <button class="btn btn-danger" onClick={handleSubmit}>Guardar</button>
             </div>
           </div>
         </div>
