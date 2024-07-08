@@ -5,6 +5,7 @@ const Pedidos = require('../models/pedidos');
 const LicencasAtribuidas = require('../models/licencasatribuidas');
 const SoftwaresAdquiridos = require('../models/softwaresadquiridos');
 const TipoSoftwares = require('../models/tipossoftwares');
+const Versoes = require('../models/versoes');
 const tiposoftadd = require('../models/tiposoftadd');
 const Clientes = require('../models/clientes');
 const { Op } = require('sequelize');
@@ -134,6 +135,18 @@ shopController.purchaseSuccess = async (req, res) => {
     } catch (error) {
         console.error('Erro ao processar compra:', error.message, error.stack);
         res.status(500).json({ error: 'Erro ao processar compra' });
+    }
+};
+
+shopController.getVersionsByProductId = async (req, res) => {
+    const { idproduto } = req.params;
+
+    try {
+        const versions = await Versoes.findAll({ where: { idproduto } });
+        res.json(versions);
+    } catch (error) {
+        console.error('Error fetching versions:', error);
+        res.status(500).json({ error: 'Error fetching versions' });
     }
 };
 

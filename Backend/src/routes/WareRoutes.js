@@ -20,7 +20,8 @@ router.get('/logout/admin', clientesController.logoutadmin);
 router.get('/shop/softwares', isAuthenticated, isBuyer, comprasController.listCategoriesOrSoftwares);                 
 router.get('/shop/:idproduto/', isAuthenticated, comprasController.softwareDetails);             
 router.post('/shop/compra/', isAuthenticated, isBuyer, comprasController.purchaseSuccess);                       
-router.get('/shop/:idvenda/success', isAuthenticated, isBuyer, comprasController.purchaseSuccess);     
+router.get('/shop/:idvenda/success', isAuthenticated, isBuyer, comprasController.purchaseSuccess); 
+router.get('/versions/:idproduto', isAuthenticated, isBuyer, comprasController.getVersionsByProductId);    
 
 // Rotas de biblioteca acessíveis aos compradores e gestores
 router.get('/library', isAuthenticated, appController.listAcquiredSoftwares);             

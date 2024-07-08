@@ -12,6 +12,7 @@ export default function ShopProd() {
     const [showorcModal, setShoworcModal] = useState(false);
     const [showCompraModal, setShowCompraModal] = useState(false);
     const [quantidadeLicencas, setQuantidadeLicencas] = useState(1);
+    const [versions, setVersions] = useState([]); // Add this state
 
     const query = new URLSearchParams(location.search);
     const type = query.get('type');
@@ -36,7 +37,21 @@ export default function ShopProd() {
         fetchItem();
     }, [idproduto, type]);
 
-    const handleModalhistOpen = () => setShowhistModal(true);
+    const handleModalhistOpen = async () => {
+        setShowhistModal(true);
+        try {
+            const response = await axios.get(`http://localhost:3000/versions/${idproduto}`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                },
+                withCredentials: true
+            });
+            setVersions(response.data); // Set the fetched versions
+        } catch (error) {
+            console.error('Error fetching versions:', error);
+        }
+    };
+
     const handleModalhistClose = () => setShowhistModal(false);
     const handleModalorcOpen = () => setShoworcModal(true);
     const handleModalorcClose = () => setShoworcModal(false);
@@ -146,16 +161,19 @@ export default function ShopProd() {
                             </Modal.Header>
                             <Modal.Body>
                                 <Form>
-                                    {item.versao && (
-                                        <Form.Group controlId="formVersao">
-                                            <Form.Label>Versão do Item</Form.Label>
-                                            <Form.Control
-                                                type="text"
-                                                placeholder="Insira a versão do item"
-                                                value={item.versao}
-                                                readOnly
-                                            />
-                                        </Form.Group>
+                                    {versions.length > 0 ? (
+                                        versions.map((version) => (
+                                            <Form.Group controlId={`formVersao${version.idversao}`} key={version.idversao}>
+                                                <Form.Label>Versão: {version.versao}</Form.Label>
+                                                <Form.Control
+                                                    type="text"
+                                                    value={`Data: ${new Date(version.datamodifi).toLocaleDateString()}`}
+                                                    readOnly
+                                                />
+                                            </Form.Group>
+                                        ))
+                                    ) : (
+                                        <p>No versions available.</p>
                                     )}
                                 </Form>
                             </Modal.Body>
