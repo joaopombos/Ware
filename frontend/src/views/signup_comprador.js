@@ -17,17 +17,24 @@ export default function EditComponent() {
             {/* NAVBAR */}
             <nav class="navbar navbar-expand-lg bg-dark">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="/"><img class="warelogo" src="images/Logos/logo.png" alt="Ware Logo" /></a>
+                    <a class="navbar-brand" href="/signup/comprador">
+                        <img class="warelogo" src="/images/Logos/logo.png" alt="Ware Logo" />
+                    </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
                         aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup"></div>
-                    <a href="/login">
-                        <button class="btn btn-outline-light me-2" type="button">
-                            Iniciar Sessão
-                        </button>
-                    </a>
+                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                        <div class="navbar-nav">
+                            <a class="nav-link text-white" href="/shop">Explorar</a>
+                            <a class="nav-link active text-white" aria-current="page" href="/library">Gestão</a>
+                        </div>
+                    </div>
+                    <form class="d-flex me-3" role="search">
+                        <input class="navform form-control me-2" type="search" placeholder="Procurar" aria-label="Search" />
+                        <button class="btn btn-outline-light" type="submit">Procurar</button>
+                    </form>
+                    <a href="/" class="btn btn-primary">Terminar Sessão</a>
                 </div>
             </nav>
             {/* FIM NAVBAR */}
@@ -42,7 +49,7 @@ export default function EditComponent() {
                         <div class="row justify-content-center">
                             <div class="col-md-3">
                                 <div class="cardvendidos card mb-3">
-                                    <img src="images/mais_vendidos/Illustrator.jpg" class="card-img-top img-fluid" alt="Adobe Illustrator" />
+                                    <img src="/images/mais_vendidos/Illustrator.jpg" class="card-img-top img-fluid" alt="Adobe Illustrator" />
                                     <div class="card-body">
                                         <h5 class="card-title mb-2">Adobe Illustrator</h5>
                                         <p class="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
@@ -54,7 +61,7 @@ export default function EditComponent() {
                             </div>
                             <div class="col-md-3">
                                 <div class="cardvendidos card mb-3">
-                                    <img src="images/mais_vendidos/Davinci.jpg" class="card-img-top img-fluid" alt="DaVinci Resolve" />
+                                    <img src="/images/mais_vendidos/Davinci.jpg" class="card-img-top img-fluid" alt="DaVinci Resolve" />
                                     <div class="card-body">
                                         <h5 class="card-title mb-2">DaVinci Resolve</h5>
                                         <p class="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
@@ -66,7 +73,7 @@ export default function EditComponent() {
                             </div>
                             <div class="col-md-3">
                                 <div class="cardvendidos card mb-3">
-                                    <img src="images/mais_vendidos/Sketchup.jpg" class="card-img-top img-fluid" alt="SketchUp" />
+                                    <img src="/images/mais_vendidos/Sketchup.jpg" class="card-img-top img-fluid" alt="SketchUp" />
                                     <div class="card-body">
                                         <h5 class="card-title mb-2">SketchUp</h5>
                                         <p class="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
@@ -82,7 +89,7 @@ export default function EditComponent() {
                         <div class="row justify-content-center">
                             <div class="col-md-3">
                                 <div class="cardvendidos card mb-3">
-                                    <img src="images/mais_vendidos/Zoom.jpg" class="card-img-top img-fluid" alt="Zoom" />
+                                    <img src="/images/mais_vendidos/Zoom.jpg" class="card-img-top img-fluid" alt="Zoom" />
                                     <div class="card-body">
                                         <h5 class="card-title mb-2">Zoom</h5>
                                         <p class="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
@@ -94,7 +101,7 @@ export default function EditComponent() {
                             </div>
                             <div class="col-md-3">
                                 <div class="cardvendidos card mb-3">
-                                    <img src="images/mais_vendidos/VisualStudio.jpg" class="card-img-top img-fluid" alt="Microsoft Excel" />
+                                    <img src="/images/mais_vendidos/VisualStudio.jpg" class="card-img-top img-fluid" alt="Microsoft Excel" />
                                     <div class="card-body">
                                         <h5 class="card-title mb-2">Microsoft Excel</h5>
                                         <p class="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
@@ -106,7 +113,7 @@ export default function EditComponent() {
                             </div>
                             <div class="col-md-3">
                                 <div class="cardvendidos card mb-3">
-                                    <img src="images/mais_vendidos/Wordpress.jpg" class="card-img-top img-fluid" alt="AutoCAD" />
+                                    <img src="/images/mais_vendidos/Wordpress.jpg" class="card-img-top img-fluid" alt="AutoCAD" />
                                     <div class="card-body">
                                         <h5 class="card-title mb-2">AutoCAD</h5>
                                         <p class="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
@@ -142,7 +149,7 @@ export default function EditComponent() {
                                 <div class="cardup card card-custom" >
                                     <div class="row no-gutters align-items-center">
                                         <div class="col-md-3">
-                                            <img src="images/newicons/excel.png" class="card-img" alt="..." />
+                                            <img src="/images/newicons/excel.png" class="card-img" alt="..." />
                                         </div>
                                         <div class="col-md-8 d-flex justify-content-between align-items-center">
                                             <div class="card-body">
@@ -156,7 +163,7 @@ export default function EditComponent() {
                                 <div class="cardup card card-custom mt-3">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col-md-3">
-                                            <img src="images/newicons/asana.png" class="card-img" alt="..." />
+                                            <img src="/images/newicons/asana.png" class="card-img" alt="..." />
                                         </div>
                                         <div class="col-md-8 d-flex justify-content-between align-items-center">
                                             <div class="card-body">
@@ -172,7 +179,7 @@ export default function EditComponent() {
                                 <div class="cardup card card-custom">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col-md-3">
-                                            <img src="images/newicons/dropbox.png" class="card-img" alt="..." />
+                                            <img src="/images/newicons/dropbox.png" class="card-img" alt="..." />
                                         </div>
                                         <div class="col-md-8 d-flex justify-content-between align-items-center">
                                             <div class="card-body">
@@ -186,7 +193,7 @@ export default function EditComponent() {
                                 <div class="cardup card card-custom mt-3">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col-md-3">
-                                            <img src="images/newicons/miro.png" class="card-img" alt="..." />
+                                            <img src="/images/newicons/miro.png" class="card-img" alt="..." />
                                         </div>
                                         <div class="col-md-8 d-flex justify-content-between align-items-center">
                                             <div class="card-body">
@@ -206,7 +213,7 @@ export default function EditComponent() {
                                 <div class="cardup card card-custom">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col-md-3">
-                                            <img src="images/newicons/notion.png" class="card-img" alt="..." />
+                                            <img src="/images/newicons/notion.png" class="card-img" alt="..." />
                                         </div>
                                         <div class="col-md-8 d-flex justify-content-between align-items-center">
                                             <div class="card-body">
@@ -220,7 +227,7 @@ export default function EditComponent() {
                                 <div class="cardup card card-custom mt-3">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col-md-3">
-                                            <img src="images/newicons/fcp.png" class="card-img" alt="..." />
+                                            <img src="/images/newicons/fcp.png" class="card-img" alt="..." />
                                         </div>
                                         <div class="col-md-8 d-flex justify-content-between align-items-center">
                                             <div class="card-body">
@@ -236,7 +243,7 @@ export default function EditComponent() {
                                 <div class="cardup card card-custom">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col-md-3">
-                                            <img src="images/newicons/office.png" class="card-img" alt="..." />
+                                            <img src="/images/newicons/office.png" class="card-img" alt="..." />
                                         </div>
                                         <div class="col-md-8 d-flex justify-content-between align-items-center">
                                             <div class="card-body">
@@ -250,7 +257,7 @@ export default function EditComponent() {
                                 <div class="cardup card card-custom mt-3">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col-md-3">
-                                            <img src="images/newicons/slack.png" class="card-img" alt="..." />
+                                            <img src="/images/newicons/slack.png" class="card-img" alt="..." />
                                         </div>
                                         <div class="col-md-8 d-flex justify-content-between align-items-center">
                                             <div class="card-body">
@@ -284,7 +291,7 @@ export default function EditComponent() {
             <div class="avrow row">
                 <div class="col-md-3 mb-4">
                     <div class="cardvav card">
-                        <img src="images/icons/aspas.png" class="aspas card-img-top img-fluid mx-auto d-block" alt="..." />
+                        <img src="/images/icons/aspas.png" class="aspas card-img-top img-fluid mx-auto d-block" alt="..." />
                         <div class="card-body text-center">
                             <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisi lacus, venenatis at
                                 est id, tristique viverra mauris. </p>
@@ -295,7 +302,7 @@ export default function EditComponent() {
                 </div>
                 <div class="col-md-3 mb-4">
                     <div class="cardvav card">
-                        <img src="images/icons/aspas.png" class="aspas card-img-top img-fluid mx-auto d-block" alt="..." />
+                        <img src="/images/icons/aspas.png" class="aspas card-img-top img-fluid mx-auto d-block" alt="..." />
                         <div class="card-body text-center">
                             <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisi lacus, venenatis at
                                 est id, tristique viverra mauris. </p>
@@ -306,7 +313,7 @@ export default function EditComponent() {
                 </div>
                 <div class="col-md-3 mb-4">
                     <div class="cardvav card">
-                        <img src="images/icons/aspas.png" class="aspas card-img-top img-fluid mx-auto d-block" alt="..." />
+                        <img src="/images/icons/aspas.png" class="aspas card-img-top img-fluid mx-auto d-block" alt="..." />
                         <div class="card-body text-center">
                             <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisi lacus, venenatis at
                                 est id, tristique viverra mauris. </p>

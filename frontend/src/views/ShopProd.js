@@ -92,28 +92,28 @@ export default function ShopProd() {
             {item && (
                 <>
                     {/* NAVBAR */}
-                    <nav className="navbar navbar-expand-lg bg-dark">
-                        <div className="container-fluid">
-                            <a className="navbar-brand" href="/signup/comprador">
-                                <img src="/images/Logos/logo.png" style={{ width: '20%' }} alt="Ware Logo" />
-                            </a>
-                            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-                                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                                <span className="navbar-toggler-icon"></span>
-                            </button>
-                            <div className="collapse navbar-collapse" id="navbarNavAltMarkup" style={{ marginLeft: '-32%' }}>
-                                <div className="navbar-nav">
-                                    <a className="nav-link text-white" href="/shop">Explorar</a>
-                                    <a className="nav-link active text-white" aria-current="page" href="/library">Gestão</a>
-                                </div>
-                            </div>
-                            <form className="d-flex" role="search">
-                                <input className="form-control me-2" type="search" placeholder="Procurar" aria-label="Search" />
-                                <button className="btn btn-outline-light" type="submit" style={{ marginRight: '10px' }}>Procurar</button>
-                            </form>
-                            <a href="/" className="btn btn-primary">Terminar Sessão</a>
+                    <nav class="navbar navbar-expand-lg bg-dark">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="/signup/comprador">
+                        <img class="warelogo" src="/images/Logos/logo.png" alt="Ware Logo" />
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                        <div class="navbar-nav">
+                            <a class="nav-link text-white" href="/shop">Explorar</a>
+                            <a class="nav-link active text-white" aria-current="page" href="/library">Gestão</a>
                         </div>
-                    </nav>
+                    </div>
+                    <form class="d-flex me-3" role="search">
+                        <input class="navform form-control me-2" type="search" placeholder="Procurar" aria-label="Search" />
+                        <button class="btn btn-outline-light" type="submit">Procurar</button>
+                    </form>
+                    <a href="/" class="btn btn-primary">Terminar Sessão</a>
+                </div>
+            </nav>
                     {/* FIM NAVBAR */}
 
                     <div className="container mt-4">

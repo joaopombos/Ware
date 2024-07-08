@@ -35,8 +35,8 @@ const ShopConfirm = () => {
                             <a class="nav-link active text-white" aria-current="page" href="/library">Gestão</a>
                         </div>
                     </div>
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Procurar" aria-label="Search" />
+                    <form class="d-flex me-3" role="search">
+                        <input class="navform form-control me-2" type="search" placeholder="Procurar" aria-label="Search" />
                         <button class="btn btn-outline-light" type="submit">Procurar</button>
                     </form>
                     <a href="/" class="btn btn-primary">Terminar Sessão</a>

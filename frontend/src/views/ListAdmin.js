@@ -99,7 +99,7 @@ const ListAdmin = () => {
       <div id="content">
         <div class="list-header d-flex align-items-center justify-content-between">
           <h2 style={{ marginBottom: '3%', flex: '1' }}>Listar {tipoListagem === 'softwares' ? 'Softwares' : 'Addons'}</h2>
-          <select id="tipoListagem" class="form-control" value={tipoListagem} onChange={handleTipoChange}>
+          <select id="tipoListagem" class="dropdown" value={tipoListagem} onChange={handleTipoChange}>
             <option value="softwares">Softwares</option>
             <option value="addons">Addons</option>
           </select>
