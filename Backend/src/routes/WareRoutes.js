@@ -27,7 +27,6 @@ router.get('/versions/:idproduto', isAuthenticated, isBuyer, comprasController.g
 router.get('/library', isAuthenticated, appController.listAcquiredSoftwares);             
 router.get('/license/:chaveproduto', isAuthenticated, licencaController.getSoftwareLicenses);
 router.put('/license/:chaveproduto', isAuthenticated, licencaController.updateLicense);
-router.get('/upgrade/software', isAuthenticated, appController.compareAndUpdateSoftware);  
 
 // Rotas do administrador
 router.get('/list/admin', isAuthenticated, isAdmin, appController.listSoftwares);                       
@@ -38,6 +37,11 @@ router.post('/add/admin', isAuthenticated, isAdmin, appController.addSoftware);
 router.get('/budget/admin', isAuthenticated, isAdmin, appController.listBudgets);                      
 router.get('/budget/admin/:idorca', isAuthenticated, isAdmin, appController.getBudgetDetails);          
 router.post('/budget/admin/:idorca', isAuthenticated, isAdmin, appController.respondToBudget);         
-router.get('/metrics/admin', isAuthenticated, isAdmin, analyticsController.getMetrics);            
+router.get('/metrics/admin', isAuthenticated, isAdmin, analyticsController.getMetrics);
+router.get('/admin/clientes', isAuthenticated, isAdmin, appController.listClientes);
+router.get('/admin/clientes/:nif', isAuthenticated, isAdmin, appController.getClientByNif);
+router.put('/admin/clientes/:nif', isAuthenticated, isAdmin, appController.updateClient);
+router.delete('/admin/clientes/:nif', isAuthenticated, isAdmin, appController.deleteClient);  
+router.get('/admin/empresas', isAuthenticated, isAdmin, appController.listEmpresas);        
 
 module.exports = router;

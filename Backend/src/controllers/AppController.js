@@ -3,6 +3,8 @@ const Orcamentos = require('../models/orcamentos');
 const Clientes = require('../models/clientes');
 const SoftwaresAdquiridos = require('../models/softwaresadquiridos');
 const LicencasAtribuidas = require('../models/licencasatribuidas');
+const Empresas = require('../models/empresas');
+const TipoUser = require('../models/tipouser');
 const tiposoftadd = require('../models/tiposoftadd');
 const Versoes = require('../models/versoes');
 const nodemailer = require('nodemailer');
@@ -286,34 +288,123 @@ adminController.listAcquiredSoftwares = async (req, res) => {
 };
 
 
+adminController.listClientes = async (req, res) => {
+    const { tipo, query } = req.query;
 
-
-adminController.compareAndUpdateSoftware = async (req, res) => {
-    const { chaveproduto } = req.params;
+    let whereCondition = {};
+    if (query) {
+        whereCondition = {
+            nome: {
+                [Op.iLike]: `%${query}%`
+            }
+        };
+    }
 
     try {
-        const softwareAdquirido = await SoftwaresAdquiridos.findOne({ where: { chaveproduto } });
-        if (!softwareAdquirido) {
-            return res.status(404).json({ error: 'Acquired software not found' });
+        let clientes;
+        if (tipo === 'comprador-gestor') {
+            clientes = await Clientes.findAll({ where: { ...whereCondition, iduser: 1 } }); // Comprador Gestor
+        } else if (tipo === 'gestor') {
+            clientes = await Clientes.findAll({ where: { ...whereCondition, iduser: 2 } }); // Gestor
+        } else {
+            clientes = await Clientes.findAll({ where: whereCondition }); // If no specific type, fetch all
         }
 
-        const tipoSoftware = await TipoSoftwares.findOne({ where: { idproduto: softwareAdquirido.idproduto } });
-        if (!tipoSoftware) {
-            return res.status(404).json({ error: 'Software type not found' });
-        }
+        // No binary fields to convert in Clientes model
+        console.log('Clientes:', clientes); // Debugging line
 
-        if (softwareAdquirido.versaoadquirida !== tipoSoftware.versao) {
-            await softwareAdquirido.update({
-                nome: tipoSoftware.nome,
-                versaoadquirida: tipoSoftware.versao
-            });
-            return res.json({ message: 'Software updated successfully', softwareAdquirido });
-        }
-
-        res.json({ message: 'Software is up to date', softwareAdquirido });
+        res.json(clientes);
     } catch (error) {
-        res.status(500).json({ error: 'Error comparing and updating software' });
+        console.error(error);
+        res.status(500).json({ error: 'Error fetching clientes' });
     }
 };
+
+adminController.getClientByNif = async (req, res) => {
+    const { nif } = req.params;
+
+    try {
+        const client = await Clientes.findByPk(nif);
+        if (!client) {
+            return res.status(404).json({ error: 'Client not found' });
+        }
+        res.json(client);
+    } catch (error) {
+        console.error('Error fetching client:', error);
+        res.status(500).json({ error: 'Error fetching client' });
+    }
+};
+
+adminController.updateClient = async (req, res) => {
+    const { nif } = req.params;
+    const { nome, email, codigopessoal, contacto, iduser, emp_nif } = req.body;
+
+    try {
+        // Fetch the client
+        const client = await Clientes.findByPk(nif);
+        if (!client) {
+            return res.status(404).json({ error: 'Client not found' });
+        }
+
+        // Check if the provided emp_nif exists in the Empresas table
+        const empresa = await Empresas.findByPk(emp_nif);
+        if (!empresa) {
+            return res.status(404).json({ error: 'Empresa not found' });
+        }
+
+        // Check if the provided iduser exists in the TipoUser table
+        const userType = await TipoUser.findByPk(iduser);
+        if (!userType) {
+            return res.status(404).json({ error: 'User type not found' });
+        }
+
+        // Update the client
+        const updateData = {
+            nome,
+            email,
+            codigopessoal,
+            contacto,
+            iduser,
+            emp_nif
+        };
+
+        await client.update(updateData);
+
+        res.json(client);
+    } catch (error) {
+        console.error('Error updating client:', error);
+        res.status(500).json({ error: 'Error updating client' });
+    }
+};
+
+adminController.deleteClient = async (req, res) => {
+    const { nif } = req.params;
+
+    try {
+        const client = await Clientes.findByPk(nif);
+        if (!client) {
+            return res.status(404).json({ error: 'Client not found' });
+        }
+
+        await client.destroy();
+        res.json({ message: 'Client deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting client:', error);
+        res.status(500).json({ error: 'Error deleting client' });
+    }
+};
+
+adminController.listEmpresas = async (req, res) => {
+    try {
+        const empresas = await Empresas.findAll({
+            attributes: ['nif', 'nomeempresa']
+        });
+        res.json(empresas);
+    } catch (error) {
+        console.error('Error fetching empresas:', error);
+        res.status(500).json({ error: 'Error fetching empresas' });
+    }
+};
+
 module.exports = adminController;
 
