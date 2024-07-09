@@ -60,7 +60,7 @@ const MySoftwares = () => {
             <nav class="navbar navbar-expand-lg bg-dark">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="/signup/comprador">
-                        <img src="/images/Logos/logo.png" alt="Ware Logo" />
+                        <img class="warelogo" src="/images/Logos/logo.png" alt="Ware Logo" />
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
                         aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -72,8 +72,8 @@ const MySoftwares = () => {
                             <a class="nav-link active text-white" aria-current="page" href="/library">Gestão</a>
                         </div>
                     </div>
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Procurar" aria-label="Search" />
+                    <form class="d-flex me-3" role="search">
+                        <input class="navform form-control me-2" type="search" placeholder="Procurar" aria-label="Search" />
                         <button class="btn btn-outline-light" type="submit">Procurar</button>
                     </form>
                     <a href="/" class="btn btn-primary">Terminar Sessão</a>
