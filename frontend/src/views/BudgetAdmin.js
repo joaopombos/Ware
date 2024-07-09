@@ -165,21 +165,21 @@ const Orcamentos = ({ token }) => {
         <div class="logo">
           <img src="/images/Logos/logotipo copy.svg" alt="Logo" />
         </div>
-        <ul class="list-unstyled components">
+        <ul class="components">
           <li>
             <a href="/add/admin"><i class="fas fa-plus"></i> Adicionar Software/Addon</a>
           </li>
           <li>
-            <a href="/edit/admin"><i class="fas fa-plus"></i> Editar/Atualizar Software</a>
+            <a href="/list/admin"><i class="fas fa-list"></i> Listar Softwares/Addons</a>
           </li>
           <li>
-            <a href="/list/admin"><i class="fas fa-list"></i> Listar Softwares/Addons</a>
+            <a href="/list/admin/clientes"><i class="fas fa-list"></i> Listar Clientes</a>
           </li>
           <li class="active">
             <a href="/budget/admin"><i class="fas fa-file-invoice-dollar"></i> Orçamentos</a>
           </li>
           <li>
-            <a href="/metrics/admin/"><i class="fas fa-chart-line"></i> Métricas de vendas</a>
+            <a href="/metrics/admin"><i class="fas fa-chart-line"></i> Métricas de vendas</a>
           </li>
         </ul>
         <div class="logout-button">

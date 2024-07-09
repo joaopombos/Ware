@@ -78,11 +78,11 @@ const ListAdmin = () => {
           <li>
             <a href="/add/admin"><i class="fas fa-plus"></i> Adicionar Software/Addon</a>
           </li>
-          <li>
-              <a href="/edit/admin"><i class="fas fa-plus"></i> Editar/Atualizar Software</a>
-          </li>
           <li class="active">
             <a href="/list/admin"><i class="fas fa-list"></i> Listar Softwares/Addons</a>
+          </li>
+          <li>
+            <a href="/list/admin/clientes"><i class="fas fa-list"></i> Listar Clientes</a>
           </li>
           <li>
             <a href="/budget/admin"><i class="fas fa-file-invoice-dollar"></i> Orçamentos</a>

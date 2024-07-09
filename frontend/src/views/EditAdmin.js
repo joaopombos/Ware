@@ -112,30 +112,30 @@ const SoftwareUpdate = () => {
     return (
         <div class="body-container">
             <div class="sidebar">
-                <div class="logo">
-                    <img src="/images/Logos/logotipo copy.svg" alt="Logo" />
-                </div>
-                <ul class="components">
-                    <li>
-                        <a href="/add/admin"><i class="fas fa-plus"></i> Adicionar Software/Addon</a>
-                    </li>
-                    <li class="active">
-                        <a href="/edit/admin"><i class="fas fa-plus"></i> Editar/Atualizar Software</a>
-                    </li>
-                    <li>
-                        <a href="/list/admin"><i class="fas fa-list"></i> Listar Softwares/Addons</a>
-                    </li>
-                    <li>
-                        <a href="/budget/admin"><i class="fas fa-file-invoice-dollar"></i> Orçamentos</a>
-                    </li>
-                    <li>
-                        <a href="/metrics/admin/"><i class="fas fa-chart-line"></i> Métricas de vendas</a>
-                    </li>
-                </ul>
-                <div class="logout-button">
-                    <a href="/" class="btn btn-primary">Terminar Sessão</a>
-                </div>
-            </div>
+        <div class="logo">
+          <img src="/images/Logos/logotipo copy.svg" alt="Logo" />
+        </div>
+        <ul class="components">
+          <li>
+            <a href="/add/admin"><i class="fas fa-plus"></i> Adicionar Software/Addon</a>
+          </li>
+          <li class="active">
+            <a href="/list/admin"><i class="fas fa-list"></i> Listar Softwares/Addons</a>
+          </li>
+          <li>
+            <a href="/list/admin/clientes"><i class="fas fa-list"></i> Listar Clientes</a>
+          </li>
+          <li>
+            <a href="/budget/admin"><i class="fas fa-file-invoice-dollar"></i> Orçamentos</a>
+          </li>
+          <li>
+            <a href="/metrics/admin"><i class="fas fa-chart-line"></i> Métricas de vendas</a>
+          </li>
+        </ul>
+        <div class="logout-button">
+          <a href="/" class="btn btn-primary">Terminar Sessão</a>
+        </div>
+      </div>
 
             <div id="content">
                 <h2 class="tituloadmin">Update Software</h2>

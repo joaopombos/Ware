@@ -84,16 +84,16 @@ const Metrics = () => {
             <a href="/add/admin"><i class="fas fa-plus"></i> Adicionar Software/Addon</a>
           </li>
           <li>
-              <a href="/edit/admin"><i class="fas fa-plus"></i> Editar/Atualizar Software</a>
+            <a href="/list/admin"><i class="fas fa-list"></i> Listar Softwares/Addons</a>
           </li>
           <li>
-            <a href="/list/admin"><i class="fas fa-list"></i> Listar Software/Addons</a>
+            <a href="/list/admin/clientes"><i class="fas fa-list"></i> Listar Clientes</a>
           </li>
           <li>
             <a href="/budget/admin"><i class="fas fa-file-invoice-dollar"></i> Orçamentos</a>
           </li>
           <li class="active">
-            <a href="/metrics/admin/"><i class="fas fa-chart-line"></i> Métricas de vendas</a>
+            <a href="/metrics/admin"><i class="fas fa-chart-line"></i> Métricas de vendas</a>
           </li>
         </ul>
         <div class="logout-button">
