@@ -336,38 +336,38 @@
     margin-bottom:3%;
   }
 
-  .software-list-table {
+  .software-list-table, .client-list-table{
     width: 100%;
     border-collapse: collapse;
   }
   
-  .software-list-table th, .software-list-table td {
+  .software-list-table th, .software-list-table td, .client-list-table th, .client-list-table td {
     padding: 10px;
     border: 1px solid #ddd;
     text-align: left;
   }
   
-  .software-list-table th {
+  .software-list-table th, .client-list-table th {
     background-color: #f2f2f2;
   }
   
-  .software-list-table td {
+  .software-list-table td, .client-list-table td {
     vertical-align: middle;
   }
   
-  .software-list-table img {
+  .software-list-table img, .client-list-table img {
     width: 40px;
     height: 40px;
     margin-right: 10px;
   }
   
-  .software-list-table .actions a {
+  .software-list-table .actions a, .client-list-table .actions a {
     margin-right: 10px;
     color: #007bff;
     text-decoration: none;
   }
   
-  .software-list-table .actions a:hover {
+  .software-list-table .actions a:hover , .client-list-table .actions a:hover {
     text-decoration: underline;
   }
 
