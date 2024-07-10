@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState } from "react";
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import '../CSS/ware.css';
+import Cookies from 'js-cookie'; // Importe js-cookie
 
 
 export default function EditComponent() {
@@ -13,19 +14,23 @@ export default function EditComponent() {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:3000/login', { email, codigopessoal }, { withCredentials: true });
-      const { token } = response.data;
-      console.log('Login successful', token);
-      window.location.href = '/signup/comprador';
+        const response = await axios.post('http://localhost:3000/login', { email, codigopessoal }, { withCredentials: true });
+        const { token, emp_nif } = response.data; // Supondo que emp_nif seja retornado do servidor
+        
+        localStorage.setItem('token', token); // Armazena o token no localStorage
+        Cookies.set('emp_nif', emp_nif, { expires: 1, path: '/' }); // Define expiração de 1 dia e caminho raiz '/'
+        console.log('Login successful', token);
+        window.location.href = '/signup/comprador';
     } catch (error) {
-      console.error('Login error', error);
-      if (error.response) {
-        setError(error.response.data.error);
-      } else {
-        setError('An unexpected error occurred');
-      }
+        console.error('Login error', error);
+        if (error.response) {
+            setError(error.response.data.error);
+        } else {
+            setError('An unexpected error occurred');
+        }
     }
-  };
+};
+
 
   return (
     <div class="loginpage">

@@ -80,14 +80,17 @@ clientesController.createSignup = async (req, res) => {
 const jwtSecret = 'seuSegredoAqui';
 
 clientesController.login = async (req, res) => {
-  const { email, codigopessoal } = req.body;
+  console.log(req.body);
+  const { email, codigopessoal, emp_nif } = req.body;
 
   try {
     if (!email || !codigopessoal) {
       return res.status(400).json({ error: 'Email e código pessoal são obrigatórios.' });
     }
 
-    const client = await Clientes.findOne({ where: { email } });
+    const client = await Clientes.findOne({ where: { email }, attributes: ['emp_nif', 'iduser', 'email', 'codigopessoal', 'nif'] });
+    console.log(client); // Verifique os campos retornados pelo cliente
+
 
     if (!client) {
       return res.status(401).json({ error: 'Credenciais inválidas' });
@@ -98,7 +101,7 @@ clientesController.login = async (req, res) => {
     }
 
     const token = jwt.sign(
-      { id: client.nif, email: client.email, iduser: client.iduser },
+      { id: client.nif, email: client.email, iduser: client.iduser, emp_nif: client.emp_nif },
       jwtSecret,
       { expiresIn: '1h' }
     );
@@ -106,6 +109,8 @@ clientesController.login = async (req, res) => {
     res.cookie('token', token, { httpOnly: true, secure: false, maxAge: 3600000 }); // 1 hora
     res.cookie('nif', client.nif, { httpOnly: true, secure: false, maxAge: 3600000 }); // 1 hora
     res.cookie('iduser', client.iduser, { httpOnly: true, secure: false, maxAge: 3600000 }); // 1 hora
+    res.cookie('emp_nif', client.emp_nif, { httpOnly: true, secure: false, maxAge: 3600000 }); // 1 hora
+
 
     res.status(200).json({ token });
   } catch (error) {
@@ -113,6 +118,7 @@ clientesController.login = async (req, res) => {
     res.status(500).json({ error: 'Erro no servidor' });
   }
 };
+
 
 clientesController.logout = (req, res) => {
   res.clearCookie('token');

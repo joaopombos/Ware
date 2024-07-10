@@ -58,17 +58,21 @@ const stripe = require('stripe')('sk_test_51JbCVGJuN2xREvwFmnv3dGbp3DupvLh7JtPUc
 
 
 
+
+
 shopController.purchaseSuccess = async (req, res) => {
     try {
         const { idproduto, nome, versao, quantidade, emp_nif } = req.body;
+        
+        // Validate input data
+        if (!idproduto || !nome || !quantidade || !emp_nif) {
+            return res.status(400).json({ error: 'Missing required fields' });
+        }
 
         const software = await TipoSoftwares.findByPk(idproduto);
         if (!software) {
             return res.status(404).json({ error: 'Software not found' });
         }
-
-        // Gerar uma chave aleatória única para cada compra
-        const chaveProduto = uuidv4(); // Ajuste conforme a lógica da sua aplicação
 
         // Verificar se o nif existe na tabela Empresas
         const empresa = await Empresas.findOne({ where: { nif: emp_nif } });
@@ -79,38 +83,24 @@ shopController.purchaseSuccess = async (req, res) => {
         // Criar a sessão de checkout com o Stripe
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
-            line_items: [
-                {
-                    price_data: {
-                        currency: 'eur',
-                        product_data: {
-                            name: software.nome,
-                        },
-                        unit_amount: software.precoproduto * 100,
+            line_items: [{
+                price_data: {
+                    currency: 'eur',
+                    product_data: {
+                        name: software.nome,
                     },
-                    quantity: quantidade,
+                    unit_amount: software.precoproduto * 100, // em centavos
                 },
-            ],
+                quantity: quantidade,
+            }],
             mode: 'payment',
-            success_url: 'http://localhost:3001/shop/success',
+            success_url: 'http://localhost:3001/shop/sucess',
             cancel_url: 'http://localhost:3001/shop/cancel',
         });
 
-        // Registrar a compra na tabela SoftwaresAdquiridos
-        for (let i = 0; i < quantidade; i++) {
-            const versaoadquirida = versao ? versao : null; // Se tiver uma versão especificada
-            const novaCompra = await SoftwaresAdquiridos.create({
-                nome: nome,
-                chaveproduto: chaveProduto,
-                nif: emp_nif,
-                versaoadquirida: versaoadquirida,
-            });
-            createdLicenses.push(novaCompra);
-        }
-
         res.json({
-            message: 'Compra realizada com sucesso',
-            chaveProduto: chaveProduto,
+            sessionId: session.id,
+            message: 'Sessão de checkout criada com sucesso',
         });
 
     } catch (error) {
@@ -118,6 +108,9 @@ shopController.purchaseSuccess = async (req, res) => {
         res.status(500).json({ error: 'Erro ao processar compra' });
     }
 };
+
+
+
 
 
 
