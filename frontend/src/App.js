@@ -32,8 +32,8 @@ function App() {
         <Route path="/signup/comprador" element={<SignupComprador />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/shop/:idproduto/" element={<ShopProd />} />
-        <Route path="/shop/:idvenda/confirm" element={<Shopconfirm />} />
-        <Route path="/shop/:idvenda/sucess" element={<ShopSucess />} />
+        <Route path="/shop/cancel" element={<Shopconfirm />} />
+        <Route path="/shop/sucess" element={<ShopSucess />} />
         <Route path="/edit/admin/:idproduto" element={<EditAdmin />} />
         <Route path="/add/admin" element={<AddAdmin />} />
         <Route path="/list/admin" element={<ListAdmin />} />

@@ -8,6 +8,7 @@ const TipoSoftwares = require('../models/tipossoftwares');
 const Versoes = require('../models/versoes');
 const tiposoftadd = require('../models/tiposoftadd');
 const Clientes = require('../models/clientes');
+const Empresas = require('../models/empresas');
 const { Op } = require('sequelize');
 
 
@@ -53,6 +54,73 @@ shopController.listCategoriesOrSoftwares = async (req, res) => {
     }
 };
 
+const stripe = require('stripe')('sk_test_51JbCVGJuN2xREvwFmnv3dGbp3DupvLh7JtPUcZNFAB8a1qKTeDcUk25PRIDn5UHin5n3OFhQkScUWawEUJVViJwi00JzYtVuUJ'); // Sua chave secreta do Stripe
+
+
+
+shopController.purchaseSuccess = async (req, res) => {
+    try {
+        const { idproduto, nome, versao, quantidade, emp_nif } = req.body;
+
+        const software = await TipoSoftwares.findByPk(idproduto);
+        if (!software) {
+            return res.status(404).json({ error: 'Software not found' });
+        }
+
+        // Gerar uma chave aleatória única para cada compra
+        const chaveProduto = uuidv4(); // Ajuste conforme a lógica da sua aplicação
+
+        // Verificar se o nif existe na tabela Empresas
+        const empresa = await Empresas.findOne({ where: { nif: emp_nif } });
+        if (!empresa) {
+            return res.status(404).json({ error: 'Empresa não encontrada' });
+        }
+
+        // Criar a sessão de checkout com o Stripe
+        const session = await stripe.checkout.sessions.create({
+            payment_method_types: ['card'],
+            line_items: [
+                {
+                    price_data: {
+                        currency: 'eur',
+                        product_data: {
+                            name: software.nome,
+                        },
+                        unit_amount: software.precoproduto * 100,
+                    },
+                    quantity: quantidade,
+                },
+            ],
+            mode: 'payment',
+            success_url: 'http://localhost:3001/shop/success',
+            cancel_url: 'http://localhost:3001/shop/cancel',
+        });
+
+        // Registrar a compra na tabela SoftwaresAdquiridos
+        for (let i = 0; i < quantidade; i++) {
+            const versaoadquirida = versao ? versao : null; // Se tiver uma versão especificada
+            const novaCompra = await SoftwaresAdquiridos.create({
+                nome: nome,
+                chaveproduto: chaveProduto,
+                nif: emp_nif,
+                versaoadquirida: versaoadquirida,
+            });
+            createdLicenses.push(novaCompra);
+        }
+
+        res.json({
+            message: 'Compra realizada com sucesso',
+            chaveProduto: chaveProduto,
+        });
+
+    } catch (error) {
+        console.error('Erro ao processar compra:', error.message, error.stack);
+        res.status(500).json({ error: 'Erro ao processar compra' });
+    }
+};
+
+
+
 
 
 
@@ -76,67 +144,6 @@ shopController.softwareDetails = async (req, res) => {
 
 
 
-shopController.purchaseSuccess = async (req, res) => {
-    try {
-        const { produtoId, nome, versao, quantidade, emp_nif } = req.body;
-
-        const software = await TipoSoftwares.findByPk(produtoId);
-        if (!software) {
-            return res.status(404).json({ error: 'Software not found' });
-        }
-
-        if (!emp_nif) {
-            return res.status(400).json({ error: 'NIF da empresa não fornecido no pedido' });
-        }
-
-        // Check if the software is already purchased
-        const existingPurchase = await SoftwaresAdquiridos.findOne({
-            where: {
-                nome: nome,
-                versaoadquirida: versao,
-                nif: emp_nif
-            }
-        });
-
-        let chaveProduto;
-        if (existingPurchase) {
-            chaveProduto = existingPurchase.chaveproduto;
-        } else {
-            chaveProduto = uuidv4().replace(/-/g, '').slice(0, 12);
-            await SoftwaresAdquiridos.create({
-                nome, 
-                chaveproduto: chaveProduto,
-                nif: emp_nif, 
-                versaoadquirida: versao 
-            });
-        }
-
-        const maxIdResult = await LicencasAtribuidas.findOne({
-            attributes: [[sequelize.fn('max', sequelize.col('idatribuida')), 'maxId']]
-        });
-        const maxId = maxIdResult ? maxIdResult.get('maxId') || 0 : 0;
-
-        let idCounter = maxId + 1;
-
-        const licencasCriadas = await Promise.all(
-            Array.from({ length: quantidade }).map(() => LicencasAtribuidas.create({
-                chaveproduto: chaveProduto,
-                nomepc: `PC do Cliente`,
-                dataatri: new Date(),
-                idatribuida: idCounter++
-            }))
-        );
-
-        res.json({
-            message: 'Compra realizada com sucesso',
-            chaveProduto: chaveProduto,
-            createdLicenses: licencasCriadas
-        });
-    } catch (error) {
-        console.error('Erro ao processar compra:', error.message, error.stack);
-        res.status(500).json({ error: 'Erro ao processar compra' });
-    }
-};
 
 shopController.getVersionsByProductId = async (req, res) => {
     const { idproduto } = req.params;
@@ -151,6 +158,6 @@ shopController.getVersionsByProductId = async (req, res) => {
 };
 
 
-  
+
 
 module.exports = shopController;

@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Modal, Button, Form } from 'react-bootstrap';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
+import { loadStripe } from '@stripe/stripe-js';
+
+const stripePromise = loadStripe('pk_test_51JbCVGJuN2xREvwF3DtK39P7YXbFYh5zsLeDs0q0KeDsIznQA7lEzniCBVAUswk0rzYYYr7s34AkNWavQTQY9mWc00fYGRbsv1');
 
 export default function ShopProd() {
     const { idproduto } = useParams();
     const location = useLocation();
+    const navigate = useNavigate();
     const [item, setItem] = useState(null);
     const [error, setError] = useState(null);
     const [showhistModal, setShowhistModal] = useState(false);
     const [showorcModal, setShoworcModal] = useState(false);
     const [showCompraModal, setShowCompraModal] = useState(false);
     const [quantidadeLicencas, setQuantidadeLicencas] = useState(1);
-    const [versions, setVersions] = useState([]); // Add this state
+    const [versions, setVersions] = useState([]);
 
     const query = new URLSearchParams(location.search);
     const type = query.get('type');
@@ -20,7 +24,7 @@ export default function ShopProd() {
     useEffect(() => {
         const fetchItem = async () => {
             try {
-                const endpoint = `http://localhost:3000/shop/${idproduto}`;
+                const endpoint = `http://localhost:3000/shop/${idproduto}/`;
                 const response = await axios.get(endpoint, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -46,7 +50,7 @@ export default function ShopProd() {
                 },
                 withCredentials: true
             });
-            setVersions(response.data); // Set the fetched versions
+            setVersions(response.data);
         } catch (error) {
             console.error('Error fetching versions:', error);
         }
@@ -55,35 +59,35 @@ export default function ShopProd() {
     const handleModalhistClose = () => setShowhistModal(false);
     const handleModalorcOpen = () => setShoworcModal(true);
     const handleModalorcClose = () => setShoworcModal(false);
-
     const handleModalCompraOpen = () => setShowCompraModal(true);
     const handleModalCompraClose = () => setShowCompraModal(false);
 
     const handleCompra = async () => {
         try {
-            await axios.post('http://localhost:3000/shop/compra', {
+            const response = await axios.post('http://localhost:3000/shop/compra/', {
                 quantidade: quantidadeLicencas,
-                produtoId: item.idproduto,
+                idproduto: item.idproduto,
                 nome: item.nome,
                 versao: item.versao,
-                emp_nif: '123456789'
+                emp_nif: localStorage.getItem('emp_nif') // Busca o emp_nif do localStorage
             }, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 },
                 withCredentials: true
             });
-
-            alert(`Compra realizada com sucesso para ${quantidadeLicencas} licença(s)`);
-            handleModalCompraClose();
+    
+            const sessionId = response.data.id;
+            const stripe = await stripePromise;
+            await stripe.redirectToCheckout({ sessionId });
         } catch (error) {
             console.error('Error during purchase:', error);
             alert(`Erro ao realizar compra: ${error.message}`);
         }
     };
+    
 
     if (error) {
-        console.error('Rendering error message:', error);
         return <div>Erro ao carregar dados: {error.message}</div>;
     }
 
@@ -92,28 +96,28 @@ export default function ShopProd() {
             {item && (
                 <>
                     {/* NAVBAR */}
-                    <nav class="navbar navbar-expand-lg bg-dark">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="/signup/comprador">
-                        <img class="warelogo" src="/images/Logos/logo.png" alt="Ware Logo" />
-                    </a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-                        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                        <div class="navbar-nav">
-                            <a class="nav-link text-white" href="/shop">Explorar</a>
-                            <a class="nav-link active text-white" aria-current="page" href="/library">Gestão</a>
+                    <nav className="navbar navbar-expand-lg bg-dark">
+                        <div className="container-fluid">
+                            <a className="navbar-brand" href="/signup/comprador">
+                                <img className="warelogo" src="/images/Logos/logo.png" alt="Ware Logo" />
+                            </a>
+                            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                                <span className="navbar-toggler-icon"></span>
+                            </button>
+                            <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+                                <div className="navbar-nav">
+                                    <a className="nav-link text-white" href="/shop">Explorar</a>
+                                    <a className="nav-link active text-white" aria-current="page" href="/library">Gestão</a>
+                                </div>
+                            </div>
+                            <form className="d-flex me-3" role="search">
+                                <input className="navform form-control me-2" type="search" placeholder="Procurar" aria-label="Search" />
+                                <button className="btn btn-outline-light" type="submit">Procurar</button>
+                            </form>
+                            <a href="/" className="btn btn-primary">Terminar Sessão</a>
                         </div>
-                    </div>
-                    <form class="d-flex me-3" role="search">
-                        <input class="navform form-control me-2" type="search" placeholder="Procurar" aria-label="Search" />
-                        <button class="btn btn-outline-light" type="submit">Procurar</button>
-                    </form>
-                    <a href="/" class="btn btn-primary">Terminar Sessão</a>
-                </div>
-            </nav>
+                    </nav>
                     {/* FIM NAVBAR */}
 
                     <div className="container mt-4">
@@ -190,9 +194,14 @@ export default function ShopProd() {
                             </Modal.Header>
                             <Modal.Body>
                                 <Form>
-                                    <Form.Group className="mb-3" controlId="formNomeEmpresa">
+                                    <Form.Group controlId="formQuantidade">
                                         <Form.Label>Quantidade</Form.Label>
-                                        <Form.Control type="text" placeholder="Digite a quantidade de licenças." />
+                                        <Form.Control
+                                            type="number"
+                                            value={quantidadeLicencas}
+                                            onChange={(e) => setQuantidadeLicencas(e.target.value)}
+                                            min="1"
+                                        />
                                     </Form.Group>
                                 </Form>
                             </Modal.Body>
@@ -200,30 +209,22 @@ export default function ShopProd() {
                                 <Button variant="secondary" onClick={handleModalorcClose}>
                                     Fechar
                                 </Button>
-                                <Button variant="primary" onClick={() => alert('Pedido enviado!')}>
-                                    Enviar Pedido
+                                <Button variant="primary" onClick={() => alert('Orçamento pedido!')}>
+                                    Pedir Orçamento
                                 </Button>
                             </Modal.Footer>
                         </Modal>
 
                         <Modal show={showCompraModal} onHide={handleModalCompraClose}>
                             <Modal.Header closeButton>
-                                <Modal.Title>Comprar Licenças</Modal.Title>
+                                <Modal.Title>Confirmar Compra</Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
-                                <Form.Group controlId="formQuantidadeLicencas">
-                                    <Form.Label>Quantidade de Licenças</Form.Label>
-                                    <Form.Control
-                                        type="number"
-                                        value={quantidadeLicencas}
-                                        onChange={(e) => setQuantidadeLicencas(parseInt(e.target.value))}
-                                        min={1}
-                                    />
-                                </Form.Group>
+                                <p>Tem a certeza que quer comprar {quantidadeLicencas} licença(s) de {item.nome}?</p>
                             </Modal.Body>
                             <Modal.Footer>
                                 <Button variant="secondary" onClick={handleModalCompraClose}>
-                                    Cancelar
+                                    Fechar
                                 </Button>
                                 <Button variant="primary" onClick={handleCompra}>
                                     Comprar
@@ -231,115 +232,6 @@ export default function ShopProd() {
                             </Modal.Footer>
                         </Modal>
                     </div>
-
-                    <hr className="custom-hr" />
-
-                    <h1 style={{ marginLeft: '5%', marginTop: '5%', marginBottom: '5%' }}>Planos</h1>
-
-                    <div className="container-fluid" style={{ background: 'linear-gradient(220.55deg, #00E0EE 0%, #AD00FE 100%)' }}>
-                        <div className="container p-5 row row-cols-1 row-cols-md-3 g-4 justify-content-evenly">
-                            <div className="col">
-                                <div className="card h-100 shadow-lg" style={{ background: 'white', width: '18rem' }}>
-                                    <div className="card-body">
-                                        <div className="text-center p-3">
-                                            <h5 className="card-title">Pequenas Empresas</h5>
-                                            <br />
-                                            <span className="h2">€</span>/preço unitário
-                                            <br /><br />
-                                        </div>
-                                        <h4 style={{ textAlign: 'center' }}>-10% de desconto</h4>
-                                        <p className="card-text" style={{ textAlign: 'center' }}>A partir de 50 licenças e máximo de 100.</p>
-                                    </div>
-                                    <div className="card-body text-center" style={{ animation: 'fadeIn 0.5s ease-in-out' }}>
-                                        <button className="btn btn-outline-dark btn-lg" style={{ borderRadius: '30px' }}>Selecionar</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col">
-                                <div className="card h-100 shadow-lg" style={{ background: 'white', width: '18rem' }}>
-                                    <div className="card-body">
-                                        <div className="text-center p-3">
-                                            <h5 className="card-title">Médias Empresas</h5>
-                                            <br />
-                                            <span className="h2">€</span>/preço unitário
-                                            <br /><br />
-                                        </div>
-                                        <h4 style={{ textAlign: 'center' }}>-20% de desconto</h4>
-                                        <p className="card-text" style={{ textAlign: 'center' }}>A partir de 100 licenças e máximo de 200.</p>
-                                    </div>
-                                    <div className="card-body text-center" style={{ animation: 'fadeIn 0.5s ease-in-out' }}>
-                                        <button className="btn btn-outline-dark btn-lg" style={{ borderRadius: '30px' }}>Selecionar</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col">
-                                <div className="card h-100 shadow-lg" style={{ background: 'white', width: '18rem' }}>
-                                    <div className="card-body">
-                                        <div className="text-center p-3">
-                                            <h5 className="card-title">Grandes Empresas</h5>
-                                            <br />
-                                            <span className="h2">€</span>/preço unitário
-                                            <br /><br />
-                                        </div>
-                                        <h4 style={{ textAlign: 'center' }}>-30% de desconto</h4>
-                                        <p className="card-text" style={{ textAlign: 'center' }}>A partir de 200 licenças.</p>
-                                    </div>
-                                    <div className="card-body text-center" style={{ animation: 'fadeIn 0.5s ease-in-out' }}>
-                                        <button className="btn btn-outline-dark btn-lg" style={{ borderRadius: '30px' }}>Selecionar</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="container d-flex justify-content-center" style={{ marginTop: '2%' }}>
-                            <p className="text-center" style={{ color: 'white' }}>Se o que procura não está representado acima, peça um orçamento <a href="/shop" onClick={handleModalorcOpen} className="text-light"><span className="text-dark">aqui</span></a>.</p>
-                        </div>
-                    </div>
-
-                    <hr className="custom-hr" />
-
-                    <h1 style={{ marginLeft: '5%', marginTop: '5%', marginBottom: '5%' }}>Avaliações</h1>
-
-                    <div className="row" style={{ margin: '0 auto', display: 'flex', justifyContent: 'center' }}>
-                        <div className="col-md-3 mb-4">
-                            <div className="card" style={{ marginBottom: '5%', width: '18rem' }}>
-                                <img src="/images/icons/aspas.png" className="card-img-top img-fluid mx-auto d-block" style={{ width: '75%', margin: '30px' }} alt="..." />
-                                <div className="card-body text-center">
-                                    <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisi lacus, venenatis at
-                                        est id, tristique viverra mauris. </p>
-                                    <p className="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
-                                    <p className="card-text mb-2">Categoria</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-md-3 mb-4">
-                            <div className="card" style={{ marginBottom: '5%', width: '18rem' }}>
-                                <img src="/images/icons/aspas.png" className="card-img-top img-fluid mx-auto d-block" style={{ width: '75%', margin: '30px' }} alt="..." />
-                                <div className="card-body text-center">
-                                    <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisi lacus, venenatis at
-                                        est id, tristique viverra mauris. </p>
-                                    <p className="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
-                                    <p className="card-text mb-2">Categoria</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-md-3 mb-4">
-                            <div className="card" style={{ marginBottom: '5%', width: '18rem' }}>
-                                <img src="/images/icons/aspas.png" className="card-img-top img-fluid mx-auto d-block" style={{ width: '75%', margin: '30px' }} alt="..." />
-                                <div className="card-body text-center">
-                                    <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisi lacus, venenatis at
-                                        est id, tristique viverra mauris. </p>
-                                    <p className="estrelas mb-2">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
-                                    <p className="card-text mb-2">Categoria</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <footer className="footer bg-dark text-light">
-                        <div className="container d-flex justify-content-center align-items-center">
-                            <span className="text-center">&copy; Ware 2024</span>
-                        </div>
-                    </footer>
                 </>
             )}
         </>
