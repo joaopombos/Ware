@@ -23,7 +23,7 @@ router.post('/shop/compra/', isAuthenticated, isBuyer, comprasController.purchas
 router.get('/shop/:idvenda/success', isAuthenticated, isBuyer, comprasController.purchaseSuccess); 
 router.get('/versions/:idproduto', isAuthenticated, isBuyer, comprasController.getVersionsByProductId);    
 
-// Rotas de biblioteca acessíveis aos compradores e gestores
+// Rotas de biblioteca acessíveis aos compradores e gestore
 router.get('/library', isAuthenticated, appController.listAcquiredSoftwares);             
 router.get('/license/:chaveproduto', isAuthenticated, licencaController.getSoftwareLicenses);
 router.put('/license/:chaveproduto', isAuthenticated, licencaController.updateLicense);
