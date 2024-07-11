@@ -78,7 +78,7 @@ export default function ShopProd() {
                 withCredentials: true
             });
     
-            const sessionId = response.data.sessionId; // Ajuste para corresponder ao que a API retorna
+            const sessionId = response.data.sessionId; // Ajuste par corresponder ao que a API retorna
     
             const stripe = await stripePromise;
             await stripe.redirectToCheckout({
