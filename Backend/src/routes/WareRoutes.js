@@ -19,7 +19,7 @@ router.get('/logout/admin', clientesController.logoutadmin);
 // Rotas de loja acessíveis aos comprado
 router.get('/shop/softwares', isAuthenticated, isBuyer, comprasController.listCategoriesOrSoftwares);                 
 router.get('/shop/:idproduto/', isAuthenticated, comprasController.softwareDetails);             
-router.post('/shop/compra/', isAuthenticated, isBuyer, comprasController.purchaseSuccess);                       
+router.post('/shop/compra/', isAuthenticated, isBuyer, comprasController.purchaseSuccess);                      
 router.get('/shop/:idvenda/success', isAuthenticated, isBuyer, comprasController.purchaseSuccess); 
 router.get('/versions/:idproduto', isAuthenticated, isBuyer, comprasController.getVersionsByProductId);    
 

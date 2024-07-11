@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { loadStripe } from '@stripe/stripe-js';
+import Cookies from 'js-cookie'; // Importe js-cookie
 
 const stripePromise = loadStripe('pk_test_51JbCVGJuN2xREvwF3DtK39P7YXbFYh5zsLeDs0q0KeDsIznQA7lEzniCBVAUswk0rzYYYr7s34AkNWavQTQY9mWc00fYGRbsv1');
 
@@ -69,7 +70,7 @@ export default function ShopProd() {
                 idproduto: item.idproduto,
                 nome: item.nome,
                 versao: item.versao,
-                emp_nif: localStorage.getItem('emp_nif') // Busca o emp_nif do localStorage
+                emp_nif: "987654321"
             }, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -77,9 +78,13 @@ export default function ShopProd() {
                 withCredentials: true
             });
     
-            const sessionId = response.data.id;
+            const sessionId = response.data.sessionId; // Ajuste para corresponder ao que a API retorna
+    
             const stripe = await stripePromise;
-            await stripe.redirectToCheckout({ sessionId });
+            await stripe.redirectToCheckout({
+                sessionId: sessionId // Configura sessionId aqui
+            });
+    
         } catch (error) {
             console.error('Error during purchase:', error);
             alert(`Erro ao realizar compra: ${error.message}`);
@@ -90,6 +95,8 @@ export default function ShopProd() {
     if (error) {
         return <div>Erro ao carregar dados: {error.message}</div>;
     }
+
+
 
     return (
         <>
@@ -221,6 +228,15 @@ export default function ShopProd() {
                             </Modal.Header>
                             <Modal.Body>
                                 <p>Tem a certeza que quer comprar {quantidadeLicencas} licença(s) de {item.nome}?</p>
+                                <Form.Group controlId="formQuantidadeLicencas">
+                                    <Form.Label>Quantidade de Licenças</Form.Label>
+                                    <Form.Control
+                                        type="number"
+                                        value={quantidadeLicencas}
+                                        onChange={(e) => setQuantidadeLicencas(e.target.value)}
+                                        min="1"
+                                    />
+                                </Form.Group>
                             </Modal.Body>
                             <Modal.Footer>
                                 <Button variant="secondary" onClick={handleModalCompraClose}>
@@ -231,6 +247,7 @@ export default function ShopProd() {
                                 </Button>
                             </Modal.Footer>
                         </Modal>
+
                     </div>
                 </>
             )}
