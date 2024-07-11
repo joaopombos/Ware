@@ -59,6 +59,35 @@ const stripe = require('stripe')('sk_test_51JbCVGJuN2xREvwFmnv3dGbp3DupvLh7JtPUc
 
 
 
+async function gerarChaveUnica() {
+    let chaveUnica = null;
+    let chaveExiste = true;
+
+    while (chaveExiste) {
+        chaveUnica = uuidv4().replace(/-/g, '').slice(0, 12);
+        const chaveEncontrada = await SoftwaresAdquiridos.findOne({ where: { chaveproduto: chaveUnica } });
+        if (!chaveEncontrada) {
+            chaveExiste = false;
+        }
+    }
+
+    return chaveUnica;
+}
+
+async function gerarChaveUnica() {
+    let chaveUnica = null;
+    let chaveExiste = true;
+
+    while (chaveExiste) {
+        chaveUnica = uuidv4().replace(/-/g, '').slice(0, 12);
+        const chaveEncontrada = await SoftwaresAdquiridos.findOne({ where: { chaveproduto: chaveUnica } });
+        if (!chaveEncontrada) {
+            chaveExiste = false;
+        }
+    }
+
+    return chaveUnica;
+}
 
 shopController.purchaseSuccess = async (req, res) => {
     try {
@@ -69,9 +98,10 @@ shopController.purchaseSuccess = async (req, res) => {
             return res.status(404).json({ error: 'Software not found' });
         }
 
-        // Gerar uma chave aleatória única para cada compra
-        const chaveProduto = uuidv4().replace(/-/g, '').slice(0, 12); // Remove hyphens and takes the first 12 characters
-        // Verificar se o nif existe na tabela Empresas
+        if (!emp_nif) {
+            return res.status(400).json({ error: 'NIF da empresa não fornecido no pedido' });
+        }
+
         const empresa = await Empresas.findOne({ where: { nif: emp_nif } });
         if (!empresa) {
             return res.status(404).json({ error: 'Empresa não encontrada' });
@@ -97,33 +127,55 @@ shopController.purchaseSuccess = async (req, res) => {
             cancel_url: 'http://localhost:3001/shop/cancel',
         });
 
-
-        const createdLicenses = []; // Definir a lista para armazenar as compras criadas
-        // Registrar a compra na tabela SoftwaresAdquiridos
-        for (let i = 0; i < quantidade; i++) {
-            const versaoadquirida = versao ? versao : null; // Se tiver uma versão especificada
-            const novaCompra = await SoftwaresAdquiridos.create({
+        // Check if the software is already purchased
+        const existingPurchase = await SoftwaresAdquiridos.findOne({
+            where: {
                 nome: nome,
+                versaoadquirida: versao,
+                nif: emp_nif
+            }
+        });
+
+        let chaveProduto;
+        if (existingPurchase) {
+            chaveProduto = existingPurchase.chaveproduto;
+        } else {
+            chaveProduto = await gerarChaveUnica();
+            await SoftwaresAdquiridos.create({
+                nome,
                 chaveproduto: chaveProduto,
                 nif: emp_nif,
-                versaoadquirida: versaoadquirida,
+                versaoadquirida: versao
             });
-            createdLicenses.push(novaCompra);
         }
+
+        const maxIdResult = await LicencasAtribuidas.findOne({
+            attributes: [[sequelize.fn('max', sequelize.col('idatribuida')), 'maxId']]
+        });
+        const maxId = maxIdResult ? maxIdResult.get('maxId') || 0 : 0;
+
+        let idCounter = maxId + 1;
+
+        const licencasCriadas = await Promise.all(
+            Array.from({ length: quantidade }).map(() => LicencasAtribuidas.create({
+                chaveproduto: chaveProduto,
+                nomepc: `PC do Cliente`,
+                dataatri: new Date(),
+                idatribuida: idCounter++
+            }))
+        );
 
         res.json({
             message: 'Compra realizada com sucesso',
             chaveProduto: chaveProduto,
-            sessionId: session.id, // Incluindo o sessionId na resposta
+            createdLicenses: licencasCriadas,
+            sessionId: session.id // Incluindo o sessionId na resposta
         });
-
-
     } catch (error) {
         console.error('Erro ao processar compra:', error.message, error.stack);
         res.status(500).json({ error: 'Erro ao processar compra' });
     }
 };
-
 
 
 
