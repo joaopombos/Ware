@@ -186,12 +186,25 @@ shopController.softwareDetails = async (req, res) => {
             return res.status(404).json({ error: 'Software not found' });
         }
 
-        res.json(software);
+        // Verifica se há logotipo e converte para base64
+        let logotipoBase64 = null;
+        if (software.logotipo) {
+            logotipoBase64 = Buffer.from(software.logotipo).toString('base64');
+        }
+
+        // Retorna o software com logotipo em base64
+        const softwareComBase64 = {
+            ...software.toJSON(),
+            logotipo: logotipoBase64
+        };
+
+        res.json(softwareComBase64);
     } catch (error) {
         console.error('Error retrieving software details:', error);
         res.status(500).json({ error: 'Error retrieving software details' });
     }
 };
+
 
 
 

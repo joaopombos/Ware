@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Modal, Button, Form } from 'react-bootstrap';
-import { useParams, useLocation, useNavigate } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { loadStripe } from '@stripe/stripe-js';
 import Cookies from 'js-cookie'; 
 
 const stripePromise = loadStripe('pk_test_51JbCVGJuN2xREvwF3DtK39P7YXbFYh5zsLeDs0q0KeDsIznQA7lEzniCBVAUswk0rzYYYr7s34AkNWavQTQY9mWc00fYGRbsv1');
 
-export default function ShopProd() {
+const ShopProd = () => {
     const { idproduto } = useParams();
     const location = useLocation();
-    const navigate = useNavigate();
     const [item, setItem] = useState(null);
     const [error, setError] = useState(null);
     const [showhistModal, setShowhistModal] = useState(false);
@@ -18,15 +17,11 @@ export default function ShopProd() {
     const [showCompraModal, setShowCompraModal] = useState(false);
     const [quantidadeLicencas, setQuantidadeLicencas] = useState(1);
     const [versions, setVersions] = useState([]);
-    const [empNif, setEmpNif] = useState(null); 
-
-    const query = new URLSearchParams(location.search);
-    const type = query.get('type');
 
     useEffect(() => {
         const fetchItem = async () => {
             try {
-                const endpoint = `http://localhost:3000/shop/${idproduto}/`;
+                const endpoint = `http://localhost:3000/shop/${idproduto}`;
                 const response = await axios.get(endpoint, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -40,10 +35,8 @@ export default function ShopProd() {
             }
         };
 
-
-
         fetchItem();
-    }, [idproduto, type]);
+    }, [idproduto]);
 
     const handleModalhistOpen = async () => {
         setShowhistModal(true);
@@ -67,19 +60,13 @@ export default function ShopProd() {
     const handleModalCompraClose = () => setShowCompraModal(false);
 
     const handleCompra = async () => {
-
-        const nif = Cookies.get('emp_nif');
-        if (nif) {
-            setEmpNif(nif);
-        }
-
         try {
             const response = await axios.post('http://localhost:3000/shop/compra/', {
                 quantidade: quantidadeLicencas,
                 idproduto: item.idproduto,
                 nome: item.nome,
                 versao: item.versao,
-                emp_nif: empNif 
+                emp_nif: Cookies.get('emp_nif')
             }, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -87,11 +74,12 @@ export default function ShopProd() {
                 withCredentials: true
             });
 
-            const sessionId = response.data.sessionId; 
+            const sessionId = response.data.sessionId;
 
+            // Redirecionar para o checkout do Stripe
             const stripe = await stripePromise;
             await stripe.redirectToCheckout({
-                sessionId: sessionId 
+                sessionId: sessionId
             });
 
         } catch (error) {
@@ -104,8 +92,6 @@ export default function ShopProd() {
         return <div>Erro ao carregar dados: {error.message}</div>;
     }
 
-
-
     return (
         <>
             {item && (
@@ -114,7 +100,7 @@ export default function ShopProd() {
                     <nav className="navbar navbar-expand-lg bg-dark">
                         <div className="container-fluid">
                             <a className="navbar-brand" href="/signup/comprador">
-                                <img className="warelogo" src="/images/Logos/logo.png" alt="Ware Logo" />
+                            <img className="warelogo" src="/images/Logos/logo.png" alt="Ware Logo" />
                             </a>
                             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
                                 aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -138,7 +124,11 @@ export default function ShopProd() {
                     <div className="container mt-4">
                         <div className="row no-gutters align-items-center">
                             <div className="col-md-2">
-                                <img src={`/images/${item.logotipo}`} className="card-img" alt="Item Logo" />
+                                {item.logotipo ? (
+                                    <img src={`data:image/png;base64,${item.logotipo}`} className="card-img" alt="Item Logo" />
+                                ) : (
+                                    <img src="/placeholder-image.png" className="card-img" alt="Placeholder" />
+                                )}
                             </div>
                             <div className="col-md-10 d-flex justify-content-between align-items-center">
                                 <div className="card-body" style={{ marginLeft: '100%', marginRight: '3%' }}>
@@ -248,17 +238,19 @@ export default function ShopProd() {
                             </Modal.Body>
                             <Modal.Footer>
                                 <Button variant="secondary" onClick={handleModalCompraClose}>
-                                    Fechar
+                                    Cancelar
                                 </Button>
                                 <Button variant="primary" onClick={handleCompra}>
                                     Comprar
                                 </Button>
                             </Modal.Footer>
                         </Modal>
-
                     </div>
                 </>
             )}
         </>
     );
-}
+};
+
+export default ShopProd;
+
