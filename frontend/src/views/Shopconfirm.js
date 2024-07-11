@@ -1,18 +1,24 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const Shopconfirm = () => {
     let { idvenda } = useParams();
+    const navigate = useNavigate();
 
-    // Lógica para confirmar a compra antes de redirecionar para o checkout
+    // Função para redirecionar para /shop
+    const handleRedirect = () => {
+        navigate('/shop');
+    };
 
     return (
         <div>
-            <h2>Confirmação da Compra {idvenda}</h2>
-            {/* Lógica de confirmação e botão para proceder ao checkout */}
+            <h2>Compra Cancelada {idvenda}</h2>
+            {/* Botão para redirecionar para /shop */}
+            <button onClick={handleRedirect}>Voltar para a Loja</button>
         </div>
     );
-}
+};
 
 export default Shopconfirm;
+
 
