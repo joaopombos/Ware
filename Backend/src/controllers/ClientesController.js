@@ -89,7 +89,7 @@ clientesController.login = async (req, res) => {
     }
 
     const client = await Clientes.findOne({ where: { email }, attributes: ['emp_nif', 'iduser', 'email', 'codigopessoal', 'nif'] });
-    console.log(client); // Verifique os campos retornados pelo cliente
+    console.log(client); 
 
 
     if (!client) {
@@ -106,10 +106,10 @@ clientesController.login = async (req, res) => {
       { expiresIn: '1h' }
     );
 
-    res.cookie('token', token, { httpOnly: true, secure: false, maxAge: 3600000 }); // 1 hora
-    res.cookie('nif', client.nif, { httpOnly: true, secure: false, maxAge: 3600000 }); // 1 hora
-    res.cookie('iduser', client.iduser, { httpOnly: true, secure: false, maxAge: 3600000 }); // 1 hora
-    res.cookie('emp_nif', client.emp_nif, { httpOnly: true, secure: false, maxAge: 3600000 }); // 1 hora
+    res.cookie('token', token, { httpOnly: true, secure: false, maxAge: 3600000 }); 
+    res.cookie('nif', client.nif, { httpOnly: true, secure: false, maxAge: 3600000 }); 
+    res.cookie('iduser', client.iduser, { httpOnly: true, secure: false, maxAge: 3600000 }); 
+    res.cookie('emp_nif', client.emp_nif, { httpOnly: true, secure: false, maxAge: 3600000 }); 
 
 
     res.status(200).json({ token });
@@ -221,8 +221,8 @@ clientesController.loginadmin = async (req, res) => {
       { expiresIn: '1h' }
     );
 
-    res.cookie('token', token, { httpOnly: true, secure: false, maxAge: 3600000 }); // 1 hora
-    res.cookie('idware', wareUser.idware, { httpOnly: true, secure: false, maxAge: 3600000 }); // 1 hora
+    res.cookie('token', token, { httpOnly: true, secure: false, maxAge: 3600000 }); 
+    res.cookie('idware', wareUser.idware, { httpOnly: true, secure: false, maxAge: 3600000 }); 
 
     res.status(200).json({ token });
   } catch (error) {

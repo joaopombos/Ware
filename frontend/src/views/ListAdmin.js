@@ -7,7 +7,7 @@ import '../CSS/ware.css';
 const ListAdmin = () => {
   const [softwares, setSoftwares] = useState([]);
   const [error, setError] = useState('');
-  const [tipoListagem, setTipoListagem] = useState('softwares'); // Estado para controlar o tipo de listagem
+  const [tipoListagem, setTipoListagem] = useState('softwares'); 
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -56,12 +56,12 @@ const ListAdmin = () => {
     }
   };
 
-  // Função para alterar o tipo de listagem
+
   const handleTipoChange = (e) => {
     setTipoListagem(e.target.value);
   };
 
-  // Verificar se o usuário está autenticado (exemplo simples)
+
   const isLoggedIn = localStorage.getItem('token') !== null;
 
   if (!isLoggedIn) {

@@ -6,12 +6,12 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 
 const Shop = () => {
     const [items, setItems] = useState([]);
-    const [type, setType] = useState('softwares'); // Default to 'softwares'
+    const [type, setType] = useState('softwares'); 
 
     useEffect(() => {
         const fetchItems = async () => {
             try {
-                // Adjust the request URL to use the correct endpoint and include type in the query
+
                 const endpoint = `http://localhost:3000/shop/softwares?type=${type}`;
                 const response = await axios.get(endpoint, {
                     headers: {
@@ -35,10 +35,10 @@ const Shop = () => {
     }, [type]);
 
     const handleTypeChange = (newType) => {
-        setType(newType); // Change the item type
+        setType(newType); 
     };
 
-    // Function to handle button click to redirect for more details
+   
     const handleButtonClick = (id, itemType) => {
         const route = `/shop/${id}?type=${itemType}`;
         window.location.href = route;

@@ -1,4 +1,3 @@
-// License.js
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -20,14 +19,14 @@ const License = () => {
         const fetchSoftwareLicenses = async () => {
             try {
                 const response = await axios.get(`http://localhost:3000/license/${chaveproduto}`, {
-                    withCredentials: true // Ensures cookies are sent with the request
+                    withCredentials: true 
                 });
                 setSoftware(response.data.software);
                 setLicenses(response.data.licenses);
             } catch (error) {
                 console.error('Error fetching software licenses:', error);
                 if (error.response && error.response.status === 401) {
-                    // Redirect the user to the login page or show unauthorized message
+             
                     window.location.href = '/login';
                 }
             }
@@ -54,7 +53,7 @@ const License = () => {
                     idatribuida: currentLicense.idatribuida,
                     nomepc: newNomepc
                 }, {
-                withCredentials: true // Ensures cookies are sent with the request
+                withCredentials: true 
             });
             setLicenses(licenses.map(license => license.idatribuida === response.data.idatribuida ? response.data : license));
             handleUpdateModalClose();
@@ -70,7 +69,7 @@ const License = () => {
                     idatribuida,
                     nomepc: null
                 }, {
-                withCredentials: true // Ensures cookies are sent with the request
+                withCredentials: true 
             });
             setLicenses(licenses.map(license => license.idatribuida === idatribuida ? response.data : license));
         } catch (error) {
@@ -82,7 +81,7 @@ const License = () => {
         return <div>Loading...</div>;
     }
 
-    // Verificar se o usuário está autenticado (exemplo simples)
+
     const isLoggedIn = localStorage.getItem('token') !== null;
 
     if (!isLoggedIn) {
