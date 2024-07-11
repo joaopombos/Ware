@@ -1,6 +1,6 @@
 const { v4: uuidv4 } = require('uuid');
-const sequelize = require('../models/database'); // Import the sequelize instance
-const { fn, col } = require('sequelize'); // Import Sequelize functions
+const sequelize = require('../models/database');
+const { fn, col } = require('sequelize'); 
 const Pedidos = require('../models/pedidos');
 const LicencasAtribuidas = require('../models/licencasatribuidas');
 const SoftwaresAdquiridos = require('../models/softwaresadquiridos');
@@ -16,26 +16,26 @@ const shopController = {};
 
 
 shopController.listCategoriesOrSoftwares = async (req, res) => {
-    const { type, query } = req.query; // 'type' is used instead of 'tipo' for consistency in the shop context
+    const { type, query } = req.query; 
 
     let whereCondition = {};
     if (query) {
-        whereCondition.nome = { [Op.iLike]: `%${query}%` }; // Filter by name if a query is provided
+        whereCondition.nome = { [Op.iLike]: `%${query}%` }; 
     }
 
     try {
         let items;
         if (type === 'softwares') {
             items = await TipoSoftwares.findAll({
-                where: { ...whereCondition, idtipo: 1 } // idtipo = 1 for softwares
+                where: { ...whereCondition, idtipo: 1 } 
             });
         } else {
             items = await TipoSoftwares.findAll({
-                where: { ...whereCondition, idtipo: 2 } // idtipo = 2 for addons
+                where: { ...whereCondition, idtipo: 2 } 
             });
         }
 
-        // Convert BLOB images to base64
+
         const itemsWithBase64 = items.map(item => {
             const jsonItem = item.toJSON();
             return {
@@ -45,7 +45,7 @@ shopController.listCategoriesOrSoftwares = async (req, res) => {
             };
         });
 
-        console.log('Items with Base64:', itemsWithBase64); // Debugging line
+        console.log('Items with Base64:', itemsWithBase64); 
 
         res.json(itemsWithBase64);
     } catch (error) {
@@ -54,7 +54,7 @@ shopController.listCategoriesOrSoftwares = async (req, res) => {
     }
 };
 
-const stripe = require('stripe')('sk_test_51JbCVGJuN2xREvwFmnv3dGbp3DupvLh7JtPUcZNFAB8a1qKTeDcUk25PRIDn5UHin5n3OFhQkScUWawEUJVViJwi00JzYtVuUJ'); // Sua chave secreta do Stripe
+const stripe = require('stripe')('sk_test_51JbCVGJuN2xREvwFmnv3dGbp3DupvLh7JtPUcZNFAB8a1qKTeDcUk25PRIDn5UHin5n3OFhQkScUWawEUJVViJwi00JzYtVuUJ'); 
 
 
 
@@ -74,32 +74,21 @@ async function gerarChaveUnica() {
     return chaveUnica;
 }
 
-async function gerarChaveUnica() {
-    let chaveUnica = null;
-    let chaveExiste = true;
 
-    while (chaveExiste) {
-        chaveUnica = uuidv4().replace(/-/g, '').slice(0, 12);
-        const chaveEncontrada = await SoftwaresAdquiridos.findOne({ where: { chaveproduto: chaveUnica } });
-        if (!chaveEncontrada) {
-            chaveExiste = false;
-        }
-    }
-
-    return chaveUnica;
-}
 
 shopController.purchaseSuccess = async (req, res) => {
     try {
-        const { idproduto, nome, versao, quantidade, emp_nif } = req.body;
+        const { idproduto, nome, versao, quantidade } = req.body;
+
+
+        const emp_nif = req.cookies.emp_nif;
+        if (!emp_nif) {
+            return res.status(400).json({ error: 'NIF da empresa não fornecido nos cookies' });
+        }
 
         const software = await TipoSoftwares.findByPk(idproduto);
         if (!software) {
-            return res.status(404).json({ error: 'Software not found' });
-        }
-
-        if (!emp_nif) {
-            return res.status(400).json({ error: 'NIF da empresa não fornecido no pedido' });
+            return res.status(404).json({ error: 'Software não encontrado' });
         }
 
         const empresa = await Empresas.findOne({ where: { nif: emp_nif } });
@@ -107,7 +96,7 @@ shopController.purchaseSuccess = async (req, res) => {
             return res.status(404).json({ error: 'Empresa não encontrada' });
         }
 
-        // Criar a sessão de checkout com o Stripe
+
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
             line_items: [
@@ -117,7 +106,7 @@ shopController.purchaseSuccess = async (req, res) => {
                         product_data: {
                             name: software.nome,
                         },
-                        unit_amount: software.precoproduto * 100,
+                        unit_amount: software.precoproduto * 100, 
                     },
                     quantity: quantidade,
                 },
@@ -127,7 +116,7 @@ shopController.purchaseSuccess = async (req, res) => {
             cancel_url: 'http://localhost:3001/shop/cancel',
         });
 
-        // Check if the software is already purchased
+
         const existingPurchase = await SoftwaresAdquiridos.findOne({
             where: {
                 nome: nome,
@@ -149,12 +138,14 @@ shopController.purchaseSuccess = async (req, res) => {
             });
         }
 
+
         const maxIdResult = await LicencasAtribuidas.findOne({
             attributes: [[sequelize.fn('max', sequelize.col('idatribuida')), 'maxId']]
         });
         const maxId = maxIdResult ? maxIdResult.get('maxId') || 0 : 0;
 
         let idCounter = maxId + 1;
+
 
         const licencasCriadas = await Promise.all(
             Array.from({ length: quantidade }).map(() => LicencasAtribuidas.create({
@@ -168,11 +159,11 @@ shopController.purchaseSuccess = async (req, res) => {
         res.json({
             message: 'Compra realizada com sucesso',
             chaveProduto: chaveProduto,
-            createdLicenses: licencasCriadas,
-            sessionId: session.id // Incluindo o sessionId na resposta
+            licencasCriadas: licencasCriadas,
+            sessionId: session.id 
         });
     } catch (error) {
-        console.error('Erro ao processar compra:', error.message, error.stack);
+        console.error('Erro ao processar compra:', error.message);
         res.status(500).json({ error: 'Erro ao processar compra' });
     }
 };
@@ -186,7 +177,7 @@ shopController.purchaseSuccess = async (req, res) => {
 
 
 shopController.softwareDetails = async (req, res) => {
-    const { idproduto } = req.params; // Captura o 'idproduto' dos parâmetros da rota
+    const { idproduto } = req.params; 
 
     try {
         const software = await TipoSoftwares.findByPk(idproduto);

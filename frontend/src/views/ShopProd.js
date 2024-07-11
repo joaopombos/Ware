@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { loadStripe } from '@stripe/stripe-js';
-import Cookies from 'js-cookie'; // Importe js-cookie
+import Cookies from 'js-cookie'; 
 
 const stripePromise = loadStripe('pk_test_51JbCVGJuN2xREvwF3DtK39P7YXbFYh5zsLeDs0q0KeDsIznQA7lEzniCBVAUswk0rzYYYr7s34AkNWavQTQY9mWc00fYGRbsv1');
 
@@ -18,6 +18,7 @@ export default function ShopProd() {
     const [showCompraModal, setShowCompraModal] = useState(false);
     const [quantidadeLicencas, setQuantidadeLicencas] = useState(1);
     const [versions, setVersions] = useState([]);
+    const [empNif, setEmpNif] = useState(null); 
 
     const query = new URLSearchParams(location.search);
     const type = query.get('type');
@@ -38,6 +39,8 @@ export default function ShopProd() {
                 setError(error);
             }
         };
+
+
 
         fetchItem();
     }, [idproduto, type]);
@@ -64,33 +67,38 @@ export default function ShopProd() {
     const handleModalCompraClose = () => setShowCompraModal(false);
 
     const handleCompra = async () => {
+
+        const nif = Cookies.get('emp_nif');
+        if (nif) {
+            setEmpNif(nif);
+        }
+
         try {
             const response = await axios.post('http://localhost:3000/shop/compra/', {
                 quantidade: quantidadeLicencas,
                 idproduto: item.idproduto,
                 nome: item.nome,
                 versao: item.versao,
-                emp_nif: "987654321"
+                emp_nif: empNif 
             }, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 },
                 withCredentials: true
             });
-    
-            const sessionId = response.data.sessionId; // Ajuste par corresponder ao que a API retorna
-    
+
+            const sessionId = response.data.sessionId; 
+
             const stripe = await stripePromise;
             await stripe.redirectToCheckout({
-                sessionId: sessionId // Configura sessionId aqui
+                sessionId: sessionId 
             });
-    
+
         } catch (error) {
             console.error('Error during purchase:', error);
             alert(`Erro ao realizar compra: ${error.message}`);
         }
     };
-    
 
     if (error) {
         return <div>Erro ao carregar dados: {error.message}</div>;
