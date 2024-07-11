@@ -513,3 +513,30 @@
   .estrelas{
     color:rgb(255, 238, 0);
   }
+
+  .success-container {
+    text-align: center;
+    color: white;
+    background-color: #1c1c1c;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.success-container i {
+    color: #28a745;
+}
+
+.success-container h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.success-container p {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.iconsucesso{
+  color: white !important;
+}

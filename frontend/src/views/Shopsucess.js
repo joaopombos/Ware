@@ -4,6 +4,8 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import '../CSS/ware.css';
 
+
+
 const Success = () => {
     return (
         <div class="d-flex flex-column min-vh-100">
@@ -32,10 +34,10 @@ const Success = () => {
 
             <div class="main-content d-flex justify-content-center align-items-center flex-grow-1">
                 <div class="success-container">
-                    <i class="fas fa-check-circle fa-5x mb-4"></i>
+                    <i class="iconsucesso fas fa-check-circle fa-5x mb-4"></i>
                     <h1>Sucesso!</h1>
                     <p>Foi enviado um email para email@domain.com a confirmar a compra!</p>
-                    <a href="/library" class="btn btn-primary">Ir para Os Meus Softwares</a>
+                    <a href="/library" class="btn btn-light">Ir para Os Meus Softwares</a>
                 </div>
             </div>
 
@@ -46,6 +48,7 @@ const Success = () => {
                  </div>
              </footer>
         </div>
+        
     );
 };
 
