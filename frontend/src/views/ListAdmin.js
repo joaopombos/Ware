@@ -14,7 +14,7 @@ const ListAdmin = () => {
     const fetchSoftwares = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get(`http://localhost:3000/list/admin?tipo=${tipoListagem}`, {
+        const response = await axios.get(`postgresql://warebd_user:MkoQDynXsw6PcSzyF1hHhi4aBPTZWUeh@dpg-cpup1qqj1k6c738f3fbg-a/warebd/list/admin?tipo=${tipoListagem}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -43,7 +43,7 @@ const ListAdmin = () => {
   const handleDelete = async (idproduto) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`http://localhost:3000/edit/admin/${idproduto}`, {
+      await axios.delete(`postgresql://warebd_user:MkoQDynXsw6PcSzyF1hHhi4aBPTZWUeh@dpg-cpup1qqj1k6c738f3fbg-a/warebd3000/edit/admin/${idproduto}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
