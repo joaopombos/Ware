@@ -4,8 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../CSS/ware.css';
 
 export default function EditComponent() {
-    // Removed unused useState hooks
-    // Verificar se o usuário está autenticado (exemplo simples)
+ 
     const isLoggedIn = localStorage.getItem('token') !== null;
 
     if (!isLoggedIn) {

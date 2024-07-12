@@ -66,7 +66,7 @@ const Metrics = () => {
     totalBudgetsChartRef.current = createChart(document.getElementById('totalBudgetsChart'), 'Total de Orçamentos', totalBudgets, 'rgba(255, 99, 132, 0.2)', 'rgba(255, 99, 132, 1)');
   };
 
-    // Verificar se o usuário está autenticado (exemplo simples)
+
     const isLoggedIn = localStorage.getItem('token') !== null;
 
     if (!isLoggedIn) {

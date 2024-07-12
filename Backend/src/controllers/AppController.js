@@ -30,20 +30,20 @@ adminController.listSoftwares = async (req, res) => {
         if (tipo === 'softwares') {
             softwares = await TipoSoftwares.findAll({ where: { ...whereCondition, idtipo: 1 } });
         } else {
-            softwares = await TipoSoftwares.findAll({ where: { ...whereCondition, idtipo: 2 } }); // Busca softwares (idtipo = 1)
+            softwares = await TipoSoftwares.findAll({ where: { ...whereCondition, idtipo: 2 } }); 
         }
 
-        // Converte a imagem BLOB em base64
+
         const softwaresComBase64 = softwares.map(software => {
             const jsonSoftware = software.toJSON();
             return {
                 ...jsonSoftware,
-                logotipo: jsonSoftware.logotipo ? jsonSoftware.logotipo.toString('base64') : null, // Converte logotipo
-                imagenssoftware: jsonSoftware.imagenssoftware ? jsonSoftware.imagenssoftware.toString('base64') : null // Converte imagenssoftware
+                logotipo: jsonSoftware.logotipo ? jsonSoftware.logotipo.toString('base64') : null, 
+                imagenssoftware: jsonSoftware.imagenssoftware ? jsonSoftware.imagenssoftware.toString('base64') : null 
             };
         });
 
-        console.log('Softwares com Base64:', softwaresComBase64); // Debugging line
+        console.log('Softwares com Base64:', softwaresComBase64); 
 
         res.json(softwaresComBase64);
     } catch (error) {
@@ -78,10 +78,10 @@ adminController.updateSoftware = async (req, res) => {
             return res.status(404).json({ error: 'Software not found' });
         }
 
-        // Check if the version has changed
+
         const versaoChanged = software.versao !== versao;
 
-        // Função para converter base64 para Buffer
+      
         const base64ToBuffer = (base64String) => {
             if (!base64String) return null;
             return Buffer.from(base64String.replace(/^data:image\/\w+;base64,/, ''), 'base64');
@@ -101,11 +101,11 @@ adminController.updateSoftware = async (req, res) => {
 
         await software.update(updateData);
 
-        // If the version has changed, add a new entry to Versoes
+    
         if (versaoChanged) {
             const novaVersao = await Versoes.create({
                 versao: versao,
-                datamodifi: new Date(), // Set the current date
+                datamodifi: new Date(),
                 idproduto: idproduto
             });
             console.log('Versão adicionada:', novaVersao);
@@ -146,7 +146,7 @@ adminController.addSoftware = async (req, res) => {
             return res.status(400).json({ error: 'ID do produto não fornecido.' });
         }
 
-        // Função para converter base64 para Buffer
+ 
         const base64ToBuffer = (base64String) => {
             if (!base64String) return null;
             return Buffer.from(base64String.replace(/^data:image\/\w+;base64,/, ''), 'base64');
@@ -166,10 +166,10 @@ adminController.addSoftware = async (req, res) => {
 
         console.log('Software adicionado:', novoSoftware);
 
-        // Add an entry to Versoes
+       
         const novaVersao = await Versoes.create({
             versao: versao,
-            datamodifi: new Date(), // Set the current date
+            datamodifi: new Date(), 
             idproduto: idproduto
         });
 
@@ -303,15 +303,15 @@ adminController.listClientes = async (req, res) => {
     try {
         let clientes;
         if (tipo === 'comprador-gestor') {
-            clientes = await Clientes.findAll({ where: { ...whereCondition, iduser: 1 } }); // Comprador Gestor
+            clientes = await Clientes.findAll({ where: { ...whereCondition, iduser: 1 } }); 
         } else if (tipo === 'gestor') {
-            clientes = await Clientes.findAll({ where: { ...whereCondition, iduser: 2 } }); // Gestor
+            clientes = await Clientes.findAll({ where: { ...whereCondition, iduser: 2 } }); 
         } else {
-            clientes = await Clientes.findAll({ where: whereCondition }); // If no specific type, fetch all
+            clientes = await Clientes.findAll({ where: whereCondition }); 
         }
 
-        // No binary fields to convert in Clientes model
-        console.log('Clientes:', clientes); // Debugging line
+        
+        console.log('Clientes:', clientes); 
 
         res.json(clientes);
     } catch (error) {
@@ -340,25 +340,25 @@ adminController.updateClient = async (req, res) => {
     const { nome, email, codigopessoal, contacto, iduser, emp_nif } = req.body;
 
     try {
-        // Fetch the client
+      
         const client = await Clientes.findByPk(nif);
         if (!client) {
             return res.status(404).json({ error: 'Client not found' });
         }
 
-        // Check if the provided emp_nif exists in the Empresas table
+        
         const empresa = await Empresas.findByPk(emp_nif);
         if (!empresa) {
             return res.status(404).json({ error: 'Empresa not found' });
         }
 
-        // Check if the provided iduser exists in the TipoUser table
+        
         const userType = await TipoUser.findByPk(iduser);
         if (!userType) {
             return res.status(404).json({ error: 'User type not found' });
         }
 
-        // Update the client
+        
         const updateData = {
             nome,
             email,

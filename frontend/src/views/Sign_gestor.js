@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';  // Importar o axios corretamente
-import { useNavigate } from 'react-router-dom';  // Importar o useNavigate para redirecionamento
+import axios from 'axios';  
+import { useNavigate } from 'react-router-dom';  
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import '../CSS/ware.css';
 
@@ -9,7 +9,7 @@ export default function Sign_gestor() {
     const [nome, setNome] = useState('');
     const [emp_nif, setEmpNif] = useState('');
     const [nif, setNif] = useState('');
-    const navigate = useNavigate();  // Instanciar o useNavigate para redirecionamento
+    const navigate = useNavigate();  
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -21,7 +21,7 @@ export default function Sign_gestor() {
                 nif
             });
             alert('Conta criada com sucesso');
-            navigate('/signup/comprador');  // Redirecionar após o sucesso
+            navigate('/signup/comprador');  
         } catch (error) {
             console.error(error);
             alert('Erro ao criar conta');

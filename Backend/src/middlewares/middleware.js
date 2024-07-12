@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const jwtSecret = 'seuSegredoAqui';
-const Ware = require('../models/ware'); // Certifique-se de que o caminho está correto
+const Ware = require('../models/ware'); 
 
 const isAuthenticated = (req, res, next) => {
   const token = req.cookies.token;
@@ -35,27 +35,27 @@ const isManager = (req, res, next) => {
 
 const isAdmin = async (req, res, next) => {
   try {
-    // Obter o token JWT do cookie ou cabeçalho
-    const token = req.cookies.token || req.headers.authorization?.split(' ')[1]; // Supondo que o token está no cabeçalho Authorization
+
+    const token = req.cookies.token || req.headers.authorization?.split(' ')[1];
 
     if (!token) {
       return res.status(403).json({ error: 'Acesso negado. Token não fornecido.' });
     }
 
-    // Verificar e decodificar o token JWT
+
     jwt.verify(token, jwtSecret, async (err, decoded) => {
       if (err) {
         return res.status(403).json({ error: 'Acesso negado. Token inválido.' });
       }
 
-      // Verificar se o usuário possui permissões de administrador
+  
       const admin = await Ware.findOne({ where: { idware: decoded.idware, username: decoded.username } });
 
       if (!admin) {
         return res.status(403).json({ error: 'Acesso negado. Não é um administrador válido.' });
       }
 
-      // Se encontrar um registro correspondente, prosseguir para o próximo middleware
+      
       next();
     });
   } catch (error) {
