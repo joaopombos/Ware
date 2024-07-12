@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "nodemon --max-old-space-size=512 src/app.js"
+    "dev": "nodemon src/app.js"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
