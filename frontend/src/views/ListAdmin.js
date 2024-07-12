@@ -42,19 +42,25 @@ const ListAdmin = () => {
 
   const handleDelete = async (idproduto) => {
     try {
-      const token = localStorage.getItem('token');
-      await axios.delete(`http://localhost:3000/edit/admin/${idproduto}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        withCredentials: true,
-      });
-      setSoftwares(softwares.filter(software => software.idproduto !== idproduto));
+        const token = localStorage.getItem('token');
+        console.log(`Attempting to delete software with id: ${idproduto}`);
+        await axios.delete(`http://localhost:3000/edit/admin/${idproduto}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+            withCredentials: true,
+        });
+        
+        console.log('Before filtering:', softwares);
+        const updatedSoftwares = softwares.filter(software => software.idproduto !== idproduto);
+        console.log('After filtering:', updatedSoftwares);
+
+        setSoftwares(updatedSoftwares);
     } catch (error) {
-      console.error('Error deleting software:', error);
-      setError('Erro ao deletar software. Por favor, tente novamente mais tarde.');
+        console.error('Error deleting software:', error);
+        setError('Erro ao deletar software. Por favor, tente novamente mais tarde.');
     }
-  };
+};
 
 
   const handleTipoChange = (e) => {

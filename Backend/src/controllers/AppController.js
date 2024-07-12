@@ -123,14 +123,26 @@ adminController.deleteSoftware = async (req, res) => {
     const { idproduto } = req.params;
 
     try {
+        console.log(`Attempting to delete software with id: ${idproduto}`); // Logging
+
         const software = await TipoSoftwares.findByPk(idproduto);
         if (!software) {
+            console.log(`Software not found with id: ${idproduto}`); // Logging
             return res.status(404).json({ error: 'Software not found' });
         }
 
+        // Delete associated versions
+        await Versoes.destroy({
+            where: { idproduto }
+        });
+
+        // Delete the software entry
         await software.destroy();
+
+        console.log(`Software and associated versions successfully deleted with id: ${idproduto}`); // Logging
         res.json({ message: 'Software deleted successfully' });
     } catch (error) {
+        console.error(`Error deleting software with id: ${idproduto}`, error); // Logging
         res.status(500).json({ error: 'Error deleting software' });
     }
 };
