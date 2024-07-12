@@ -13,7 +13,7 @@ const ListClientAdmin = () => {
     const fetchClients = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get('https://localhost:3000/admin/clientes', {
+        const response = await axios.get('http://localhost:3000/admin/clientes', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -42,7 +42,7 @@ const ListClientAdmin = () => {
   const handleDelete = async (nif) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`https://localhost:3000/admin/clientes/${nif}`, {
+      await axios.delete(`http://localhost:3000/admin/clientes/${nif}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

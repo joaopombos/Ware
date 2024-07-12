@@ -11,7 +11,7 @@ const MySoftwares = () => {
     useEffect(() => {
         const fetchSoftwares = async () => {
             try {
-                const response = await axios.get('https://localhost:3000/library', {
+                const response = await axios.get('http://localhost:3000/library', {
                     withCredentials: true
                 });
 

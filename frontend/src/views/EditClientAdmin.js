@@ -25,7 +25,7 @@ const EditClientAdmin = () => {
         const fetchClient = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const response = await axios.get(`https://localhost:3000/admin/clientes/${nif}`, {
+                const response = await axios.get(`http://localhost:3000/admin/clientes/${nif}`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -42,7 +42,7 @@ const EditClientAdmin = () => {
         const fetchCompanyNifs = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const response = await axios.get('https://localhost:3000/admin/empresas', {
+                const response = await axios.get('http://localhost:3000/admin/empresas', {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -81,7 +81,7 @@ const EditClientAdmin = () => {
                 withCredentials: true,
             };
 
-            await axios.put(`https://localhost:3000/admin/clientes/${nif}`, client, config);
+            await axios.put(`http://localhost:3000/admin/clientes/${nif}`, client, config);
 
             window.alert('Client updated successfully!');
             navigate('/list/admin/clientes');

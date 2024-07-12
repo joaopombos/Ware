@@ -10,7 +10,7 @@ const Orcamentos = ({ token }) => {
   useEffect(() => {
     const fetchBudgets = async () => {
       try {
-        const response = await axios.get('https://localhost:3001/budget/admin', {
+        const response = await axios.get('http://localhost:3000/budget/admin', {
           headers: {
             Authorization: `Bearer ${token}`
           },
@@ -46,7 +46,7 @@ const Orcamentos = ({ token }) => {
     const resposta = prompt("Digite sua resposta:");
     if (resposta) {
       try {
-        await axios.post(`https://localhost:3000/budget/respond/${id}`, { resposta }, {
+        await axios.post(`http://localhost:3000/budget/respond/${id}`, { resposta }, {
           headers: {
             Authorization: `Bearer ${token}`
           },

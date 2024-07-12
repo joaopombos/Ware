@@ -18,7 +18,7 @@ const License = () => {
     useEffect(() => {
         const fetchSoftwareLicenses = async () => {
             try {
-                const response = await axios.get(`https://localhost:3000/license/${chaveproduto}`, {
+                const response = await axios.get(`http://localhost:3000/license/${chaveproduto}`, {
                     withCredentials: true 
                 });
                 setSoftware(response.data.software);
@@ -48,7 +48,7 @@ const License = () => {
 
     const handleUpdateSubmit = async () => {
         try {
-            const response = await axios.put(`https://localhost:3000/license/${chaveproduto}`,
+            const response = await axios.put(`http://localhost:3000/license/${chaveproduto}`,
                 {
                     idatribuida: currentLicense.idatribuida,
                     nomepc: newNomepc
@@ -64,7 +64,7 @@ const License = () => {
 
     const handleLicenseRemove = async (idatribuida) => {
         try {
-            const response = await axios.put(`https://localhost:3000/license/${chaveproduto}`,
+            const response = await axios.put(`http://localhost:3000/license/${chaveproduto}`,
                 {
                     idatribuida,
                     nomepc: null

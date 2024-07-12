@@ -14,7 +14,7 @@ const Shop = () => {
         const fetchItems = async () => {
             try {
 
-                const endpoint = `https://localhost:3000/shop/softwares?type=${type}`;
+                const endpoint = `http://localhost:3000/shop/softwares?type=${type}`;
                 const response = await axios.get(endpoint, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`

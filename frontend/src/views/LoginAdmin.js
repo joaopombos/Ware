@@ -15,7 +15,7 @@ export default function EditComponent() {
     e.preventDefault();
 
     try {
-      const response = await axios.post('https://localhost:3000/login/admin', { username, password }, {
+      const response = await axios.post('http://localhost:3000/login/admin', { username, password }, {
         withCredentials: true // Se necessário
       });
       const { token } = response.data;

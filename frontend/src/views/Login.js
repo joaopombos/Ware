@@ -13,7 +13,7 @@ export default function EditComponent() {
         e.preventDefault();
 
         try {
-            const response = await axios.post('https://localhost:3000/login', { email, codigopessoal }, { withCredentials: true });
+            const response = await axios.post('http://localhost:3000/login', { email, codigopessoal }, { withCredentials: true });
             const { token, emp_nif } = response.data;
             
             localStorage.setItem('token', token); 

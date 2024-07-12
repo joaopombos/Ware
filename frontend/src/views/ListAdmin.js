@@ -14,7 +14,7 @@ const ListAdmin = () => {
     const fetchSoftwares = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get(`https://localhost:3000/list/admin?tipo=${tipoListagem}`, {
+        const response = await axios.get(`http://localhost:3000/list/admin?tipo=${tipoListagem}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

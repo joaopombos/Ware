@@ -21,7 +21,7 @@ const SoftwareUpdate = () => {
         const fetchSoftware = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const response = await axios.get(`https://localhost:3000/edit/admin/${idproduto}`, {
+                const response = await axios.get(`http://localhost:3000/edit/admin/${idproduto}`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -85,7 +85,7 @@ const SoftwareUpdate = () => {
                 withCredentials: true,
             };
 
-            await axios.put(`https://localhost:3000/update/admin/${idproduto}`, updateData, config);
+            await axios.put(`http://localhost:3000/update/admin/${idproduto}`, updateData, config);
 
             window.alert('Software updated successfully!');
             navigate('/list/admin');

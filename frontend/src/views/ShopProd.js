@@ -22,7 +22,7 @@ const ShopProd = () => {
     useEffect(() => {
         const fetchItem = async () => {
             try {
-                const endpoint = `https://localhost:3000/shop/${idproduto}`;
+                const endpoint = `http://localhost:3000/shop/${idproduto}`;
                 const response = await axios.get(endpoint, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -42,7 +42,7 @@ const ShopProd = () => {
     const handleModalhistOpen = async () => {
         setShowhistModal(true);
         try {
-            const response = await axios.get(`https://localhost:3000/versions/${idproduto}`, {
+            const response = await axios.get(`http://localhost:3000/versions/${idproduto}`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 },
@@ -62,7 +62,7 @@ const ShopProd = () => {
 
     const handleCompra = async () => {
         try {
-            const response = await axios.post('https://localhost:3000/shop/compra/', {
+            const response = await axios.post('http://localhost:3000/shop/compra/', {
                 quantidade: quantidadeLicencas,
                 idproduto: item.idproduto,
                 nome: item.nome,
