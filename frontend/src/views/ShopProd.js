@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Modal, Button, Form } from 'react-bootstrap';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { loadStripe } from '@stripe/stripe-js';
 import Cookies from 'js-cookie'; 
 
@@ -9,7 +9,6 @@ const stripePromise = loadStripe('pk_test_51JbCVGJuN2xREvwF3DtK39P7YXbFYh5zsLeDs
 
 const ShopProd = () => {
     const { idproduto } = useParams();
-    const location = useLocation();
     const [item, setItem] = useState(null);
     const [error, setError] = useState(null);
     const [showhistModal, setShowhistModal] = useState(false);

@@ -1,13 +1,10 @@
 const { v4: uuidv4 } = require('uuid');
 const sequelize = require('../models/database');
 const { fn, col } = require('sequelize'); 
-const Pedidos = require('../models/pedidos');
 const LicencasAtribuidas = require('../models/licencasatribuidas');
 const SoftwaresAdquiridos = require('../models/softwaresadquiridos');
 const TipoSoftwares = require('../models/tipossoftwares');
 const Versoes = require('../models/versoes');
-const tiposoftadd = require('../models/tiposoftadd');
-const Clientes = require('../models/clientes');
 const Empresas = require('../models/empresas');
 const { Op } = require('sequelize');
 
@@ -186,13 +183,11 @@ shopController.softwareDetails = async (req, res) => {
             return res.status(404).json({ error: 'Software not found' });
         }
 
-        // Verifica se há logotipo e converte para base64
         let logotipoBase64 = null;
         if (software.logotipo) {
             logotipoBase64 = Buffer.from(software.logotipo).toString('base64');
         }
 
-        // Retorna o software com logotipo em base64
         const softwareComBase64 = {
             ...software.toJSON(),
             logotipo: logotipoBase64

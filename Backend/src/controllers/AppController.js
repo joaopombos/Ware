@@ -5,7 +5,6 @@ const SoftwaresAdquiridos = require('../models/softwaresadquiridos');
 const LicencasAtribuidas = require('../models/licencasatribuidas');
 const Empresas = require('../models/empresas');
 const TipoUser = require('../models/tipouser');
-const tiposoftadd = require('../models/tiposoftadd');
 const Versoes = require('../models/versoes');
 const nodemailer = require('nodemailer');
 const { Op } = require('sequelize');

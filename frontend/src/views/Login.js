@@ -78,7 +78,7 @@ export default function EditComponent() {
                                 </div>
                             </div>
                             <div className="col-sm-6 d-flex align-items-center justify-content-center">
-                                <img className="sideimg" src="images/fundos/fundo branco.jpg" alt="image" />
+                                <img className="sideimg" src="images/fundos/fundo branco.jpg" alt="background" />
                             </div>
                         </div>
                     </div>

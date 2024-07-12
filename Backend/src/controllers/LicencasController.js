@@ -1,7 +1,5 @@
 const SoftwaresAdquiridos = require('../models/softwaresadquiridos');
 const LicencasAtribuidas = require('../models/licencasatribuidas');
-const Clientes = require('../models/clientes');
-const Tickets = require('../models/tickets');
 
 const licencaController = {};
 

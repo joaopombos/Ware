@@ -1,5 +1,4 @@
-import axios from 'axios';
-import React, { useState } from "react";
+import React, { } from "react";
 import '../CSS/ware.css';
 
 export default function Sign_tipo() {

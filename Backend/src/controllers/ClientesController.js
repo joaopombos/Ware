@@ -1,12 +1,9 @@
 const Clientes = require('../models/clientes');
 const  Empresas  = require('../models/empresas');
-const TipoUser = require('../models/tipouser');
 const Ware = require('../models/ware')
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
-const pool = require('../models/database');
-const bcrypt = require('bcrypt');
 
 
 const clientesController = {};

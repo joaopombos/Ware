@@ -52,7 +52,7 @@ export default function Sign_cGestor() {
             </nav>
             <div className="row">
                 <div className="col-sm-6">
-                    <img class="sideimgrep" src="/images/fundos/fundo preto.jpg"/>
+                    <img class="sideimgrep" src="/images/fundos/fundo preto.jpg" alt="background"/>
                 </div>
                 <div className="col-sm-6 text-black">
                     <br></br>

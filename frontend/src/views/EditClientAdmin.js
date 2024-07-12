@@ -14,7 +14,7 @@ const EditClientAdmin = () => {
         emp_nif: ''
     });
     const [companyNifs, setCompanyNifs] = useState([]);
-    const [userTypes, setUserTypes] = useState([
+    const [userTypes] = useState([
         { label: 'Comprador Gestor', value: 1 },
         { label: 'Comprador', value: 2 }
     ]);
