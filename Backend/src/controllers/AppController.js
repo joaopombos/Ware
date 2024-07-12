@@ -271,20 +271,29 @@ adminController.listAcquiredSoftwares = async (req, res) => {
             return res.status(404).json({ error: 'Nenhum software adquirido encontrado para este cliente' });
         }
 
-        const softwaresWithLicenses = await Promise.all(softwares.map(async (software) => {
+        const softwaresWithDetails = await Promise.all(softwares.map(async (software) => {
             const licenses = await LicencasAtribuidas.findAll({ where: { chaveproduto: software.chaveproduto } });
+            
+            // Busca pelo tipo de software com o mesmo nome
+            const tipoSoftware = await TipoSoftwares.findOne({ where: { nome: software.nome } });
+            
+            // Se encontrar o tipo de software correspondente, obtem o logotipo em base64
+            const logotipoBase64 = tipoSoftware && tipoSoftware.logotipo ? Buffer.from(tipoSoftware.logotipo).toString('base64') : null;
+            
             return {
                 ...software.dataValues,
-                licenses
+                licenses,
+                logotipo: logotipoBase64
             };
         }));
 
-        res.json(softwaresWithLicenses);
+        res.json(softwaresWithDetails);
     } catch (error) {
         console.error('Erro ao buscar softwares adquiridos:', error);
         res.status(500).json({ error: 'Erro ao buscar softwares adquiridos' });
     }
 };
+
 
 
 adminController.listClientes = async (req, res) => {
