@@ -1,19 +1,19 @@
 /*NAVBAR*/
 .navbar{
     margin: 0 !important;
+    padding: 0;
 }
 
 .warelogo{
-    width: 20%;
+    width: 15%;
 }
 
 .navform{
     margin:0% !important;
 }
 
-.navbar-brand{
-    margin-right: -32%;
-}
+
+
 
 /*ESPAÇO HEROI*/
 .heroi {
@@ -540,3 +540,9 @@
 .iconsucesso{
   color: white !important;
 }
+
+.shoptitle{
+  margin-left: 5%;
+}
+
+

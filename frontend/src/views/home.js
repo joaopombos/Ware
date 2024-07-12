@@ -9,17 +9,8 @@ export default function EditComponent() {
             {/* NAVBAR */}
             <nav class="navbar navbar-expand-lg bg-dark">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="/"><img class="warelogo" src="images/Logos/logo.png" alt="Ware Logo" /></a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-                        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup"></div>
-                    <a href="/login">
-                        <button class="btn btn-outline-light me-2" type="button">
-                            Iniciar Sessão
-                        </button>
-                    </a>
+                    <img class="warelogo navbar-brand " src="/images/Logos/logo.png" alt="Ware Logo" />
+                    <a href="/login" class="btn btn-primary">Iniciar Sessão</a>
                 </div>
             </nav>
             {/* FIM NAVBAR */}
