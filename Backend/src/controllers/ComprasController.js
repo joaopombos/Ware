@@ -109,8 +109,8 @@ shopController.purchaseSuccess = async (req, res) => {
                 },
             ],
             mode: 'payment',
-            success_url: 'https://ware-mu.vercel.app/shop/sucess',
-            cancel_url: 'https://ware-mu.vercel.app/shop/cancel',
+            success_url: 'https://localhost:3001/shop/sucess',
+            cancel_url: 'https://localhost:3001/shop/cancel',
         });
 
 
