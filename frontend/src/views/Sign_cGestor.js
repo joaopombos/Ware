@@ -17,7 +17,7 @@ export default function Sign_cGestor() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:3000/signin/comprador', {
+            await axios.post('postgresql://warebd_user:MkoQDynXsw6PcSzyF1hHhi4aBPTZWUeh@dpg-cpup1qqj1k6c738f3fbg-a/warebd/signin/comprador', {
 
                 email,
                 nome,
@@ -39,20 +39,18 @@ export default function Sign_cGestor() {
         <div>
             <nav class="navbar navbar-expand-lg bg-dark">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="/"><img class="warelogo" src="/images/Logos/logo.png" alt="ware logo" /></a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-                        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    </div>
-                    <a class="btn btn-outline-light me-2" href="/login" role="button">Iniciar Sessão</a>
-
+                    <img class="warelogo navbar-brand " src="/images/Logos/logo.png" alt="Ware Logo" />
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="/">Home</a>
+                        </li>
+                    </ul>
+                    <a href="/login" class="btn btn-primary">Iniciar Sessão</a>
                 </div>
             </nav>
             <div className="row">
                 <div className="col-sm-6">
-                    <img class="sideimgrep" src="/images/fundos/fundo preto.jpg" alt="background"/>
+                    <img class="sideimgrep" src="/images/fundos/fundo preto.jpg" alt="background" />
                 </div>
                 <div className="col-sm-6 text-black">
                     <br></br>
@@ -60,7 +58,7 @@ export default function Sign_cGestor() {
                         <form onSubmit={handleSubmit} className="rightform form-signin">
                             <h3 className="fw-normal mb-3 pb-3">Criar conta</h3>
                             <p style={{ color: '#B3B3B3' }}>Todos os campos são obrigatórios.</p>
-                            
+
                             <div className="form-outline mb-4">
                                 <input type="text" id="nome" value={nome} onChange={(e) => setName(e.target.value)} className="form-control form-control-lg" required />
                                 <label className="form-label" htmlFor="nome">Primeiro e Último nome</label>
@@ -116,4 +114,4 @@ export default function Sign_cGestor() {
         </div>
     );
 }
- 
+

@@ -6,17 +6,12 @@ export default function Sign_tipo() {
         <div class="fundopagtipo" style={{ backgroundImage: `url('/images/fundos/fundotipodeconta.svg')` }}>
             <nav class="navbar navbar-expand-lg bg-dark">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="/">
-                        <img class="warelogo" src={'/images/Logos/logo.png'} alt="Ware Logo" />
-                    </a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-                        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    </div>
-                    <a class="btn btn-outline-light me-2" href="/login" role="button">Iniciar Sessão</a>
-
+                    <img class="warelogo navbar-brand " src="/images/Logos/logo.png" alt="Ware Logo" />
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="/">Home</a>
+                        </li>
+                    </ul>
                 </div>
             </nav>
             <div class="cardstipos d-flex align-items-center justify-content-center">

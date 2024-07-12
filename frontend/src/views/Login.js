@@ -13,7 +13,7 @@ export default function EditComponent() {
         e.preventDefault();
 
         try {
-            const response = await axios.post('http://localhost:3000/login', { email, codigopessoal }, { withCredentials: true });
+            const response = await axios.post('postgresql://warebd_user:MkoQDynXsw6PcSzyF1hHhi4aBPTZWUeh@dpg-cpup1qqj1k6c738f3fbg-a/warebd/login', { email, codigopessoal }, { withCredentials: true });
             const { token, emp_nif } = response.data;
             
             localStorage.setItem('token', token); 
@@ -33,16 +33,14 @@ export default function EditComponent() {
     return (
         <div className="loginpage">
             {/* MENU BAR */}
-            <nav className="navbar navbar-expand-lg bg-dark">
-                <div className="container-fluid">
-                    <a className="navbar-brand" href="/"><img className="warelogo" src="images/Logos/logo.png" alt="Ware Logo" /></a>
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-                        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
-                    <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    </div>
-                    <button className="btn btn-outline-light me-2" type="button">Iniciar Sessão</button>
+            <nav class="navbar navbar-expand-lg bg-dark">
+                <div class="container-fluid">
+                    <img class="warelogo navbar-brand " src="/images/Logos/logo.png" alt="Ware Logo" />
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="/">Home</a>
+                        </li>
+                    </ul>
                 </div>
             </nav>
             {/* FIM MENU BAR */}

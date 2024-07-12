@@ -18,7 +18,7 @@ const License = () => {
     useEffect(() => {
         const fetchSoftwareLicenses = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/license/${chaveproduto}`, {
+                const response = await axios.get(`postgresql://warebd_user:MkoQDynXsw6PcSzyF1hHhi4aBPTZWUeh@dpg-cpup1qqj1k6c738f3fbg-a/warebd/license/${chaveproduto}`, {
                     withCredentials: true 
                 });
                 setSoftware(response.data.software);
@@ -48,7 +48,7 @@ const License = () => {
 
     const handleUpdateSubmit = async () => {
         try {
-            const response = await axios.put(`http://localhost:3000/license/${chaveproduto}`,
+            const response = await axios.put(`postgresql://warebd_user:MkoQDynXsw6PcSzyF1hHhi4aBPTZWUeh@dpg-cpup1qqj1k6c738f3fbg-a/warebd/license/${chaveproduto}`,
                 {
                     idatribuida: currentLicense.idatribuida,
                     nomepc: newNomepc
@@ -64,7 +64,7 @@ const License = () => {
 
     const handleLicenseRemove = async (idatribuida) => {
         try {
-            const response = await axios.put(`http://localhost:3000/license/${chaveproduto}`,
+            const response = await axios.put(`postgresql://warebd_user:MkoQDynXsw6PcSzyF1hHhi4aBPTZWUeh@dpg-cpup1qqj1k6c738f3fbg-a/warebd/license/${chaveproduto}`,
                 {
                     idatribuida,
                     nomepc: null
@@ -92,27 +92,26 @@ const License = () => {
         <div class="d-flex flex-column min-vh-100">
            {/* NAVBAR */}
            <nav class="navbar navbar-expand-lg bg-dark">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="/signup/comprador">
-                        <img class="warelogo" src="/images/Logos/logo.png" alt="Ware Logo" />
-                    </a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-                        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                        <div class="navbar-nav">
-                            <a class="nav-link text-white" href="/shop">Explorar</a>
-                            <a class="nav-link active text-white" aria-current="page" href="/library">Gestão</a>
+                        <div class="container-fluid">
+                            <img class="warelogo navbar-brand " src="/images/Logos/logo.png" alt="Ware Logo" />
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                    <a class="nav-link text-white" href="/signup/comprador">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" href="/shop">Explorar</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active text-white" aria-current="page" href="/library">Gestão</a>
+                                </li>
+                            </ul>
+                            <form class="d-flex" role="search">
+                                <input class="navform form-control me-2" type="search" placeholder="Procurar" aria-label="Search" />
+                                <button class="btn btn-outline-light mx-2" type="submit">Procurar</button>
+                            </form>
+                            <a href="/" class="btn btn-primary">Terminar Sessão</a>
                         </div>
-                    </div>
-                    <form class="d-flex me-3" role="search">
-                        <input class="navform form-control me-2" type="search" placeholder="Procurar" aria-label="Search" />
-                        <button class="btn btn-outline-light" type="submit">Procurar</button>
-                    </form>
-                    <a href="/" class="btn btn-primary">Terminar Sessão</a>
-                </div>
-            </nav>
+                    </nav>
             {/* FIM NAVBAR */}
 
             <h1 class="titulo">Licenças para {software.nome}</h1>

@@ -3,16 +3,18 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
+import '../CSS/ware.css';
+
 
 const Shop = () => {
     const [items, setItems] = useState([]);
-    const [type, setType] = useState('softwares'); 
+    const [type, setType] = useState('softwares');
 
     useEffect(() => {
         const fetchItems = async () => {
             try {
 
-                const endpoint = `http://localhost:3000/shop/softwares?type=${type}`;
+                const endpoint = `postgresql://warebd_user:MkoQDynXsw6PcSzyF1hHhi4aBPTZWUeh@dpg-cpup1qqj1k6c738f3fbg-a/warebd/shop/softwares?type=${type}`;
                 const response = await axios.get(endpoint, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -35,10 +37,10 @@ const Shop = () => {
     }, [type]);
 
     const handleTypeChange = (newType) => {
-        setType(newType); 
+        setType(newType);
     };
 
-   
+
     const handleButtonClick = (id, itemType) => {
         const route = `/shop/${id}?type=${itemType}`;
         window.location.href = route;
@@ -67,26 +69,25 @@ const Shop = () => {
     return (
         <div>
             {/* NAVBAR */}
-            <nav className="navbar navbar-expand-lg bg-dark">
-                <div className="container-fluid">
-                    <a className="navbar-brand" href="/signup/comprador">
-                        <img src="/images/Logos/logo.png" alt="Ware Logo" style={{ width: '20%' }} />
-                    </a>
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-                        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                        <div class="navbar-nav">
+            <nav class="navbar navbar-expand-lg bg-dark">
+                <div class="container-fluid">
+                    <img class="warelogo navbar-brand " src="/images/Logos/logo.png" alt="Ware Logo" />
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="/signup/comprador">Home</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link text-white" href="/shop">Explorar</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link active text-white" aria-current="page" href="/library">Gestão</a>
-                        </div>
-                    </div>
-                    <form className="d-flex" role="search">
-                        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                        <button className="btn btn-outline-light" type="submit" style={{ marginRight: '10px' }}>Search</button>
+                        </li>
+                    </ul>
+                    <form class="d-flex" role="search">
+                        <input class="navform form-control me-2" type="search" placeholder="Procurar" aria-label="Search" />
+                        <button class="btn btn-outline-light mx-2" type="submit">Procurar</button>
                     </form>
-                    <a href="/" className="btn btn-primary">Log Out</a>
+                    <a href="/" class="btn btn-primary">Terminar Sessão</a>
                 </div>
             </nav>
             {/* END NAVBAR */}

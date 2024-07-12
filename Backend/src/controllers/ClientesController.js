@@ -103,10 +103,10 @@ clientesController.login = async (req, res) => {
       { expiresIn: '1h' }
     );
 
-    res.cookie('token', token, { httpOnly: true, secure: false, maxAge: 3600000 }); 
-    res.cookie('nif', client.nif, { httpOnly: true, secure: false, maxAge: 3600000 }); 
-    res.cookie('iduser', client.iduser, { httpOnly: true, secure: false, maxAge: 3600000 }); 
-    res.cookie('emp_nif', client.emp_nif, { httpOnly: true, secure: false, maxAge: 3600000 }); 
+    res.cookie('token', token, { httpOnly: false, secure: true, maxAge: 3600000 }); 
+    res.cookie('nif', client.nif, { httpOnly: false, secure: true, maxAge: 3600000 }); 
+    res.cookie('iduser', client.iduser, { httpOnly: false, secure: true, maxAge: 3600000 }); 
+    res.cookie('emp_nif', client.emp_nif, { httpOnly: false, secure: true, maxAge: 3600000 }); 
 
 
     res.status(200).json({ token });
@@ -218,8 +218,8 @@ clientesController.loginadmin = async (req, res) => {
       { expiresIn: '1h' }
     );
 
-    res.cookie('token', token, { httpOnly: true, secure: false, maxAge: 3600000 }); 
-    res.cookie('idware', wareUser.idware, { httpOnly: true, secure: false, maxAge: 3600000 }); 
+    res.cookie('token', token, { httpOnly: false, secure: true, maxAge: 3600000 }); 
+    res.cookie('idware', wareUser.idware, { httpOnly: false, secure: true, maxAge: 3600000 }); 
 
     res.status(200).json({ token });
   } catch (error) {

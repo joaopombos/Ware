@@ -35,7 +35,7 @@ app.use(bodyParser.urlencoded({ extended: true, limit: '500Mb' }));
 
 // Configurar CORS
 app.use(cors({
-  origin: 'http://localhost:3001', // Permitir requisições do frontend React
+  origin: 'https://ware-1789.onrender.com', // Permitir requisições do frontend React
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
