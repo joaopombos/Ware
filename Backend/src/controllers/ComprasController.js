@@ -8,7 +8,7 @@ const Versoes = require('../models/versoes');
 const Empresas = require('../models/empresas');
 const { Op } = require('sequelize');
 
-//quepassa
+
 const shopController = {};
 
 
@@ -109,8 +109,8 @@ shopController.purchaseSuccess = async (req, res) => {
                 },
             ],
             mode: 'payment',
-            success_url: 'https://localhost:3001/shop/sucess',
-            cancel_url: 'https://localhost:3001/shop/cancel',
+            success_url: 'http://localhost:3001/shop/sucess',
+            cancel_url: 'http://localhost:3001/shop/cancel',
         });
 
 
