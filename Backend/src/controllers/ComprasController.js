@@ -8,7 +8,7 @@ const Versoes = require('../models/versoes');
 const Empresas = require('../models/empresas');
 const { Op } = require('sequelize');
 
-
+//quepassa
 const shopController = {};
 
 
